@@ -1,0 +1,30 @@
+#BlueJ class context
+comment0.target=Menu
+comment0.text=\r\n\ This\ class\ is\ part\ of\ the\ "Alien\ Aztec\ Adventure"\ application.\r\n\ \r\n\ Creates\ the\ menu\r\n\r\n\ @author\ David\ Charkey\r\n
+comment1.params=
+comment1.target=Menu()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Menu\r\n
+comment10.params=colS\ change\ dest
+comment10.target=void\ processChange(java.lang.String,\ int,\ javax.swing.JPanel)
+comment11.params=titleS\ col
+comment11.target=javax.swing.JPanel\ generateColJP(java.lang.String,\ java.awt.Color)
+comment12.params=jp
+comment12.target=java.util.ArrayList\ generateColSetters(javax.swing.JPanel)
+comment2.params=
+comment2.target=javax.swing.JMenuBar\ getMenu()
+comment3.params=lines
+comment3.target=java.lang.String\ getCSSLines(java.util.ArrayList)
+comment3.text=\r\n\ Generate\ CSS\ lines\ from\ a\ list\ of\ strings\r\n\ \r\n\ Formatting\:\ \r\n\ ~\ \=\ <br>\ \=\ Put\ at\ the\ end\ of\ a\ line\ to\ start\ a\ new\ line\r\n\ \r\n\ <i>\ \=\ Italic\ section\ start\r\n\ </i>\ \=\ Italic\ section\ end\r\n\ \r\n\ <b>\ \=\ Bold\ section\ start\r\n\ </b>\ \=\ Bold\ section\ end\r\n\ \r\n
+comment4.params=
+comment4.target=void\ showHelpWindow()
+comment5.params=
+comment5.target=void\ showAboutWindow()
+comment6.params=
+comment6.target=void\ showConsoleOpt()
+comment7.params=
+comment7.target=void\ randomCol()
+comment8.params=
+comment8.target=void\ chooseCol()
+comment9.params=
+comment9.target=void\ createCol()
+numComments=13

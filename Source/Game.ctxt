@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Game
+comment0.text=\r\n\ \ \r\n\ This\ class\ is\ the\ main\ class\ of\ the\ "Alien\ Aztec\ Adventure"\ application.\ \r\n\ \r\n\ This\ application\ (AAA)\ is\ a\ text\ based\ adventure\ game.\ \r\n\ To\ play\ this\ game,\ make\ a\ Game\ object\ and\ call\ "Play"\ on\ it\r\n\ \r\n\ \r\n\ @author\ David\ Charkey,\ Michael\ Kolling,\ David\ J.\ Barnes\r\n\ \r\n
+comment1.params=
+comment1.target=Game()
+comment1.text=\r\n\ Create\ the\ game\ and\ initialise\ its\ components\r\n
+comment2.params=args
+comment2.target=void\ main(java.lang.String[])
+comment3.params=
+comment3.target=void\ play()
+comment3.text=\r\n\ \ Main\ play\ routine.\ \ Loops\ until\ end\ of\ play.\r\n
+comment4.params=
+comment4.target=void\ mgProxy()
+comment5.params=
+comment5.target=void\ run()
+numComments=6

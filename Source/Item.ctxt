@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Item
+comment0.text=\r\n\ This\ class\ is\ part\ of\ the\ "Alien\ Aztec\ Adventure"\ application.\r\n\ \r\n\ This\ class\ models\ in-game\ items\r\n\ They\ can\ be\ created\ with\ a\ type,\ or\ without\r\n\ \r\n\ @author\ David\ Charkey\ \r\n
+comment1.params=name\ description
+comment1.target=Item(java.lang.String,\ java.lang.String)
+comment1.text=\r\n\ Constructor\ for\ general\ items\r\n
+comment2.params=name\ description\ type
+comment2.target=Item(java.lang.String,\ java.lang.String,\ java.lang.String)
+comment2.text=\r\n\ Constructor\ for\ items\ with\ a\ type\r\n
+comment3.params=
+comment3.target=java.lang.String\ getInformation()
+comment3.text=\r\n\ Get\ information\ about\ this\ item,\ including\ the\ item's\ name\ and\ description\r\n
+comment4.params=
+comment4.target=java.lang.String\ getItemName()
+comment4.text=\r\n\ Return\ the\ name\ of\ this\ item\ ,\ as\ is\r\n
+comment5.params=
+comment5.target=java.lang.String\ getItemType()
+comment5.text=\r\n\ Return\ what\ type\ of\ item\ this\ is,\ as\ is\r\n
+numComments=6
