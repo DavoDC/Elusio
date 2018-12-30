@@ -1,11 +1,15 @@
 # AAA
-Alien Aztec Adventure : V1
+Alien Aztec Adventure
 
 AAA is a text-based adventure game coded in Java.
 
-The "base" for this game was an example project part of the 'Objects First with Java' textbook. 
-This project was a simple text-based video game called 'World of Zuul'.
-The only functionality was the ability to go between a few rooms. 
+The "base" code for this application was project part of the material for the book:
+   Objects First with Java - A Practical Introduction using BlueJ
+   Fifth edition
+   David J. Barnes and Michael Kölling
+   Pearson Education, 2012
+
+It was a simple framework for an adventure game. In this version, there were a few rooms and the ability for a player to walk between these rooms. There was no user interface.
 
 AAA is a version that has been heavily improved, modified and extended.
 
