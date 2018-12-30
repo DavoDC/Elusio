@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.target=Player
-comment0.text=\r\n\ This\ class\ is\ part\ of\ the\ "Alien\ Aztec\ Adventure"\ application.\r\n\ \r\n\ Used\ to\ model\ the\ player/user\r\n\ \r\n\ @author\ David\ Charkey\r\n
-comment1.params=newroom
-comment1.target=void\ setLocation(Room)
-comment2.params=
-comment2.target=Room\ getLocation()
-numComments=3
