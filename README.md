@@ -17,5 +17,7 @@ Additions include =
 - locations having dynamic events 
 - a visual interface to ease gameplay 
 
+This program was developed in the BlueJ IDE
+
 This game was made by me, David Charkey.
 My email is "skywalker_dc@live.com.au".
