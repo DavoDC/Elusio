@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=CommandWords
-comment0.text=\r\n\ This\ class\ is\ part\ of\ the\ "Alien\ Aztec\ Adventure"\ application.\r\n\ \r\n\ This\ class\ holds\ all\ command\ words\ known\ to\ the\ game.\r\n\ It\ is\ used\ to\ recognise\ commands\ as\ they\ are\ typed\ in.\r\n\r\n\ @author\ David\ Charkey\ ,\ Michael\ Kolling,\ David\ J.\ Barnes\r\n
-comment1.params=aString
-comment1.target=boolean\ isCommand(java.lang.String)
-comment1.text=\r\n\ Check\ whether\ a\ given\ String\ is\ a\ valid\ command\ word.\ \r\n\ @return\ true\ if\ a\ given\ string\ is\ a\ valid\ command,\ false\ if\ it\ isn't.\r\n
-numComments=2
