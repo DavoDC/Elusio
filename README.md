@@ -3,13 +3,11 @@ Alien Aztec Adventure
 
 AAA is a text-based adventure game coded in Java.
 
-The "base" code for this application was project part of the material for the book:
-   Objects First with Java - A Practical Introduction using BlueJ
-   Fifth edition
-   David J. Barnes and Michael Kölling
-   Pearson Education, 2012
+This game began with a project from a textbook called Objects First with Java, by David J. Barnes and Michael Kölling.
 
-It was a simple framework for an adventure game. In this version, there were a few rooms and the ability for a player to walk between these rooms. There was no user interface.
+It was a very simple framework for an adventure game. 
+In this version, there were a few rooms and the ability for a player to walk between these rooms. 
+There was no user interface.
 
 AAA is a version that has been heavily improved, modified and extended.
 
