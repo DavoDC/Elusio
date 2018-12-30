@@ -1,4 +1,4 @@
-# AAA1
+# AAA
 Alien Aztec Adventure : V1
 
 AAA is a text-based adventure game coded in Java.
