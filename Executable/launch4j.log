@@ -1,0 +1,21 @@
+
+
+Version:	3.12
+CmdLine:	C:\Users\charkeyd\Repos\AAA\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Error:		Instance already exists.
+
+
+Version:	3.12
+CmdLine:	C:\Users\charkeyd\Repos\AAA\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Error:		Instance already exists.
+
+
+Version:	3.12
+CmdLine:	C:\Users\charkeyd\Repos\AAA\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Error:		Instance already exists.
