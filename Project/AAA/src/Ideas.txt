@@ -1,0 +1,59 @@
+Remove old GUI (buttons and images)
+
+use diamond hunt as base?
+Organise like diamond hunt?
+
+add sparkling stars to menu
+
+need draw cirlce, draw rect , draw image
+
+Add image/spritesheet fields to Player, item Room, etc
+
+
+Always one jframe that cleared and updated
+
+Make frame object and get method
+
+Test theory that drawing instead of using objects will be faster on minigame
+(use draw circle btw)
+
+
+Organise code into folders = 
+Game = Player, items, rooms
+AV = drawing, Frame
+Minigames?
+
+Walking up to items shows description
+There is an option to grab it
+
+Enemy encunter =  Do coloured shift with rectangles
+Image on scren in front of exits
+
+HUD  health on left
+menu top left = fade to new image = save, load, quit, about setttings, help
+
+Use of items
+- Best weapon automatically equips
+- Intelligent heal = (every time get down to 80, use 20 potion etc.)
+(if get down to 50, use 50 item)
+
+Take out print statements
+
+
+Add highscore feature
+= time completed + health lost = deduct from large number?
+
+
+MiniGame ideas (no new window!)
+- Topdown ones
+  - jaguars chasing
+  - snake boss that spits
+  - small snakes
+  - villagers with spears
+- Puzzles
+ - elemental stones - special room (pressure stones or frame close up)
+- Side on
+  - stalactites falling
+
+
+
