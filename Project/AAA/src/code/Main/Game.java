@@ -30,17 +30,16 @@ public class Game
 
         //Add icon
         String iconPath = "/res/Special/icon.gif";
-        try 
-        {
-           URL url = Game.class.getResource(iconPath);
-           Image image = ImageIO.read(url);
-           window.setIconImage(image);
-            
-        } 
-        catch (Exception e) 
-        {
-            throw new Exception("Path was " + iconPath, e);    
-        }
+         try 
+         {
+          URL url = Game.class.getResource(iconPath);
+          Image image = ImageIO.read(url);
+          window.setIconImage(image);
+         } 
+          catch (Exception e) 
+         {
+          throw new Exception("Path was " + iconPath, e);    
+         }
         
     }
     

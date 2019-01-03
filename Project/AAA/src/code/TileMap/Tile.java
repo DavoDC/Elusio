@@ -1,25 +1,45 @@
-// Only contains two types of tiles:
-// Blocked and non-blocked.
+/*
+* Models ground tiles in game
+* Has two types of tiles: Blocked and non-blocked.
+*/ 
 
 package code.TileMap;
 
 import java.awt.image.BufferedImage;
 
-public class Tile {
-	
+public class Tile 
+{
+	// Fields
 	private BufferedImage image;
 	private int type;
 	
-	// tile types
+	// Tile types
 	public static final int NORMAL = 0;
 	public static final int BLOCKED = 1;
 	
-	public Tile(BufferedImage image, int type) {
-		this.image = image;
-		this.type = type;
+        /*
+        * Constructor requires an image & type number
+        */
+	public Tile(BufferedImage image, int type) 
+        {
+            this.image = image;
+            this.type = type;
 	}
 	
-	public BufferedImage getImage() { return image; }
-	public int getType() { return type; }
+        /*
+        * Used to retrieve image from the tile object
+        */
+	public BufferedImage getImage() 
+        {
+            return image; 
+        }
+        
+        /*
+        * Used to retrieve the type of tile
+        */
+	public int getType() 
+        { 
+            return type; 
+        }
 	
 }

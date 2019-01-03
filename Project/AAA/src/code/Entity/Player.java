@@ -13,6 +13,10 @@ import code.Manager.Content;
 import code.Manager.JukeBox;
 import code.TileMap.TileMap;
 
+/**
+ *
+ * @author CHARKEYD
+ */
 public class Player extends Entity {
 	
 	// Sprites
@@ -43,7 +47,11 @@ public class Player extends Entity {
 	private boolean onWater;
 	private long ticks;
 	
-	public Player(TileMap tm) {
+    /**
+     *
+     * @param tm
+     */
+    public Player(TileMap tm) {
 		
 		super(tm);
 		
@@ -76,17 +84,57 @@ public class Player extends Entity {
 		animation.setDelay(d);
 	}
 	
-	public void collectedDiamond() { numDiamonds++; }
-	public int numDiamonds() { return numDiamonds; }
-	public int getTotalDiamonds() { return totalDiamonds; }
-	public void setTotalDiamonds(int i) { totalDiamonds = i; }
+    /**
+     *
+     */
+    public void collectedDiamond() { numDiamonds++; }
+
+    /**
+     *
+     * @return
+     */
+    public int numDiamonds() { return numDiamonds; }
+
+    /**
+     *
+     * @return
+     */
+    public int getTotalDiamonds() { return totalDiamonds; }
+
+    /**
+     *
+     * @param i
+     */
+    public void setTotalDiamonds(int i) { totalDiamonds = i; }
 	
-	public void gotBoat() { hasBoat = true; tileMap.replace(22, 4); }
-	public void gotAxe() { hasAxe = true; }
-	public boolean hasBoat() { return hasBoat; }
-	public boolean hasAxe() { return hasAxe; }
+    /**
+     *
+     */
+    public void gotBoat() { hasBoat = true; tileMap.replace(22, 4); }
+
+    /**
+     *
+     */
+    public void gotAxe() { hasAxe = true; }
+
+    /**
+     *
+     * @return
+     */
+    public boolean hasBoat() { return hasBoat; }
+
+    /**
+     *
+     * @return
+     */
+    public boolean hasAxe() { return hasAxe; }
 	
 	// Used to update time.
+
+    /**
+     *
+     * @return
+     */
 	public long getTicks() { return ticks; }
 	
 	// Keyboard input. Moves the player.
@@ -117,6 +165,10 @@ public class Player extends Entity {
 	// Keyboard input.
 	// If Player has axe, dead trees in front
 	// of the Player will be chopped down.
+
+    /**
+     *
+     */
 	public void setAction() {
 		if(hasAxe) {
 			if(currentAnimation == UP && tileMap.getIndex(rowTile - 1, colTile) == 21) {

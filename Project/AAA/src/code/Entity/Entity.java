@@ -10,101 +10,260 @@ import java.awt.Rectangle;
 import code.TileMap.Tile;
 import code.TileMap.TileMap;
 
+/**
+ *
+ * @author CHARKEYD
+ */
 public abstract class Entity {
 	
 	// dimensions
+
+    /**
+     *
+     */
 	protected int width;
-	protected int height;
-	protected int cwidth;
-	protected int cheight;
+
+    /**
+     *
+     */
+    protected int height;
+
+    /**
+     *
+     */
+    protected int cwidth;
+
+    /**
+     *
+     */
+    protected int cheight;
 	
 	// position
+
+    /**
+     *
+     */
 	protected int x;
-	protected int y;
-	protected int xdest;
-	protected int ydest;
-	protected int rowTile;
-	protected int colTile;
+
+    /**
+     *
+     */
+    protected int y;
+
+    /**
+     *
+     */
+    protected int xdest;
+
+    /**
+     *
+     */
+    protected int ydest;
+
+    /**
+     *
+     */
+    protected int rowTile;
+
+    /**
+     *
+     */
+    protected int colTile;
 	
 	// movement
+
+    /**
+     *
+     */
 	protected boolean moving;
-	protected boolean left;
-	protected boolean right;
-	protected boolean up;
-	protected boolean down;
+
+    /**
+     *
+     */
+    protected boolean left;
+
+    /**
+     *
+     */
+    protected boolean right;
+
+    /**
+     *
+     */
+    protected boolean up;
+
+    /**
+     *
+     */
+    protected boolean down;
 	
 	// attributes
+
+    /**
+     *
+     */
 	protected int moveSpeed;
 	
 	// tilemap
+
+    /**
+     *
+     */
 	protected TileMap tileMap;
-	protected int tileSize;
-	protected int xmap;
-	protected int ymap;
+
+    /**
+     *
+     */
+    protected int tileSize;
+
+    /**
+     *
+     */
+    protected int xmap;
+
+    /**
+     *
+     */
+    protected int ymap;
 	
 	// animation
+
+    /**
+     *
+     */
 	protected Animation animation;
-	protected int currentAnimation;
+
+    /**
+     *
+     */
+    protected int currentAnimation;
 	
-	public Entity(TileMap tm) {
+    /**
+     *
+     * @param tm
+     */
+    public Entity(TileMap tm) {
 		tileMap = tm;
 		tileSize = tileMap.getTileSize();
 		animation = new Animation();
 	}
 	
-	public int getx() { return x; }
-	public int gety() { return y; }
-	public int getRow() { return rowTile; }
-	public int getCol() { return colTile; }
+    /**
+     *
+     * @return
+     */
+    public int getx() { return x; }
+
+    /**
+     *
+     * @return
+     */
+    public int gety() { return y; }
+
+    /**
+     *
+     * @return
+     */
+    public int getRow() { return rowTile; }
+
+    /**
+     *
+     * @return
+     */
+    public int getCol() { return colTile; }
 	
-	public void setPosition(int i1, int i2) {
+    /**
+     *
+     * @param i1
+     * @param i2
+     */
+    public void setPosition(int i1, int i2) {
 		x = i1;
 		y = i2;
 		xdest = x;
 		ydest = y;
 	}
-	public void setMapPosition() {
+
+    /**
+     *
+     */
+    public void setMapPosition() {
 		xmap = tileMap.getx();
 		ymap = tileMap.gety();
 	}
-	public void setTilePosition(int i1, int i2) {
+
+    /**
+     *
+     * @param i1
+     * @param i2
+     */
+    public void setTilePosition(int i1, int i2) {
 		y = i1 * tileSize + tileSize / 2;
 		x = i2 * tileSize + tileSize / 2;
 		xdest = x;
 		ydest = y;
 	}
 	
-	public void setLeft() {
+    /**
+     *
+     */
+    public void setLeft() {
 		if(moving) return;
 		left = true;
 		moving = validateNextPosition();
 	}
-	public void setRight() {
+
+    /**
+     *
+     */
+    public void setRight() {
 		if(moving) return;
 		right = true;
 		moving = validateNextPosition();
 	}
-	public void setUp() {
+
+    /**
+     *
+     */
+    public void setUp() {
 		if(moving) return;
 		up = true;
 		moving = validateNextPosition();
 	}
-	public void setDown() {
+
+    /**
+     *
+     */
+    public void setDown() {
 		if(moving) return;
 		down = true;
 		moving = validateNextPosition();
 	}
 	
-	public boolean intersects(Entity o) {
+    /**
+     *
+     * @param o
+     * @return
+     */
+    public boolean intersects(Entity o) {
 		return getRectangle().intersects(o.getRectangle());
 	}
 	
-	public Rectangle getRectangle() {
+    /**
+     *
+     * @return
+     */
+    public Rectangle getRectangle() {
 		return new Rectangle(x, y, cwidth, cheight);
 	}
 	
 	// Returns whether or not the entity can
 	// move into the next position.
+
+    /**
+     *
+     * @return
+     */
 	public boolean validateNextPosition() {
 		
 		if(moving) return true;
@@ -150,6 +309,10 @@ public abstract class Entity {
 	}
 	
 	// Calculates the destination coordinates.
+
+    /**
+     *
+     */
 	public void getNextPosition() {
 		
 		if(left && x > xdest) x -= moveSpeed;
@@ -170,7 +333,10 @@ public abstract class Entity {
 		
 	}
 	
-	public void update() {
+    /**
+     *
+     */
+    public void update() {
 		
 		// get next position
 		if(moving) getNextPosition();
@@ -188,6 +354,11 @@ public abstract class Entity {
 	}
 	
 	// Draws the entity.
+
+    /**
+     *
+     * @param g
+     */
 	public void draw(Graphics2D g) {
 		setMapPosition();
 		g.drawImage(

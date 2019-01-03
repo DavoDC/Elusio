@@ -1,0 +1,4 @@
+code.Main.Game
+libs/*.jar
+
+libs must be next to .exe

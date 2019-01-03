@@ -6,6 +6,10 @@ package code.Entity;
 
 import java.awt.image.BufferedImage;
 
+/**
+ *
+ * @author CHARKEYD
+ */
 public class Animation {
 	
 	private BufferedImage[] frames;
@@ -17,11 +21,18 @@ public class Animation {
 	
 	private int timesPlayed;
 	
-	public Animation() {
+    /**
+     *
+     */
+    public Animation() {
 		timesPlayed = 0;
 	}
 	
-	public void setFrames(BufferedImage[] frames) {
+    /**
+     *
+     * @param frames
+     */
+    public void setFrames(BufferedImage[] frames) {
 		this.frames = frames;
 		currentFrame = 0;
 		count = 0;
@@ -30,11 +41,28 @@ public class Animation {
 		numFrames = frames.length;
 	}
 	
-	public void setDelay(int i) { delay = i; }
-	public void setFrame(int i) { currentFrame = i; }
-	public void setNumFrames(int i) { numFrames = i; }
+    /**
+     *
+     * @param i
+     */
+    public void setDelay(int i) { delay = i; }
+
+    /**
+     *
+     * @param i
+     */
+    public void setFrame(int i) { currentFrame = i; }
+
+    /**
+     *
+     * @param i
+     */
+    public void setNumFrames(int i) { numFrames = i; }
 	
-	public void update() {
+    /**
+     *
+     */
+    public void update() {
 		
 		if(delay == -1) return;
 		
@@ -51,10 +79,35 @@ public class Animation {
 		
 	}
 	
-	public int getFrame() { return currentFrame; }
-	public int getCount() { return count; }
-	public BufferedImage getImage() { return frames[currentFrame]; }
-	public boolean hasPlayedOnce() { return timesPlayed > 0; }
-	public boolean hasPlayed(int i) { return timesPlayed == i; }
+    /**
+     *
+     * @return
+     */
+    public int getFrame() { return currentFrame; }
+
+    /**
+     *
+     * @return
+     */
+    public int getCount() { return count; }
+
+    /**
+     *
+     * @return
+     */
+    public BufferedImage getImage() { return frames[currentFrame]; }
+
+    /**
+     *
+     * @return
+     */
+    public boolean hasPlayedOnce() { return timesPlayed > 0; }
+
+    /**
+     *
+     * @param i
+     * @return
+     */
+    public boolean hasPlayed(int i) { return timesPlayed == i; }
 	
 }

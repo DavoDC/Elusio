@@ -5,7 +5,9 @@
 package code.Manager;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 
 import javax.sound.sampled.AudioFormat;
@@ -31,27 +33,30 @@ public class JukeBox {
 		if(clips.get(n) != null) return;
 		Clip clip;
 		try {
-			InputStream in = JukeBox.class.getResourceAsStream(s);
-			InputStream bin = new BufferedInputStream(in);
-			AudioInputStream ais =
-				AudioSystem.getAudioInputStream(bin);
-			AudioFormat baseFormat = ais.getFormat();
-			AudioFormat decodeFormat = new AudioFormat(
-				AudioFormat.Encoding.PCM_SIGNED,
-				baseFormat.getSampleRate(),
-				16,
-				baseFormat.getChannels(),
-				baseFormat.getChannels() * 2,
-				baseFormat.getSampleRate(),
-				false
-			);
-			AudioInputStream dais = AudioSystem.getAudioInputStream(decodeFormat, ais);
-			clip = AudioSystem.getClip();
-			clip.open(dais);
-			clips.put(n, clip);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
+                    URL url = JukeBox.class.getResource(s); 
+                    InputStream is = url.openStream();
+                    BufferedInputStream bis = new BufferedInputStream( is );
+                    AudioInputStream ais = AudioSystem.getAudioInputStream(bis);    
+
+                    AudioFormat baseFormat = ais.getFormat();
+                    AudioFormat decodeFormat = new AudioFormat(
+                            AudioFormat.Encoding.PCM_SIGNED,
+                            baseFormat.getSampleRate(),
+                            16,
+                            baseFormat.getChannels(),
+                            baseFormat.getChannels() * 2,
+                            baseFormat.getSampleRate(),
+                            false
+                    );
+                    AudioInputStream dais = AudioSystem.getAudioInputStream(decodeFormat, ais);
+                    clip = AudioSystem.getClip();
+                    clip.open(dais);
+                    clips.put(n, clip);
+            }
+		catch(Exception e) 
+                {
+                    e.printStackTrace();
+                    System.err.println("Path was " + s);
 		}
 	}
 	

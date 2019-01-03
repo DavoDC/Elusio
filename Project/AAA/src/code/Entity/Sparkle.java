@@ -8,18 +8,30 @@ import java.awt.Graphics2D;
 import code.Manager.Content;
 import code.TileMap.TileMap;
 
+/**
+ *
+ * @author CHARKEYD
+ */
 public class Sparkle extends Entity {
 	
 	private boolean remove;
 	
-	public Sparkle(TileMap tm) {
+    /**
+     *
+     * @param tm
+     */
+    public Sparkle(TileMap tm) {
 		super(tm);
 		animation.setFrames(Content.SPARKLE[0]);
 		animation.setDelay(5);
 		width = height = 16;
 	}
 	
-	public boolean shouldRemove() {
+    /**
+     *
+     * @return
+     */
+    public boolean shouldRemove() {
 		return remove;
 	}
 	

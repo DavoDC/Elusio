@@ -11,21 +11,41 @@ import java.awt.image.BufferedImage;
 import code.Manager.Content;
 import code.TileMap.TileMap;
 
+/**
+ *
+ * @author CHARKEYD
+ */
 public class Item extends Entity{
 	
 	private BufferedImage sprite;
 	private int type;
-	public static final int BOAT = 0;
-	public static final int AXE = 1;
+
+    /**
+     *
+     */
+    public static final int BOAT = 0;
+
+    /**
+     *
+     */
+    public static final int AXE = 1;
 	
-	public Item(TileMap tm) {
+    /**
+     *
+     * @param tm
+     */
+    public Item(TileMap tm) {
 		super(tm);
 		type = -1;
 		width = height = 16;
 		cwidth = cheight = 12;
 	}
 	
-	public void setType(int i) {
+    /**
+     *
+     * @param i
+     */
+    public void setType(int i) {
 		type = i;
 		if(type == BOAT) {
 			sprite = Content.ITEMS[1][0];
@@ -35,7 +55,11 @@ public class Item extends Entity{
 		}
 	}
 	
-	public void collected(Player p) {
+    /**
+     *
+     * @param p
+     */
+    public void collected(Player p) {
 		if(type == BOAT) {
 			p.gotBoat();
 		}
