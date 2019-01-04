@@ -74,6 +74,7 @@ public class Player extends Entity {
 		upBoatSprites = Content.PLAYER[7];
 		
 		animation.setFrames(downSprites);
+                //was 10
 		animation.setDelay(10);
 		
 	}

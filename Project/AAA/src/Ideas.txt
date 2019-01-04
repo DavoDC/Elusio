@@ -1,23 +1,17 @@
+Add code = if audio was null = "System .out.println "its likely the libraries are missing"
+// later add popupwindow and test (just in case someone deltes libs)
+
+
 1. Understand code
  - Do commenting
  - Test in BlueJ if necessary
 
-Add code = if audio was null = "System .out.println "its likely the libraries are missing"
-
-2. Abstraction
-- FileProcessor = base
-- "Drawer" and "Speaker" inherit from it
-- make util classes "FileIO" and "Drawer"
-- FileIO uses working + most optimized way to get inputstream/widely used thing
- - Object is made for each class that needs it
-- Drawer can draw shapes and images
-
 2. Learning + Doing something useful at same time
- - Generate map using Tiled
- - Get AAA to use it
+ - Add map files to project
+ - Get some jungle tiles
+ - Make map
+ - Get AAA to use it (slick2d/lwgl tutorial bucky)
 
-
-4. ... to be decided...
 
 
 

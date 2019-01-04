@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\charkeyd\Repos\AAA\Project\AAA\dist\AAA.jar</jar>
-  <outfile>C:\Users\charkeyd\Repos\AAA\Executable\AAA.exe</outfile>
+  <jar></jar>
+  <outfile></outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\Users\charkeyd\Repos\AAA\Executable\AAAicon.ico</icon>
+  <icon></icon>
   <singleInstance>
     <mutexName>AAA</mutexName>
     <windowTitle>Alien Aztec Adventure</windowTitle>
