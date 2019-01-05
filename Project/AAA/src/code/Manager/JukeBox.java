@@ -1,6 +1,3 @@
-// Global audio player class.
-// Call init() as soon as possible to instantiate
-// the clips HashMap.
 
 package code.Manager;
 
@@ -16,6 +13,11 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
+/**
+ * Global audio player class.
+ * Calls init() as soon as possible to instantiate the clips HashMap.
+ * @author David
+ */
 public class JukeBox {
 	
 	private static HashMap<String, Clip> clips;
@@ -55,8 +57,9 @@ public class JukeBox {
             }
 		catch(Exception e) 
                 {
+                    System.err.println("Libraries may be missing");
                     e.printStackTrace();
-                    System.err.println("Path was " + s);
+                    
 		}
 	}
 	

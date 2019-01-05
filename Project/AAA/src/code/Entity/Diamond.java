@@ -1,8 +1,3 @@
-// Diamond class.
-// May contain a list of tileChanges.
-// These tileChanges are used to modify
-// the tile map upon collection.
-
 package code.Entity;
 
 import java.awt.Graphics2D;
@@ -13,13 +8,19 @@ import code.Manager.Content;
 import code.TileMap.TileMap;
 
 /**
- *
+ * Represents diamonds, which are a type of entity
+ * 
+ * Contain a list of tileChanges.
+ * These tileChanges are used to modify the tile map upon collection.
+ * 
  * @author CHARKEYD
  */
 public class Diamond extends Entity {
 	
-	BufferedImage[] sprites;
+        // Spirtes of diamond
+	private BufferedImage[] sprites;
 	
+        // T
 	private ArrayList<int[]> tileChanges;
 	
     /**

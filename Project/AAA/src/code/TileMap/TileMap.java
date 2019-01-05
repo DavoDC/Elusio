@@ -1,5 +1,3 @@
-// The tile map class contains a loaded tile set and a 2d array of the map.
-// Each index in the map corresponds to a specific tile.
 
 package code.TileMap;
 
@@ -13,9 +11,16 @@ import javax.imageio.ImageIO;
 
 import code.Main.GamePanel;
 
-public class TileMap {
+/**
+ * The tile map class contains a loaded tile set and a 2d array of the map.
+ * Each index in the map corresponds to a specific tile.
+ * 
+ * @author David
+ */
+public class TileMap 
+{
 	
-	// position
+	// Position
 	private int x;
 	private int y;
 	private int xdest;
@@ -23,13 +28,13 @@ public class TileMap {
 	private int speed;
 	private boolean moving;
 	
-	// bounds
+	// Bounds
 	private int xmin;
 	private int ymin;
 	private int xmax;
 	private int ymax;
 	
-	// map
+	// Map
 	private int[][] map;
 	private int tileSize;
 	private int numRows;
@@ -37,50 +42,59 @@ public class TileMap {
 	private int width;
 	private int height;
 	
-	// tileset
+	// Tileset
 	private BufferedImage tileset;
 	private int numTilesAcross;
 	private Tile[][] tiles;
 	
-	// drawing
+	// Drawing
 	private int rowOffset;
 	private int colOffset;
 	private int numRowsToDraw;
 	private int numColsToDraw;
 	
-	public TileMap(int tileSize) {
+        /**
+         * Constructor for TileMap objects
+         * Requires the size of each tile
+         * @param tileSize 
+         */
+	public TileMap(int tileSize) 
+        {
 		this.tileSize = tileSize;
 		numRowsToDraw = GamePanel.HEIGHT / tileSize + 2;
 		numColsToDraw = GamePanel.WIDTH / tileSize + 2;
 		speed = 4;
 	}
 	
+        
+        /**
+         * Load a tileset using a filepath
+         * @param s 
+         */
 	public void loadTiles(String s) {
 		
 		try {
 
-			tileset = ImageIO.read(
-				getClass().getResourceAsStream(s)
-			);
+			// Load tileset from file
+                        tileset = ImageIO.read(getClass().getResourceAsStream(s));
+                        
+                        // Make array with 2 rows, and enough columns for every tile
 			numTilesAcross = tileset.getWidth() / tileSize;
 			tiles = new Tile[2][numTilesAcross];
 			
+                        // Temporary image
 			BufferedImage subimage;
-			for(int col = 0; col < numTilesAcross; col++) {
-				subimage = tileset.getSubimage(
-							col * tileSize,
-							0,
-							tileSize,
-							tileSize
-						);
-				tiles[0][col] = new Tile(subimage, Tile.NORMAL);
-				subimage = tileset.getSubimage(
-							col * tileSize,
-							tileSize,
-							tileSize,
-							tileSize
-						);
-				tiles[1][col] = new Tile(subimage, Tile.BLOCKED);
+                        
+                        //For every column
+			for(int col = 0; col < numTilesAcross; col++) 
+                        {
+                            //Cut 1st row tile out of tileset and add to array
+                            subimage = tileset.getSubimage( col * tileSize,0,tileSize,tileSize);
+                            tiles[0][col] = new Tile(subimage, Tile.NORMAL);
+                            
+                            //Cut 2nd row tile out of tileset and add to array
+		            subimage = tileset.getSubimage(col * tileSize,tileSize,tileSize,tileSize);
+		            tiles[1][col] = new Tile(subimage, Tile.BLOCKED);
 			}
 			
 		}
@@ -90,6 +104,11 @@ public class TileMap {
 		
 	}
 	
+        /**
+        * Load document "s", which has numbers in rows, into an array
+        * 
+        * @param s
+        */
 	public void loadMap(String s) {
 		
 		try {
@@ -128,6 +147,7 @@ public class TileMap {
 		
 	}
 	
+        // Accessor methods
 	public int getTileSize() { return tileSize; }
 	public int getx() { return x; }
 	public int gety() { return y; }
@@ -135,21 +155,29 @@ public class TileMap {
 	public int getHeight() { return height; }
 	public int getNumRows() { return numRows; }
 	public int getNumCols() { return numCols; }
-	public int getType(int row, int col) {
+        
+	public int getType(int row, int col) 
+        {
 		int rc = map[row][col];
 		int r = rc / numTilesAcross;
 		int c = rc % numTilesAcross;
 		return tiles[r][c].getType();
 	}
-	public int getIndex(int row, int col) {
+        
+	public int getIndex(int row, int col) 
+        {
 		return map[row][col];
 	}
+        
 	public boolean isMoving() { return moving; }
 	
-	public void setTile(int row, int col, int index) {
+	public void setTile(int row, int col, int index) 
+        {
 		map[row][col] = index;
 	}
-	public void replace(int i1, int i2) {
+        
+	public void replace(int i1, int i2) 
+        {
 		for(int row = 0; row < numRows; row++) {
 			for(int col = 0; col < numCols; col++) {
 				if(map[row][col] == i1) map[row][col] = i2;
@@ -157,23 +185,28 @@ public class TileMap {
 		}
 	}
 	
-	public void setPosition(int x, int y) {
+	public void setPosition(int x, int y) 
+        {
 		xdest = x;
 		ydest = y;
 	}
-	public void setPositionImmediately(int x, int y) {
+        
+	public void setPositionImmediately(int x, int y) 
+        {
 		this.x = x;
 		this.y = y;
 	}
 	
-	public void fixBounds() {
+	public void fixBounds() 
+        {
 		if(x < xmin) x = xmin;
 		if(y < ymin) y = ymin;
 		if(x > xmax) x = xmax;
 		if(y > ymax) y = ymax;
 	}
 	
-	public void update() {
+	public void update() 
+        {
 		if(x < xdest) {
 			x += speed;
 			if(x > xdest) {
@@ -209,6 +242,7 @@ public class TileMap {
 		
 	}
 	
+        
 	public void draw(Graphics2D g) {
 		
 		for(int row = rowOffset; row < rowOffset + numRowsToDraw; row++) {
@@ -220,10 +254,12 @@ public class TileMap {
 				if(col >= numCols) break;
 				if(map[row][col] == 0) continue;
 				
+                                //Get number from map array
 				int rc = map[row][col];
 				int r = rc / numTilesAcross;
 				int c = rc % numTilesAcross;
 				
+                                //Draw tile using map number
 				g.drawImage(
 					tiles[r][c].getImage(),
 					x + col * tileSize,

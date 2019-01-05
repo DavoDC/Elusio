@@ -1,12 +1,13 @@
-/*
-* Models ground tiles in game
-* Has two types of tiles: Blocked and non-blocked.
-*/ 
-
 package code.TileMap;
 
 import java.awt.image.BufferedImage;
 
+/*
+* Models ground tiles in game
+* A tile holds an image and type number
+* Type 0 = Normal
+* Type 1 = Blocked
+*/ 
 public class Tile 
 {
 	// Fields

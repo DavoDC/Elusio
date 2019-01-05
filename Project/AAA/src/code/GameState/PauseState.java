@@ -1,5 +1,3 @@
-// The pause GameState can only be activated
-// by calling GameStateManager#setPaused(true).
 
 package code.GameState;
 
@@ -10,6 +8,10 @@ import code.Manager.GameStateManager;
 import code.Manager.JukeBox;
 import code.Manager.Keys;
 
+/**
+ * The pause GameState can only be activated by calling GameStateManager.setPaused(true).
+ * @author David
+ */
 public class PauseState extends GameState {
 	
 	public PauseState(GameStateManager gsm) {

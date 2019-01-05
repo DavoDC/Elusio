@@ -1,15 +1,16 @@
-// Loads and splits all sprites on start up.
-// The sprites can easily be accessed as they
-// are public and static.
 
 package code.Manager;
 
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
 import javax.imageio.ImageIO;
 
+/**
+ * Loads and splits all sprites on start up.
+ * The sprites can easily be accessed as they are public and static.
+ * @author David
+ */
 public class Content {
 	
 	public static BufferedImage[][] MENUBG = load("/res/HUD/menuscreen.gif", 128, 144);

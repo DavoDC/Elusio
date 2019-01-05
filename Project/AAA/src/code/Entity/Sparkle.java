@@ -1,6 +1,3 @@
-// Simple class that plays animation
-// once and is removed.
-
 package code.Entity;
 
 import java.awt.Graphics2D;
@@ -9,7 +6,8 @@ import code.Manager.Content;
 import code.TileMap.TileMap;
 
 /**
- *
+ * Represents a Sparkle, which is an Entity
+ * Plays animation then disappears
  * @author CHARKEYD
  */
 public class Sparkle extends Entity {

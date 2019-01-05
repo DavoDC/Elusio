@@ -1,7 +1,3 @@
-// The game object superclass.
-// This class has all the logic required
-// to move around a tile based map.
-
 package code.Entity;
 
 import java.awt.Graphics2D;
@@ -11,169 +7,75 @@ import code.TileMap.Tile;
 import code.TileMap.TileMap;
 
 /**
- *
+ * The game object superclass.
+ * This class has all the logic required to move around a tile based map.
  * @author CHARKEYD
  */
 public abstract class Entity {
 	
-	// dimensions
-
-    /**
-     *
-     */
-	protected int width;
-
-    /**
-     *
-     */
+    // Dimensions
+    protected int width;
     protected int height;
-
-    /**
-     *
-     */
     protected int cwidth;
-
-    /**
-     *
-     */
     protected int cheight;
-	
-	// position
-
-    /**
-     *
-     */
-	protected int x;
-
-    /**
-     *
-     */
+    
+    // Position
+    protected int x;
     protected int y;
-
-    /**
-     *
-     */
     protected int xdest;
-
-    /**
-     *
-     */
     protected int ydest;
-
-    /**
-     *
-     */
     protected int rowTile;
-
-    /**
-     *
-     */
     protected int colTile;
-	
-	// movement
-
-    /**
-     *
-     */
-	protected boolean moving;
-
-    /**
-     *
-     */
+     
+    // Movement
+    protected boolean moving;
     protected boolean left;
-
-    /**
-     *
-     */
     protected boolean right;
-
-    /**
-     *
-     */
     protected boolean up;
-
-    /**
-     *
-     */
     protected boolean down;
+
+    // Attributes
+    protected int moveSpeed;
 	
-	// attributes
-
-    /**
-     *
-     */
-	protected int moveSpeed;
-	
-	// tilemap
-
-    /**
-     *
-     */
-	protected TileMap tileMap;
-
-    /**
-     *
-     */
+    // Tilemap
+    protected TileMap tileMap;
     protected int tileSize;
-
-    /**
-     *
-     */
     protected int xmap;
-
-    /**
-     *
-     */
     protected int ymap;
-	
-	// animation
 
-    /**
-     *
-     */
-	protected Animation animation;
-
-    /**
-     *
-     */
+    // Animation
+    protected Animation animation;
     protected int currentAnimation;
 	
     /**
-     *
+     * Constructor for entity objects
      * @param tm
      */
-    public Entity(TileMap tm) {
+    public Entity(TileMap tm) 
+        {
 		tileMap = tm;
 		tileSize = tileMap.getTileSize();
 		animation = new Animation();
 	}
 	
-    /**
-     *
-     * @return
-     */
+    //Accessors
     public int getx() { return x; }
-
-    /**
-     *
-     * @return
-     */
     public int gety() { return y; }
-
-    /**
-     *
-     * @return
-     */
     public int getRow() { return rowTile; }
-
-    /**
-     *
-     * @return
-     */
     public int getCol() { return colTile; }
 	
     /**
-     *
+     * Mutator for movement speed
+     * @param newSpd 
+     */
+    public void setMoveSpeed(int newSpd)
+    {
+        moveSpeed += newSpd;
+    }
+    
+    
+    /**
+     * 
      * @param i1
      * @param i2
      */
@@ -185,7 +87,7 @@ public abstract class Entity {
 	}
 
     /**
-     *
+     * Set position of entity on map
      */
     public void setMapPosition() {
 		xmap = tileMap.getx();
@@ -204,36 +106,23 @@ public abstract class Entity {
 		ydest = y;
 	}
 	
-    /**
-     *
-     */
+    // Handle movement
     public void setLeft() {
 		if(moving) return;
 		left = true;
 		moving = validateNextPosition();
 	}
-
-    /**
-     *
-     */
     public void setRight() {
 		if(moving) return;
 		right = true;
 		moving = validateNextPosition();
 	}
 
-    /**
-     *
-     */
     public void setUp() {
 		if(moving) return;
 		up = true;
 		moving = validateNextPosition();
 	}
-
-    /**
-     *
-     */
     public void setDown() {
 		if(moving) return;
 		down = true;
@@ -257,11 +146,10 @@ public abstract class Entity {
 		return new Rectangle(x, y, cwidth, cheight);
 	}
 	
-	// Returns whether or not the entity can
-	// move into the next position.
+	// 
 
     /**
-     *
+     * Returns whether or not the entity can move into the next position.
      * @return
      */
 	public boolean validateNextPosition() {
@@ -308,10 +196,10 @@ public abstract class Entity {
 		
 	}
 	
-	// Calculates the destination coordinates.
+	
 
     /**
-     *
+     * Calculates the destination coordinates.
      */
 	public void getNextPosition() {
 		
@@ -334,7 +222,7 @@ public abstract class Entity {
 	}
 	
     /**
-     *
+     * Update animation, position
      */
     public void update() {
 		
@@ -353,10 +241,9 @@ public abstract class Entity {
 		
 	}
 	
-	// Draws the entity.
 
     /**
-     *
+     * Draws the entity.
      * @param g
      */
 	public void draw(Graphics2D g) {

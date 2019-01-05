@@ -4,6 +4,8 @@ package code.Entity;
 import java.awt.image.BufferedImage;
 
 /** 
+ * Entity objects contain an animation object
+ * 
  * This class models an animation consisting of frames
  * 
  * setFrames() initializes fields
@@ -12,21 +14,25 @@ import java.awt.image.BufferedImage;
  *
  * @author David C
  */
-public class Animation {
+public class Animation 
+{
 	
+    
         //Animation frame fields
 	private BufferedImage[] frames;
 	private int currentFrame;
 	private int numFrames;
 	
-        //Time count : Acts as an "internal clock"
-	private int count;
+        //Time elapsed
+	private int ticks;
         
-        //Time delay : Controls interval between frame switches
+        //The time after which the animation will go to the next frame
 	private int delay;
 	
+        // The number of times the animation has played
 	private int timesPlayed;
 	
+        
     /**
      * Constructor for animation objects
      * Sets timesPlayed to 0
@@ -36,24 +42,20 @@ public class Animation {
 		timesPlayed = 0;
 	}
 	
+    
     /**
      * Mutator for delay, which controls the interval between frame progressions
      * @param del
      */
     public void setDelay(int del) { delay = del; }
 
-    /**
-     * Mutator for current frame
-     * @param cf
-     */
-   // public void setCurFrame(int cf) { currentFrame = cf; }
-
-
+    
     /**
      * @return The frame the animation is currently on 
      */
     public BufferedImage getImage() { return frames[currentFrame]; }
 
+    
     /**
      * @return True if times played is at least 1 or more
      */
@@ -72,7 +74,7 @@ public class Animation {
 		currentFrame = 0;
 		numFrames = frames.length;
                 
-                count = 0;
+                ticks = 0;
                 delay = 2;
                 
 		timesPlayed = 0;	
@@ -81,11 +83,8 @@ public class Animation {
     
     /**
      * Update animation
-     * 
-     * - Increase time count
-     * 
-     * - If count == delay, go to next frame and reset count
-     * 
+     * - Increase ticks
+     * - If delay has elapsed, go to next frame and reset ticks
      * - If on last frame, set curFrame back to 0 and increase times played
      *  
      */
@@ -94,12 +93,12 @@ public class Animation {
 		
 		if(delay == -1) return;
 		
-		count++;
+		ticks++;
 		
-		if(count == delay) 
+		if(ticks == delay) 
                 {
 			currentFrame++;
-			count = 0;
+			ticks = 0;
 		}
 		if(currentFrame == numFrames) 
                 {

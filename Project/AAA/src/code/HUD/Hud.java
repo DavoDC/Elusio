@@ -1,8 +1,3 @@
-/*
-*Contains a reference to the Player.
-*/
-// Draws all relevant information at the
-// bottom of the screen.
 
 package code.HUD;
 
@@ -17,6 +12,11 @@ import code.Entity.Player;
 import code.Main.GamePanel;
 import code.Manager.Content;
 
+/**
+ * Contains a reference to the Player.
+ * Draws all relevant information at the bottom of the screen.
+ * @author David
+ */
 public class Hud {
 	
 	private int yoffset;

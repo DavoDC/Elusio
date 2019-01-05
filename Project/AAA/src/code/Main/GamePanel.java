@@ -1,9 +1,3 @@
-/*
- * The GamePanel is the drawing canvas.
- * It contains the game loop which keeps the game moving forward.
- * This class is also the one that grabs key events
-*/ 
-
 package code.Main;
 
 import java.awt.Dimension;
@@ -18,6 +12,12 @@ import javax.swing.JPanel;
 import code.Manager.GameStateManager;
 import code.Manager.Keys;
 
+/**
+ * The GamePanel is the drawing canvas.
+ * It contains the game loop which keeps the game moving forward.
+ * This class is also the one that grabs key events
+ * @author David
+ */
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 	
@@ -123,11 +123,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	// Key event
         @Override
 	public void keyTyped(KeyEvent key) {}
-	public void keyPressed(KeyEvent key) {
-		Keys.keySet(key.getKeyCode(), true);
-	}
-	public void keyReleased(KeyEvent key) {
-		Keys.keySet(key.getKeyCode(), false);
-	}
+	public void keyPressed(KeyEvent key) {Keys.keySet(key.getKeyCode(), true);}
+	public void keyReleased(KeyEvent key) {Keys.keySet(key.getKeyCode(), false);}
 	
 }

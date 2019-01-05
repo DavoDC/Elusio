@@ -1,5 +1,3 @@
-// GameState that shows logo.
-
 package code.GameState;
 
 import java.awt.Color;
@@ -11,7 +9,12 @@ import javax.imageio.ImageIO;
 import code.Main.GamePanel;
 import code.Manager.GameStateManager;
 import code.Manager.Keys;
+import java.awt.RenderingHints;
 
+/**
+ * GameState that shows logo.
+ * @author David
+ */
 public class IntroState extends GameState {
 	
 	private BufferedImage logo;
@@ -31,6 +34,7 @@ public class IntroState extends GameState {
 		ticks = 0;
 		try {
 			logo = ImageIO.read(getClass().getResourceAsStream("/res/Special/Splash.gif"));
+                        
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -56,7 +60,7 @@ public class IntroState extends GameState {
 	public void draw(Graphics2D g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT2);
-		g.drawImage(logo, 0, 0, GamePanel.WIDTH, GamePanel.HEIGHT2, null);
+                g.drawImage(logo, 0, 0, GamePanel.WIDTH, GamePanel.HEIGHT2, null);
 		g.setColor(new Color(0, 0, 0, alpha));
 		g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT2);
 	}

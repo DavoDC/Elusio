@@ -1,8 +1,4 @@
-// The GameStateManager does exactly what its
-// name says. It contains a list of GameStates.
-// It decides which GameState to update() and
-// draw() and handles switching between different
-// GameStates.
+
 
 package code.Manager;
 
@@ -15,7 +11,13 @@ import code.GameState.MenuState;
 import code.GameState.PauseState;
 import code.GameState.PlayState;
 
-
+/**
+ * The GameStateManager does exactly what its name says. 
+ * It contains a list of GameStates.
+ * It decides which GameState to update() and draw()
+ * Handles switching between different GameStates.
+ * @author David
+ */
 public class GameStateManager {
 	
 	private boolean paused;
@@ -47,22 +49,26 @@ public class GameStateManager {
 		previousState = currentState;
 		unloadState(previousState);
 		currentState = i;
-		if(i == INTRO) {
-			gameStates[i] = new IntroState(this);
-			gameStates[i].init();
-		}
-		else if(i == MENU) {
-			gameStates[i] = new MenuState(this);
-			gameStates[i].init();
-		}
-		else if(i == PLAY) {
-			gameStates[i] = new PlayState(this);
-			gameStates[i].init();
-		}
-		else if(i == GAMEOVER) {
-			gameStates[i] = new GameOverState(this);
-			gameStates[i].init();
-		}
+                switch (i) {
+                    case INTRO:
+                        gameStates[i] = new IntroState(this);
+                        gameStates[i].init();
+                        break;
+                    case MENU:
+                        gameStates[i] = new MenuState(this);
+                        gameStates[i].init();
+                        break;
+                    case PLAY:
+                        gameStates[i] = new PlayState(this);
+                        gameStates[i].init();
+                        break;
+                    case GAMEOVER:
+                        gameStates[i] = new GameOverState(this);
+                        gameStates[i].init();
+                        break;
+                    default:
+                        break;
+            }
 	}
 	
 	public void unloadState(int i) {

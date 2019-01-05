@@ -1,11 +1,3 @@
-// Congratulations for finishing the game.
-// Gives you a rank based on how long it took
-// you to beat the game.
-
-// Under two minutes = Speed Demon
-// Under three minutes = Adventurer
-// Under four minutes = Beginner
-// Four minutes or greater = Bumbling Idiot
 
 package code.GameState;
 
@@ -19,6 +11,12 @@ import code.Manager.GameStateManager;
 import code.Manager.JukeBox;
 import code.Manager.Keys;
 
+/**
+ * Shows congratulations for finishing the game.
+ * Gives you a rank based on how long it took you to beat the game.
+ * 
+ * @author David
+ */
 public class GameOverState extends GameState {
 	
 	private Color color;

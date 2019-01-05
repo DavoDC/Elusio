@@ -1,8 +1,3 @@
-// The only subclass the fully utilizes the
-// Entity superclass (no other class requires
-// movement in a tile based map).
-// Contains all the gameplay associated with
-// the Player.
 
 package code.Entity;
 
@@ -14,7 +9,10 @@ import code.Manager.JukeBox;
 import code.TileMap.TileMap;
 
 /**
- *
+ * Represents the player, which is an Entity
+ * This fully utilizes the entity class to enable movement
+ * 
+ * Contains all the gameplay associated with the Player.
  * @author CHARKEYD
  */
 public class Player extends Entity {
@@ -74,9 +72,9 @@ public class Player extends Entity {
 		upBoatSprites = Content.PLAYER[7];
 		
 		animation.setFrames(downSprites);
-                //was 10
-		animation.setDelay(10);
+		animation.setDelay(15);
 		
+                moveSpeed = 3;
 	}
 	
 	private void setAnimation(int i, BufferedImage[] bi, int d) {
@@ -85,90 +83,44 @@ public class Player extends Entity {
 		animation.setDelay(d);
 	}
 	
-    /**
-     *
-     */
+
     public void collectedDiamond() { numDiamonds++; }
 
-    /**
-     *
-     * @return
-     */
+
     public int numDiamonds() { return numDiamonds; }
 
-    /**
-     *
-     * @return
-     */
+
     public int getTotalDiamonds() { return totalDiamonds; }
 
-    /**
-     *
-     * @param i
-     */
+
     public void setTotalDiamonds(int i) { totalDiamonds = i; }
 	
-    /**
-     *
-     */
-    public void gotBoat() { hasBoat = true; tileMap.replace(22, 4); }
 
-    /**
-     *
-     */
+    public void gotBoat() { hasBoat = true; tileMap.replace(22, 4); }
     public void gotAxe() { hasAxe = true; }
 
-    /**
-     *
-     * @return
-     */
+
     public boolean hasBoat() { return hasBoat; }
-
-    /**
-     *
-     * @return
-     */
     public boolean hasAxe() { return hasAxe; }
-	
-	// Used to update time.
 
     /**
-     *
+     * Used to update time.
      * @return
      */
-	public long getTicks() { return ticks; }
+    public long getTicks() { return ticks; }
 	
-	// Keyboard input. Moves the player.
-        @Override
-	public void setDown() 
-        {
-		super.setDown();
-	}
-    
-        @Override
-	public void setLeft() 
-        {
-		super.setLeft();
-	}
-        
-        @Override
-	public void setRight() 
-        {
-		super.setRight();
-	}
-        
-        @Override
-	public void setUp() 
-        {
-		super.setUp();
-	}
-	
-	// Keyboard input.
-	// If Player has axe, dead trees in front
-	// of the Player will be chopped down.
+    // Keyboard input. Moves the player.
+    @Override
+    public void setDown() {super.setDown(); }
+    @Override
+    public void setLeft() { super.setLeft(); }
+    @Override
+    public void setRight() { super.setRight(); }
+    @Override
+    public void setUp() { super.setUp(); }
 
     /**
-     *
+     * If Player has the axe, dead trees in front of the Player will be removed
      */
 	public void setAction() {
 		if(hasAxe) {
@@ -191,6 +143,12 @@ public class Player extends Entity {
 		}
 	}
 	
+        /**
+         * Update sprite if on water
+         * Play sound when transitioning
+         * Update position
+         * 
+         */
 	public void update() {
 		
 		ticks++;
@@ -247,7 +205,11 @@ public class Player extends Entity {
 		
 	}
 	
-	// Draw Player.
+	/**
+         * Draw method
+         * @param g 
+         */
+        @Override
 	public void draw(Graphics2D g) {
 		super.draw(g);
 	}

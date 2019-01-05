@@ -1,8 +1,3 @@
-// Possibly redundant subclass of Entity.
-// There are two types of items: Axe and boat.
-// Upon collection, informs the Player
-// that the Player does indeed have the item.
-
 package code.Entity;
 
 import java.awt.Graphics2D;
@@ -12,29 +7,26 @@ import code.Manager.Content;
 import code.TileMap.TileMap;
 
 /**
- *
+ * Represents items, which are a type of entity
+ * 
+ * There are two types of items: Axe and boat.
+ * Upon collection, informs the Player that the Player does indeed have the item.
  * @author CHARKEYD
  */
 public class Item extends Entity{
-	
-	private BufferedImage sprite;
-	private int type;
+    
+    private BufferedImage sprite;
+    private int type;
 
-    /**
-     *
-     */
     public static final int BOAT = 0;
-
-    /**
-     *
-     */
     public static final int AXE = 1;
 	
     /**
-     *
+     * Create item using a tilemap
      * @param tm
      */
-    public Item(TileMap tm) {
+    public Item(TileMap tm) 
+        {
 		super(tm);
 		type = -1;
 		width = height = 16;
@@ -42,7 +34,7 @@ public class Item extends Entity{
 	}
 	
     /**
-     *
+     * Change sprite based on integer input
      * @param i
      */
     public void setType(int i) {
@@ -55,11 +47,13 @@ public class Item extends Entity{
 		}
 	}
 	
+    
     /**
-     *
-     * @param p
+     * Tells player when he/she collects this item
+     * @param p Inputted player
      */
-    public void collected(Player p) {
+    public void collected(Player p) 
+        {
 		if(type == BOAT) {
 			p.gotBoat();
 		}
@@ -68,9 +62,16 @@ public class Item extends Entity{
 		}
 	}
 	
-	public void draw(Graphics2D g) {
+    
+    /**
+     * Draw the item onto the map
+     * @param g 
+     */
+    public void draw(Graphics2D g) 
+        {
 		setMapPosition();
 		g.drawImage(sprite, x + xmap - width / 2, y + ymap - height / 2, null);
 	}
 	
+    
 }

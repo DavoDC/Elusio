@@ -1,7 +1,3 @@
-// The main playing GameState.
-// Contains everything you need for gameplay:
-// Player, TileMap, Diamonds, etc.
-// Updates and draws all game objects.
 
 package code.GameState;
 
@@ -21,6 +17,13 @@ import code.Manager.JukeBox;
 import code.Manager.Keys;
 import code.TileMap.TileMap;
 
+/**
+ * The main playing GameState.
+ * Contains everything you need for gameplay:
+ * Player, TileMap, Diamonds, etc.
+ * Updates and draws all game objects..
+ * @author David
+ */
 public class PlayState extends GameState {
 	
 	// player
@@ -62,9 +65,9 @@ public class PlayState extends GameState {
 	public void init() {
 		
 		// create lists
-		diamonds = new ArrayList<Diamond>();
-		sparkles = new ArrayList<Sparkle>();
-		items = new ArrayList<Item>();
+		diamonds = new ArrayList<>();
+		sparkles = new ArrayList<>();
+		items = new ArrayList<>();
 		
 		// load map
 		tileMap = new TileMap(16);
@@ -116,19 +119,23 @@ public class PlayState extends GameState {
 		Diamond d;
 		
 		d = new Diamond(tileMap);
+                
 		d.setTilePosition(20, 20);
 		d.addChange(new int[] { 23, 19, 1 });
 		d.addChange(new int[] { 23, 20, 1 });
 		diamonds.add(d);
+                
 		d = new Diamond(tileMap);
 		d.setTilePosition(12, 36);
 		d.addChange(new int[] { 31, 17, 1 });
 		diamonds.add(d);
+                
 		d = new Diamond(tileMap);
 		d.setTilePosition(28, 4);
 		d.addChange(new int[] {27, 7, 1});
 		d.addChange(new int[] {28, 7, 1});
 		diamonds.add(d);
+                
 		d = new Diamond(tileMap);
 		d.setTilePosition(4, 34);
 		d.addChange(new int[] { 31, 21, 1 });
@@ -137,33 +144,43 @@ public class PlayState extends GameState {
 		d = new Diamond(tileMap);
 		d.setTilePosition(28, 19);
 		diamonds.add(d);
+                
 		d = new Diamond(tileMap);
 		d.setTilePosition(35, 26);
 		diamonds.add(d);
+                
 		d = new Diamond(tileMap);
 		d.setTilePosition(38, 36);
 		diamonds.add(d);
+                
 		d = new Diamond(tileMap);
 		d.setTilePosition(27, 28);
 		diamonds.add(d);
+                
 		d = new Diamond(tileMap);
 		d.setTilePosition(20, 30);
 		diamonds.add(d);
+                
 		d = new Diamond(tileMap);
 		d.setTilePosition(14, 25);
 		diamonds.add(d);
+                
 		d = new Diamond(tileMap);
 		d.setTilePosition(4, 21);
 		diamonds.add(d);
+                
 		d = new Diamond(tileMap);
 		d.setTilePosition(9, 14);
 		diamonds.add(d);
+                
 		d = new Diamond(tileMap);
 		d.setTilePosition(4, 3);
 		diamonds.add(d);
+                
 		d = new Diamond(tileMap);
 		d.setTilePosition(20, 14);
 		diamonds.add(d);
+                
 		d = new Diamond(tileMap);
 		d.setTilePosition(13, 20);
 		diamonds.add(d);

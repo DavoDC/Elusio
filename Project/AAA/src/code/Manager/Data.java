@@ -1,8 +1,12 @@
-// Global helper class.
-// Records finish time upon game completion.
+
 
 package code.Manager;
 
+/**
+ * Global helper class.
+ * Records finish time upon game completion.
+ * @author David
+ */
 public class Data {
 	
 	public static long time;
