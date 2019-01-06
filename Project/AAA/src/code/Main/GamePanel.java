@@ -16,7 +16,7 @@ import code.Manager.Keys;
  * The GamePanel is the drawing canvas.
  * It contains the game loop which keeps the game moving forward.
  * This class is also the one that grabs key events
- * @author David
+ * @author David Charkey
  */
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener {

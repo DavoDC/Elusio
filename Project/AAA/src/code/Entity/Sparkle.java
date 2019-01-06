@@ -8,7 +8,7 @@ import code.TileMap.TileMap;
 /**
  * Represents a Sparkle, which is an Entity
  * Plays animation then disappears
- * @author CHARKEYD
+ * @author David Charkey Charkey
  */
 public class Sparkle extends Entity {
 	
@@ -33,11 +33,13 @@ public class Sparkle extends Entity {
 		return remove;
 	}
 	
+        @Override
 	public void update() {
 		animation.update();
 		if(animation.hasPlayedOnce()) remove = true;
 	}
 	
+        @Override
 	public void draw(Graphics2D g) {
 		super.draw(g);
 	}

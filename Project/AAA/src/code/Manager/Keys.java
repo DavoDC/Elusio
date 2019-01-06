@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
  * The GamePanel KeyListener will update the array.
  * All GameStates now have a handleInput() function in order to keep all keyboard input operations
  * on the game thread rather than on the EDT to avoid problems.
- * @author David
+ * @author David Charkey
  */
 public class Keys {
 	

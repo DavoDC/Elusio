@@ -13,7 +13,7 @@ import code.TileMap.TileMap;
  * This fully utilizes the entity class to enable movement
  * 
  * Contains all the gameplay associated with the Player.
- * @author CHARKEYD
+ * @author David Charkey
  */
 public class Player extends Entity {
 	
@@ -22,20 +22,12 @@ public class Player extends Entity {
 	private final BufferedImage[] leftSprites;
 	private final BufferedImage[] rightSprites;
 	private final BufferedImage[] upSprites;
-	private final BufferedImage[] downBoatSprites;
-	private final BufferedImage[] leftBoatSprites;
-	private final BufferedImage[] rightBoatSprites;
-	private final BufferedImage[] upBoatSprites;
 	
 	// Sprite numbers
 	private final int DOWN = 0;
 	private final int LEFT = 1;
 	private final int RIGHT = 2;
 	private final int UP = 3;
-	private final int DOWNBOAT = 4;
-	private final int LEFTBOAT = 5;
-	private final int RIGHTBOAT = 6;
-	private final int UPBOAT = 7;
 	
 	// Game variables
 	private int numDiamonds;
@@ -66,17 +58,20 @@ public class Player extends Entity {
 		leftSprites = Content.PLAYER[1];
 		rightSprites = Content.PLAYER[2];
 		upSprites = Content.PLAYER[3];
-		downBoatSprites = Content.PLAYER[4];
-		leftBoatSprites = Content.PLAYER[5];
-		rightBoatSprites = Content.PLAYER[6];
-		upBoatSprites = Content.PLAYER[7];
-		
+
 		animation.setFrames(downSprites);
 		animation.setDelay(15);
 		
                 moveSpeed = 3;
 	}
-	
+    
+    
+	/**
+         * Alter animation
+         * @param i
+         * @param bi
+         * @param d 
+         */
 	private void setAnimation(int i, BufferedImage[] bi, int d) {
 		currentAnimation = i;
 		animation.setFrames(bi);
@@ -144,61 +139,19 @@ public class Player extends Entity {
 	}
 	
         /**
-         * Update sprite if on water
-         * Play sound when transitioning
-         * Update position
+         * Update sprites
          * 
          */
+        @Override
 	public void update() {
 		
 		ticks++;
-		
-		// check if on water
-		boolean current = onWater;
-		if(tileMap.getIndex(ydest / tileSize, xdest / tileSize) == 4) {
-			onWater = true;
-		}
-		else {
-			onWater = false;
-		}
-		// if going from land to water
-		if(!current && onWater) {
-			JukeBox.play("splash");
-		}
-		
+
 		// set animation
-		if(down) {
-			if(onWater && currentAnimation != DOWNBOAT) {
-				setAnimation(DOWNBOAT, downBoatSprites, 10);
-			}
-			else if(!onWater && currentAnimation != DOWN) {
-				setAnimation(DOWN, downSprites, 10);
-			}
-		}
-		if(left) {
-			if(onWater && currentAnimation != LEFTBOAT) {
-				setAnimation(LEFTBOAT, leftBoatSprites, 10);
-			}
-			else if(!onWater && currentAnimation != LEFT) {
-				setAnimation(LEFT, leftSprites, 10);
-			}
-		}
-		if(right) {
-			if(onWater && currentAnimation != RIGHTBOAT) {
-				setAnimation(RIGHTBOAT, rightBoatSprites, 10);
-			}
-			else if(!onWater && currentAnimation != RIGHT) {
-				setAnimation(RIGHT, rightSprites, 10);
-			}
-		}
-		if(up) {
-			if(onWater && currentAnimation != UPBOAT) {
-				setAnimation(UPBOAT, upBoatSprites, 10);
-			}
-			else if(!onWater && currentAnimation != UP) {
-				setAnimation(UP, upSprites, 10);
-			}
-		}
+		if(down) { setAnimation(DOWN, downSprites, 10); }
+                else if(left) { setAnimation(LEFT, leftSprites, 10); }
+                else if(right) { setAnimation(RIGHT, rightSprites, 10); }
+                else if(up) { setAnimation(UP, upSprites, 10);}
 		
 		// update position
 		super.update();

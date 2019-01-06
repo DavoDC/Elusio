@@ -15,7 +15,7 @@ import code.Manager.Keys;
  * Shows congratulations for finishing the game.
  * Gives you a rank based on how long it took you to beat the game.
  * 
- * @author David
+ * @author David Charkey
  */
 public class GameOverState extends GameState {
 	
@@ -28,6 +28,7 @@ public class GameOverState extends GameState {
 		super(gsm);
 	}
 	
+        @Override
 	public void init() {
 		color = new Color(164, 198, 222);
 		ticks = Data.getTime();
@@ -37,8 +38,10 @@ public class GameOverState extends GameState {
 		else rank = 4;
 	}
 	
+        @Override
 	public void update() {}
 	
+        @Override
 	public void draw(Graphics2D g) {
 		
 		g.setColor(color);
@@ -57,16 +60,30 @@ public class GameOverState extends GameState {
 			else Content.drawString(g, minutes + ":" + seconds, 44, 48);
 		}
 		
-		Content.drawString(g, "rank", 48, 66);
-		if(rank == 1) Content.drawString(g, "speed demon", 20, 78);
-		else if(rank == 2) Content.drawString(g, "adventurer", 24, 78);
-		else if(rank == 3) Content.drawString(g, "beginner", 32, 78);
-		else if(rank == 4) Content.drawString(g, "bumbling idiot", 8, 78);
-		
-		Content.drawString(g, "press any key", 12, 110);
+		Content.drawString(g, "Rank", 48, 66);
+                switch (rank) 
+                {
+                    case 1:
+                        Content.drawString(g, "Sonic the Hedgedog", 20, 78);
+                        break;
+                    case 2:
+                        Content.drawString(g, "Sprint Mage", 24, 78);
+                        break;
+                    case 3:
+                        Content.drawString(g, "Relaaax", 32, 78);
+                        break;
+                    case 4:
+                        Content.drawString(g, "Rigamortis Tortoise", 8, 78);
+                        break;
+                    default:
+                        break;
+                }
+
+		Content.drawString(g, "Press any key", 12, 110);
 		
 	}
 	
+        @Override
 	public void handleInput() {
 		if(Keys.isPressed(Keys.ENTER)) {
 			gsm.setState(GameStateManager.MENU);

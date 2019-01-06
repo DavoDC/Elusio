@@ -16,7 +16,7 @@ import javax.sound.sampled.FloatControl;
 /**
  * Global audio player class.
  * Calls init() as soon as possible to instantiate the clips HashMap.
- * @author David
+ * @author David Charkey
  */
 public class JukeBox {
 	

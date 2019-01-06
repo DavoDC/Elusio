@@ -10,7 +10,7 @@ import code.Manager.GameStateManager;
  * Blueprint for all GameState subclasses.
  * Has a reference to the GameStateManager,
  * along with the four methods that must be overridden.
- * @author David
+ * @author David Charkey
  */
 public abstract class GameState 
 {

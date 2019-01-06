@@ -11,7 +11,7 @@ import code.Manager.Keys;
 
 /**
  * The main menu GameState.
- * @author David
+ * @author David Charkey
  */
 public class MenuState extends GameState {
 	
@@ -20,7 +20,7 @@ public class MenuState extends GameState {
         private BufferedImage star;
 	
 	private int currentOption = 0;
-	private String[] options = {
+	private final String[] options = {
 		"START",
 		"QUIT"
 	};
@@ -29,6 +29,7 @@ public class MenuState extends GameState {
 		super(gsm);
 	}
 	
+        @Override
 	public void init() {
             
                 //Initalise menu images
@@ -38,24 +39,26 @@ public class MenuState extends GameState {
                 star= star.getSubimage(0, 0, 9, 5);
                 
                 //Load menu sounds
-		JukeBox.load("/res/SFX/collect.wav", "collect");
-		JukeBox.load("/res/SFX/menuoption.wav", "menuoption");
+		JukeBox.load("/res/Sounds/collect.wav", "collect");
+		JukeBox.load("/res/Sounds/menuoption.wav", "menuoption");
 	}
 	
+        @Override
 	public void update() {
 		handleInput();
 	}
 	
+        @Override
 	public void draw(Graphics2D g) {
 		
 		//Draw background
-                g.drawImage(bg, 0, 0, null);
+                g.drawImage(bg.getScaledInstance(128, 144, 0), 0, 0, null);
                 
-                //Draw flashing stars
+                //Draw "stars" intermittently
                 int ranX = (int) (Math.random() * bg.getWidth());
                 int ranY = (int) (Math.random() * bg.getHeight());
-                
-                 while(System.currentTimeMillis()%2 == 0){
+                 while(System.currentTimeMillis()%2 == 0 || System.currentTimeMillis()%3 == 0)
+                 {
                      g.drawImage(star, ranX, ranY, null);
                  }
 
@@ -69,6 +72,7 @@ public class MenuState extends GameState {
 		
 	}
 	
+        @Override
 	public void handleInput() {
 		if(Keys.isPressed(Keys.DOWN) && currentOption < options.length - 1) {
 			JukeBox.play("menuoption");

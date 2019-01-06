@@ -1,24 +1,18 @@
 package code.Main;
 
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.Game;
-
 
 import java.awt.Image;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+
 
 /**
  * The entry point of the game.
  * This class loads up a JFrame window and puts a GamePanel into it.
  * 
- * @author David
+ * @author David Charkey
  */
-public class MainGame extends BasicGame
+public class MainGame 
 {
     
     //Main method
@@ -49,35 +43,6 @@ public class MainGame extends BasicGame
         
     }
 
-    /**
-     * Constructor from Slick Basic Game
-     * @param title 
-     */
-    public MainGame(String title) {
-        super(title);
-    }
-
-    
-        
-    // Abstract methods from Slick Basic Game
-    
-    @Override
-    public void init(GameContainer gc) throws SlickException {
-        throw new UnsupportedOperationException("Not coded yet");
-    }
-
-    @Override
-    public void update(GameContainer gc, int i) throws SlickException {
-        throw new UnsupportedOperationException("Not coded yet");
-    }
-
-    @Override
-    public void render(GameContainer gc, Graphics grphcs) throws SlickException {
-        throw new UnsupportedOperationException("Not coded yet");
-    }
-
-
     
     
-	
 }

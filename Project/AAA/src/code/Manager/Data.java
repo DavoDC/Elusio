@@ -5,7 +5,7 @@ package code.Manager;
 /**
  * Global helper class.
  * Records finish time upon game completion.
- * @author David
+ * @author David Charkey
  */
 public class Data {
 	

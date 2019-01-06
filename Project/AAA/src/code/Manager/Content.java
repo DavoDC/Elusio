@@ -9,19 +9,20 @@ import javax.imageio.ImageIO;
 /**
  * Loads and splits all sprites on start up.
  * The sprites can easily be accessed as they are public and static.
- * @author David
+ * @author David Charkey
  */
 public class Content {
 	
-	public static BufferedImage[][] MENUBG = load("/res/HUD/menuscreen.gif", 128, 144);
-	public static BufferedImage[][] BAR = load("/res/HUD/bar.gif", 128, 16);
+	public static BufferedImage[][] MENUBG = load("/res/Special/menu.gif", 296, 459);
+	public static BufferedImage[][] BAR = load("/res/Special/bar.gif", 128, 16);
 	
-	public static BufferedImage[][] PLAYER = load("/res/Sprites/playersprites.gif", 16, 16);
+	//wrong size
+        public static BufferedImage[][] PLAYER = load("/res/Sprites/playersprites.gif", 16, 16);
 	public static BufferedImage[][] DIAMOND = load("/res/Sprites/diamond.gif", 16, 16);
 	public static BufferedImage[][] SPARKLE = load("/res/Sprites/sparkle.gif", 16, 16);
 	public static BufferedImage[][] ITEMS = load("/res/Sprites/items.gif", 16, 16);
 	
-	public static BufferedImage[][] font = load("/res/HUD/font.gif", 8, 8);
+	public static BufferedImage[][] font = load("/res/Special/font.gif", 8, 8);
 	
 	public static BufferedImage[][] load(String s, int w, int h) {
 		BufferedImage[][] ret;

@@ -9,7 +9,7 @@ import code.TileMap.TileMap;
 /**
  * The game object superclass.
  * This class has all the logic required to move around a tile based map.
- * @author CHARKEYD
+ * @author David Charkey Charkey
  */
 public abstract class Entity {
 	

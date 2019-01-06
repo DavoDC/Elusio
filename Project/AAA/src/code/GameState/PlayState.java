@@ -22,7 +22,7 @@ import code.TileMap.TileMap;
  * Contains everything you need for gameplay:
  * Player, TileMap, Diamonds, etc.
  * Updates and draws all game objects..
- * @author David
+ * @author David Charkey
  */
 public class PlayState extends GameState {
 	
@@ -62,6 +62,7 @@ public class PlayState extends GameState {
 		super(gsm);
 	}
 	
+        @Override
 	public void init() {
 		
 		// create lists
@@ -71,8 +72,8 @@ public class PlayState extends GameState {
 		
 		// load map
 		tileMap = new TileMap(16);
-		tileMap.loadTiles("/res/Tilesets/testtileset.gif");
-		tileMap.loadMap("/res/Maps/testmap.map");
+		tileMap.loadTiles("/res/Map/tileset.gif");
+		tileMap.loadMap("/res/Map/map.map");
 		
 		// create player
 		player = new Player(tileMap);
@@ -95,20 +96,20 @@ public class PlayState extends GameState {
 		hud = new Hud(player, diamonds);
 	
 		// load music
-		JukeBox.load("/res/Music/bgmusic.mp3", "music1");
+		JukeBox.load("/res/Sounds/bgmusic.mp3", "music1");
 		JukeBox.setVolume("music1", -10);
 		JukeBox.loop("music1", 1000, 1000, JukeBox.getFrames("music1") - 1000);
-		JukeBox.load("/res/Music/finish.mp3", "finish");
+		JukeBox.load("/res/Sounds/finish.mp3", "finish");
 		JukeBox.setVolume("finish", -10);
 		
 		// load sfx
-		JukeBox.load("/res/SFX/collect.wav", "collect");
-		JukeBox.load("/res/SFX/mapmove.wav", "mapmove");
-		JukeBox.load("/res/SFX/tilechange.wav", "tilechange");
-		JukeBox.load("/res/SFX/splash.wav", "splash");
+		JukeBox.load("/res/Sounds/collect.wav", "collect");
+		JukeBox.load("/res/Sounds/mapmove.wav", "mapmove");
+		JukeBox.load("/res/Sounds/tilechange.wav", "tilechange");
+		JukeBox.load("/res/Sounds/splash.wav", "splash");
 		
 		// start event
-		boxes = new ArrayList<Rectangle>();
+		boxes = new ArrayList<>();
 		eventStart = true;
 		eventStart();
 			

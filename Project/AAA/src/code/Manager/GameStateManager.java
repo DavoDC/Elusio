@@ -16,7 +16,7 @@ import code.GameState.PlayState;
  * It contains a list of GameStates.
  * It decides which GameState to update() and draw()
  * Handles switching between different GameStates.
- * @author David
+ * @author David Charkey
  */
 public class GameStateManager {
 	

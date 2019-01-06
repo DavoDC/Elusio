@@ -11,7 +11,7 @@ import code.TileMap.TileMap;
  * 
  * There are two types of items: Axe and boat.
  * Upon collection, informs the Player that the Player does indeed have the item.
- * @author CHARKEYD
+ * @author David Charkey Charkey
  */
 public class Item extends Entity{
     
@@ -67,6 +67,7 @@ public class Item extends Entity{
      * Draw the item onto the map
      * @param g 
      */
+    @Override
     public void draw(Graphics2D g) 
         {
 		setMapPosition();

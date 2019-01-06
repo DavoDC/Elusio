@@ -13,14 +13,14 @@ import code.TileMap.TileMap;
  * Contain a list of tileChanges.
  * These tileChanges are used to modify the tile map upon collection.
  * 
- * @author CHARKEYD
+ * @author David Charkey Charkey
  */
 public class Diamond extends Entity {
 	
-        // Spirtes of diamond
-	private BufferedImage[] sprites;
+        // Sprites of diamond
+	private final BufferedImage[] sprites;
 	
-        // T
+        // Tile changes
 	private ArrayList<int[]> tileChanges;
 	
     /**
@@ -40,7 +40,7 @@ public class Diamond extends Entity {
 		animation.setFrames(sprites);
 		animation.setDelay(10);
 		
-		tileChanges = new ArrayList<int[]>();
+		tileChanges = new ArrayList<>();
 		
 	}
 	
@@ -63,14 +63,16 @@ public class Diamond extends Entity {
     /**
      *
      */
+        @Override
     public void update() {
 		animation.update();
 	}
 	
     /**
      *
-     * @param g
+     * @param g Graphics
      */
+        @Override
     public void draw(Graphics2D g) {
 		super.draw(g);
 	}

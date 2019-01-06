@@ -15,7 +15,7 @@ import code.Manager.Content;
 /**
  * Contains a reference to the Player.
  * Draws all relevant information at the bottom of the screen.
- * @author David
+ * @author David Charkey
  */
 public class Hud {
 	

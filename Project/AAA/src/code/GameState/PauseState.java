@@ -7,10 +7,13 @@ import code.Manager.Content;
 import code.Manager.GameStateManager;
 import code.Manager.JukeBox;
 import code.Manager.Keys;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 
 /**
  * The pause GameState can only be activated by calling GameStateManager.setPaused(true).
- * @author David
+ * @author David Charkey
  */
 public class PauseState extends GameState {
 	
@@ -18,15 +21,22 @@ public class PauseState extends GameState {
 		super(gsm);
 	}
 	
+        @Override
 	public void init() {}
 	
+        @Override
 	public void update() {
 		handleInput();
 	}
 	
+    /**
+     * Draw pause menu
+     * @param g Graphics
+     */
+    @Override
 	public void draw(Graphics2D g) {
-		
-		Content.drawString(g, "paused", 40, 30);
+
+                Content.drawString(g, "paused", 40, 30);
 		
 		Content.drawString(g, "arrow", 12, 76);
 		Content.drawString(g, "keys", 16, 84);

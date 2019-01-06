@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  * update() updates fields
  * getImage() gives you the current frame
  *
- * @author David C
+ * @author David Charkey C
  */
 public class Animation 
 {

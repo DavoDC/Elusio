@@ -9,11 +9,10 @@ import javax.imageio.ImageIO;
 import code.Main.GamePanel;
 import code.Manager.GameStateManager;
 import code.Manager.Keys;
-import java.awt.RenderingHints;
 
 /**
  * GameState that shows logo.
- * @author David
+ * @author David Charkey
  */
 public class IntroState extends GameState {
 	
@@ -30,17 +29,19 @@ public class IntroState extends GameState {
 		super(gsm);
 	}
 	
+        @Override
 	public void init() {
 		ticks = 0;
 		try {
-			logo = ImageIO.read(getClass().getResourceAsStream("/res/Special/Splash.gif"));
+			logo = ImageIO.read(getClass().getResourceAsStream("/res/Special/load.gif"));
                         
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+                    System.err.println("Loading screen may have issue");
 		}
 	}
 	
+        @Override
 	public void update() {
 		handleInput();
 		ticks++;
@@ -57,6 +58,7 @@ public class IntroState extends GameState {
 		}
 	}
 	
+        @Override
 	public void draw(Graphics2D g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT2);
@@ -65,6 +67,7 @@ public class IntroState extends GameState {
 		g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT2);
 	}
 	
+        @Override
 	public void handleInput() {
 		if(Keys.isPressed(Keys.ENTER)) {
 			gsm.setState(GameStateManager.MENU);
