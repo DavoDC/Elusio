@@ -1,9 +1,11 @@
-Ship = MillionthVector
+AlienShip = MillionthVector
 
-Jungle Tileset = hiddenone, Avery 
+Tileset = hiddenone, Avery,Ivan Voirol, aweryn
 
 Aliens = hiddenone, Kadokawa
 
 Gold = Clint Bellanger
 
 Font = Aaron D. Chand
+
+SailShip = Tuomo Untinen

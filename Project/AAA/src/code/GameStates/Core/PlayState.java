@@ -21,6 +21,7 @@ import org.newdawn.slick.particles.effects.*;
 
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.tiled.TiledMap;
 
 
 /**
@@ -38,6 +39,9 @@ public class PlayState extends BasicGameState
     
     //test
     private ParticleSystem ps;
+    
+    //Map
+    private TiledMap map;
     
             
     /**
@@ -68,6 +72,16 @@ public class PlayState extends BasicGameState
       
        Image particleImg = new Image("res/Special/particle.png");
           ps = new ParticleSystem(particleImg, 1000);
+    
+          try
+          {
+                  map = new TiledMap("res/Map/map.tmx","res/Map");
+          }
+          catch (Exception e)
+          {
+              
+          }
+  
       
     
        
@@ -133,7 +147,7 @@ public class PlayState extends BasicGameState
              }
          
 
-           particleTest(gc,delta);
+          // particleTest(gc,delta);
     }
 
    
@@ -161,11 +175,13 @@ public class PlayState extends BasicGameState
         int playerH = (int) ((playerSS.getHeight()/4)*1.5);
         playerAnim.draw(playerX, playerY, playerW, playerH);
         
+         //particle render
+       // ps.render(400,200);
         
-        //draw part of map
+        //draw map test
+        map.render(0,0);
         
-        //particle 
-        ps.render(400,200);
+       
         
      
      
