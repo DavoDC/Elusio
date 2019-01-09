@@ -73,14 +73,10 @@ public class PlayState extends BasicGameState
        Image particleImg = new Image("res/Special/particle.png");
           ps = new ParticleSystem(particleImg, 1000);
     
-          try
-          {
-                  map = new TiledMap("res/Map/map.tmx","res/Map");
-          }
-          catch (Exception e)
-          {
-              
-          }
+        
+          
+          map = new TiledMap("res/Map/map.tmx","res/Map");
+         
   
       
     
@@ -161,6 +157,10 @@ public class PlayState extends BasicGameState
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
     {
+        //draw map first
+        map.render(0,0);
+        
+        
         //Top left info
         long freeMem = Runtime.getRuntime().freeMemory();
         long totalMem = Runtime.getRuntime().totalMemory();
@@ -178,9 +178,7 @@ public class PlayState extends BasicGameState
          //particle render
        // ps.render(400,200);
         
-        //draw map test
-        map.render(0,0);
-        
+       
        
         
      
