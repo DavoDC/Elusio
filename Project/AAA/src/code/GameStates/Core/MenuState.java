@@ -7,8 +7,13 @@ package code.GameStates.Core;
  */
 
 
-import com.sun.glass.ui.Cursor;
+
+import java.io.InputStream;
+import java.awt.Font;
+import org.newdawn.slick.TrueTypeFont;
+
 import org.newdawn.slick.Color;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -21,6 +26,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.state.transition.Transition;
+import org.newdawn.slick.util.ResourceLoader;
 
 /**
  *
@@ -49,13 +55,37 @@ public class MenuState extends BasicGameState
      * Used to initialise the game state.
      */
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
-       menuBg = new Image("res/States/menu.png");
        
+        // Choose random menu background
+        int ranH = (int) (Math.random() * 100);
+        String menuS = "";
+        
+        if (ranH <= 25)
+        {
+            menuS += "menu1";
+        }
+        else if (ranH <= 50)
+        {
+             menuS += "menu2";
+        }
+        else if (ranH <= 75)
+        {
+             menuS += "menu3";
+        }
+        else 
+        {
+             menuS += "menu4";
+        }
+        menuBg = new Image("res/States/" + menuS + ".png");
+        
+        
+       // Initialise buttons
        button = new Rectangle(400, 400, 100, 30);
        
+       // Initialise cursor follower
        cursorCircle = new Circle(0, 0, 10);
-       
-       
+
+       // Modify cursor
        cursor = new Image("res/Special/cursor.png");
        cursor = cursor.getScaledCopy(0.75f);
        gc.setMouseCursor(cursor,0,0); 
@@ -74,16 +104,60 @@ public class MenuState extends BasicGameState
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
       
+        //correct for screensize
+        menuBg= code.Main.MainGame.adjustImage(menuBg);
         
         g.drawImage(menuBg, 0, 0);
 
-        
-        
+        // Draw buttons
+            // Add to arraylist
+            
+            // D
+        ///draw buttons
+        //  for (JButton curButton : buttons)
+        //{
+        //    counter++;
+        // curxpos += (bW + xspacing);
+        //    if ( (counter%columns) == 0)
+         //   {
+          //      curxpos = xpos;
+          //      curypos += (bH + yspacing);
+           // }
         g.setColor(Color.blue);
         g.draw(button);
+        g.fill(button);
+        
+        
+        
         
         g.setColor(Color.white);
-        g.drawString("Play", button.getX()+10, button.getY()+3);
+        
+        float X = button.getX() + 3;
+        float Y = button.getY() - 2;
+        try
+        {
+            code.Main.MainGame.getGameFont(35f).drawString(X, Y, "play");
+        }
+        catch (Exception e)
+        {
+        }
+        
+        
+       
+        
+      
+        	
+                  
+ 
+	
+            
+     
+             
+      
+        
+        
+        
+       
         
 
     }

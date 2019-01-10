@@ -64,8 +64,10 @@ public class IntroState extends BasicGameState
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         g.drawString("INTRO", 400, 300);
         
+        //correct for screensize
+        introLogo = code.Main.MainGame.adjustImage(introLogo);
         
-        g.drawImage(introLogo, 0,0);
+        g.drawImage(introLogo, 0, 0);
         
     }
 

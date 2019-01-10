@@ -1,11 +1,23 @@
-AlienShip = MillionthVector
+Programmer = David Charkey
 
-Tileset = hiddenone, Avery,Ivan Voirol, aweryn
+Designer = David Charkey
 
-Aliens = hiddenone, Kadokawa
+Map Design = David Charkey
 
-Gold = Clint Bellanger
+Testers =
+David Charkey
 
-Font = Aaron D. Chand
+Artists
+David Charkey (Intro Background) 
+Rawdanitsu (Menu Backgrounds)
+hiddenone (Alien sprites)
+Kadokawa (Alien sprites)
+Ivan Voirol (Tileset)
+Aweryn (Tileset)
+MillionthVector (Alien ship sprite)
+Clint Bellanger (Gold Item Sprites)
+Aaron D. Chand (Text font
+Tuomo Untinen (Sailing Ship Sprites)
 
-SailShip = Tuomo Untinen
+
+

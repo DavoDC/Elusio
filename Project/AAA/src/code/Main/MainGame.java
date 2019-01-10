@@ -1,57 +1,75 @@
 package code.Main;
-import code.GameStates.Core.GameOverState;
-import code.GameStates.Core.MenuState;
-import code.GameStates.Core.PlayState;
-import code.GameStates.Core.PauseState;
-import code.GameStates.Core.IntroState;
-import code.GameStates.MG.CannonDodge;
+
+import code.GameStates.Core.*;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.*;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
 
 
 /**
- * The entry point of the game.
+ * Sets up the game
+ * Initializes states
  * 
  * @author David Charkey
  */
 public class MainGame extends StateBasedGame
 {
+    //Fields
+    public static AppGameContainer agc;
+    public static int screenW;
+    public static int screenH;
+    
     public static String mgProgress;
     
-
+    
+    /**
+     * Main method
+     * Entry point
+     * 
+     * @param args
+     * @throws Exception 
+     */
     public static void main(String[] args) throws Exception 
     {
         
          // Create AGC
          MainGame mg = new MainGame("Alien Aztec Adventure");
-         AppGameContainer agc = new AppGameContainer(mg);
+         agc = new AppGameContainer(mg);
           
          // Adjust AGC
-         agc.setDisplayMode(800, 600, false);
+         screenH = agc.getScreenHeight();
+         screenW = agc.getScreenWidth();
+         agc.setDisplayMode(screenW, screenH, true);
          agc.setAlwaysRender(true);
          agc.setTargetFrameRate(55);
          agc.setShowFPS(false);
-         
-         
+
          // Start AGC
          agc.start();
          
-         
-        
     }
     
+    
+    
      /**
-     * Constructor from Slick Basic Game
+     * Constructor
      * @param title 
      */
     public MainGame(String title) {
@@ -61,8 +79,13 @@ public class MainGame extends StateBasedGame
   
 
  
-
-     @Override
+    /**
+     * Initialise states
+     * 
+     * @param gc
+     * @throws SlickException 
+     */
+    @Override
     public void initStatesList(GameContainer gc) throws SlickException {
         
         // State 1 = Intro/Logo
@@ -81,12 +104,36 @@ public class MainGame extends StateBasedGame
         this.addState(new GameOverState()); 
     }
     
-
+    /**
+     * Adjust an image for the system screen size
+     * @param img
+     * @return
+     */
+    public static Image adjustImage(Image img)
+    {
+        return img.getScaledCopy(screenW , screenH);
+        
+    }
     
     
     
-    
-    
+    public static TrueTypeFont getGameFont(float size) 
+    {
+        TrueTypeFont gfont = null;
+        try 
+        {
+            InputStream fis = ResourceLoader.getResourceAsStream("res/Special/3dventure.ttf");
+            
+            Font awtFont = Font.createFont(Font.TRUETYPE_FONT, fis);
+            awtFont = awtFont.deriveFont(size);
+            gfont = new TrueTypeFont(awtFont, true);
+        } 
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return gfont;
+    }
     
     
     

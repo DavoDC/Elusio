@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="148" height="148" tilewidth="62" tileheight="62" infinite="0" nextlayerid="5" nextobjectid="1">
- <tileset firstgid="1" name="tileset" tilewidth="62" tileheight="62" tilecount="625" columns="25">
-  <image source="tileset.png" width="1550" height="1550"/>
- </tileset>
- <layer id="3" name="Base" width="148" height="148">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="1">
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <layer id="6" name="Base" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3SsQnAMBDAQGerLOmd07pI4AtBmjvQBtrXWnvQvd6D0+QlPzHlJ0p+ouQnSn6i5CdKfqL09ck0OPmJkp8o+YmSnyj5iZKfKPmJkp8o+YmSnyj5iZKfKPmJkp8o+YmSnyj5iZKfKPmJkp8o+YmSnyj5CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPjLA8uRsvhAVgEA
+   H4sIAAAAAAAACs1YS26lQAz0JihXGIndLGbYRGyiKCd697/BCAlLlUr50zwIY8lqHg+aKrvsppnNbC789SKf9lE9B20i32yB480+d/8jfDv/t/Dfg86Ypp0DYmLj/5jTZh+7Kz5X8vAcqFgrHu6LOL9aramfdJWrzA3GD3LMy9n5iLByzLv8Mh7I5SwejieqD/Z1xzbvI9e0OlY8kMuzPGbT9aFy8bCvdR/Vjjpen/S3wDEHVb9yPI/gfKdOlJbYHZPKB/Pya/0382CsjsNz8LDv8V/g3Cp4msX6wTrr6CqKf5VPrmc/P9F1zIF5HcGu7unWeqfvKn2Z6TzevYYonT9gVLgzXltMP03nXGmO8zUSc6wPHPnYeSBePF7s67puwEO50jHrj3EqPqrOH+QVD86FER+Pa9Wr0LNarWqF8UeuOGSOPN7BHVOmLcZd9aYRTsgjM89JZ627ow9gP/Bjhd/tnTzC3eHb1UzkKna4jij8igfiZn6ZKxyjnDlubq6rTDvOQ2Ef4XIk3px35og8VPzRfC6F7QoeHPOKJ76T8HsKe4avq7GjuDv3VO8A7p14V3UT4XgmR5kpLY7Uc8Qpw1711Wr9MHFP1a8Y0xk+2nvVHGyKxx1rW5anjq5UD74yFz/hbvgtcobjK7l1NRXtO5SuFI+7Y4w8Ml68L7kb7wgXzsdE16wwqn38qF43e7HvNvpurdZzNR/zVrkbiV/FI7MFRnfODfcqtwxrd/9x5V5lJezRfkTF/kgersDPcfd8dfe6Sl8GMTgTr+NTuA3+X+g3WlQPmIuzeHRi18mL64x5dudH7m6/9rFTHxiLEZ5dbp1YMR8fnQdbtBd6Jo+deurmfqS+IkxH66i6N6qJSCPRfGhYU7yG8P6ULat1Xz/UN5MsnkobPn8nftH8+F4U9SnVw/A+tq4+jmgp+m9Uj5keOjwmuu7MGlIc1LO537IulXb4muj7S6S7rC9G+Y1yFOWzyn2WCzY1Pxqf42fxPNkzuq7i/T97pZUr9B75UeP8YY/rYMpMremjHDvYVS66z+RrOhzUmrjZC507oqPNom/W1T7zDA129rFRnLvvLf8AEKKn3BAnAAA=
   </data>
  </layer>
- <layer id="4" name="Decor" width="148" height="148">
+ <layer id="7" name="Coll" width="50" height="50">
+  <properties>
+   <property name="blocked" value="true"/>
+  </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3VwQnCMBQG4GSC1hWsdArx4hjdwZt6sN3BkX2FCqKWVope/D74yUtyyeGHHFNKp8g5wXKXSBvphn3xdF8P6yb/7En8iZ1O8aFy5HwdXWr0iQVWD3Pfpb5TY30D+JYqv5/vGv8dM13zdLaRgz4xYZ/nBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAVzebzBLGQFYBAA==
+   H4sIAAAAAAAACu3YsQ0AIQwEQVM7HVMB4acESBz8jHS5N3VVVW/fgDXj9AGb6MiiAwAAAOBOr/zXdWTRkUVHFh1ZdGTRAcDfTcmhRf8QJwAA
   </data>
  </layer>
 </map>

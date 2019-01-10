@@ -2,6 +2,9 @@ package code.GameStates.Core;
 
 
 
+
+import code.Entity.CamTMap;
+import code.Entity.CollUtil;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -10,7 +13,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.particles.ConfigurableEmitter;
 import org.newdawn.slick.particles.ParticleEmitter;
 
 
@@ -30,19 +32,24 @@ import org.newdawn.slick.tiled.TiledMap;
  */
 public class PlayState extends BasicGameState
 {
-    // Player fields
-    private SpriteSheet playerSS;
-    private Animation playerAnim;
-    private int playerX;
-    private int playerY;
-    private int playerAnimSpeed;
-    
-    //test
-    private ParticleSystem ps;
+    //Screen dimensions
+    private int screenW = code.Main.MainGame.screenW;
+    private int screenH = code.Main.MainGame.screenH;
     
     //Map
     private TiledMap map;
+    private CollUtil coll;
+    private CamTMap ctm;
     
+    // Player fields
+    private SpriteSheet playerSS;
+    private Animation playerAnim;
+    private int playerAnimSpeed;     
+    private int playerX;
+    private int playerY;
+    private float movementSpeed;
+    
+  
             
     /**
      * Used to identify states and switch to them
@@ -61,27 +68,25 @@ public class PlayState extends BasicGameState
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void init(GameContainer container, StateBasedGame game) throws SlickException {
-      playerAnimSpeed = 500;
-        
+    public void init(GameContainer container, StateBasedGame game) throws SlickException 
+    {
+      map = new TiledMap("res/Map/map.tmx");
+      coll = new CollUtil(map);
+      ctm = new CamTMap(container, map);
+      
       playerSS = new SpriteSheet("res/Sprites/player/walking.png", 33, 48);
+      playerAnimSpeed = 500;
       playerAnim = new Animation(playerSS, playerAnimSpeed);
-      
-      playerX = 40;
-      playerY = 100;
-      
-       Image particleImg = new Image("res/Special/particle.png");
-          ps = new ParticleSystem(particleImg, 1000);
-    
-        
-          
-          map = new TiledMap("res/Map/map.tmx","res/Map");
-         
-  
-      
-    
+
+      playerX = 60;
+      playerY = 60;
        
+      movementSpeed = 0.25f;
+
     }
+    
+    
+    
     
        /**
      * The method is called each game loop to cause your game to update it's logic. 
@@ -94,58 +99,112 @@ public class PlayState extends BasicGameState
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
        
+         //camera
+         ctm.centerOn(playerX, playerY);
+
         //Make animation use game time
         playerAnim.update(delta);
         
-        //Control player with arrows
+        //Relative speed
+        float relSpeed = delta * movementSpeed;
+        
+        //Get input
         Input input = gc.getInput();
-         
-        // Player movement speed
-         int movementSpeed = 3;
 
-         if(input.isKeyDown(Input.KEY_DOWN))
-             {
-                 playerAnim.start();
-                 
-              playerY += movementSpeed;
-              
-              // Show front of head 
-              configureFrames(playerAnim, "n0n1n2" );
-             }
-          else if(input.isKeyDown(Input.KEY_LEFT))
-             {
-                 playerAnim.start();
-              playerX -= movementSpeed;
-              
-              // Show left side
-              configureFrames(playerAnim, "n3n4n5" );
-             }
-         else if (input.isKeyDown(Input.KEY_RIGHT))
-             {
-                 playerAnim.start();
-              playerX += movementSpeed;
-              
-              // Show right side
-              configureFrames(playerAnim, "n6n7n8" );
+        // Handle input
+        if(input.isKeyDown(Input.KEY_UP)) //Up arrow
+            {
+              // Start and adjust animation
+              playerAnim.start();
+              configureFrames(playerAnim, "n9n10n11" ); //Backside
 
-             }
-         else if(input.isKeyDown(Input.KEY_UP))
-             {
-                 playerAnim.start();
-              playerY -= movementSpeed;
+              // Check for collision then map exit
+              boolean cond1 = coll.canPass(playerX + 63, playerY - relSpeed);
+              boolean cond2 = coll.canPass(playerX + 1, playerY - relSpeed);
+              boolean cond3 = true;//playerY > 5;
+             
+              // Move if conditions are satisfied
+              if (cond1 && cond2 && cond3)
+              {
+                  playerY -= relSpeed;
+              }
               
-              // Show back of head 
-              configureFrames(playerAnim, "n9n10n11" );
-             } 
-         else // No arrows down
-             {
+            } 
+        else if(input.isKeyDown(Input.KEY_DOWN)) //Down arrow
+            {
+              // Animate with front of head showing
+              playerAnim.start();
+              configureFrames(playerAnim, "n0n1n2" ); //Front face
+
+              // Adjust coordinates of player and map
+              boolean cond1 = coll.canPass(playerX + 63, playerY + 64 + relSpeed);
+              boolean cond2 = coll.canPass(playerX + 1, playerY + 64 + relSpeed);
+              boolean cond3 = true;//playerY < screenH-75;
+              
+              // Move if conditions are satisfied
+              if (cond1 && cond2 && cond3)
+              {
+                  playerY += relSpeed;
+              }
+              
+
+            }
+        else if(input.isKeyDown(Input.KEY_LEFT)) //Left arrow
+            {
+              // Start and adjust animation
+              playerAnim.start();
+              configureFrames(playerAnim, "n3n4n5" ); //Left side
+              
+              // Adjust coordinates of player and map
+              boolean cond1 = coll.canPass(playerX - relSpeed, playerY + 1);
+              boolean cond2 = coll.canPass(playerX - relSpeed, playerY + 63);
+              boolean cond3 =  true;//playerX > 5;
+              
+              // Move if conditions are satisfied
+              if (cond1 && cond2 && cond3)
+              {
+                  playerX -= relSpeed;
+              }
+
+            }
+        else if (input.isKeyDown(Input.KEY_RIGHT)) //Right arrow
+            {
+              // Start and adjust animation
+              playerAnim.start();
+              configureFrames(playerAnim, "n6n7n8" ); //Front
+              
+              // Adjust coordinates of player 
+              boolean cond1 = coll.canPass(playerX + 50 + relSpeed, playerY + 63);
+              boolean cond2 = coll.canPass(playerX + 50 + relSpeed, playerY + 1);
+              boolean cond3 = true; //playerX < screenW-50;
+              
+              // Move if conditions are satisfied
+              if (cond1 && cond2 && cond3)
+              {
+                 playerX += relSpeed;
+              }
+              
+            }
+        else // No arrows down
+            {
                  playerAnim.stop();
-             }
+            }
          
+    
+        
+         // Handle setting keys
+         if (input.isKeyDown(Input.KEY_F) && input.isKeyDown(Input.KEY_LCONTROL))
+         {
+             boolean newStatus = !code.Main.MainGame.agc.isFullscreen();
+             code.Main.MainGame.agc.setFullscreen(newStatus);
+         }
+         
+        
 
-          // particleTest(gc,delta);
     }
 
+   
+  
    
     /**
      * This method should be used to draw to the screen. 
@@ -157,34 +216,30 @@ public class PlayState extends BasicGameState
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
     {
-        //draw map first
-        map.render(0,0);
+        //Draw map 
+        ctm.translateGraphics();
+        ctm.drawMap(0,0);
+   
         
-        
+              
         //Top left info
         long freeMem = Runtime.getRuntime().freeMemory();
         long totalMem = Runtime.getRuntime().totalMemory();
         long memoryUsed = (totalMem-freeMem)/1000000;
         g.drawString("Memory Usage: " + memoryUsed + " MB", 10, 10);
-        
         g.drawString("PLAYSTATE", 10, 30);
-        
-        
+          
         // Draw player
         int playerW = (int) ((playerSS.getWidth()/3)*1.5);
         int playerH = (int) ((playerSS.getHeight()/4)*1.5);
-        playerAnim.draw(playerX, playerY, playerW, playerH);
-        
-         //particle render
-       // ps.render(400,200);
-        
-       
-       
-        
-     
-     
-        
+        playerAnim.draw((int) playerX, (int) playerY, playerW, playerH);
+ 
     }
+    
+    
+
+    
+    
 
    /**
     * Adjusts an animation to only use the referenced frames
@@ -224,13 +279,21 @@ public class PlayState extends BasicGameState
    }
    
    
+   
+   
+   
+   
+   
+   
+   
    /**
- * load resources (the particle system) and create our duplicate emitters
- * and place them nicely on the screen
+ * how to do particle effects
  * @param container The surrounding game container
  */
 public void particleTest(GameContainer container, int delta) throws SlickException {
 	
+     Image particleImg = new Image("res/Special/particle.png");
+     ParticleSystem  ps = new ParticleSystem(particleImg, 1000);
 	
 	try 
         {
@@ -251,6 +314,7 @@ public void particleTest(GameContainer container, int delta) throws SlickExcepti
 
           ps.update(delta);
 
+         ps.render(400,200);
                
         }
 	catch (Exception e) 
