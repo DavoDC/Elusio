@@ -1,26 +1,15 @@
 package code.GameStates.Core;
 
+import code.Entity.Camera;
 
-
-
-import code.Entity.CamTMap;
-import code.Entity.CollUtil;
 import java.util.ArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.particles.ParticleEmitter;
-
-
-import org.newdawn.slick.particles.ParticleIO;
-import org.newdawn.slick.particles.ParticleSystem;
-import org.newdawn.slick.particles.effects.*;
-
-
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
@@ -33,13 +22,12 @@ import org.newdawn.slick.tiled.TiledMap;
 public class PlayState extends BasicGameState
 {
     //Screen dimensions
-    private int screenW = code.Main.MainGame.screenW;
-    private int screenH = code.Main.MainGame.screenH;
+    private final int screenW = code.Main.MainGame.screenW;
+    private final int screenH = code.Main.MainGame.screenH;
     
     //Map
     private TiledMap map;
-    private CollUtil coll;
-    private CamTMap ctm;
+    private Camera cam;
     
     // Player fields
     private SpriteSheet playerSS;
@@ -47,9 +35,7 @@ public class PlayState extends BasicGameState
     private int playerAnimSpeed;     
     private int playerX;
     private int playerY;
-    private float movementSpeed;
-    
-  
+    private float movementSpeed; 
             
     /**
      * Used to identify states and switch to them
@@ -70,11 +56,10 @@ public class PlayState extends BasicGameState
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException 
     {
-      map = new TiledMap("res/Map/map.tmx");
-      coll = new CollUtil(map);
-      ctm = new CamTMap(container, map);
+      map = new TiledMap("res/map/map.tmx");
+      cam = new Camera(container, map);
       
-      playerSS = new SpriteSheet("res/Sprites/player/walking.png", 33, 48);
+      playerSS = new SpriteSheet("res/sprites/player/walking.png", 33, 48);
       playerAnimSpeed = 500;
       playerAnim = new Animation(playerSS, playerAnimSpeed);
 
@@ -82,13 +67,12 @@ public class PlayState extends BasicGameState
       playerY = 60;
        
       movementSpeed = 0.25f;
-
+      
     }
+
     
     
-    
-    
-       /**
+     /**
      * The method is called each game loop to cause your game to update it's logic. 
      * This is where you should make objects move.
      * This is also where you should check input and change the state of the game.
@@ -98,9 +82,6 @@ public class PlayState extends BasicGameState
      */
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
-       
-         //camera
-         ctm.centerOn(playerX, playerY);
 
         //Make animation use game time
         playerAnim.update(delta);
@@ -118,16 +99,18 @@ public class PlayState extends BasicGameState
               playerAnim.start();
               configureFrames(playerAnim, "n9n10n11" ); //Backside
 
-              // Check for collision then map exit
-              boolean cond1 = coll.canPass(playerX + 63, playerY - relSpeed);
-              boolean cond2 = coll.canPass(playerX + 1, playerY - relSpeed);
-              boolean cond3 = true;//playerY > 5;
+              // Check for blocked tiles
+              //boolean cond1 = coll.canPass(playerX + 63, playerY - relSpeed);
+             // boolean cond2 = coll.canPass(playerX + 1, playerY - relSpeed); //add camY factor
+              
+              // Check for edge of map
+             // boolean cond3 = coll.canPass(playerX + 1, playerY - 50 - relSpeed); 
              
               // Move if conditions are satisfied
-              if (cond1 && cond2 && cond3)
-              {
+              //if (cond1 && cond2 && cond3)
+             // {
                   playerY -= relSpeed;
-              }
+             // }
               
             } 
         else if(input.isKeyDown(Input.KEY_DOWN)) //Down arrow
@@ -136,16 +119,18 @@ public class PlayState extends BasicGameState
               playerAnim.start();
               configureFrames(playerAnim, "n0n1n2" ); //Front face
 
-              // Adjust coordinates of player and map
-              boolean cond1 = coll.canPass(playerX + 63, playerY + 64 + relSpeed);
-              boolean cond2 = coll.canPass(playerX + 1, playerY + 64 + relSpeed);
-              boolean cond3 = true;//playerY < screenH-75;
+              // Check for blocked tiles
+             // boolean cond1 = coll.canPass(playerX + 63, playerY + 64 + relSpeed);
+              //boolean cond2 = coll.canPass(playerX + 1, playerY + 64 + relSpeed);
+              
+              // Check for edge of map
+             // boolean cond3 = playerY < (cam.getMapH()-70)-cam.getCamY() ;
               
               // Move if conditions are satisfied
-              if (cond1 && cond2 && cond3)
-              {
+            //  if (cond1 && cond2 && cond3)
+            //  {
                   playerY += relSpeed;
-              }
+            //  }
               
 
             }
@@ -155,16 +140,18 @@ public class PlayState extends BasicGameState
               playerAnim.start();
               configureFrames(playerAnim, "n3n4n5" ); //Left side
               
-              // Adjust coordinates of player and map
-              boolean cond1 = coll.canPass(playerX - relSpeed, playerY + 1);
-              boolean cond2 = coll.canPass(playerX - relSpeed, playerY + 63);
-              boolean cond3 =  true;//playerX > 5;
+              // Check for blocked tiles
+              //boolean cond1 = coll.canPass(playerX - relSpeed, playerY + 1);
+             // boolean cond2 = coll.canPass(playerX - relSpeed, playerY + 63);
+              
+              // Check for edge of map
+             // boolean cond3 = coll.canPass(playerX - 60 - relSpeed, playerY + 63);
               
               // Move if conditions are satisfied
-              if (cond1 && cond2 && cond3)
-              {
+              //if (cond1 && cond2 && cond3)
+              //{
                   playerX -= relSpeed;
-              }
+             // }
 
             }
         else if (input.isKeyDown(Input.KEY_RIGHT)) //Right arrow
@@ -173,16 +160,18 @@ public class PlayState extends BasicGameState
               playerAnim.start();
               configureFrames(playerAnim, "n6n7n8" ); //Front
               
-              // Adjust coordinates of player 
-              boolean cond1 = coll.canPass(playerX + 50 + relSpeed, playerY + 63);
-              boolean cond2 = coll.canPass(playerX + 50 + relSpeed, playerY + 1);
-              boolean cond3 = true; //playerX < screenW-50;
+              // Check for blocked tiles
+             // boolean cond1 = coll.canPass(playerX + 50 + relSpeed, playerY + 63);
+              //boolean cond2 = coll.canPass(playerX + 50 + relSpeed, playerY + 1);
+              
+              // Check for edge of map
+              //boolean cond3 = playerX < (cam.getMapW()-40)-cam.getCamX(); 
               
               // Move if conditions are satisfied
-              if (cond1 && cond2 && cond3)
-              {
+              //if (cond1 && cond2 && cond3)
+              //{
                  playerX += relSpeed;
-              }
+              //}
               
             }
         else // No arrows down
@@ -190,7 +179,7 @@ public class PlayState extends BasicGameState
                  playerAnim.stop();
             }
          
-    
+        
         
          // Handle setting keys
          if (input.isKeyDown(Input.KEY_F) && input.isKeyDown(Input.KEY_LCONTROL))
@@ -199,7 +188,8 @@ public class PlayState extends BasicGameState
              code.Main.MainGame.agc.setFullscreen(newStatus);
          }
          
-        
+         // Update camera
+         cam.centerOn(playerX, playerY);
 
     }
 
@@ -215,25 +205,26 @@ public class PlayState extends BasicGameState
      */
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
-    {
-        //Draw map 
-        ctm.translateGraphics();
-        ctm.drawMap(0,0);
-   
-        
-              
+    {  
         //Top left info
+        int infoX = playerX - 100;
+        int infoY = playerY - 100;
         long freeMem = Runtime.getRuntime().freeMemory();
         long totalMem = Runtime.getRuntime().totalMemory();
         long memoryUsed = (totalMem-freeMem)/1000000;
-        g.drawString("Memory Usage: " + memoryUsed + " MB", 10, 10);
-        g.drawString("PLAYSTATE", 10, 30);
+        g.drawString("Memory Usage: " + memoryUsed + " MB", infoX, infoY);
+        g.drawString("px: " + playerX + "  , py: " + playerY, infoX, infoY + 20);
+
+        // Draw camera's view of map
+        cam.drawMap();
+        cam.translateGraphics();
           
         // Draw player
         int playerW = (int) ((playerSS.getWidth()/3)*1.5);
         int playerH = (int) ((playerSS.getHeight()/4)*1.5);
         playerAnim.draw((int) playerX, (int) playerY, playerW, playerH);
- 
+
+        
     }
     
     
@@ -292,35 +283,35 @@ public class PlayState extends BasicGameState
  */
 public void particleTest(GameContainer container, int delta) throws SlickException {
 	
-     Image particleImg = new Image("res/Special/particle.png");
-     ParticleSystem  ps = new ParticleSystem(particleImg, 1000);
+     //Image particleImg = new Image(particle png)
+     //ParticleSystem  ps = new ParticleSystem(particleImg, 1000);
 	
-	try 
-        {
-	   
-         ParticleEmitter smoke = ParticleIO.loadEmitter("res/Special/smoke.xml");
-         
-         smoke.setEnabled(true);
-         FireEmitter fire = new FireEmitter(200,200,5);
-         fire.setEnabled(true);
-
-        
-          ps.addEmitter(smoke);
-          ps.addEmitter(fire);
-          ps.setVisible(true);
-          ps.setPosition(400, 200);
-          
-          ps.setBlendingMode(ParticleSystem.BLEND_COMBINE);
-
-          ps.update(delta);
-
-         ps.render(400,200);
-               
-        }
-	catch (Exception e) 
-        {
-		throw new SlickException("Failed to load particle systems", e);
-	}
+//	try 
+//        {
+//	   
+//        // ParticleEmitter smoke = ParticleIO.loadEmitter(smoke xml)
+//         
+//         smoke.setEnabled(true);
+//         FireEmitter fire = new FireEmitter(200,200,5);
+//         fire.setEnabled(true);
+//
+//        
+//          ps.addEmitter(smoke);
+//          ps.addEmitter(fire);
+//          ps.setVisible(true);
+//          ps.setPosition(400, 200);
+//          
+//          ps.setBlendingMode(ParticleSystem.BLEND_COMBINE);
+//
+//          ps.update(delta);
+//
+//         ps.render(400,200);
+//               
+//        }
+//	catch (Exception e) 
+//        {
+//		throw new SlickException("Failed to load particle systems", e);
+//	}
 }
    
    

@@ -1,11 +1,9 @@
 package code.GameStates.Core;
 
 
-import code.Main.MainGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
@@ -53,7 +51,7 @@ public class GameOverState extends BasicGameState
         g.setColor(Color.white);
         g.drawString("GAMEOVER", 300, 100);
         
-         g.drawString("Your progress was " + MainGame.mgProgress, 300, 200);
+         //g.drawString("Your progress was " + MainGame.mgProgress, 300, 200);
         
         g.drawString("CLICK TO RETRY", 300, 300);
         

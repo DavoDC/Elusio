@@ -132,7 +132,7 @@ public class CannonDodge extends BasicGameState
         {
             if (person.intersects(c))
             {
-                MainGame.mgProgress = progress;
+                //MainGame.mgProgress = progress;
                 game.enterState(5);
                 
             }
@@ -153,9 +153,9 @@ public class CannonDodge extends BasicGameState
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         
         // Draw background
-        Image bg = new Image("res/MG/deck.png");
-        bg = bg.getScaledCopy(800, 600);
-        g.drawImage(bg, 0, 0);
+        //Image bg = deck image
+        //bg = bg.getScaledCopy(800, 600);
+        //g.drawImage(bg, 0, 0);
 
         // Draw "person"
         g.setColor(Color.green);

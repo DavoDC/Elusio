@@ -20,22 +20,24 @@ import org.newdawn.slick.state.StateBasedGame;
 public class PauseState extends BasicGameState
 {
 
-    @Override
+    
     /**
      * Used to identify states
      * Used to switch to state
      */
+    @Override
     public int getID() {
         //id
         return 4;
     }
 
-    @Override
+    
      /**
      * This is only called when the game starts
      * Used to load resources
      * Used to initialise the game state.
      */
+    @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
        //tba
     }
@@ -64,7 +66,8 @@ public class PauseState extends BasicGameState
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException 
+    {
        //tbc
     }
     
