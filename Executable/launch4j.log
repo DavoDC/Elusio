@@ -117,3 +117,82 @@ Launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe
 Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeansProjects\AAA\AAA\Executable\AAA.exe;libs\jinput.jar;libs\jl1.0.1.jar;libs\lwjgl.jar;libs\lwjgl_util.jar;libs\mp3spi1.9.5.jar;libs\slick.jar;libs\tritonus_share.jar" code.Main.MainGame
 Args length:	256/32768 chars
 Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeansProjects\AAA\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeansProjects\AAA\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_191
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe (OK)
+Match:		1.008.000_191
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Ignore:		1.008.000_171
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_191 (32-bit)
+Main class:	code.Main.MainGame
+Add classpath:	libs\*.jar
+      "      :	libs\jinput.jar
+      "      :	libs\jl1.0.1.jar
+      "      :	libs\lwjgl.jar
+      "      :	libs\lwjgl_util.jar
+      "      :	libs\mp3spi1.9.5.jar
+      "      :	libs\slick.jar
+      "      :	libs\tritonus_share.jar
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeansProjects\AAA\AAA\Executable\AAA.exe;libs\jinput.jar;libs\jl1.0.1.jar;libs\lwjgl.jar;libs\lwjgl_util.jar;libs\mp3spi1.9.5.jar;libs\slick.jar;libs\tritonus_share.jar" code.Main.MainGame
+Args length:	256/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeansProjects\AAA\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeansProjects\AAA\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_191
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe (OK)
+Match:		1.008.000_191
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Ignore:		1.008.000_171
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_191 (32-bit)
+Main class:	code.Main.MainGame
+Add classpath:	libs\*.jar
+      "      :	libs\jinput.jar
+      "      :	libs\lwjgl.jar
+      "      :	libs\lwjgl_util.jar
+      "      :	libs\slick.jar
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeansProjects\AAA\AAA\Executable\AAA.exe;libs\jinput.jar;libs\lwjgl.jar;libs\lwjgl_util.jar;libs\slick.jar" code.Main.MainGame
+Args length:	194/32768 chars
+Exit code:	0

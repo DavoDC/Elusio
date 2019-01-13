@@ -1,9 +1,9 @@
 package code.Utility;
 
-import code.Main.MainGame;
+import code.GameStates.Main.MainGame;
 import java.util.ArrayList;
 import java.util.Random;
-import org.newdawn.slick.Image;
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -16,7 +16,7 @@ public class BGBank
     /**
      * Stock of images
      */
-    private ArrayList<Image> backgrounds;
+    private ArrayList<BigImage> backgrounds;
     
     /**
      * Number of images (determined manually)
@@ -37,8 +37,8 @@ public class BGBank
         for (int i = 1; i <= BG_COUNT; i++)
         {
             String imgPath = "res/backgrounds/bg" + i + ".png";
-            Image bg = new Image(imgPath);
-            bg = MainGame.adjustImage(bg);
+            BigImage bg = new BigImage(imgPath);
+            bg = (BigImage) MainGame.adjustImage(bg);
             backgrounds.add(bg);
         }
 
@@ -48,7 +48,7 @@ public class BGBank
      * Get a random background image
      * @return Background image
      */
-    public Image getRandomBG() throws SlickException
+    public BigImage getRandomBG() throws SlickException
     {
         // Get random int within range
         Random rng = new Random();
