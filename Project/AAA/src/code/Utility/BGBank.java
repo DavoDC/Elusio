@@ -1,6 +1,6 @@
 package code.Utility;
 
-import code.GameStates.Main.MainGame;
+import code.MainGame;
 import java.util.ArrayList;
 import java.util.Random;
 import org.newdawn.slick.BigImage;

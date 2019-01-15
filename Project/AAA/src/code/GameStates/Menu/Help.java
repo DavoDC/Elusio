@@ -2,6 +2,7 @@ package code.GameStates.Menu;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -20,7 +21,7 @@ public class Help extends BasicGameState
      * @return state ID
      */
     @Override
-    public int getID() { return 4; }
+    public int getID() { return code.MainGame.HELP; }
 
     
      /**
@@ -49,10 +50,19 @@ public class Help extends BasicGameState
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException 
     {
-       //tbc
+       Boolean mouseClicked = gc.getInput().isMouseButtonDown(Input.MOUSE_MIDDLE_BUTTON);
+       
+       if (mouseClicked)
+       {
+       game.enterState(code.MainGame.MAIN_MENU);
+       }
     }
     
-        /**
+    
+    
+    
+    
+    /**
      * This method should be used to draw to the screen. 
      * All of your game's rendering should take place in this method (or via calls)
      * It is called constantly. Items are constantly redrawn
@@ -64,7 +74,7 @@ public class Help extends BasicGameState
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException 
     {
-        g.drawString("SETTINGS", 400, 300);
+        g.drawString("HELP", 400, 300);
     }
 
     

@@ -22,8 +22,8 @@ import org.newdawn.slick.tiled.TiledMap;
 public class Play extends BasicGameState
 {
     //Screen dimensions
-    private final int screenW = code.GameStates.Main.MainGame.screenW;
-    private final int screenH = code.GameStates.Main.MainGame.screenH;
+    private final int screenW = code.MainGame.screenW;
+    private final int screenH = code.MainGame.screenH;
     
     //Map
     private TiledMap map;
@@ -42,7 +42,7 @@ public class Play extends BasicGameState
      * @return id
      */
     @Override
-    public int getID() { return 5; }
+    public int getID() { return code.MainGame.PLAY; }
 
     
      /**
@@ -179,13 +179,19 @@ public class Play extends BasicGameState
                  playerAnim.stop();
             }
          
+         
+         // Pause key
+         if (input.isKeyDown(Input.KEY_ESCAPE))
+         {
+             game.enterState(code.MainGame.PAUSE);
+         }
         
         
          // Handle setting keys
          if (input.isKeyDown(Input.KEY_F) && input.isKeyDown(Input.KEY_LCONTROL))
          {
-             boolean newStatus = !code.GameStates.Main.MainGame.agc.isFullscreen();
-             code.GameStates.Main.MainGame.agc.setFullscreen(newStatus);
+             boolean newStatus = !code.MainGame.agc.isFullscreen();
+             code.MainGame.agc.setFullscreen(newStatus);
          }
          
          // Update camera

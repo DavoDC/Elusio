@@ -9,7 +9,7 @@ package code.GameStates.Minigame;
  */
 
 
-import code.GameStates.Main.MainGame;
+import code.MainGame;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;

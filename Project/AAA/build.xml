@@ -71,13 +71,13 @@
 
     -->
     
-    <target name="package-for-store" depends="jar">
+      <target name="package-for-store" depends="jar">
 
         <!-- Change the value of this property to be the name of your JAR,
              minus the .jar extension. It should not have spaces.
              <property name="store.jar.name" value="MyJarName"/>
         -->
-        <property name="store.jar.name" value="AAA"/>
+        <property name="store.jar.name" value="AAAjar"/>
 
 
         <!-- don't edit below this line -->

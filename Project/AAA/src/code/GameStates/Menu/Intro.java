@@ -36,7 +36,7 @@ public class Intro extends BasicGameState
      * Used to switch to state
      */
     @Override
-    public int getID() { return 2; }
+    public int getID() { return code.MainGame.INTRO; }
 
     
      /**
@@ -48,7 +48,7 @@ public class Intro extends BasicGameState
     public void init(GameContainer container, StateBasedGame game) throws SlickException 
     {
        introLogo = new Image("res/misc/intro.png");
-       introLogo = code.GameStates.Main.MainGame.adjustImage(introLogo);
+       introLogo = code.MainGame.adjustImage(introLogo);
        introTime = 3669;
        elapsedTime = 0;
        leave = new FadeOutTransition();
@@ -73,10 +73,13 @@ public class Intro extends BasicGameState
        
        // Check conditions
        Boolean timeGone = elapsedTime > introTime;
-       Boolean rightClicked = gc.getInput().isMousePressed(Input.MOUSE_RIGHT_BUTTON);
+       Boolean rightClicked = gc.getInput().isKeyDown(Input.KEY_S);
        
        // Enter menu if a condition is satisfied
-       if (timeGone || rightClicked) { game.enterState(2, leave , enter); }
+       if (timeGone || rightClicked) 
+       { 
+           game.enterState(code.MainGame.MAIN_MENU, leave , enter); 
+       }
 
     }
    

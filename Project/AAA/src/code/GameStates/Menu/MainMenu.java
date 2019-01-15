@@ -2,6 +2,7 @@ package code.GameStates.Menu;
 
 import code.Utility.BGBank;
 import code.Utility.ButtonManager;
+import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -40,7 +41,7 @@ public class MainMenu extends BasicGameState
      * @return stateID
      */
     @Override
-    public int getID() { return 3; }
+    public int getID() { return code.MainGame.MAIN_MENU; }
 
     
     
@@ -61,9 +62,8 @@ public class MainMenu extends BasicGameState
        // Initialise button manager
        buttonMan = new ButtonManager();
        
-       // Create specifications for buttons
+       // Create parameters for buttons
        float[] parameters = {
-           5, //number of buttons
            300, // start X pos
            200, // start Y pos
            350, // Width
@@ -73,15 +73,19 @@ public class MainMenu extends BasicGameState
            1 //colNo
            };
        
-       // Use specs to create buttons
-       buttonMan.createButtonGrid(parameters);
+       // Creates labels for buttons
+       ArrayList<String> tempLabels = new ArrayList<>();
+       tempLabels.add("PLAY");
+       tempLabels.add("HELP");
+       tempLabels.add("SETTINGS");
+       tempLabels.add("CREDITS");
+       tempLabels.add("ABOUT");
+       tempLabels.add("EXIT");
        
-       // Add labels for buttons
-       buttonMan.addButtonLabel("PLAY");
-       buttonMan.addButtonLabel("HOW TO PLAY");
-       buttonMan.addButtonLabel("CREDITS");
-       buttonMan.addButtonLabel("ABOUT");
-       buttonMan.addButtonLabel("EXIT");
+       // Use info to create buttons
+       buttonMan.createButtonGrid(parameters, tempLabels);
+       
+       
                
        // Initialise cursor follower
        cursorCircle = new Circle(0, 0, 10);
@@ -119,16 +123,18 @@ public class MainMenu extends BasicGameState
        // Conditions/Events
        boolean mouseClicked = input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON);
        
-       // Check buttons 
-       int indexOfClicked = 0;
-       for (int i = 0; i < buttonMan.getButtoNo(); i++)
+       // Find the index of the clicked button
+       // Then, convert the button into its label
+       String labelClicked = "";
+       for (int i = 0; i < buttonMan.getButtonNo(); i++)
        {
            if (buttonMan.isTouching(i, cursorCircle))
                    {
-                       indexOfClicked = i;
+                       labelClicked = buttonMan.getLabel(i);
                        break;
                    }
        }
+       
       
        // Make transitions available
        Transition leaveF = new FadeOutTransition();
@@ -139,26 +145,30 @@ public class MainMenu extends BasicGameState
        // Check conditions
        if (mouseClicked)
        {
-           switch(indexOfClicked)
+           switch(labelClicked)
            {
-               // Clicked play
-               case 0: game.enterState(3, leaveC, enterC);
+               // Clicked first button = play
+               case "PLAY" : game.enterState(code.MainGame.PLAY, leaveC, enterC);
                break;
                
                // Clicked on how to play
-               case 1: game.enterState(1, leaveC, enterC);  //TEMPORARY
+               case "HELP" : game.enterState(code.MainGame.HELP, leaveC, enterC);  
                break;
                
                // Clicked on credits
-               case 2: game.enterState(5, leaveC, enterC);  //TEMPORARY
+               case "CREDITS" : game.enterState(code.MainGame.CREDITS, leaveC, enterC); 
+               break;
+               
+               // Clicked on settings
+               case "SETTINGS" : game.enterState(code.MainGame.SETTINGS, leaveC, enterC); 
                break;
                
                // Clicked on about
-               case 3: game.enterState(1, leaveC, enterC);  //TEMPORARY
+               case "ABOUT" : game.enterState(code.MainGame.ABOUT, leaveC, enterC);  
                break;
                
                // Click on exit
-               case 4: System.exit(0);
+               case "EXIT" : System.exit(0);
                break;
        }
        

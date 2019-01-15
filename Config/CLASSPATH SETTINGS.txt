@@ -1,0 +1,10 @@
+Must have .jars and .dlls !
+
+
+l4j = 
+
+Basic 
+-> changedir = ./<name of folder next to .exe>
+
+Classpath =
+*.*

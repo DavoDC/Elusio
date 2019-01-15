@@ -2,6 +2,7 @@ package code.GameStates.Menu;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -20,7 +21,7 @@ public class Pause extends BasicGameState
      * @return state ID
      */
     @Override
-    public int getID() { return 4; }
+    public int getID() { return code.MainGame.PAUSE; }
 
     
      /**
@@ -49,7 +50,13 @@ public class Pause extends BasicGameState
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException 
     {
-       //tbc
+       Input input = gc.getInput();
+        
+       // B = return to game
+       if (input.isKeyDown(Input.KEY_B))
+         {
+             game.enterState(code.MainGame.PLAY);
+         }
     }
     
         /**

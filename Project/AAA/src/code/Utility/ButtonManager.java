@@ -16,6 +16,15 @@ import org.newdawn.slick.util.ResourceLoader;
 /**
  * Helps create buttons
  * 
+ * Use in "init":
+ * 1. Create button manager
+ * 2. Create parameters Array
+ * 3. Create labels ArrayList
+ * 4. Input both into "CreateButtonGrid"
+ * 
+ * Use in render:
+ * - Call drawButtonGrid
+ * 
  * @author David
  */
 public class ButtonManager 
@@ -66,13 +75,23 @@ public class ButtonManager
     }
     
     /**
-     * Add button label
-     * @param newLabel
+     * Get number of buttons
+     * @return 
      */
-    public void addButtonLabel(String newLabel)
+    public int getButtonNo()
     {
-        labels.add(newLabel);
+        return rectangles.size();
     }
+    
+     /**
+     * Get a label
+     * @return 
+     */
+    public String getLabel(int index)
+    {
+        return labels.get(index);
+    }
+    
     
     /**
      * Check if a button is touching another shape
@@ -87,41 +106,36 @@ public class ButtonManager
         return shape.intersects(comp);
     }
     
-    /**
-     * Get number of buttons
-     * @return 
-     */
-    public int getButtoNo()
-    {
-        return rectangles.size();
-    }
+
   
      /**
      * Populates the ButtonManager with buttons/rectangles
      * 
      * @param numbers 
      * There are 8 parameters required:
-     * buttonNo, startXpos, startYpos, width, height, Xspace, Yspace, colNo
+     * startXpos, startYpos, width, height, Xspace, Yspace, colNo
      * 
      */
-    public void createButtonGrid(float[] numbers)
+    public void createButtonGrid(float[] numbers, ArrayList<String> labels)
     {
+        // Save labels into field for drawing
+        this.labels = labels;
+        
         // Extract required information
-        float buttonNo = numbers[0];
-        float xpos = numbers[1];
-        float ypos = numbers[2];
-        float bW = numbers[3];
-        float bH = numbers[4];
-        float xspacing = numbers[5];
-        float yspacing = numbers[6];
-        float columns = numbers[7];
+        float xpos = numbers[0];
+        float ypos = numbers[1];
+        float bW = numbers[2];
+        float bH = numbers[3];
+        float xspacing = numbers[4];
+        float yspacing = numbers[5];
+        float columns = numbers[6];
 
         float curxpos = xpos;
         float curypos = ypos;
 
         // Add button rectangles and modify them
         int counter = 0;
-        for (int i = 0; i < buttonNo; i++)
+        for (int i = 0; i < labels.size(); i++)
         {
             // Add new BRect
             rectangles.add(new Rectangle(curxpos, curypos, bW, bH));
