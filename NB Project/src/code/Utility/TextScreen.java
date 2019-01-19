@@ -1,12 +1,13 @@
 package code.Utility;
 
 
+import code.Globals;
 import java.util.ArrayList;
-import org.newdawn.slick.BigImage;
 import org.newdawn.slick.Color;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
@@ -25,8 +26,7 @@ public class TextScreen extends BasicGameState
     private ArrayList<String> text;
     
     // Background
-    private BGBank bgb;
-    private BigImage bg;
+    private Image bg;
     
     
     /**
@@ -52,8 +52,8 @@ public class TextScreen extends BasicGameState
        // Initialise objects
        textscreen = new TextScreenHelper();
        text = new ArrayList<>();
-       bgb = new BGBank();
-       bg = bgb.getRandomBG();
+       
+       bg = (new BGBank()).getRandomBG();
        
        // Add text to Info Writer
        textscreen.addText(getTextList());
@@ -77,7 +77,7 @@ public class TextScreen extends BasicGameState
        
        if (mouseClicked)
        {
-       game.enterState(code.MainGame.MAIN_MENU);
+       game.enterState(Globals.MAIN_MENU);
        }
        
     }
@@ -100,6 +100,9 @@ public class TextScreen extends BasicGameState
         // Draw text on top
         textscreen.writeParagraph(g);
     }
+    
+    
+    
 
     public ArrayList<String> getTextList()
     {

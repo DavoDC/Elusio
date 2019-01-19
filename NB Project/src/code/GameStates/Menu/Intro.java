@@ -1,12 +1,13 @@
 package code.GameStates.Menu;
 
-
+import code.Globals;
+import code.Utility.FontBank;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -22,10 +23,10 @@ public class Intro extends BasicGameState
     // Background
     private Image introLogo;
     
-    // Time fields
-    private int introTime = 36; //TEMPORAY , actual = 3669
-    private int elapsedTime = 0;
-    
+    // Font
+    private FontBank fb;  //must be here otherwise logo wont show
+    private TrueTypeFont font;
+
     // Transitions
     private Transition leave;
     private Transition enter;
@@ -36,7 +37,7 @@ public class Intro extends BasicGameState
      * Used to switch to state
      */
     @Override
-    public int getID() { return code.MainGame.INTRO; }
+    public int getID() { return Globals.INTRO; }
 
     
      /**
@@ -47,10 +48,15 @@ public class Intro extends BasicGameState
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException 
     {
+       // Initialise and adjust bg
        introLogo = new Image("res/misc/intro.png");
-       introLogo = code.MainGame.adjustImage(introLogo);
-       introTime = 3669;
-       elapsedTime = 0;
+       introLogo = introLogo.getScaledCopy(Globals.screenW, Globals.screenH);
+       
+       // Initialise font
+       fb = new FontBank();
+       font = fb.getGameFont();
+       
+       // Initialise transitions
        leave = new FadeOutTransition();
        enter = new FadeInTransition();
     }
@@ -66,21 +72,24 @@ public class Intro extends BasicGameState
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException 
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException 
     {
-       // Update time elapsed
-       elapsedTime += delta;
-       
-       // Check conditions
-       Boolean timeGone = elapsedTime > introTime;
-       Boolean rightClicked = gc.getInput().isKeyDown(Input.KEY_S);
-       
-       // Enter menu if a condition is satisfied
-       if (timeGone || rightClicked) 
-       { 
-           game.enterState(code.MainGame.MAIN_MENU, leave , enter); 
-       }
+       // Add all states
+       sbg.addState(new About());
+       sbg.addState(new Controls());
+       sbg.addState(new Credits());
+       sbg.addState(new GameOver());
+       // Skip intro because already added
+       sbg.addState(new MainMenu());
+       sbg.addState(new Pause());
+       sbg.addState(new Play());
+       sbg.addState(new Settings());
 
+       // Initialise resources
+       sbg.init(gc);
+
+       // Enter main menu
+       sbg.enterState(Globals.MAIN_MENU, leave , enter); 
     }
    
     /**
@@ -96,6 +105,11 @@ public class Intro extends BasicGameState
     {
         // Draw intro/logo background
         g.drawImage(introLogo, 0, 0);
+        
+        // Write "loading"
+        int Xpos = (Globals.screenW/2)-150;
+        int Ypos = Globals.screenH - 100;
+        font.drawString(Xpos, Ypos, "LOADING");
     }
 
     

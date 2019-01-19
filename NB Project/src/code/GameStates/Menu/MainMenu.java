@@ -1,9 +1,11 @@
 package code.GameStates.Menu;
 
+import code.Globals;
 import code.Utility.BGBank;
 import code.Utility.ButtonManager;
 import java.util.ArrayList;
 
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,10 +15,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.CombinedTransition;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
-import org.newdawn.slick.state.transition.Transition;
+import org.newdawn.slick.state.transition.*;
 
 /**
  *
@@ -25,7 +24,7 @@ import org.newdawn.slick.state.transition.Transition;
 public class MainMenu extends BasicGameState
 {
     // Background image
-    private Image menuBg;
+    private BigImage menuBG;
     
     // Cursor components
     private Circle cursorCircle;
@@ -41,7 +40,7 @@ public class MainMenu extends BasicGameState
      * @return stateID
      */
     @Override
-    public int getID() { return code.MainGame.MAIN_MENU; }
+    public int getID() { return Globals.MAIN_MENU; }
 
     
     
@@ -57,7 +56,7 @@ public class MainMenu extends BasicGameState
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
        
        // Get random menu background and adjust
-       menuBg = (new BGBank()).getRandomBG();
+       menuBG = (new BGBank()).getRandomBG();
        
        // Initialise button manager
        buttonMan = new ButtonManager("gamefont");
@@ -74,18 +73,16 @@ public class MainMenu extends BasicGameState
            };
        
        // Creates labels for buttons
-       ArrayList<String> tempLabels = new ArrayList<>();
-       tempLabels.add("PLAY");
-       tempLabels.add("CONTROLS");
-       tempLabels.add("SETTINGS");
-       tempLabels.add("CREDITS");
-       tempLabels.add("ABOUT");
-       tempLabels.add("EXIT");
+       ArrayList<String> buttonLabels = new ArrayList<>();
+       buttonLabels.add("PLAY");
+       buttonLabels.add("CONTROLS");
+       buttonLabels.add("SETTINGS");
+       buttonLabels.add("CREDITS");
+       buttonLabels.add("ABOUT");
+       buttonLabels.add("EXIT");
        
        // Use info to create buttons
-       buttonMan.createButtonGrid(parameters, tempLabels);
-       
-       
+       buttonMan.createButtonGrid(parameters, buttonLabels);
                
        // Initialise cursor follower
        cursorCircle = new Circle(0, 0, 10);
@@ -99,7 +96,6 @@ public class MainMenu extends BasicGameState
     }
     
    
-    
     
     /**
      * The method is called each game loop to cause your game to update it's logic. 
@@ -138,23 +134,23 @@ public class MainMenu extends BasicGameState
            switch(labelClicked)
            {
                // Clicked first button = play
-               case "PLAY" : game.enterState(code.MainGame.PLAY, leaveC, enterC);
+               case "PLAY" : game.enterState(Globals.PLAY, leaveC, enterC);
                break;
                
                // Clicked on controls
-               case "CONTROLS" : game.enterState(code.MainGame.CONTROLS, leaveC, enterC);  
+               case "CONTROLS" : game.enterState(Globals.CONTROLS, leaveC, enterC);  
                break;
                
                // Clicked on credits
-               case "CREDITS" : game.enterState(code.MainGame.CREDITS, leaveC, enterC); 
+               case "CREDITS" : game.enterState(Globals.CREDITS, leaveC, enterC); 
                break;
                
                // Clicked on settings
-               case "SETTINGS" : game.enterState(code.MainGame.SETTINGS, leaveC, enterC); 
+               case "SETTINGS" : game.enterState(Globals.SETTINGS, leaveC, enterC); 
                break;
                
                // Clicked on about
-               case "ABOUT" : game.enterState(code.MainGame.ABOUT, leaveC, enterC);  
+               case "ABOUT" : game.enterState(Globals.ABOUT, leaveC, enterC);  
                break;
                
                // Click on exit
@@ -181,10 +177,10 @@ public class MainMenu extends BasicGameState
     {
         
         // Draw background
-        g.drawImage(menuBg, 0, 0);
+        g.drawImage(menuBG, 0, 0);
         
         // Draw buttons
-        buttonMan.drawButtonGrid(g, Color.black, Color.yellow);
+        buttonMan.drawButtonGrid(g, Color.black);
         
     }
   

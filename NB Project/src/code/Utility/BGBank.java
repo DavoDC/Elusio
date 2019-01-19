@@ -1,8 +1,10 @@
 package code.Utility;
 
-import code.MainGame;
+import code.Globals;
+
 import java.util.ArrayList;
 import java.util.Random;
+
 import org.newdawn.slick.BigImage;
 import org.newdawn.slick.SlickException;
 
@@ -38,7 +40,7 @@ public class BGBank
         {
             String imgPath = "res/backgrounds/bg" + i + ".png";
             BigImage bg = new BigImage(imgPath);
-            bg = (BigImage) MainGame.adjustImage(bg);
+            bg = (BigImage) bg.getScaledCopy(Globals.screenW, Globals.screenH);
             backgrounds.add(bg);
         }
 
@@ -62,3 +64,6 @@ public class BGBank
 }
 
 
+
+
+	

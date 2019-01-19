@@ -1,6 +1,7 @@
 package code.GameStates.Menu;
 
 
+import code.Globals;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -23,7 +24,7 @@ public class GameOver extends BasicGameState
      * Used to identify states
      * Used to switch to state
      */
-    public int getID() { return code.MainGame.GAME_OVER; }
+    public int getID() { return Globals.GAME_OVER; }
 
     @Override
      /**
@@ -50,7 +51,7 @@ public class GameOver extends BasicGameState
        
        if (mouseClicked)
        {
-       game.enterState(code.MainGame.MAIN_MENU);
+       game.enterState(Globals.MAIN_MENU);
        }
        
     }

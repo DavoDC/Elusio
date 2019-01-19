@@ -9,7 +9,6 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Circle;
 
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 
 
 /**
@@ -141,15 +140,13 @@ public class ButtonManager
    
     
     /**
-     * Draw buttons
+     * Draw buttons after CreateButtonGrid
      * Combines rectangles and strings to do so
-     * (Button labels need to added first)
      * 
      * @param g
-     * @param buttonCol
-     * @param textCol 
+     * @param buttonCol 
      */
-    public void drawButtonGrid(Graphics g, Color buttonCol, Color textCol)
+    public void drawButtonGrid(Graphics g, Color buttonCol)
     {
         for (int i = 0; i < labels.size(); i++)
         {
@@ -163,7 +160,6 @@ public class ButtonManager
             g.fill(curRect);
             
             // Draw text on top
-            g.setColor(textCol);
             float X = curRect.getX() + 10;
             float Y = curRect.getY() - 3;
             font.drawString(X, Y, curText); 

@@ -1,5 +1,6 @@
 package code.GameStates.Menu;
 
+import code.Globals;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -21,7 +22,7 @@ public class Settings extends BasicGameState
      * @return state ID
      */
     @Override
-    public int getID() { return code.MainGame.SETTINGS; }
+    public int getID() { return Globals.SETTINGS; }
 
     
      /**
@@ -54,8 +55,9 @@ public class Settings extends BasicGameState
        
        if (mouseClicked)
        {
-       game.enterState(code.MainGame.MAIN_MENU);
+       game.enterState(Globals.MAIN_MENU);
        }
+       
     }
     
         /**
