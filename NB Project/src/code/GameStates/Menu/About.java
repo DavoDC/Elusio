@@ -1,5 +1,6 @@
 package code.GameStates.Menu;
 
+import code.Globals;
 import code.Utility.TextScreen;
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ public class About extends TextScreen
      * Override ID
      */
     @Override
-    public int getID() { return code.MainGame.ABOUT; }
+    public int getID() { return Globals.ABOUT; }
 
 
     /**

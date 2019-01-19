@@ -1,10 +1,11 @@
 package code.GameStates.Menu;
 
+import code.Globals;
 import code.Utility.TextScreen;
 import java.util.ArrayList;
 
 /**
- * Shows who contributed to the game
+ * Displays info about those who contributed to the game
  * 
  * @author David
  */
@@ -15,7 +16,7 @@ public class Credits extends TextScreen
      * Override ID
      */
     @Override
-    public int getID() { return code.MainGame.CREDITS; }
+    public int getID() { return Globals.CREDITS; }
 
 
     /**

@@ -2,15 +2,12 @@ package code.GameStates.Menu;
 
 import code.Entity.Camera;
 import code.Entity.Player;
+import code.Globals;
 
-import java.util.ArrayList;
-
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
@@ -22,9 +19,6 @@ import org.newdawn.slick.tiled.TiledMap;
  */
 public class Play extends BasicGameState
 {
-    // Screen dimensions
-    private final int screenW = code.MainGame.screenW;
-    private final int screenH = code.MainGame.screenH;
     
     // Map objects
     private TiledMap map;
@@ -40,7 +34,7 @@ public class Play extends BasicGameState
      * @return id
      */
     @Override
-    public int getID() { return code.MainGame.PLAY; }
+    public int getID() { return Globals.PLAY; }
 
     
      /**
@@ -171,15 +165,15 @@ public class Play extends BasicGameState
          // Pause key
          if (input.isKeyDown(Input.KEY_ESCAPE))
          {
-             game.enterState(code.MainGame.PAUSE);
+             game.enterState(Globals.PAUSE);
          }
         
         
          // Handle setting keys
          if (input.isKeyDown(Input.KEY_F) && input.isKeyDown(Input.KEY_LCONTROL))
          {
-             boolean newStatus = !code.MainGame.agc.isFullscreen();
-             code.MainGame.agc.setFullscreen(newStatus);
+             boolean newStatus = !Globals.agc.isFullscreen();
+             Globals.agc.setFullscreen(newStatus);
          }
          
          // Update camera
@@ -200,8 +194,6 @@ public class Play extends BasicGameState
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
     {  
-        
-
         // Draw camera's view of map
         cam.drawMap();
         cam.translateGraphics();

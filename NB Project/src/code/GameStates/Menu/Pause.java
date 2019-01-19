@@ -1,5 +1,6 @@
 package code.GameStates.Menu;
 
+import code.Globals;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -21,7 +22,7 @@ public class Pause extends BasicGameState
      * @return state ID
      */
     @Override
-    public int getID() { return code.MainGame.PAUSE; }
+    public int getID() { return Globals.PAUSE; }
 
     
      /**
@@ -55,7 +56,7 @@ public class Pause extends BasicGameState
        // B = return to game
        if (input.isKeyDown(Input.KEY_B))
          {
-             game.enterState(code.MainGame.PLAY);
+             game.enterState(Globals.PLAY);
          }
     }
     

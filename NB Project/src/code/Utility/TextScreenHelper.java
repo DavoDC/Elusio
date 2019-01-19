@@ -1,6 +1,7 @@
 
 package code.Utility;
 
+import code.Globals;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
@@ -46,7 +47,7 @@ public class TextScreenHelper
         paragraph = new ArrayList<>();
         
         // Get needed info
-        int screenW = code.MainGame.screenW;
+        int screenW = Globals.screenW;
         float startX = screenW/4 - 200;
 
         // Initialise header parameters
@@ -85,10 +86,10 @@ public class TextScreenHelper
     public void writeParagraph(Graphics g)
     {
       // Draw header
-      headerMan.drawButtonGrid(g, Color.transparent, Color.black);
+      headerMan.drawButtonGrid(g, Color.transparent);
       
       // Draw paragraphs
-      paraMan.drawButtonGrid(g, Color.transparent, Color.black);
+      paraMan.drawButtonGrid(g, Color.transparent);
         
     }
     
