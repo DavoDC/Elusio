@@ -4,7 +4,7 @@ import code.Utility.TextScreen;
 import java.util.ArrayList;
 
 /**
- *
+ * Displays the game's controls
  * @author David
  */
 public class Controls extends TextScreen
