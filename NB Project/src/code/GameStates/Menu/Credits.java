@@ -4,7 +4,8 @@ import code.Utility.TextScreen;
 import java.util.ArrayList;
 
 /**
- *
+ * Shows who contributed to the game
+ * 
  * @author David
  */
 public class Credits extends TextScreen
