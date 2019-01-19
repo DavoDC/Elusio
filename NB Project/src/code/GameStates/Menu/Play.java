@@ -1,6 +1,7 @@
 package code.GameStates.Menu;
 
 import code.Entity.Camera;
+import code.Entity.Player;
 
 import java.util.ArrayList;
 
@@ -21,21 +22,18 @@ import org.newdawn.slick.tiled.TiledMap;
  */
 public class Play extends BasicGameState
 {
-    //Screen dimensions
+    // Screen dimensions
     private final int screenW = code.MainGame.screenW;
     private final int screenH = code.MainGame.screenH;
     
-    //Map
+    // Map objects
     private TiledMap map;
     private Camera cam;
     
-    // Player fields
-    private SpriteSheet playerSS;
-    private Animation playerAnim;
-    private int playerAnimSpeed;     
+    // Player
+    private Player alien;
     private int playerX;
     private int playerY;
-    private float movementSpeed; 
             
     /**
      * Used to identify states and switch to them
@@ -59,15 +57,9 @@ public class Play extends BasicGameState
       map = new TiledMap("res/map/map.tmx");
       cam = new Camera(container, map);
       
-      playerSS = new SpriteSheet("res/sprites/player/walking.png", 33, 48);
-      playerAnimSpeed = 500;
-      playerAnim = new Animation(playerSS, playerAnimSpeed);
-
-      playerX = 60;
-      playerY = 60;
-       
-      movementSpeed = 0.25f;
-      
+      alien = new Player();
+      playerX = alien.getStartX();
+      playerY = alien.getStartY();
     }
 
     
@@ -84,10 +76,10 @@ public class Play extends BasicGameState
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
 
         //Make animation use game time
-        playerAnim.update(delta);
+        alien.updateAnimation(delta);
         
         //Relative speed
-        float relSpeed = delta * movementSpeed;
+        float relSpeed = delta * alien.getMovSpeed();
         
         //Get input
         Input input = gc.getInput();
@@ -95,9 +87,8 @@ public class Play extends BasicGameState
         // Handle input
         if(input.isKeyDown(Input.KEY_UP)) //Up arrow
             {
-              // Start and adjust animation
-              playerAnim.start();
-              configureFrames(playerAnim, "n9n10n11" ); //Backside
+              // Change animation
+              alien.startAnim("up");
 
               // Check for blocked tiles
               //boolean cond1 = coll.canPass(playerX + 63, playerY - relSpeed);
@@ -115,9 +106,8 @@ public class Play extends BasicGameState
             } 
         else if(input.isKeyDown(Input.KEY_DOWN)) //Down arrow
             {
-              // Animate with front of head showing
-              playerAnim.start();
-              configureFrames(playerAnim, "n0n1n2" ); //Front face
+              // Change animation
+              alien.startAnim("down");
 
               // Check for blocked tiles
              // boolean cond1 = coll.canPass(playerX + 63, playerY + 64 + relSpeed);
@@ -136,9 +126,8 @@ public class Play extends BasicGameState
             }
         else if(input.isKeyDown(Input.KEY_LEFT)) //Left arrow
             {
-              // Start and adjust animation
-              playerAnim.start();
-              configureFrames(playerAnim, "n3n4n5" ); //Left side
+              // Change animation
+              alien.startAnim("left");
               
               // Check for blocked tiles
               //boolean cond1 = coll.canPass(playerX - relSpeed, playerY + 1);
@@ -156,9 +145,8 @@ public class Play extends BasicGameState
             }
         else if (input.isKeyDown(Input.KEY_RIGHT)) //Right arrow
             {
-              // Start and adjust animation
-              playerAnim.start();
-              configureFrames(playerAnim, "n6n7n8" ); //Front
+              // Change animation
+              alien.startAnim("right");
               
               // Check for blocked tiles
              // boolean cond1 = coll.canPass(playerX + 50 + relSpeed, playerY + 63);
@@ -176,7 +164,7 @@ public class Play extends BasicGameState
             }
         else // No arrows down
             {
-                 playerAnim.stop();
+               alien.stopAnim();
             }
          
          
@@ -212,23 +200,23 @@ public class Play extends BasicGameState
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
     {  
-        //Top left info
-        int infoX = playerX - 100;
-        int infoY = playerY - 100;
-        long freeMem = Runtime.getRuntime().freeMemory();
-        long totalMem = Runtime.getRuntime().totalMemory();
-        long memoryUsed = (totalMem-freeMem)/1000000;
-        g.drawString("Memory Usage: " + memoryUsed + " MB", infoX, infoY);
-        g.drawString("px: " + playerX + "  , py: " + playerY, infoX, infoY + 20);
+        
 
         // Draw camera's view of map
         cam.drawMap();
         cam.translateGraphics();
           
         // Draw player
-        int playerW = (int) ((playerSS.getWidth()/3)*1.5);
-        int playerH = (int) ((playerSS.getHeight()/4)*1.5);
-        playerAnim.draw((int) playerX, (int) playerY, playerW, playerH);
+        alien.drawPlayer(playerX, playerY);
+        
+        //Top left info
+        int infoX = playerX - 50;
+        int infoY = playerY - 50;
+        long freeMem = Runtime.getRuntime().freeMemory();
+        long totalMem = Runtime.getRuntime().totalMemory();
+        long memoryUsed = (totalMem-freeMem)/1000000;
+        g.drawString("Memory Usage: " + memoryUsed + " MB", infoX, infoY);
+        g.drawString("px: " + playerX + "  , py: " + playerY, infoX, infoY + 20);
 
         
     }
@@ -238,42 +226,7 @@ public class Play extends BasicGameState
     
     
 
-   /**
-    * Adjusts an animation to only use the referenced frames
-    * Frame numbers must start with "n"
-    * @param anim
-    * @param configS 
-    */
-   public void configureFrames(Animation anim, String configS)
-   {
-    // Get frame count 
-    int frameCount = anim.getFrameCount();
-    
-    //Turn string into ArrayList
-    ArrayList<Integer> config = new ArrayList<>();
-    for(String curNo : configS.split("n"))
-    {
-        if (curNo.length() != 0) { config.add(Integer.parseInt(curNo)); }
-    }
-    
-    
-    // Process config
-    for(int i = 0; i < frameCount; i++)
-    {
-        
-        //If inputted, activate frame
-        if (config.contains(i))
-        {
-            anim.setDuration(i, playerAnimSpeed);
-            
-            
-        }
-        else  //If not, deactivate
-        {
-            anim.setDuration(i, 0);
-        } 
-    }  
-   }
+   
    
    
    

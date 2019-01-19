@@ -1,6 +1,7 @@
 package code;
 
 import code.GameStates.Menu.*;
+import java.io.File;
 
 
 import org.newdawn.slick.AppGameContainer;
@@ -28,9 +29,9 @@ public class MainGame extends StateBasedGame
     
     // StateIDs = Core
     public static final int ABOUT = 1;
-    public static final int CREDITS = 2;
-    public static final int GAME_OVER = 3;
-    public static final int HELP = 4;
+    public static final int CONTROLS = 2;
+    public static final int CREDITS = 3;
+    public static final int GAME_OVER = 4;
     public static final int INTRO = 5;
     public static final int MAIN_MENU = 6;
     public static final int PAUSE = 7;
@@ -49,21 +50,20 @@ public class MainGame extends StateBasedGame
      * @throws Exception 
      */
     public static void main(String[] args) throws Exception 
-    {
-        
-         // Create AGC
-         MainGame mg = new MainGame("Alien Aztec Adventure");
-         agc = new AppGameContainer(mg);
+    {     
+        // Create AGC
+        MainGame mg = new MainGame("Alien Aztec Adventure");
+        agc = new AppGameContainer(mg);
           
-         // Adjust AGC
-         screenH = agc.getScreenHeight();
-         screenW = agc.getScreenWidth();
-         agc.setDisplayMode(screenW, screenH, true);
-         agc.setAlwaysRender(true);
-         agc.setShowFPS(true);
+        // Adjust AGC
+        screenH = agc.getScreenHeight();
+        screenW = agc.getScreenWidth();
+        agc.setDisplayMode(screenW, screenH, true);
+        agc.setAlwaysRender(true);
+        agc.setShowFPS(true);
          
-         // Start AGC
-         agc.start();
+        // Start AGC
+        agc.start();
          
     }
 
@@ -93,7 +93,7 @@ public class MainGame extends StateBasedGame
         this.addState(new About());
         this.addState(new Credits());
         this.addState(new GameOver()); 
-        this.addState(new Help());
+        this.addState(new Controls());
         this.addState(new MainMenu());
         this.addState(new Pause());
         this.addState(new Play());

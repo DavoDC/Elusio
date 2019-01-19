@@ -1,17 +1,16 @@
 
 package code.Utility;
 
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.io.IOException;
-import java.io.InputStream;
+
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.geom.Circle;
+
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.util.ResourceLoader;
+
 
 /**
  * Helps create buttons
@@ -35,49 +34,38 @@ public class ButtonManager
     // Holds text of buttons
     private ArrayList<String> labels;
     
-    // The font used to write on the buttons
-    private TrueTypeFont gamefont;
-    
+    // Font
+    private FontBank fontbank;
+    private TrueTypeFont font;
             
     /**
      * Constructor
      */
-    public ButtonManager() 
+    public ButtonManager(String fontS) 
     {
            // Initialise lists
            rectangles = new ArrayList<>();
            labels = new ArrayList<>();
            
            // Load font
-           try 
+           fontbank = new FontBank();
+           
+           if (fontS.contains("game"))
            {
-               Font awtFont = new Font("Times New Roman", Font.BOLD, 50);
-               TrueTypeFont font = new TrueTypeFont(awtFont, false);
-               InputStream inputStream = ResourceLoader.getResourceAsStream("res/misc/3dventure.ttf");
-               Font awtFont2 = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-               awtFont2 = awtFont2.deriveFont(50f);
-               gamefont = new TrueTypeFont(awtFont2, false);
+               font = fontbank.getGameFont();
            }
-           catch (FontFormatException | IOException e)
+           else if (fontS.contains("med"))
            {
+               font = fontbank.getMediumFont();
            }
+           else if (fontS.contains("small"))
+           {
+               font = fontbank.getSmallFont();
+           }
+
     }
      
     
-    
-    /**
-     * Get game font
-     * @return gamefont
-     */
-    public TrueTypeFont getGamefont()
-    {
-        return gamefont;
-    }
-    
-    public void changeFont(TrueTypeFont smallFont) 
-    {
-        gamefont = smallFont;
-    }
     
     /**
      * Get number of buttons
@@ -87,28 +75,21 @@ public class ButtonManager
     {
         return rectangles.size();
     }
-    
-     /**
-     * Get a label
-     * @return 
-     */
-    public String getLabel(int index)
+
+    public String getLabelClicked(Circle cursor)
     {
-        return labels.get(index);
-    }
-    
-    
-    /**
-     * Check if a button is touching another shape
-     * Uses button index to find button
-     * @param buttonIndex 
-     * @param shape
-     * @return True if shape
-     */
-    public boolean isTouching(int buttonIndex, Shape shape)
-    {
-        Rectangle comp = rectangles.get(buttonIndex);
-        return shape.intersects(comp);
+        String label = "";
+        for (int i = 0; i < labels.size(); i++)
+        {
+           Rectangle curButton = rectangles.get(i);
+           Boolean touching = cursor.intersects(curButton);
+
+           if (touching)
+                   {
+                       label =  labels.get(i);
+                   }
+        }
+        return label;
     }
     
 
@@ -185,7 +166,7 @@ public class ButtonManager
             g.setColor(textCol);
             float X = curRect.getX() + 10;
             float Y = curRect.getY() - 3;
-            gamefont.drawString(X, Y, curText); 
+            font.drawString(X, Y, curText); 
             
         }
     }

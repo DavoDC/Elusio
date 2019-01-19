@@ -1,7 +1,9 @@
-package code.GameStates.Menu;
+package code.Utility;
 
-import code.Utility.InfoWriter;
+
 import java.util.ArrayList;
+import org.newdawn.slick.BigImage;
+import org.newdawn.slick.Color;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,13 +16,17 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author David
  */
-public class Credits extends BasicGameState
+public class TextScreen extends BasicGameState
 {
-    // InfoWriter to help with drawing text
-    private InfoWriter infoW;
+    // Helps to display text
+    private TextScreenHelper textscreen;
     
     // Stores text
     private ArrayList<String> text;
+    
+    // Background
+    private BGBank bgb;
+    private BigImage bg;
     
     
     /**
@@ -29,7 +35,7 @@ public class Credits extends BasicGameState
      * @return state ID
      */
     @Override
-    public int getID() { return code.MainGame.CREDITS; }
+    public int getID() { return -1; }
 
     
      /**
@@ -43,31 +49,14 @@ public class Credits extends BasicGameState
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException 
     {
-       // Initialise ALs
-       infoW = new InfoWriter();
+       // Initialise objects
+       textscreen = new TextScreenHelper();
        text = new ArrayList<>();
-       
-       // Add to text
-       text.add("CREDITS");
-       text.add("Programmer = David Charkey");
-       text.add("Designer = David Charkey");
-       text.add("Testers = David Charkey");
-       text.add("Artists");
-       text.add("David Charkey (Intro Background) \n" +
-                "Rawdanitsu (Menu Backgrounds)\n" +
-                "hiddenone (Alien sprites)\n" +
-                "Kadokawa (Alien sprites)\n" +
-                "Ivan Voirol (Tileset)\n" +
-                "Aweryn (Tileset)\n" +
-                "MillionthVector (Alien ship sprite)\n" +
-                "Clint Bellanger (Gold Item Sprites)\n" +
-                "Aaron D. Chand (Special pixelated font)\n" +
-                "Tuomo Untinen (Sailing Ship Sprites)");
-       text.add("    ");
-       text.add("PRESS MIDDLE MOUSE BUTTON TO GO BACK");
+       bgb = new BGBank();
+       bg = bgb.getRandomBG();
        
        // Add text to Info Writer
-       infoW.addText(text);
+       textscreen.addText(getTextList());
 
        
     }
@@ -105,9 +94,20 @@ public class Credits extends BasicGameState
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException 
     {
-        infoW.writeParagraph(g);
+        // Draw bg
+        bg.draw(0, 0, Color.darkGray);
+        
+        // Draw text on top
+        textscreen.writeParagraph(g);
     }
 
+    public ArrayList<String> getTextList()
+    {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("This is default method");
+        list.add("Override needs to occur!");
+        return list;
+    }
     
     
     

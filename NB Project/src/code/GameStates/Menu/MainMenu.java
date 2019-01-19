@@ -60,7 +60,7 @@ public class MainMenu extends BasicGameState
        menuBg = (new BGBank()).getRandomBG();
        
        // Initialise button manager
-       buttonMan = new ButtonManager();
+       buttonMan = new ButtonManager("gamefont");
        
        // Create parameters for buttons
        float[] parameters = {
@@ -76,7 +76,7 @@ public class MainMenu extends BasicGameState
        // Creates labels for buttons
        ArrayList<String> tempLabels = new ArrayList<>();
        tempLabels.add("PLAY");
-       tempLabels.add("HELP");
+       tempLabels.add("CONTROLS");
        tempLabels.add("SETTINGS");
        tempLabels.add("CREDITS");
        tempLabels.add("ABOUT");
@@ -123,18 +123,8 @@ public class MainMenu extends BasicGameState
        // Conditions/Events
        boolean mouseClicked = input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON);
        
-       // Find the index of the clicked button
-       // Then, convert the button into its label
-       String labelClicked = "";
-       for (int i = 0; i < buttonMan.getButtonNo(); i++)
-       {
-           if (buttonMan.isTouching(i, cursorCircle))
-                   {
-                       labelClicked = buttonMan.getLabel(i);
-                       break;
-                   }
-       }
-       
+       // Get label of clicked button
+       String labelClicked = buttonMan.getLabelClicked(cursorCircle);
       
        // Make transitions available
        Transition leaveF = new FadeOutTransition();
@@ -151,8 +141,8 @@ public class MainMenu extends BasicGameState
                case "PLAY" : game.enterState(code.MainGame.PLAY, leaveC, enterC);
                break;
                
-               // Clicked on how to play
-               case "HELP" : game.enterState(code.MainGame.HELP, leaveC, enterC);  
+               // Clicked on controls
+               case "CONTROLS" : game.enterState(code.MainGame.CONTROLS, leaveC, enterC);  
                break;
                
                // Clicked on credits
