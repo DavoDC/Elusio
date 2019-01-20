@@ -1,4 +1,5 @@
-Must have .jars and .dlls !
+Must have .jars AND .dlls !
+DLLs required!
 
 
 l4j = 
@@ -8,3 +9,8 @@ Basic
 
 Classpath =
 *.*
+
+
+Things to try:
+- Open JAR in classpath folder
+- Check "launch4j" log next to .exe

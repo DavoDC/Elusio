@@ -2,11 +2,11 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Project\AAA\dist\AAA.jar</jar>
+  <jar>C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\NB Project\dist\AAA.jar</jar>
   <outfile>C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
-  <chdir>./req</chdir>
+  <chdir>./required</chdir>
   <priority>normal</priority>
   <downloadUrl>http://java.com/download</downloadUrl>
   <supportUrl></supportUrl>
@@ -19,7 +19,7 @@
     <windowTitle>Alien Aztec Adventure</windowTitle>
   </singleInstance>
   <classPath>
-    <mainClass>code.MainGame</mainClass>
+    <mainClass>Main.Entry</mainClass>
     <cp>*.*</cp>
   </classPath>
   <jre>

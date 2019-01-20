@@ -8,8 +8,8 @@
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>AAA</name>
             <source-roots>
-                <root id="src.natives.dir"/>
                 <root id="src.dir"/>
+                <root id="src.components.dir"/>
             </source-roots>
             <test-roots/>
         </data>
