@@ -69,11 +69,11 @@ public class MainMenu extends OptionScreen
     public void clickAction(StateBasedGame sbg, String label) 
     {
         // Close game if "EXIT" pressed
-        if (!label.equals("EXIT"))  System.exit(0);
+        if (label.equals("EXIT")) { Globals.agc.exit(); }
 
         // Figure out next state ID
         int newStateID = Globals.states.get(label);
-        
+
         // Transition to that stae
         sbg.enterState(newStateID, Globals.leave, Globals.enter); 
     }
