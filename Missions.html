@@ -23,9 +23,18 @@
 <text>
 
 
-<b> Reticulating Splines </b>
-- Make a loading screen!
-- 
+
+
+<b> Tweaker! </b>
+- Make settings actually apply
+- Make transitions ubiquitious 
+ 
+ 
+ <b> Freezu </b>
+- Make pause screen!
+- Button manager = "PAUSED" , "GO TO MAIN MENU"
+- no exit because we dont want accidental
+- Has link back to main menu
 
 
 <b> Super Duper Map </b>
@@ -33,23 +42,27 @@
 - make black on left and below for HUD
 - player can only walk within map
 - Make "TiledMapPlus" class, which can handle TILE collision only
-
+- image layers cause crash!
 
 
 <b> One Man's Junk... </b>
 - Item class
 - Item Manager class
-- player requires circle around him for collision
-- items have circles or rectangles arround them
-- items will be in image layer
-- record XY + draw rectangles manually
-- invisible rectangle around for collision
+- Collision Implementation 1
+	- items will be in items tile layer
+	- log xy upon collision
+	- compare to arraylist of "X-Y" strings
+- Collision Implementation 2
+	- player requires circle around him for collision
+	- items have circles or rectangles arround them
+	- record XY + draw rectangles manually
+	- invisible rectangle around for collision
 - There is an option to grab it
-- Underlying Inventory system
+- Underlying Inventory system = arraylists
 
 <b> Ye Be Faring  </b>
-Make the HUD
-- Show "lives" - represented by 
+- Make the HUD
+- Show "lives" - represented by ?
 - Visible inventory system
 - Walking up to items shows description
 - popups that come up after landing on invisible triggers
