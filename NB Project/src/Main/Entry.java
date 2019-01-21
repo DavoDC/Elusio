@@ -28,8 +28,10 @@ public class Entry extends StateBasedGame
                 Globals.screenW = Globals.agc.getScreenWidth();
                 Globals.screenH = Globals.agc.getScreenHeight();
                 Globals.agc.setDisplayMode(Globals.screenW, Globals.screenH, true);
+                Globals.agc.setTargetFrameRate(60);
                 Globals.agc.setAlwaysRender(true);
-                Globals.agc.setShowFPS(true);
+                Globals.agc.setSmoothDeltas(true);
+                Globals.agc.setShowFPS(false);
 
                 // Start AGC
                 Globals.agc.start();

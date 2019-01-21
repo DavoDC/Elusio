@@ -1,7 +1,7 @@
 package GameStates.Core;
 
 import Main.Globals;
-import Utility.TextScreen;
+import Utility.InfoScreen;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * 
  * @author David
  */
-public class Credits extends TextScreen
+public class Credits extends InfoScreen
 {
     
     /**
@@ -17,16 +17,12 @@ public class Credits extends TextScreen
      */
     @Override
     public int getID() { return Globals.states.get("CREDITS"); }
+    
 
-
-    /**
-     * Override default text
-     * @return 
-     */
     @Override
-    public ArrayList<String> initTextList()
+    public ArrayList<String> initButtonLabels() 
     {
-       //Create AL
+        //Create AL
        ArrayList<String> text = new ArrayList<>();
        
        // Add to text
@@ -44,10 +40,6 @@ public class Credits extends TextScreen
        
        return text;
     }
-    
-
-
-    
-    
+     
     
 }

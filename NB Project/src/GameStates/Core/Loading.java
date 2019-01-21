@@ -2,7 +2,7 @@ package GameStates.Core;
 
 
 import Main.Globals;
-import Utility.FontBank;
+import Utility.FontServer;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,9 +11,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
-import org.newdawn.slick.state.transition.Transition;
 
 /**
  *
@@ -25,13 +22,7 @@ public class Loading extends BasicGameState
     private Image introLogo;
     
     // Font
-    private FontBank fb;  //must be here otherwise logo wont show
     private TrueTypeFont font;
-
-    // Transitions
-    private Transition leave;
-    private Transition enter;
-    
    
     /**
      * Used to identify states
@@ -49,17 +40,20 @@ public class Loading extends BasicGameState
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException 
     {
-       // Initialise and adjust bg
-       introLogo = new Image("res/misc/intro.png");
-       introLogo = introLogo.getScaledCopy(Globals.screenW, Globals.screenH);
-       
-       // Initialise font
-       fb = new FontBank();
-       font = fb.getGameFont();
-       
-       // Initialise transitions
-       leave = new FadeOutTransition();
-       enter = new FadeInTransition();
+        try 
+        {
+            // Initialise and adjust bg
+            introLogo = new Image("res/misc/intro.png");
+            introLogo = introLogo.getScaledCopy(Globals.screenW, Globals.screenH);
+            
+            // Initialise font
+            font = FontServer.getFont("gamefont-plain-75");
+            
+        } 
+        catch (Exception ex) 
+        {
+        } 
+           
     }
     
     
@@ -104,7 +98,7 @@ public class Loading extends BasicGameState
        sbg.init(gc);
 
        // Enter main menu
-       sbg.enterState(Globals.states.get("MAINMENU"), leave , enter); 
+       sbg.enterState(Globals.states.get("MAINMENU"), Globals.leave , Globals.enter); 
     }
    
     /**

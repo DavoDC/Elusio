@@ -1,7 +1,7 @@
 package GameStates.Core;
 
 import Main.Globals;
-import Utility.TextScreen;
+import Utility.InfoScreen;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Displays the game's controls
  * @author David
  */
-public class Controls extends TextScreen
+public class Controls extends InfoScreen
 {
     
     /**
@@ -18,13 +18,8 @@ public class Controls extends TextScreen
     @Override
     public int getID() { return Globals.states.get("CONTROLS"); }
 
-
-    /**
-     * Override default text
-     * @return 
-     */
     @Override
-    public ArrayList<String> initTextList()
+    public ArrayList<String> initButtonLabels() 
     {
        //Create AL
        ArrayList<String> text = new ArrayList<>();

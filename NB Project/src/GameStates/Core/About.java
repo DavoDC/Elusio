@@ -1,31 +1,29 @@
 package GameStates.Core;
 
 import Main.Globals;
-import Utility.TextScreen;
+import Utility.InfoScreen;
 import java.util.ArrayList;
 
 /**
  *
  * @author David
  */
-public class About extends TextScreen
+public class About extends InfoScreen
 {
     
     /**
      * Override ID
+     * @return ID
      */
     @Override
     public int getID() { return Globals.states.get("ABOUT"); }
 
 
-    /**
-     * Override default text
-     * @return 
-     */
+    
     @Override
-    public ArrayList<String> initTextList()
+    public ArrayList<String> initButtonLabels() 
     {
-       //Create AL
+        //Create AL
        ArrayList<String> text = new ArrayList<>();
        
        // Add to text

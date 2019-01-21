@@ -3,6 +3,7 @@ package GameStates.Core;
 import Entity.Camera;
 import Entity.Player;
 import Main.Globals;
+import org.newdawn.slick.Color;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -205,12 +206,23 @@ public class Play extends BasicGameState
         //Top left info
         int infoX = playerX - 50;
         int infoY = playerY - 50;
-        long freeMem = Runtime.getRuntime().freeMemory();
-        long totalMem = Runtime.getRuntime().totalMemory();
-        long memoryUsed = (totalMem-freeMem)/1000000;
-        g.drawString("Memory Usage: " + memoryUsed + " MB", infoX, infoY);
-        g.drawString("px: " + playerX + "  , py: " + playerY, infoX, infoY + 20);
+        
+        if (Globals.showMemUse)
+        {
+            long freeMem = Runtime.getRuntime().freeMemory();
+            long totalMem = Runtime.getRuntime().totalMemory();
+            long memoryUsed = (totalMem-freeMem)/1000000;
+            g.setColor(Color.white);
+            g.drawString("Memory Usage: " + memoryUsed + " MB", infoX, infoY);
+        }
+        
+        if (Globals.showCoords)
+        {
+            g.setColor(Color.white);
+            g.drawString("pX: " + playerX + " , pY: " + playerY, infoX, infoY + 20);
+        }
 
+        
         
     }
     

@@ -1,16 +1,18 @@
 package GameStates.Core;
 
 import Main.Globals;
-import Utility.OptionScreen;
+import Utility.ButtonManager;
+import Utility.InterfaceScreen;
 
 import java.util.ArrayList;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
  *
  * @author David
  */
-public class Settings extends OptionScreen
+public class Settings extends InterfaceScreen
 {
 
     @Override
@@ -19,21 +21,46 @@ public class Settings extends OptionScreen
         return Globals.states.get("SETTINGS");
     }
     
+      @Override
+    public ButtonManager initButtonManager() 
+    {
+        return new ButtonManager("Gamefont-Plain-65", "OCR A Extended-Plain-35");
+    }
+
     @Override
-    public float[] initButtonParams() 
+    public float[] initHeaderParams() 
+    {
+        return 
+           new float[] 
+           {
+           (Globals.screenW/2) - 175, // start X pos
+           150, // start Y pos
+           350, // Width
+           60,  // Height
+           };
+    }
+
+    @Override
+    public float[] initLineParams() 
     {
         return 
            new float[] 
            {
            300, // start X pos
            200, // start Y pos
-           350, // Width
-           50,  // Height
+           450, // Width
+           40,  // Height
            0, //Xspace
-           60, //Yspace
+           50, //Yspace
            1 //colNo
            };
     }
+
+    @Override
+    public void customInit() 
+    {
+    }
+  
 
     @Override
     public ArrayList<String> initButtonLabels() 
@@ -41,7 +68,7 @@ public class Settings extends OptionScreen
        ArrayList<String> labels = new ArrayList<String>();
        labels.add("SETTINGS");
        labels.add("SHOW FPS: OFF");
-       labels.add("SHOW MEMORY: OFF");
+       labels.add("SHOW MEMORY USE: OFF");
        labels.add("SHOW COORDS: OFF");
        
        return labels;
@@ -53,44 +80,76 @@ public class Settings extends OptionScreen
     {
        if (label.contains("FPS"))
            {
-               // Alter global status
                Globals.showFPS = !Globals.showFPS;
-               // Generate new label
-               String newLabel = switchLabel(getButtonLabels().get(1), Globals.showFPS);
-               // Replace old label with new
-               getButtonLabels().set(1, newLabel);
-               // Reinitialise buttons
-               getButtonManager().createButtonGrid(getButtonParams(), getButtonLabels());
+               Globals.agc.setShowFPS(Globals.showFPS);
+               switchLabel(1, Globals.showFPS);
            }
        else if(label.contains("MEMORY"))
            {
-               Globals.showMemory = !Globals.showMemory;
+               Globals.showMemUse = !Globals.showMemUse;
+               switchLabel(2, Globals.showMemUse);
            }
        else if (label.contains("COORD"))
            {
-               Globals.showCoordinates = !Globals.showCoordinates;
+               Globals.showCoords = !Globals.showCoords;
+               switchLabel(3, Globals.showCoords);
            }
     }
     
-    private String switchLabel(String prev, boolean state)
+    /**
+     * Alter a label after it is clicked
+     * 
+     * @param prev previous label
+     * @param pos in button list
+     * @param state boolean status
+     * @return 
+     */
+    private void switchLabel(int pos, boolean state)
     {
-        // Get firstPart
-        String newS = prev.split(":")[0];
+       // Get previous label
+       String prev = getButtonLabels().get(pos);
         
-        // Add semicolon and space
-        newS += ": ";
+       // Initialise new label with first part
+       String newS = prev.split(":")[0];
         
-        if (state) // True = ON
-        {
-            newS += "ON";
-        }
-        else // False = OFF 
-        {
-            newS += "OFF";
-        }
+       // Add semicolon and space
+       newS += ": ";
         
-        return newS;
+       // Add true if ON, OFF if false
+       if (state) { newS += "ON"; }
+       else { newS += "OFF"; }
 
+       // Replace old label with new
+       getButtonLabels().set(pos, newS);
+       
+       // Reinitialise buttons
+       getButtonManager().createButtonGrid
+       (getHeaderParams(), getLineParams(), getButtonLabels());
+               
+    }
+
+  
+
+    @Override
+    public void customPreUpdate() 
+    {
+    }
+    
+    @Override
+    public boolean isDarkened() 
+    {
+        return false;
+    }
+
+    @Override
+    public Color getButtonCol() 
+    {
+        return Color.black;
+    }
+
+    @Override
+    public void customPostRender() 
+    {
     }
 
 
