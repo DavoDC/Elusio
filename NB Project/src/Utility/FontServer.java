@@ -34,9 +34,10 @@ public class FontServer
     }
     
     /**
-     * Get a font
-     * Input Format: fontname-style-size
-     * @return 
+     * Get a custom font
+     * Format: fontname-style-size
+     * e.g. "Calibri-Plain-20"
+     * 
      */
     public static TrueTypeFont getFont(String rawFontS)
     {

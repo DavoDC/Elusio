@@ -55,11 +55,6 @@ public class Settings extends InterfaceScreen
            1 //colNo
            };
     }
-
-    @Override
-    public void customInit() 
-    {
-    }
   
 
     @Override
@@ -128,13 +123,6 @@ public class Settings extends InterfaceScreen
                
     }
 
-  
-
-    @Override
-    public void customPreUpdate() 
-    {
-    }
-    
     @Override
     public boolean isDarkened() 
     {
@@ -145,11 +133,6 @@ public class Settings extends InterfaceScreen
     public Color getButtonCol() 
     {
         return Color.black;
-    }
-
-    @Override
-    public void customPostRender() 
-    {
     }
 
 

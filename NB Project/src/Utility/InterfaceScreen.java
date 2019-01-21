@@ -117,7 +117,9 @@ public abstract class InterfaceScreen extends BasicGameState
     /**
      * Add additional initialization tasks here
      */
-    public abstract void customInit();
+    public void customInit()
+    {
+    }
     
     
     public float[] getHeaderParams() { return hParams; }
@@ -175,12 +177,16 @@ public abstract class InterfaceScreen extends BasicGameState
     /**
      * Do custom pre updating here
      */
-    public abstract void customPreUpdate();
+    public void customPreUpdate()
+    {
+    }
     
     /**
      * Customize the action taken for button presses
      */
-    public abstract void clickAction(StateBasedGame sbg, String label);
+    public void clickAction(StateBasedGame sbg, String label)
+    {
+    }
     
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
@@ -216,7 +222,9 @@ public abstract class InterfaceScreen extends BasicGameState
     /**
      * Do custom post rendering here
      */
-    public abstract void customPostRender();
+    public void customPostRender()
+    {
+    }
    
     
     

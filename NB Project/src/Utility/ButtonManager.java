@@ -13,14 +13,9 @@ import org.newdawn.slick.geom.Rectangle;
 /**
  * Helps create buttons
  * 
- * Use in "init":
- * 1. Create button manager
- * 2. Create parameters Array
- * 3. Create labels ArrayList
- * 4. Input both into "CreateButtonGrid"
+ * "CreateButtonGrid" is used in Initialization
  * 
- * Use in render:
- * - Call drawButtonGrid
+ * "DrawButtonGrid is used in Render
  * 
  * @author David
  */
@@ -37,7 +32,7 @@ public class ButtonManager
     private TrueTypeFont lineFont;
             
     /**
-     * Create a ButtonServer
+     * Create a Button Manager
      * Font string format: fontname-style-size
      * e.g. "Segoe UI-Plain-25"
      * 
@@ -53,44 +48,21 @@ public class ButtonManager
            lineFont = FontServer.getFont(lineFontS);
     }
      
-    /**
-     * Get number of buttons
-     * @return 
-     */
-    public int getButtonNo()
-    {
-        return rectangles.size();
-    }
-
-    public String getLabelClicked(Circle cursor)
-    {
-        String label = "";
-        for (int i = 0; i < labels.size(); i++)
-        {
-           Rectangle curButton = rectangles.get(i);
-           Boolean touching = cursor.intersects(curButton);
-
-           if (touching)
-                   {
-                       label =  labels.get(i);
-                       break;
-                   }
-        }
-        return label;
-    }
-    
-
-  
      /**
      * Populates the ButtonManager with buttons/rectangles
+     * They arranged regularly using the parameters
+     * Saves the labels for later use
      * 
-     * @param gParams
-     * There are 7 parameters required:
-     * startXpos, startYpos, width, height, Xspace, Yspace, colNo
      * @param hParams
      * There are 4 parameters required:
      * startXpos, startYpos, width, height
+     * 
+     * @param lParams
+     * There are 7 parameters required:
+     * startXpos, startYpos, width, height, Xspace, Yspace, colNo
+     * 
      * @param labels
+     * The text on the buttons, in the order they will be displayed
      * 
      */
     public void createButtonGrid
@@ -181,7 +153,41 @@ public class ButtonManager
         }
     }
     
+    /**
+     * Get number of buttons
+     * @return 
+     */
+    public int getButtonNo()
+    {
+        return rectangles.size();
+    }
+
+    /**
+     * For a given circle,
+     * returns the label of the button it is touching
+     * Otherwise, returns null
+     * 
+     * @param cursor
+     * @return label/null
+     */
+    public String getLabelClicked(Circle cursor)
+    {
+        String label = null;
+        for (int i = 0; i < labels.size(); i++)
+        {
+           Rectangle curButton = rectangles.get(i);
+           Boolean touching = cursor.intersects(curButton);
+
+           if (touching)
+                   {
+                       label =  labels.get(i);
+                       break;
+                   }
+        }
+        return label;
+    }
     
+
     
     
     

@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Utility;
 
 import Main.Globals;
 import static Main.Globals.screenW;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.state.StateBasedGame;
 
 /**
  *
@@ -50,21 +44,6 @@ public abstract class InfoScreen extends InterfaceScreen
     }
     
     public abstract ArrayList<String> initButtonLabels();
-
-    @Override
-    public void customInit() 
-    {
-    }
-
-    @Override
-    public void customPreUpdate() 
-    {
-    }
-
-    @Override
-    public void clickAction(StateBasedGame sbg, String label) 
-    {
-    }
     
     @Override
     public boolean isDarkened() 
@@ -76,11 +55,6 @@ public abstract class InfoScreen extends InterfaceScreen
     public Color getButtonCol() 
     {
         return Color.transparent;
-    }
-
-    @Override
-    public void customPostRender() 
-    {
     }
     
 }

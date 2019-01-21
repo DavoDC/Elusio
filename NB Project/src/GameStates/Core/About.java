@@ -36,11 +36,6 @@ public class About extends InfoScreen
        text.add("    ");
        
        return text;
-    }
-    
-
-
-    
-    
+    }    
     
 }

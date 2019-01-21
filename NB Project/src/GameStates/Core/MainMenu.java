@@ -77,11 +77,6 @@ public class MainMenu extends InterfaceScreen
         return join;
            
     }
-    
-    @Override
-    public void customInit() 
-    {
-    }
 
     @Override
     public void customPreUpdate() 
@@ -113,7 +108,7 @@ public class MainMenu extends InterfaceScreen
             // Figure out next state ID
             int newStateID = Globals.states.get(label);
 
-            // Transition to that stae
+            // Transition to that state
             sbg.enterState(newStateID, Globals.leave, Globals.enter); 
         }
         
@@ -130,10 +125,6 @@ public class MainMenu extends InterfaceScreen
     public Color getButtonCol() 
     {
         return Color.black;
-    }
-
-    @Override
-    public void customPostRender() {
     }
     
     
