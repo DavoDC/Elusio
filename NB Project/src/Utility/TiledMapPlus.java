@@ -28,17 +28,13 @@ public class TiledMapPlus extends TiledMap
         super(ref);
     }
     
-    
-    //// This will keep a list of Tiles that are blocked
-//private boolean blocked[][];
-
+// <<<<<<<<<<<<<<<<<<<<<IMPLEMENTATION 1 !!!!!!!!!!!!!!!!!   
+//// This will keep a list of Tiles that are blocked
+//private boolean blocked[][]
 // For collision detection, we have a list of Rectangles you can use to test against
-//private ArrayList<Rectangle> blocks;
-    
-    
-//    
-//    
-//    // This will create an Array with all the Tiles in your map. When set to true, it means that Tile is blocked.
+//private ArrayList<Rectangle> blocks;   
+//   This will create an Array with all the Tiles in your map. 
+// When set to true, it means that Tile is blocked.
 //blocked = new boolean[this.getWidth()][this.getHeight()];
 //
 //// Loop through the Tiles and read their Properties
@@ -67,8 +63,6 @@ public class TiledMapPlus extends TiledMap
 //        }
 //    }
 //}
-    
-    
 //    ///boolean isInCollision = false;
 //for(Rectangle ret in yourTiledMap.getBlocks()) {
 //    if(player.bounds.intersects(ret.bounds)) {
@@ -77,7 +71,7 @@ public class TiledMapPlus extends TiledMap
 //}
 ////    
     
-    
+// <<<<<<<<<<<<<<<<<<<<<IMPLEMENTATION 2 !!!!!!!!!!!!!!!!! 
 //    public boolean[][] blocked;
 //    
 //    public CollUtil(TiledMap map)
@@ -132,5 +126,34 @@ public class TiledMapPlus extends TiledMap
 //    }
 
     
+    
+    
+// public boolean upAllowed(playerX, player Y, relSpeed)
+// Check for blocked tiles
+// boolean cond1 = coll.canPass(playerX + 63, playerY - relSpeed);
+// boolean cond2 = coll.canPass(playerX + 1, playerY - relSpeed); //add camY factor
+// Check for edge of map
+// boolean cond3 = cam.isTooUp()
+
+// public boolean downAllowed(playerX, player Y, relSpeed)
+// Check for blocked tiles
+// boolean cond1 = coll.canPass(playerX + 63, playerY + 64 + relSpeed);
+// boolean cond2 = coll.canPass(playerX + 1, playerY + 64 + relSpeed);
+// Check for edge of map
+// boolean cond3 = cam.isTooDown()
+    
+// public boolean leftAllowed(playerX, player Y, relSpeed)
+// Check for blocked tiles
+// boolean cond1 = coll.canPass(playerX - relSpeed, playerY + 1);
+// boolean cond2 = coll.canPass(playerX - relSpeed, playerY + 63);
+// Check for edge of map
+// boolean cond3 = cam.isTooLeft()
+
+// public boolean rightAllowed(playerX, player Y, relSpeed)
+// Check for blocked tiles
+// boolean cond1 = coll.canPass(playerX + 50 + relSpeed, playerY + 63);
+//boolean cond2 = coll.canPass(playerX + 50 + relSpeed, playerY + 1);
+// Check for edge of map
+//boolean cond3 = cam.isTooRight()
     
 }

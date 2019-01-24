@@ -7,34 +7,34 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class Camera {
 
-   /** the map used for our scene */
+   /** The map used for our scene */
    protected TiledMap map;
    
-   /** the number of tiles in x-direction (width) */
+   /** The number of tiles that fit on the x axis */
    protected int numTilesX;
    
-   /** the number of tiles in y-direction (height) */
+   /** The number of tiles that fit on the y axis */
    protected int numTilesY;
    
-   /** the height of the map in pixel */
+   /** The height of the map in pixels */
    protected int mapHeight;
    
-   /** the width of the map in pixel */
+   /** The width of the map in pixels */
    protected int mapWidth;
    
-   /** the width of one tile of the map in pixel */
+   /** The width of one tile of the map in pixels */
    protected int tileWidth;
    
-   /** the height of one tile of the map in pixel */
+   /** The height of one tile of the map in pixels */
    protected int tileHeight;
    
-   /** the GameContainer, used for getting the size of the GameCanvas */
+   /** The GameContainer, used for getting the size of the GameCanvas */
    protected GameContainer gc;
 
-   /** the x-position of our "camera" in pixel */
+   /** The x-position of our "camera" in pixel */
    protected float cameraX;
    
-   /** the y-position of our "camera" in pixel */
+   /** The y-position of our "camera" in pixel */
    protected float cameraY;
    
    /**
@@ -66,18 +66,23 @@ public class Camera {
     * @param y the real y-coordinate (in pixel) which should be centered on the screen
     */
    public void centerOn(float x, float y) {
-      //try to set the given position as center of the camera by default
+      //Try to set the given position as center of the camera
       cameraX = x - gc.getWidth()  / 2;
       cameraY = y - gc.getHeight() / 2;
       
-      //if the camera is at the right or left edge lock it to prevent a black bar
-      if(cameraX < 0) cameraX = 0;
-      if(cameraX + gc.getWidth() > mapWidth) cameraX = mapWidth - gc.getWidth();
+      //If the camera is at the left or right edge, lock it to prevent a black bar
+      if(isTooLeft()) cameraX = 0;
+      if(isTooRight()) cameraX = mapWidth - gc.getWidth();
       
-      //if the camera is at the top or bottom edge lock it to prevent a black bar
-      if(cameraY < 0) cameraY = 0;
-      if(cameraY + gc.getHeight() > mapHeight) cameraY = mapHeight - gc.getHeight();
+      //If the camera is at the top or bottom edge, lock it to prevent a black bar
+      if(isTooUp()) cameraY = 0;
+      if(isTooDown()) cameraY = mapHeight - gc.getHeight();
    }
+   
+   public boolean isTooLeft() { return (cameraX < 0); }
+   public boolean isTooRight() { return (cameraX + gc.getWidth() > mapWidth); }
+   public boolean isTooUp(){ return (cameraY < 0); }
+   public boolean isTooDown() { return (cameraY + gc.getHeight() > mapHeight); }
    
    /**
     * "locks" the camera on the center of the given Rectangle. 

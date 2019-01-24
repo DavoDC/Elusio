@@ -11,48 +11,63 @@ import org.newdawn.slick.SpriteSheet;
  */
 public class Player {
 
-    private SpriteSheet ss;
-    private Animation anim;
+     // Starting location of player
+    private int startX;
+    private int startY;
+
+    // Dimensions of player
+    private double scale;
+    private int width;
+    private int height;
+    
+    // Movement speed of player
+    private float movSpeed;
+
+    // Spritesheet holding all frames of player
+    private SpriteSheet sprites;
+    private final String spritesLocation = "res/sprites/player/walking.png";
+    
+    // Animation of player moving
     private int animSpeed;
-
-    private float movementSpeed;
-
-    private int startXpos;
-    private int startYpos;
-
-    private int playerW;
-    private int playerH;
-
+    private Animation anim;
+   
+    
     
     public Player() 
     {
-        playerW = 33;
-        playerH = 48;
+        startX = 60;
+        startY = 100;
+        
+        scale = 1.5;
+        width = 33;
+        height = 48;
+        
+        movSpeed = 0.25f;
 
-        try { ss = new SpriteSheet("res/sprites/player/walking.png", playerW, playerH); } 
+        try { sprites = new SpriteSheet(spritesLocation, width, height); } 
         catch (Exception e) { }
 
         animSpeed = 500;
-        anim = new Animation(ss, animSpeed);
+        anim = new Animation(sprites, animSpeed);     
 
-        startXpos = 60;
-        startYpos = 60;
-
-        movementSpeed = 0.25f;
+        
     }
     
+    /**
+     * 
+     * @return 
+     */
+    public int getStartX() { return startX; }
 
-    public int getStartX() { return startXpos; }
+    public int getStartY() { return startY; }
 
-    public int getStartY() { return startYpos; }
-
-    public float getMovSpeed() { return movementSpeed; }
+    public float getMovSpeed() { return movSpeed; }
 
     public void updateAnimation(int delta) { anim.update(delta); }
 
     
     /**
-     * Starts an animation with certain frames
+     * Starts the walking animation in a given direction
      * @param dir Direction of motion
      */
     public void startAnim(String dir) {
@@ -130,8 +145,8 @@ public class Player {
      */
     public void drawPlayer(int pX, int pY) 
     {
-        int largerW = (int) (playerW * 1.5);
-        int largerH = (int) (playerH * 1.5);
+        int largerW = (int) (width * scale);
+        int largerH = (int) (height * scale);
 
         anim.draw((int) pX, (int) pY, largerW, largerH);
     }

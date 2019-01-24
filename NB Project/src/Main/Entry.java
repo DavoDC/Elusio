@@ -1,6 +1,6 @@
 package Main;
 
-import GameStates.Core.Loading;
+import States.Loading;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -32,7 +32,7 @@ public class Entry extends StateBasedGame
                 Globals.agc.setAlwaysRender(true);
                 Globals.agc.setSmoothDeltas(true);
                 Globals.agc.setShowFPS(false);
-
+ 
                 // Start AGC
                 Globals.agc.start();
 

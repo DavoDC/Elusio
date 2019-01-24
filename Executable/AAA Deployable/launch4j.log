@@ -1,0 +1,1940 @@
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_191
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe (OK)
+Match:		1.008.000_191
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Ignore:		1.008.000_171
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_191 (32-bit)
+Main class:	code.MainGame
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" code.MainGame
+Args length:	298/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_191
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe (OK)
+Match:		1.008.000_191
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Ignore:		1.008.000_171
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_191 (32-bit)
+Main class:	code.MainGame
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_191\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" code.MainGame
+Args length:	298/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	code.MainGame
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" code.MainGame
+Args length:	298/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	code.MainGame
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" code.MainGame
+Args length:	298/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	code.MainGame
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" code.MainGame
+Args length:	298/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	295/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	295/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	295/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	295/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	295/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	295/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	295/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	295/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	295/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	295/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\req
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	launch4j.log
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;launch4j.log;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	295/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	AAA.exe
+      "      :	launch4j.log
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;AAA.exe;launch4j.log" Main.Entry
+Args length:	143/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	AAA.exe
+      "      :	launch4j.log
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;AAA.exe;launch4j.log" Main.Entry
+Args length:	143/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry.class
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	AAA.exe
+      "      :	launch4j.log
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;AAA.exe;launch4j.log" Main.Entry.class
+Args length:	149/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry.class
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	AAA.exe
+      "      :	launch4j.log
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;AAA.exe;launch4j.log" Main.Entry.class
+Args length:	149/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	AAA.exe
+      "      :	launch4j.log
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;AAA.exe;launch4j.log" Main.Entry
+Args length:	143/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	.\libs\*.*
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	libs\*.*
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	\libs\*.*
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\libs
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	\libs\*.*
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\libs\
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	\libs\*.*
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Info:		Classpath not defined.
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	lib\jinput.jar
+Add classpath:	lib\lwjgl.jar
+Add classpath:	lib\lwjgl_util.jar
+Add classpath:	lib\slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;lib\jinput.jar;lib\lwjgl.jar;lib\lwjgl_util.jar;lib\slick.jar" Main.Entry
+Args length:	179/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	libs\*.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	\libs\*.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	\libs\*.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\libs\
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	\libs\*.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\libs\
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.jar
+      "      :	launch4j.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;launch4j.jar" Main.Entry
+Args length:	130/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\libs
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.jar
+      "      :	launch4j.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;launch4j.jar" Main.Entry
+Args length:	130/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\libs
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	\*.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\libs
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	\*.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	\libs\*.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	\libs\*.*
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\libs
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	\*.*
+      "      :	\$GetCurrent
+      "      :	\$RECYCLE.BIN
+      "      :	\$SysReset
+      "      :	\82ace7d6-0197-474d-bf4b-a2043e72329b
+      "      :	\adb
+      "      :	\AMD
+      "      :	\App Data.lnk
+      "      :	\bootmgr
+      "      :	\BOOTNXT
+      "      :	\bootTel.dat
+      "      :	\Config.Msi
+      "      :	\DBAR_Ver.txt
+      "      :	\dell.sdr
+      "      :	\Documents and Settings
+      "      :	\Drivers
+      "      :	\gputest.txt
+      "      :	\hiberfil.sys
+      "      :	\inetpub
+      "      :	\Intel
+      "      :	\MSOCache
+      "      :	\Office Installer
+      "      :	\pagefile.sys
+      "      :	\pdfinfo.ini
+      "      :	\PerfLogs
+      "      :	\Program Files
+      "      :	\Program Files (x86)
+      "      :	\ProgramData
+      "      :	\Recovery
+      "      :	\ScreenCast2.wmv
+      "      :	\swapfile.sys
+      "      :	\Syst1A2F552F
+      "      :	\System Recovery
+      "      :	\System Volume Information
+      "      :	\Users
+      "      :	\Windows
+      "      :	\Windows10Upgrade
+      "      :	\{CA7ED0B0-3CD4-4254-A9D2-2D7F78C5E3C5}
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;\$GetCurrent;\$RECYCLE.BIN;\$SysReset;\82ace7d6-0197-474d-bf4b-a2043e72329b;\adb;\AMD;\App Data.lnk;\bootmgr;\BOOTNXT;\bootTel.dat;\Config.Msi;\DBAR_Ver.txt;\dell.sdr;\Documents and Settings;\Drivers;\gputest.txt;\hiberfil.sys;\inetpub;\Intel;\MSOCache;\Office Installer;\pagefile.sys;\pdfinfo.ini;\PerfLogs;\Program Files;\Program Files (x86);\ProgramData;\Recovery;\ScreenCast2.wmv;\swapfile.sys;\Syst1A2F552F;\System Recovery;\System Volume Information;\Users;\Windows;\Windows10Upgrade;\{CA7ED0B0-3CD4-4254-A9D2-2D7F78C5E3C5}" Main.Entry
+Args length:	647/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	\libs\*.*
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe" Main.Entry
+Args length:	117/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\libs
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	282/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\required
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	282/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\.\required
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_80
+Check launcher:	C:\Program Files\Java\jre7\bin\javaw.exe (OK)
+Match:		1.007.000_080
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.007.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_80
+Ignore:		1.007.000_080
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_171
+Check launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe (OK)
+Match:		1.008.000_171
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_171 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick.jar
+Launcher:	C:\Program Files\Java\jdk1.8.0_171\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\David\Actual Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA.exe;.;..;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;OpenAL32.dll;OpenAL64.dll;slick.jar" Main.Entry
+Args length:	282/32768 chars
+Exit code:	0
+
+
+Version:	3.12
+CmdLine:	C:\Users\charkeyd\Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA Deployable\AAA.exe --l4j-debug
+WOW64:		yes
+Create mutex:	AAA
+Working dir:	C:\Users\charkeyd\Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA Deployable\.\required
+Java min ver:	1.002.000
+Java max ver:	1.010.000
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files\Java\jre1.8.0_201\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_201
+Check launcher:	C:\Program Files\Java\jre1.8.0_201\bin\javaw.exe (OK)
+Match:		1.008.000_201
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_201
+Ignore:		1.008.000_201
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_201 (64-bit)
+Main class:	Main.Entry
+Add classpath:	*.*
+      "      :	.
+      "      :	..
+      "      :	ibxm.jar
+      "      :	jinput-dx8.dll
+      "      :	jinput-dx8_64.dll
+      "      :	jinput-raw.dll
+      "      :	jinput-raw_64.dll
+      "      :	jinput.jar
+      "      :	jnlp.jar
+      "      :	jogg-0.0.7.jar
+      "      :	jorbis-0.0.15.jar
+      "      :	lwjgl.dll
+      "      :	lwjgl.jar
+      "      :	lwjgl64.dll
+      "      :	lwjgl_util.jar
+      "      :	lwjgl_util_applet.jar
+      "      :	natives-windows.jar
+      "      :	OpenAL32.dll
+      "      :	OpenAL64.dll
+      "      :	slick-examples.jar
+      "      :	slick.jar
+      "      :	tinylinepp.jar
+Launcher:	C:\Program Files\Java\jre1.8.0_201\bin\javaw.exe
+Launcher args:	-classpath "C:\Users\charkeyd\Documents\Programming Projects\NetBeans Projects\AAA\Executable\AAA Deployable\AAA.exe;.;..;ibxm.jar;jinput-dx8.dll;jinput-dx8_64.dll;jinput-raw.dll;jinput-raw_64.dll;jinput.jar;jnlp.jar;jogg-0.0.7.jar;jorbis-0.0.15.jar;lwjgl.dll;lwjgl.jar;lwjgl64.dll;lwjgl_util.jar;lwjgl_util_applet.jar;natives-windows.jar;OpenAL32.dll;OpenAL64.dll;slick-examples.jar;slick.jar;tinylinepp.jar" Main.Entry
+Args length:	420/32768 chars
+Exit code:	0
