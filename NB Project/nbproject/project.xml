@@ -19,6 +19,7 @@
             <word>gameplay</word>
             <word>initialise</word>
             <word>png</word>
+            <word>stats</word>
         </spellchecker-wordlist>
     </configuration>
 </project>

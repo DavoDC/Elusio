@@ -2,7 +2,7 @@ package States;
 
 
 import Main.Globals;
-import Utility.GUI.FontServer;
+import Utility.Menu.FontServer;
 import org.newdawn.slick.Color;
 
 import org.newdawn.slick.GameContainer;

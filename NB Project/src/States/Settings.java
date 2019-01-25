@@ -1,8 +1,8 @@
 package States;
 
 import Main.Globals;
-import Utility.GUI.ButtonManager;
-import Utility.GUI.InterfaceScreen;
+import Utility.Menu.ButtonManager;
+import Utility.Menu.InterfaceScreen;
 
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
@@ -76,7 +76,6 @@ public class Settings extends InterfaceScreen
        if (label.contains("FPS"))
            {
                Globals.showFPS = !Globals.showFPS;
-               Globals.agc.setShowFPS(Globals.showFPS);
                switchLabel(1, Globals.showFPS);
            }
        else if(label.contains("MEMORY"))

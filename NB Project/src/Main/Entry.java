@@ -51,23 +51,7 @@ public class Entry extends StateBasedGame
 		addState(new Loading());
 	}
        
-        
-        
-        
-        
-        
-//        public void drawSpriteExample()
-//        {
-//            // SpriteSheet ss = new SpriteSheet("image", 16, 16); 
-//            for(int i = 0; i != 6; i++)
-//            {
-//               ss.getSprite(i, 0).draw(50, i*90, 5);
-//               ss.getSprite(i, 1).draw(200, i*90, 5);
-//               ss.getSprite(0, 1).draw(300, i*80, 5);
-//            }
-//        }
-          
-          
+    
           
           
           

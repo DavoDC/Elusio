@@ -8,152 +8,168 @@ import org.newdawn.slick.tiled.TiledMap;
  * Handles collisions
  * Handles camera
  * 
- * //can handle creating "blocked" array
- * 
- * // has XY -> tile system
- * // can handle an object layer
- * 
- * // 4 methods = move up, down, L, R
- * // map.render() (use playerX and playerY)
- * // render next when you get to edge
- * // also render rectangle triggers that cause movement to next location
+ * Note:
+ * The collision layer must have a property called blocked, set to true
  * 
  * @author David
  */
 public class TiledMapPlus extends TiledMap
 {
+    // Tile array
+    private boolean[][] blocked;  
     
+    // Determines X collision tightness
+    private final int Xfactor = 30;
+    
+    // Determines Y collision tightnesss
+    private final int Yfactor = 64;
+    
+    // Tile size
+    private final int tileSize = 64;
+            
+    
+    /**
+     * Initializes array of "tile cells"
+     * Each cell represents a tile
+     * "True" means blocked
+     * 
+     * @param ref
+     * @throws SlickException 
+     */
     public TiledMapPlus(String ref) throws SlickException 
     {
         super(ref);
+        
+        int NUMBEROFTILESINAROW = getHeight()-2;
+        int NUMBEROFTILESINACOLUMN = getWidth()-2; 
+        int NUMBEROFLAYERS = getLayerCount();
+        
+        blocked = new boolean[NUMBEROFTILESINAROW][NUMBEROFTILESINACOLUMN];
+        
+             for (int l = 0; l < NUMBEROFLAYERS; l++) 
+             {
+                String layerValue = getLayerProperty(l, "blocked", "false");
+                if (layerValue.equals("true")) 
+                {
+
+                    for (int c = 0; c < NUMBEROFTILESINACOLUMN; c++) 
+                    {
+                        for (int r = 0; r < NUMBEROFTILESINAROW; r++) 
+                        {
+                            if (getTileId(c, r, l) != 0) 
+                            {
+                                blocked[c][r] = true;  
+                            }
+                        }
+                    }
+                }
+            }
     }
     
-// <<<<<<<<<<<<<<<<<<<<<IMPLEMENTATION 1 !!!!!!!!!!!!!!!!!   
-//// This will keep a list of Tiles that are blocked
-//private boolean blocked[][]
-// For collision detection, we have a list of Rectangles you can use to test against
-//private ArrayList<Rectangle> blocks;   
-//   This will create an Array with all the Tiles in your map. 
-// When set to true, it means that Tile is blocked.
-//blocked = new boolean[this.getWidth()][this.getHeight()];
-//
-//// Loop through the Tiles and read their Properties
-//
-//// Set here the Layer you want to Read. In your case, it'll be layer 1,
-//// since the objects are on the second layer.
-//int layer = 1; 
-//
-//for(int i = 0; i < this.getWidth(); i++) {
-//    for(int j = 0; j < this.getHeight(); j++) {
-//
-//        // Read a Tile
-//        int tileID = getTileId(i, j, layer);
-//
-//        // Get the value of the Property named "blocked"
-//        String value = getTileProperty(tileID, "blocked", "false");
-//
-//        // If the value of the Property is "true"...
-//        if(value.equals("true")) {
-//
-//            // We set that index of the TileMap as blocked
-//            blocked[i][j] = true;
-//
-//            // And create the collision Rectangle
-//            blocks.add(new Rectangle((float)i * tileSize, (float)j * tileSize, tileSize, tileSize));
-//        }
-//    }
-//}
-//    ///boolean isInCollision = false;
-//for(Rectangle ret in yourTiledMap.getBlocks()) {
-//    if(player.bounds.intersects(ret.bounds)) {
-//        isInCollision = true;
-//    }
-//}
-////    
-    
-// <<<<<<<<<<<<<<<<<<<<<IMPLEMENTATION 2 !!!!!!!!!!!!!!!!! 
-//    public boolean[][] blocked;
-//    
-//    public CollUtil(TiledMap map)
-//    {
-//       
-//       
-//        
-//      int NUMBEROFTILESINAROW = map.getHeight()-2;
-//      int NUMBEROFTILESINACOLUMN = map.getWidth()-2; 
-//      int NUMBEROFLAYERS = map.getLayerCount();
-//        
-//        blocked = new boolean[NUMBEROFTILESINAROW][NUMBEROFTILESINACOLUMN];
-//        
-//             for (int l = 0; l < NUMBEROFLAYERS; l++) 
-//             {
-//             String layerValue = map.getLayerProperty(l, "blocked", "false");
-//            if (layerValue.equals("true")) {
-//              
-//                for (int c = 0; c < NUMBEROFTILESINACOLUMN; c++) 
-//                {
-//                    for (int r = 0; r < NUMBEROFTILESINAROW; r++) 
-//                    {
-//                        if (map.getTileId(c, r, l) != 0) 
-//                        {
-//                            blocked[c][r] = true;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    
-//    
-//    /**
-//     * Only for 64x64 tiles
-//     * @param x
-//     * @param y
-//     * @return 
-//     */
-//    public boolean canPass(float x, float y) 
-//    {
-//        try 
-//        {
-//            int xBlock = (int) x / 64;
-//            int yBlock = (int) y / 64;
-//            return !blocked[xBlock][yBlock];
-//        }
-//        catch (Exception e)
-//        {
-//            return false;
-//        }
-//    }
+   
+    /**
+     * Checks if a point is on a blocked tile
+     * @param x
+     * @param y
+     * @return 
+     */
+    private boolean canPass(float x, float y) 
+    {
+        try 
+        {
+            int xBlock = (int) x / tileSize;
+            int yBlock = (int) y / tileSize;
+            return !blocked[xBlock][yBlock];
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
 
     
     
-    
-// public boolean upAllowed(playerX, player Y, relSpeed)
-// Check for blocked tiles
-// boolean cond1 = coll.canPass(playerX + 63, playerY - relSpeed);
-// boolean cond2 = coll.canPass(playerX + 1, playerY - relSpeed); //add camY factor
-// Check for edge of map
-// boolean cond3 = cam.isTooUp()
+    /**
+     * Checks tile collision and map bounds
+     * @param playerX
+     * @param playerY
+     * @param relSpeed Speed as function of delta
+     * @param cam Current camera object
+     * @return True if up movement allowed 
+     */
+    public boolean isUpAllowed(int playerX, int playerY, float relSpeed, Camera cam)
+    {
+        // True if there are no blocked tiles
+        boolean cond1 = canPass(playerX + Xfactor, playerY - relSpeed);
+        boolean cond2 = canPass(playerX + 1, playerY - relSpeed);
 
-// public boolean downAllowed(playerX, player Y, relSpeed)
-// Check for blocked tiles
-// boolean cond1 = coll.canPass(playerX + 63, playerY + 64 + relSpeed);
-// boolean cond2 = coll.canPass(playerX + 1, playerY + 64 + relSpeed);
-// Check for edge of map
-// boolean cond3 = cam.isTooDown()
-    
-// public boolean leftAllowed(playerX, player Y, relSpeed)
-// Check for blocked tiles
-// boolean cond1 = coll.canPass(playerX - relSpeed, playerY + 1);
-// boolean cond2 = coll.canPass(playerX - relSpeed, playerY + 63);
-// Check for edge of map
-// boolean cond3 = cam.isTooLeft()
+        // True if not at edge
+        boolean cond3 = !cam.isTooUp();
 
-// public boolean rightAllowed(playerX, player Y, relSpeed)
-// Check for blocked tiles
-// boolean cond1 = coll.canPass(playerX + 50 + relSpeed, playerY + 63);
-//boolean cond2 = coll.canPass(playerX + 50 + relSpeed, playerY + 1);
-// Check for edge of map
-//boolean cond3 = cam.isTooRight()
+        return (cond1 && cond2 && cond3);
+    }
+
+    /**
+     * Checks tile collision and map bounds
+     * @param playerX
+     * @param playerY
+     * @param relSpeed Speed as function of delta
+     * @param cam Current camera object
+     * @return True if down movement allowed 
+     */
+    public boolean isDownAllowed(int playerX, int playerY, float relSpeed, Camera cam)
+    {        
+        // True if there are no blocked tiles
+        float newY = playerY + Yfactor + relSpeed;
+        boolean cond1 = canPass(playerX + Xfactor, newY );
+        boolean cond2 = canPass(playerX + 1, newY );
+
+        // True if not at edge
+        boolean cond3 = !cam.isTooDown();
+
+        return (cond1 && cond2 && cond3);  
+    }
+    
+    /**
+     * Checks tile collision and map bounds
+     * @param playerX
+     * @param playerY
+     * @param relSpeed Speed as function of delta
+     * @param cam Current camera object
+     * @return True if left movement allowed 
+     */
+    public boolean isLeftAllowed(int playerX, int playerY, float relSpeed, Camera cam)
+    {
+        // True if there are no blocked tiles
+        boolean cond1 = canPass(playerX - relSpeed, playerY + 1);
+        boolean cond2 = canPass(playerX - relSpeed, playerY + Yfactor);
+        
+        // True if not at edge
+        boolean cond3 = !cam.isTooLeft();
+
+        return (cond1 && cond2 && cond3); 
+    }
+
+    /**
+     * Checks tile collision and map bounds
+     * @param playerX
+     * @param playerY 
+     * @param relSpeed Speed as function of delta
+     * @param cam Current camera object
+     * @return True if right movement allowed
+     */
+    public boolean isRightAllowed(int playerX, int playerY, float relSpeed, Camera cam)
+    {
+        // True if there are no blocked tiles
+        float newX = playerX + Xfactor + relSpeed;
+        boolean cond1 = canPass(newX, playerY + Yfactor);
+        boolean cond2 = canPass(newX, playerY + 1);
+        
+        // True if not at edge
+        boolean cond3 = !cam.isTooRight();
+
+        return (cond1 && cond2 && cond3);      
+    }
+    
     
 }

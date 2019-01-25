@@ -1,16 +1,19 @@
 package States;
 
 import Main.Globals;
-import Utility.GUI.ButtonManager;
-import Utility.GUI.FontServer;
-import Utility.GUI.InfoScreen;
-import Utility.GUI.InterfaceScreen;
+import Utility.Menu.ButtonManager;
+import Utility.Menu.FontServer;
+import Utility.Menu.InfoScreen;
+import Utility.Menu.InterfaceScreen;
 import Utility.TimedWriter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.state.StateBasedGame;
@@ -33,7 +36,7 @@ public class MainMenu extends InterfaceScreen
     public void customInit()
     {
         tw = new TimedWriter("Alien Aztec Adventure", 150);
-        font = FontServer.getFont("gamefont-plain-70");
+        font = FontServer.getFont("gamefont-plain-70");     
     }
     
     @Override

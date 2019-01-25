@@ -2,9 +2,9 @@ package States;
 
 import Main.Globals;
 import static Main.Globals.screenW;
-import Utility.GUI.FontServer;
-import Utility.GUI.InfoScreen;
-import static Utility.GUI.InfoScreen.headerX;
+import Utility.Menu.FontServer;
+import Utility.Menu.InfoScreen;
+import static Utility.Menu.InfoScreen.headerX;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
