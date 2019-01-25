@@ -58,9 +58,7 @@ public class Globals
     }
     
     // Settings
-    public static boolean showFPS = true;
-    public static boolean showMemUse = true;
-    public static boolean showCoords = true;
+    public static boolean showStats = true;
     
     // Player lives
     public static int playerLives = 5;

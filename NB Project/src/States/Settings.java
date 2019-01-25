@@ -21,7 +21,7 @@ public class Settings extends InterfaceScreen
         return Globals.states.get("SETTINGS");
     }
     
-      @Override
+    @Override
     public ButtonManager initButtonManager() 
     {
         return new ButtonManager("Gamefont-Plain-65", "OCR A Extended-Plain-35");
@@ -60,11 +60,16 @@ public class Settings extends InterfaceScreen
     @Override
     public ArrayList<String> initButtonLabels() 
     {
-       ArrayList<String> labels = new ArrayList<String>();
+       // Create strings
+       boolean status = Globals.showStats;
+       String label = processSwitchString("SHOW STATS: X", status);
+        
+       // Create AL
+       ArrayList<String> labels = new ArrayList<>();
+       
+       // Add to AL
        labels.add("SETTINGS");
-       labels.add("SHOW FPS: OFF");
-       labels.add("SHOW MEMORY USE: OFF");
-       labels.add("SHOW COORDS: OFF");
+       labels.add(label);
        
        return labels;
     }
@@ -73,20 +78,10 @@ public class Settings extends InterfaceScreen
     @Override
     public void clickAction(StateBasedGame sbg, String label) 
     {
-       if (label.contains("FPS"))
+       if (label.contains("STATS"))
            {
-               Globals.showFPS = !Globals.showFPS;
-               switchLabel(1, Globals.showFPS);
-           }
-       else if(label.contains("MEMORY"))
-           {
-               Globals.showMemUse = !Globals.showMemUse;
-               switchLabel(2, Globals.showMemUse);
-           }
-       else if (label.contains("COORD"))
-           {
-               Globals.showCoords = !Globals.showCoords;
-               switchLabel(3, Globals.showCoords);
+               Globals.showStats = !Globals.showStats;
+               switchLabel(1, Globals.showStats);
            }
     }
     
@@ -100,18 +95,11 @@ public class Settings extends InterfaceScreen
      */
     private void switchLabel(int pos, boolean state)
     {
-       // Get previous label
+       // Get previous string
        String prev = getButtonLabels().get(pos);
-        
-       // Initialise new label with first part
-       String newS = prev.split(":")[0];
-        
-       // Add semicolon and space
-       newS += ": ";
-        
-       // Add true if ON, OFF if false
-       if (state) { newS += "ON"; }
-       else { newS += "OFF"; }
+       
+       // Generate new string
+       String newS = processSwitchString(prev, state);
 
        // Replace old label with new
        getButtonLabels().set(pos, newS);
@@ -120,6 +108,22 @@ public class Settings extends InterfaceScreen
        getButtonManager().createButtonGrid
        (getHeaderParams(), getLineParams(), getButtonLabels());
                
+    }
+    
+    private String processSwitchString(String prev, boolean state)
+    {
+       // Initialise new label with first part
+       String newS = prev.split(":")[0];
+        
+       // Add semicolon and space
+       newS += ": ";
+        
+       // Add true if ON, and OFF if false
+       if (state) { newS += "ON"; }
+       else { newS += "OFF"; }
+       
+       // Return new string
+       return newS;
     }
 
     @Override

@@ -14,6 +14,7 @@ public class Controls extends InfoScreen
     
     /**
      * Override ID
+     * @return 
      */
     @Override
     public int getID() { return Globals.states.get("CONTROLS"); }

@@ -3,19 +3,14 @@ package States;
 import Main.Globals;
 import Utility.Menu.ButtonManager;
 import Utility.Menu.FontServer;
-import Utility.Menu.InfoScreen;
 import Utility.Menu.InterfaceScreen;
 import Utility.TimedWriter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.state.StateBasedGame;
 
 
@@ -55,7 +50,7 @@ public class MainMenu extends InterfaceScreen
     @Override
     public ArrayList<String> initButtonLabels() 
     {
-       ArrayList<String> labels = new ArrayList<String>();
+       ArrayList<String> labels = new ArrayList<>();
        labels.add("PLAY");
        labels.add("CONTROLS");
        labels.add("SETTINGS");

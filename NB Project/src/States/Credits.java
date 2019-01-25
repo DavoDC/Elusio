@@ -14,6 +14,7 @@ public class Credits extends InfoScreen
     
     /**
      * Override ID
+     * @return 
      */
     @Override
     public int getID() { return Globals.states.get("CREDITS"); }

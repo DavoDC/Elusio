@@ -48,8 +48,13 @@ public class Player {
         catch (Exception e) { }
 
         animSpeed = 500;
-        anim = new Animation(sprites, animSpeed);     
-
+        anim = new Animation(sprites, animSpeed);   
+        
+        // Prevents animation from starting on its own
+        anim.stop();
+        
+        // Puts animation on "standing still" frame
+        anim.setCurrentFrame(1);
         
     }
     

@@ -58,9 +58,8 @@ public class Camera {
       this.gc = gc;
    }
    
-   public int getCamX() { return (int) cameraX; }
-   
-   public int getCamY() { return (int) cameraY; }
+   public int getX() { return (int) cameraX; }
+   public int getY() { return (int) cameraY; }
    
    /**
     * "Locks" the camera on the given coordinates. 
@@ -69,7 +68,8 @@ public class Camera {
     * @param x the real x-coordinate (in pixel) which should be centered on the screen
     * @param y the real y-coordinate (in pixel) which should be centered on the screen
     */
-   public void centerOn(float x, float y) {
+   public void centerOn(float x, float y) 
+   {
       //Try to set the given position as center of the camera
       cameraX = x - gc.getWidth()  / 2;
       cameraY = y - gc.getHeight() / 2;

@@ -1,5 +1,6 @@
 package Utility;
 
+import Entity.Player;
 import Main.Globals;
 import Utility.Menu.FontServer;
 import org.newdawn.slick.Color;
@@ -56,7 +57,10 @@ public class HUD
             stats = stats.getScaledCopy(newW, newH);
             
             // Initialise co-ordinates
-            update(cx, cy, px, py);
+            camX = cx;
+            camY = cy;
+            playerX = px;
+            playerY = py;
             
             // Initialise font
             lifeFont = FontServer.getFont("Cambria-Bold-36");
@@ -73,15 +77,14 @@ public class HUD
     /**
      * Updates internal values
      * Changes where the HUD is drawn
-     * @param camX
-     * @param camY
+     * @param cam
      * @param playerX
      * @param playerY
      */
-    public void update(int camX , int camY, int playerX, int playerY)
+    public void update(Camera cam, int playerX, int playerY)
     {
-        this.camX = camX;
-        this.camY = camY;
+        this.camX = cam.getX();
+        this.camY = cam.getY();
         this.playerX = playerX;
         this.playerY = playerY;
     }
@@ -118,9 +121,14 @@ public class HUD
      */
     private void drawStats(Graphics g)
     {
+        // Don't continue if stats aren't on
+        if (!(Globals.showStats)) { return; }
+        
+        // Calculate position
         int drawX = camX + Globals.screenW - stats.getWidth();
         int drawY = camY;
         
+        // Draw back panel
         g.drawImage(stats, drawX, drawY);
         
         // Adjust for text
@@ -130,32 +138,23 @@ public class HUD
         // Set font color
         g.setColor(Color.black);
         
-        // If on, draw FPS
-        if (Globals.showFPS)
-        {
-            String fps = "FPS: " + Globals.agc.getFPS();
-            g.drawString(fps, drawX, drawY);
-        }
+        // Draw FPS
+        String fps = "FPS: " + Globals.agc.getFPS();
+        g.drawString(fps, drawX, drawY);
         
-        // If on, draw memory use
-        if (Globals.showMemUse)
-        {
-            long freeMem = Runtime.getRuntime().freeMemory();
-            long totalMem = Runtime.getRuntime().totalMemory();
-            long memoryUsed = (totalMem-freeMem)/1000000;
-            String mem = "Memory Usage: " + memoryUsed + " MB";
-            g.drawString(mem, drawX, drawY + 20);
-        }
+        // Draw memory use
+        long freeMem = Runtime.getRuntime().freeMemory();
+        long totalMem = Runtime.getRuntime().totalMemory();
+        long memoryUsed = (totalMem-freeMem)/1000000;
+        String mem = "Memory Usage: " + memoryUsed + " MB";
+        g.drawString(mem, drawX, drawY + 20);
         
-        // If on, draw co-ordinates
-        if (Globals.showCoords)
-        {
-            String player = "pX: " + playerX + " , pY: " + playerY;
-            g.drawString(player, drawX, drawY + 40);
-            
-            String cam = "cX: " + camX + " , cY: " + camY;
-            g.drawString(cam, drawX, drawY + 60);
-        }
+        // Draw co-ordinates
+        String player = "pX: " + playerX + " , pY: " + playerY;
+        g.drawString(player, drawX, drawY + 40);
+
+        String cam = "cX: " + camX + " , cY: " + camY;
+        g.drawString(cam, drawX, drawY + 60);
     }
     
     

@@ -5,7 +5,6 @@ import Entity.Player;
 import Main.Globals;
 import Utility.HUD;
 import Utility.TiledMapPlus;
-import org.newdawn.slick.Color;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,7 +12,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.tiled.TiledMap;
 
 
 /**
@@ -63,7 +61,7 @@ public class Play extends BasicGameState
       cam = new Camera(container, map);
       cam.centerOn(playerX, playerX);
       
-      hud = new HUD(cam.getCamX(), cam.getCamY(), playerX, playerY);
+      hud = new HUD(cam.getX(), cam.getY(), playerX, playerY);
     }
 
     
@@ -73,11 +71,13 @@ public class Play extends BasicGameState
      * This is where you should make objects move.
      * This is also where you should check input and change the state of the game.
      * @param gc Holds the game
+     * @param sbg
      * @param delta Amount of time since between updates
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException 
+    {
 
         // Make animation use game time
         alien.updateAnimation(delta);
@@ -85,92 +85,85 @@ public class Play extends BasicGameState
         // Relative speed
         float relSpeed = delta * alien.getMovSpeed();
         
-        // Get input
-        Input input = gc.getInput();
+        // Handle input
+        handleInput(gc.getInput(), sbg, relSpeed);         
+         
+        // Update camera
+        cam.centerOn(playerX, playerY);
+         
+        // Update hud
+        hud.update(cam, playerX, playerY);
+    }
 
-        // Handle movement input
-        if(input.isKeyDown(Input.KEY_UP)) //Up arrow
+    /**
+     * Handles input
+     */
+    private void handleInput(Input input, StateBasedGame sbg, float rSpd) throws SlickException
+    {
+        if(input.isKeyDown(Input.KEY_UP)) // Up arrow
             {
-              // Change animation
-              alien.startAnim("up");
+                // Change animation
+                alien.startAnim("up");
               
-              // Move but dont collide
-              if (map.isUpAllowed(playerX, playerY, relSpeed, cam))
-              {
-                  playerY -= relSpeed;
-              }
-              
+                // Move but dont collide
+                if (map.isUpAllowed(playerX, playerY, rSpd, cam))
+                {
+                    playerY -= rSpd;
+                }
             } 
-        else if(input.isKeyDown(Input.KEY_DOWN)) //Down arrow
+        else if(input.isKeyDown(Input.KEY_DOWN)) // Down arrow
             {
-              // Change animation
-              alien.startAnim("down");
+                // Change animation
+                alien.startAnim("down");
 
-              // Move if conditions are satisfied
-              if (map.isDownAllowed(playerX, playerY, relSpeed, cam))
-              {
-                  playerY += relSpeed;
-              }
-             
+                // Move if conditions are satisfied
+                if (map.isDownAllowed(playerX, playerY, rSpd, cam))
+                {
+                    playerY += rSpd;
+                }
             }
         else if(input.isKeyDown(Input.KEY_LEFT)) //Left arrow
             {
-              // Change animation
-              alien.startAnim("left");
+                // Change animation
+                alien.startAnim("left");
               
-              // Move if conditions are satisfied
-              if (map.isLeftAllowed(playerX, playerY, relSpeed, cam))
-              {
-                  playerX -= relSpeed;
-              }
-
+                // Move if conditions are satisfied
+                if (map.isLeftAllowed(playerX, playerY, rSpd, cam))
+                {
+                    playerX -= rSpd;
+                }
             }
         else if (input.isKeyDown(Input.KEY_RIGHT)) //Right arrow
             {
-              // Change animation
-              alien.startAnim("right");
-              
-              // Move if conditions are satisfied
-              if (map.isRightAllowed(playerX, playerY, relSpeed, cam))
-              {
-                 playerX += relSpeed;
-              }
-              
+                // Change animation
+                alien.startAnim("right");
+
+                // Move if conditions are satisfied
+                if (map.isRightAllowed(playerX, playerY, rSpd, cam))
+                {
+                    playerX += rSpd;
+                }
             }
-        else // No arrows down
+        else if (input.isKeyPressed(Input.KEY_ESCAPE)) // Escape key
             {
-               alien.stopAnim();
+                sbg.enterState(
+                    Globals.states.get("MAINMENU"),
+                    Globals.getLeave(),
+                    Globals.getEnter()
+                );
+                Globals.isPaused = true;
             }
-         
-         
-         // Pause key
-         if (input.isKeyPressed(Input.KEY_ESCAPE))
-         {
-             sbg.enterState(
-                 Globals.states.get("MAINMENU"),
-                 Globals.getLeave(),
-                 Globals.getEnter()
-             );
-             Globals.isPaused = true;
-         }
-         
-         // Handle setting keys
-         if (input.isKeyDown(Input.KEY_F) && input.isKeyDown(Input.KEY_LCONTROL))
-         {
-             boolean newStatus = !Globals.agc.isFullscreen();
-             Globals.agc.setFullscreen(newStatus);
-         }
-         
-         
-         
-         // Update camera
-         cam.centerOn(playerX, playerY);
-         
-         // Update hud
-         hud.update(cam.getCamX(), cam.getCamY(), playerX, playerY);
+        else if (input.isKeyDown(Input.KEY_F)) // F key
+            {
+                boolean newStatus = !Globals.agc.isFullscreen();
+                Globals.agc.setFullscreen(newStatus);
+            }
+        else // When nothing is being pressed
+            {
+                alien.stopAnim();
+            }
 
     }
-
    
   
    
@@ -178,11 +171,13 @@ public class Play extends BasicGameState
      * This method should be used to draw to the screen. 
      * All of your game's rendering should take place in this method (or via calls)
      * It is called constantly. Items are constantly redrawn
+     * @param gc
+     * @param sbg
      * @param g
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException 
     {  
         // Draw camera's view of map
         cam.drawMap();
@@ -193,7 +188,6 @@ public class Play extends BasicGameState
         
         // Draw HUD
         hud.drawHUD(g);
-        
     }
     
     
