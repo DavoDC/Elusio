@@ -18,11 +18,13 @@ public class TiledMapPlus extends TiledMap
     // Tile array
     private boolean[][] blocked;  
     
-    // Determines X collision tightness
-    private final int Xfactor = 30;
+    // Determine X collision tightness
+    private final int Xfactor = 25;
+    private final int Xadjuster = 50;
     
     // Determines Y collision tightnesss
-    private final int Yfactor = 64;
+    private final int Yfactor = 60;
+    private final int Yadjuster = 50;
     
     // Tile size
     private final int tileSize = 64;
@@ -99,9 +101,9 @@ public class TiledMapPlus extends TiledMap
      */
     public boolean isUpAllowed(int playerX, int playerY, float relSpeed, Camera cam)
     {
-        // True if there are no blocked tiles
+        // True = No blocked tiles upwards
         boolean cond1 = canPass(playerX + Xfactor, playerY - relSpeed);
-        boolean cond2 = canPass(playerX + 1, playerY - relSpeed);
+        boolean cond2 = canPass(playerX + Xadjuster, playerY - relSpeed);
 
         // True if not at edge
         boolean cond3 = !cam.isTooUp();
@@ -122,7 +124,7 @@ public class TiledMapPlus extends TiledMap
         // True if there are no blocked tiles
         float newY = playerY + Yfactor + relSpeed;
         boolean cond1 = canPass(playerX + Xfactor, newY );
-        boolean cond2 = canPass(playerX + 1, newY );
+        boolean cond2 = canPass(playerX + Xadjuster, newY );
 
         // True if not at edge
         boolean cond3 = !cam.isTooDown();
@@ -141,7 +143,7 @@ public class TiledMapPlus extends TiledMap
     public boolean isLeftAllowed(int playerX, int playerY, float relSpeed, Camera cam)
     {
         // True if there are no blocked tiles
-        boolean cond1 = canPass(playerX - relSpeed, playerY + 1);
+        boolean cond1 = canPass(playerX - relSpeed, playerY + Yadjuster);
         boolean cond2 = canPass(playerX - relSpeed, playerY + Yfactor);
         
         // True if not at edge
@@ -163,7 +165,8 @@ public class TiledMapPlus extends TiledMap
         // True if there are no blocked tiles
         float newX = playerX + Xfactor + relSpeed;
         boolean cond1 = canPass(newX, playerY + Yfactor);
-        boolean cond2 = canPass(newX, playerY + 1);
+        boolean cond2 = canPass(newX, playerY + Yadjuster);
+        
         
         // True if not at edge
         boolean cond3 = !cam.isTooRight();

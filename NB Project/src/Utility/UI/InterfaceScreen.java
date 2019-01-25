@@ -1,4 +1,4 @@
-package Utility.Menu;
+package Utility.UI;
 
 import Main.Globals;
 import java.util.ArrayList;
@@ -178,12 +178,12 @@ public abstract class InterfaceScreen extends BasicGameState
            int menuID = Globals.states.get("MAINMENU");
            if (curID != menuID)
            {
-                           // Transition to that state
-            sbg.enterState(
-                    menuID, 
-                    Globals.getLeave(),
-                    Globals.getEnter()
-            );
+                // Transition to that state
+                sbg.enterState(
+                        menuID, 
+                        Globals.getLeave(),
+                        Globals.getEnter()
+                );
            }
            
        }

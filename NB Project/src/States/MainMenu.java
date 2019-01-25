@@ -1,9 +1,9 @@
 package States;
 
 import Main.Globals;
-import Utility.Menu.ButtonManager;
-import Utility.Menu.FontServer;
-import Utility.Menu.InterfaceScreen;
+import Utility.UI.ButtonManager;
+import Utility.UI.FontServer;
+import Utility.UI.InterfaceScreen;
 import Utility.TimedWriter;
 
 import java.util.ArrayList;
@@ -99,9 +99,11 @@ public class MainMenu extends InterfaceScreen
     @Override
     public void customPreUpdate() 
     {
+        // Remove offset
+        Globals.agc.getInput().setOffset(0,0);
  
         // If paused, change "PLAY" to "CONTINUE"
-        if (Globals.isPaused)
+        if (Globals.hasBeenPaused)
         {
             getButtonLabels().set(0, "CONTINUE");
             getButtonManager().createButtonGrid

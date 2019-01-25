@@ -1,12 +1,12 @@
-package Utility.Menu;
+package Utility.UI;
 
 
 import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Circle;
-
 import org.newdawn.slick.geom.Rectangle;
 
 

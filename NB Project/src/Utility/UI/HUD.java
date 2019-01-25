@@ -1,13 +1,19 @@
-package Utility;
+package Utility.UI;
 
 import Entity.Player;
 import Main.Globals;
-import Utility.Menu.FontServer;
+import Utility.Camera;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.gui.AbstractComponent;
+import org.newdawn.slick.gui.GUIContext;
+import org.newdawn.slick.gui.MouseOverArea;
+import org.newdawn.slick.state.StateBasedGame;
 
 /**
  * Helps to draw HUD elements
@@ -17,11 +23,13 @@ import org.newdawn.slick.TrueTypeFont;
 public class HUD 
 {
     
-    // GUI panels
-    private Image bag;
-    private Image lives;
-    private Image menu;
+    // Buttons
+    private MouseOverArea menu;
+    private MouseOverArea inv;
+    
+    // Panels
     private Image stats;
+    private Image lives;
     
     // Camera co-ordinates
     private int camX;
@@ -36,20 +44,40 @@ public class HUD
     
     /**
      * Initialise the HUD
-     * @param cx Cam X
-     * @param cy Cam Y
-     * @param px player X
-     * @param py player Y
+     * @param cam
+     * @param player
+     * @param guiC
+     * @param sbg
      */
-    public HUD(int cx , int cy, int px, int py)
+    public HUD(Camera cam, Player player, GUIContext guiC, StateBasedGame sbg)
     {
         try 
         {
-            // Initialise images
-            bag = new Image("res/hud/bag.png");
-            lives = new Image("res/hud/lives.png");
-            menu = new Image("res/hud/menu.png");
+            // Initialise menu button
+            Image menuImg = new Image("res/hud/menu.png");
+            menu = new MouseOverArea(guiC, menuImg, 0, 0);
+            menu.addListener((AbstractComponent source) -> {
+                Globals.hasBeenPaused = true;
+                sbg.enterState(
+                        Globals.states.get("MAINMENU"),
+                        Globals.getLeave(),
+                        Globals.getEnter());
+            });
+            
+            // Initialise inventory button
+            Image invImg = new Image("res/hud/bag.png");
+            inv = new MouseOverArea(guiC, invImg, 0, 0);
+            inv.addListener((AbstractComponent source) -> 
+                    { 
+                        //sbg.enterState(
+                        //    Globals.states.get("MAINMENU"), //temp
+                        //    Globals.getLeave(),
+                        //    Globals.getEnter());
+                    });
+            
+            // Initialise panels
             stats = new Image("res/hud/stats.png");
+            lives = new Image("res/hud/lives.png");
             
             // Adjust stats image
             int newW = (stats.getWidth()*2) + 10;
@@ -57,18 +85,18 @@ public class HUD
             stats = stats.getScaledCopy(newW, newH);
             
             // Initialise co-ordinates
-            camX = cx;
-            camY = cy;
-            playerX = px;
-            playerY = py;
+            camX = cam.getX();
+            camY = cam.getY();
+            playerX = player.getStartX();
+            playerY = player.getStartY();
             
             // Initialise font
             lifeFont = FontServer.getFont("Cambria-Bold-36");
-            
+
         } 
         catch (SlickException ex) 
         {
-            System.err.println("Error loading HUD images");
+            System.err.println("Error loading HUD");
         }
         
     }
@@ -77,6 +105,7 @@ public class HUD
     /**
      * Updates internal values
      * Changes where the HUD is drawn
+     * @param guiC
      * @param cam
      * @param playerX
      * @param playerY
@@ -87,31 +116,41 @@ public class HUD
         this.camY = cam.getY();
         this.playerX = playerX;
         this.playerY = playerY;
+        
+        // Offset mouse so that buttons work   
+        Globals.agc.getInput().setOffset(camX, camY);
     }
     
     
     /**
      * Draw the HUD
+     * @param guiC
      * @param g 
      */
-    public void drawHUD(Graphics g)
+    public void drawHUD(GUIContext guiC, Graphics g)
     {
-       drawMenu(g);
-       drawStats(g);
-       drawBag(g);
-       drawLives(g);
+        drawButtons(guiC, g);
+       
+        drawStats(g);
+       
+        drawLives(g);
     }
     
     
     /**
-     * Draws the menu button in top left
+     * Draws buttons
      * @param g 
      */
-    private void drawMenu(Graphics g)
+    private void drawButtons(GUIContext guiC, Graphics g)
     {
+        menu.setLocation(camX, camY);
+        menu.render(guiC, g);
+        
         int drawX = camX;
-        int drawY = camY;
-        g.drawImage(menu, drawX, drawY);
+        int drawY = camY + Globals.screenH - inv.getHeight();
+        
+        inv.setLocation(drawX, drawY);
+        inv.render(guiC, g);
     }
     
     
@@ -157,20 +196,6 @@ public class HUD
         g.drawString(cam, drawX, drawY + 60);
     }
     
-    
-    /**
-     * Draws the inventory button in the bottom left
-     * @param g 
-     */
-    private void drawBag(Graphics g)
-    {
-        int drawX = camX;
-        int drawY = camY + Globals.screenH - bag.getHeight();
-        
-        g.drawImage(bag, drawX, drawY);
-    }
-    
-    
     /**
      * Draws the number of lives in the bottom right
      * @param g 
@@ -189,8 +214,8 @@ public class HUD
         drawY += 30;
         
         // Draw number of lives
-        String lives =  "" + Globals.playerLives + "";
-        lifeFont.drawString(drawX, drawY, lives, Color.black);
+        String livesS =  "" + Globals.playerLives + "";
+        lifeFont.drawString(drawX, drawY, livesS, Color.black);
         
     }
     

@@ -3,7 +3,7 @@ package States;
 import Utility.Camera;
 import Entity.Player;
 import Main.Globals;
-import Utility.HUD;
+import Utility.UI.HUD;
 import Utility.TiledMapPlus;
 
 import org.newdawn.slick.GameContainer;
@@ -32,6 +32,8 @@ public class Play extends BasicGameState
     
     // HUD
     private HUD hud;
+    
+    
             
     /**
      * Used to identify states and switch to them
@@ -50,23 +52,23 @@ public class Play extends BasicGameState
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void init(GameContainer container, StateBasedGame game) throws SlickException 
+    public void init(GameContainer gc, StateBasedGame game) throws SlickException 
     {
-      alien = new Player();
-      playerX = alien.getStartX();
-      playerY = alien.getStartY();
-      
-      map = new TiledMapPlus("res/map/map.tmx");
-      
-      cam = new Camera(container, map);
-      cam.centerOn(playerX, playerX);
-      
-      hud = new HUD(cam.getX(), cam.getY(), playerX, playerY);
+        alien = new Player();
+        playerX = alien.getStartX();
+        playerY = alien.getStartY();
+
+        map = new TiledMapPlus("res/map/map.tmx");
+
+        cam = new Camera(gc, map);
+        cam.centerOn(playerX, playerX);
+
+        hud = new HUD(cam, alien, gc, game); 
     }
 
     
     
-     /**
+    /**
      * The method is called each game loop to cause your game to update it's logic. 
      * This is where you should make objects move.
      * This is also where you should check input and change the state of the game.
@@ -78,7 +80,6 @@ public class Play extends BasicGameState
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException 
     {
-
         // Make animation use game time
         alien.updateAnimation(delta);
         
@@ -93,13 +94,16 @@ public class Play extends BasicGameState
          
         // Update hud
         hud.update(cam, playerX, playerY);
+
     }
 
+    
     /**
      * Handles input
      */
     private void handleInput(Input input, StateBasedGame sbg, float rSpd) throws SlickException
     {
+        
         if(input.isKeyDown(Input.KEY_UP)) // Up arrow
             {
                 // Change animation
@@ -144,14 +148,14 @@ public class Play extends BasicGameState
                     playerX += rSpd;
                 }
             }
-        else if (input.isKeyPressed(Input.KEY_ESCAPE)) // Escape key
+        else if (input.isKeyDown(Input.KEY_ESCAPE)) // Escape key
             {
                 sbg.enterState(
                     Globals.states.get("MAINMENU"),
                     Globals.getLeave(),
                     Globals.getEnter()
                 );
-                Globals.isPaused = true;
+                Globals.hasBeenPaused = true;
             }
         else if (input.isKeyDown(Input.KEY_F)) // F key
             {
@@ -187,8 +191,11 @@ public class Play extends BasicGameState
         alien.drawPlayer(playerX, playerY);
         
         // Draw HUD
-        hud.drawHUD(g);
+        hud.drawHUD(gc, g);    
     }
+
+    
+    
     
     
   

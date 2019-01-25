@@ -30,6 +30,8 @@ public class Player {
     // Animation of player moving
     private int animSpeed;
     private Animation anim;
+    
+    // 
    
     
     

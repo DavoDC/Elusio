@@ -1,4 +1,4 @@
-package Utility.Menu;
+package Utility.UI;
 
 import Main.Globals;
 import static Main.Globals.screenW;
@@ -11,24 +11,27 @@ import org.newdawn.slick.Color;
  */
 public abstract class InfoScreen extends InterfaceScreen
 {
+    
     // Adjust X positions of text
     public static final int headerX = (Globals.screenW/2) - 175;
     public static final int lineX = (Globals.screenW/4) - 200;
-    
     
     // Fonts
     public static final String headerFont = "Gamefont-Plain-65";
     public static final String lineFont = "Segoe UI-Plain-35";
     
+    
     @Override
     public abstract int getID();
 
+    
     @Override
     public ButtonManager initButtonManager() 
     {
         return new ButtonManager( headerFont, lineFont );
     }
 
+    
     @Override
     public float[] initHeaderParams() 
     { 
@@ -39,6 +42,7 @@ public abstract class InfoScreen extends InterfaceScreen
         return hParams;
     }
 
+    
     @Override
     public float[] initLineParams() 
     {
@@ -49,18 +53,17 @@ public abstract class InfoScreen extends InterfaceScreen
         return lParams;
     }
     
+    
     public abstract ArrayList<String> initButtonLabels();
     
+    
     @Override
-    public boolean isDarkened() 
-    {
-        return true;
-    }
+    public boolean isDarkened() { return true; }
 
     @Override
-    public Color getButtonCol() 
-    {
-        return Color.transparent;
-    }
+    public Color getButtonCol() { return Color.transparent; }
+    
+    
+    
     
 }

@@ -1,4 +1,4 @@
-package Utility.Menu;
+package Utility.UI;
 
 import java.awt.Font;
 import java.io.InputStream;

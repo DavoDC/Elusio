@@ -25,7 +25,6 @@ public class Globals
     public static int screenW = 0;
     public static int screenH = 0;
     
-    
     // Cursor
     public static Image cursor;
     
@@ -33,7 +32,7 @@ public class Globals
     public static HashMap<String, Integer> states = new HashMap<>();
     
     // True if the game was paused at any point
-    public static boolean isPaused = false;
+    public static boolean hasBeenPaused = false;
     
     // Backgrounds
     public static ArrayList<BigImage> backgrounds = new ArrayList<>();

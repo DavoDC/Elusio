@@ -1,8 +1,8 @@
 package States;
 
 import Main.Globals;
-import Utility.Menu.ButtonManager;
-import Utility.Menu.InterfaceScreen;
+import Utility.UI.ButtonManager;
+import Utility.UI.InterfaceScreen;
 
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
