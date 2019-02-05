@@ -3,67 +3,60 @@ package Utility.UI;
 import Main.Globals;
 import static Main.Globals.screenW;
 import java.util.ArrayList;
-import org.newdawn.slick.Color;
 
 /**
+ * Models a screen containing info
  *
- * @author CHARKEYD
+ * @author David Charkey
  */
 public abstract class InfoScreen extends InterfaceScreen
 {
-    
-    // Adjust X positions of text
-    public static final int headerX = (Globals.screenW/2) - 175;
-    public static final int lineX = (Globals.screenW/4) - 200;
-    
-    // Fonts
-    public static final String headerFont = "Gamefont-Plain-65";
-    public static final String lineFont = "Segoe UI-Plain-35";
-    
-    
+
+    // Line constants
+    public static final float lineX = (Globals.screenW / 4) - 300;
+    public static final String lineFont = "Segoe UI-Plain-30";
+
+    // Header constants
+    public static final float headerX = (Globals.screenW / 2) - 175;
+    public static final String headerFont = "Gamefont-Plain-60";
+
     @Override
     public abstract int getID();
 
-    
     @Override
-    public ButtonManager initButtonManager() 
+    public ArrayList<Object> getButtonFeatures()
     {
-        return new ButtonManager( headerFont, lineFont );
+        // Create AL
+        ArrayList<Object> feats = new ArrayList<>();
+
+        // Add to AL
+        feats.add(getButtonLabels().size()); // Number of buttons
+        feats.add("res/misc/nothing.png"); // Image Location
+        feats.add((int) lineX); // startXpos
+        feats.add(160); // startYpos
+        feats.add((int) screenW); // Width
+        feats.add(40); // Height
+        feats.add(15); // XSpacing
+        feats.add(5); // YSpacing
+        feats.add(1); // NumberofColumns
+        feats.add(lineFont); // FontString
+
+        return feats;
     }
 
-    
     @Override
-    public float[] initHeaderParams() 
-    { 
-        // Initialise header parameters
-        // Order = startXpos, startYpos, width, height
-        float[] hParams = new float[] {headerX, 100f, screenW, 50f};
-        
-        return hParams;
-    }
+    public abstract ArrayList<String> getButtonLabels();
 
-    
     @Override
-    public float[] initLineParams() 
+    public void customPostInit()
     {
-        // Initalise paragraph parameters
-        // Order = startXpos, startYpos, width, height, Xspace, Yspace, colNo
-        float[] lParams = new float[] {lineX, 160f, screenW, 40f, 15f, 0f, 1f};
-        
-        return lParams;
+        super.getButtonGrid().makeHeader();
     }
-    
-    
-    public abstract ArrayList<String> initButtonLabels();
-    
-    
-    @Override
-    public boolean isDarkened() { return true; }
 
     @Override
-    public Color getButtonCol() { return Color.transparent; }
-    
-    
-    
-    
+    public boolean isDarkened()
+    {
+        return true;
+    }
+
 }

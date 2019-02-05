@@ -8,36 +8,35 @@ import org.newdawn.slick.util.ResourceLoader;
 
 /**
  * Serves custom fonts application-wide
+ *
  * @author David
  */
-public class FontServer 
+public class FontServer
 {
+
     private static Font rawGameFont;
     private static int fontLoads = 0;
-            
+
     private static void initialiseGameFont()
     {
         // Ensures font is loaded once
         if (fontLoads == 0)
         {
-            try 
+            try
             {
-            InputStream inputStream = ResourceLoader.getResourceAsStream("res/misc/3dventure.ttf");
-            rawGameFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-            fontLoads++;
-            }
-            catch (Exception e)
+                InputStream inputStream = ResourceLoader.getResourceAsStream("res/misc/3dventure.ttf");
+                rawGameFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+                fontLoads++;
+            } catch (Exception e)
             {
                 System.err.println("Error loading font");
             }
         }
     }
-    
+
     /**
-     * Get a custom font
-     * Format: fontname-style-size
-     * e.g. "Calibri-Plain-20"
-     * 
+     * Get a custom font Format: fontname-style-size e.g. "Calibri-Plain-20"
+     *
      */
     public static TrueTypeFont getFont(String rawFontS)
     {
@@ -47,29 +46,30 @@ public class FontServer
         String fontS = parts[0];
         int styleID = interpretStyle(parts[1]);
         float size = Float.parseFloat(parts[2]);
-        
+
         // Font sizes above 60 cannot be displayed
-        if (size > 60) { size = 60; }
-                
+        if (size > 60)
+        {
+            size = 60;
+        }
+
         // Initialise font output
         TrueTypeFont fontOutput = null;
-        
+
         //Special game font
         if (fontS.contains("game"))
         {
             initialiseGameFont();
             Font midFont = rawGameFont.deriveFont(size);
             fontOutput = new TrueTypeFont(midFont, false);
-        }
-        else // Regular fonts
+        } else // Regular fonts
         {
             Font raw = new Font(fontS, styleID, (int) size);
             fontOutput = new TrueTypeFont(raw, true);
         }
-        
+
         return fontOutput;
     }
-    
 
     private static int interpretStyle(String style)
     {
@@ -77,21 +77,17 @@ public class FontServer
         if (style.contains("plain"))
         {
             id = Font.PLAIN;
-        }
-        else if (style.contains("ital"))
+        } else if (style.contains("ital"))
         {
             id = Font.ITALIC;
-        }
-        else if (style.contains("bold"))
+        } else if (style.contains("bold"))
         {
             id = Font.BOLD;
-        }
-        else 
+        } else
         {
             throw new IllegalArgumentException("Invalid style");
         }
         return id;
     }
-
 
 }

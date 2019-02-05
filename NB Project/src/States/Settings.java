@@ -1,12 +1,12 @@
 package States;
 
 import Main.Globals;
-import Utility.UI.ButtonManager;
+import Utility.UI.InfoScreen;
 import Utility.UI.InterfaceScreen;
 
 import java.util.ArrayList;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.gui.AbstractComponent;
+import org.newdawn.slick.gui.ComponentListener;
 
 /**
  *
@@ -15,130 +15,125 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Settings extends InterfaceScreen
 {
 
+    // Font Strings
+    private final String headerFont = InfoScreen.headerFont;
+    private final String settingsFont = "OCR A Extended-plain-35";
+
     @Override
-    public int getID() 
+    public int getID()
     {
-        return Globals.states.get("SETTINGS");
-    }
-    
-    @Override
-    public ButtonManager initButtonManager() 
-    {
-        return new ButtonManager("Gamefont-Plain-65", "OCR A Extended-Plain-35");
+        return Globals.STATES.get("SETTINGS");
     }
 
     @Override
-    public float[] initHeaderParams() 
+    public ArrayList<Object> getButtonFeatures()
     {
-        return 
-           new float[] 
-           {
-           (Globals.screenW/2) - 175, // start X pos
-           150, // start Y pos
-           350, // Width
-           60,  // Height
-           };
+        // Create AL
+        ArrayList<Object> feats = new ArrayList<>();
+
+        // Add to AL
+        // Number of buttons
+        feats.add(getButtonLabels().size());
+        // Image Location
+        feats.add("res/ui/menu/panel.png");
+        // startXpos
+        feats.add(300);
+        // startYpos
+        feats.add(200);
+        // width
+        feats.add(550);
+        // height
+        feats.add(40);
+        // XSpacing
+        feats.add(0);
+        // YSpacing
+        feats.add(50);
+        // NumberofColumns
+        feats.add(1);
+        // FontString
+        feats.add(settingsFont);
+
+        return feats;
     }
 
     @Override
-    public float[] initLineParams() 
+    public ArrayList<String> getButtonLabels()
     {
-        return 
-           new float[] 
-           {
-           300, // start X pos
-           200, // start Y pos
-           450, // Width
-           40,  // Height
-           0, //Xspace
-           50, //Yspace
-           1 //colNo
-           };
+        // Create strings
+        boolean status = Globals.showDevData;
+        String stats = processSwitchString("DEV DATA: X", status);
+
+        // Create AL
+        ArrayList<String> labels = new ArrayList<>();
+
+        // Add to AL
+        labels.add("SETTINGS");
+        labels.add(stats);
+
+        return labels;
     }
-  
 
     @Override
-    public ArrayList<String> initButtonLabels() 
+    public void customPostInit()
     {
-       // Create strings
-       boolean status = Globals.showStats;
-       String label = processSwitchString("SHOW STATS: X", status);
-        
-       // Create AL
-       ArrayList<String> labels = new ArrayList<>();
-       
-       // Add to AL
-       labels.add("SETTINGS");
-       labels.add(label);
-       
-       return labels;
+        // Adjust header
+        super.getButtonGrid().makeHeader();
+
+        // Add action to stats button
+        super.getButtonGrid().getButtonByPos(1).addAction((AbstractComponent source) ->
+        {
+            Globals.showDevData = !Globals.showDevData;
+            switchLabel(1, Globals.showDevData);
+        });
+
     }
 
-    
-    @Override
-    public void clickAction(StateBasedGame sbg, String label) 
-    {
-       if (label.contains("STATS"))
-           {
-               Globals.showStats = !Globals.showStats;
-               switchLabel(1, Globals.showStats);
-           }
-    }
-    
     /**
      * Alter a label after it is clicked
-     * 
+     *
      * @param prev previous label
      * @param pos in button list
      * @param state boolean status
-     * @return 
+     * @return
      */
     private void switchLabel(int pos, boolean state)
     {
-       // Get previous string
-       String prev = getButtonLabels().get(pos);
-       
-       // Generate new string
-       String newS = processSwitchString(prev, state);
+        // Get previous string
+        String prev = super.getButtonGrid().getButtonByPos(1).getLabel();
 
-       // Replace old label with new
-       getButtonLabels().set(pos, newS);
-       
-       // Reinitialise buttons
-       getButtonManager().createButtonGrid
-       (getHeaderParams(), getLineParams(), getButtonLabels());
-               
+        // Generate new string
+        String newS = processSwitchString(prev, state);
+
+        // Replace old label with new
+        super.getButtonGrid().replaceButtonLabel(prev, newS);
+
     }
-    
+
     private String processSwitchString(String prev, boolean state)
     {
-       // Initialise new label with first part
-       String newS = prev.split(":")[0];
-        
-       // Add semicolon and space
-       newS += ": ";
-        
-       // Add true if ON, and OFF if false
-       if (state) { newS += "ON"; }
-       else { newS += "OFF"; }
-       
-       // Return new string
-       return newS;
+        // Initialise new label with first part
+        String newS = prev.split(":")[0];
+
+        // Add semicolon and space
+        newS += ": ";
+
+        // Add true if ON, and OFF if false
+        if (state)
+        {
+            newS += "ON";
+        } else
+        {
+            newS += "OFF";
+        }
+
+        // Return new string
+        return newS;
     }
 
     @Override
-    public boolean isDarkened() 
+    public boolean isDarkened()
     {
         return false;
     }
 
-    @Override
-    public Color getButtonCol() 
-    {
-        return Color.black;
-    }
-
-
-    
-    
 }

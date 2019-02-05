@@ -1,18 +1,15 @@
 package States;
 
 import Main.Globals;
-import Utility.UI.ButtonManager;
-import Utility.UI.FontServer;
 import Utility.UI.InterfaceScreen;
-import Utility.TimedWriter;
+import Utility.UI.DelayWriter;
+import Utility.UI.Button;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.state.StateBasedGame;
-
+import org.newdawn.slick.gui.AbstractComponent;
+import org.newdawn.slick.gui.ComponentListener;
 
 /**
  *
@@ -20,141 +17,116 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class MainMenu extends InterfaceScreen
 {
-    // Helps to write AAA slowly
-    private TimedWriter tw;
-    
-    // Font
-    private TrueTypeFont font;
-    
-    
+
+    // Title fields
+    private final String titleS = "Alien Aztec Adventure";
+    private final String titleFont = "gamefont-plain-70";
+    private DelayWriter tw;
+
+    // Menu fields
+    private final String menuFont = "gamefont-plain-50";
+
     @Override
-    public void customInit()
+    public int getID()
     {
-        tw = new TimedWriter("Alien Aztec Adventure", 150);
-        font = FontServer.getFont("gamefont-plain-70");     
-    }
-    
-    @Override
-    public int getID() 
-    {
-        return Globals.states.get("MAINMENU");
-    }
-    
-    @Override
-    public ButtonManager initButtonManager() 
-    {
-        String gfs = "gamefont-plain-50";
-        return new ButtonManager(gfs, gfs);
-    }
-    
-    @Override
-    public ArrayList<String> initButtonLabels() 
-    {
-       ArrayList<String> labels = new ArrayList<>();
-       labels.add("PLAY");
-       labels.add("CONTROLS");
-       labels.add("SETTINGS");
-       labels.add("CREDITS");
-       labels.add("ABOUT");
-       labels.add("EXIT");
-       
-       return labels;
-    }
-    
-      @Override
-    public float[] initHeaderParams() 
-    {
-        return 
-           new float[] 
-           {
-           300, // start X pos
-           250, // start Y pos
-           300, // Width
-           40,  // Height
-           };
+        return Globals.STATES.get("MAINMENU");
     }
 
     @Override
-    public float[] initLineParams() 
+    public void customPostInit()
     {
-        // Get header params
-        float[] header = initHeaderParams();
-        
-        // Make array with last few variables
-        float[] last = new float[] 
-           {
-           0, //Xspace
-           Globals.screenH/17, //Yspace //dynamic to fit on screen
-           1 //colNo
-           };
-        
-        // Join header and last
-        float[] join= Arrays.copyOf(header, header.length + last.length);
-        System.arraycopy(last, 0, join, header.length, last.length);
-        
-        return join;
-           
+        tw = new DelayWriter(titleS, titleFont, 70);
+
+        super.getButtonGrid().applyActions(new ComponentListener()
+        {
+            @Override
+            public void componentActivated(AbstractComponent source)
+            {
+                // Get label
+                String label = ((Button) source).getLabel();
+
+                // Figure out next state ID
+                int newStateID = Globals.STATES.get(label);
+
+                // Transition to that state
+                Globals.SBG.enterState(
+                        newStateID,
+                        Globals.getLeave(),
+                        Globals.getEnter());
+
+            }
+        });
+
     }
 
     @Override
-    public void customPreUpdate() 
+    public ArrayList<Object> getButtonFeatures()
+    {
+        // Create AL
+        ArrayList<Object> feats = new ArrayList<>();
+
+        // Add to AL
+        feats.add(getButtonLabels().size()); // Number of buttons
+        feats.add("res/ui/menu/panel.png"); // Image Location
+        feats.add(300); // startXpos
+        feats.add(150); // startYpos 
+        feats.add(350); // width
+        feats.add(55); // height
+        feats.add(0); // XSpacing
+        feats.add((int) Globals.screenH / 25); // YSpacing //always fits
+        feats.add(1); // NumberofColumns
+        feats.add(menuFont); // FontString
+
+        return feats;
+    }
+
+    @Override
+    public ArrayList<String> getButtonLabels()
+    {
+        ArrayList<String> labels = new ArrayList<>();
+        labels.add("PLAY");
+        labels.add("CONTROLS");
+        labels.add("SETTINGS");
+        labels.add("CREDITS");
+        labels.add("ABOUT");
+        labels.add("EXIT");
+
+        return labels;
+    }
+
+    @Override
+    public void customPreUpdate()
     {
         // Remove offset
-        Globals.agc.getInput().setOffset(0,0);
- 
+        Globals.agc.getInput().setOffset(0, 0);
+
         // If paused, change "PLAY" to "CONTINUE"
         if (Globals.hasBeenPaused)
         {
-            getButtonLabels().set(0, "CONTINUE");
-            getButtonManager().createButtonGrid
-            (getHeaderParams(), getLineParams(), getButtonLabels());
+            super.getButtonGrid().replaceButtonLabel("PLAY", "CONTINUE");
 
-            int pos = Globals.states.get("PLAY");
-            Globals.states.put("CONTINUE", pos);
-          
+            int pos = Globals.STATES.get("PLAY");
+            Globals.STATES.put("CONTINUE", pos);
+
         }
-        
-        //Update timewriter
+
+        // Update timewriter
         tw.update();
-        
-    }
 
-    @Override
-    public void clickAction(StateBasedGame sbg, String label) 
-    {
-        // Figure out next state ID
-        int newStateID = Globals.states.get(label);
-
-        // Transition to that state
-        sbg.enterState(
-                newStateID, 
-                Globals.getLeave(),
-                Globals.getEnter()
-        );    
     }
-    
 
     @Override
     public void customPostRender(Graphics g)
     {
+        // Draw title
         g.setColor(Color.white);
-        font.drawString(200, 50, tw.getText() );
+        tw.drawText(200, 50);
     }
-   
-    
+
     @Override
-    public boolean isDarkened() 
+    public boolean isDarkened()
     {
         return false;
     }
 
-    @Override
-    public Color getButtonCol() 
-    {
-        return Color.black;
-    }
-    
-    
-    
 }
-    

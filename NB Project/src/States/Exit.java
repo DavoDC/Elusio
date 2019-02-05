@@ -1,11 +1,14 @@
 package States;
 
 import Main.Globals;
-import static Main.Globals.screenW;
+import Utility.UI.Button;
+import Utility.UI.ButtonGrid;
 import Utility.UI.FontServer;
 import Utility.UI.InfoScreen;
-import static Utility.UI.InfoScreen.headerX;
+import Utility.UI.InterfaceScreen;
+
 import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,62 +17,79 @@ import org.newdawn.slick.state.StateBasedGame;
 
 /**
  * Shown just before exit
- * 
+ *
  * @author David
  */
-public class Exit extends InfoScreen
+public class Exit extends InterfaceScreen
 {
+
     // The absolute time of closing
-    private long exitConstant = 3369/2;
-    
+    private long exitConstant = 3669 / 2;
+
     // The actual time of closing
     private long exitTime = 0;
-    
+
     // The time left before closing
     private long timeLeft = exitConstant;
-    
-    //Font 
-    private TrueTypeFont lineFont;
-   
-    
-    
+
+    // Percentage closed
+    private int percentage = 0;
+
+    // Text
+    private String mainFontS = "Castellar-Bold-60";
+    private String closeFontS = "Tahoma-Italic-16";
+    private TrueTypeFont closeFont;
+    private int closeX = (int) InfoScreen.lineX + 400;
 
     @Override
-    public int getID() { return Globals.states.get("EXIT"); }
-    
-    @Override
-    public float[] initHeaderParams() 
-    { 
-        // Initialise header parameters
-        // Order = startXpos, startYpos, width, height
-        float[] hParams = new float[] {headerX - 300, 100f, screenW, 50f};
-        
-        return hParams;
-    }
-    
-    @Override
-    public void customInit()
+    public int getID()
     {
-        lineFont = FontServer.getFont(InfoScreen.lineFont);
+        return Globals.STATES.get("EXIT");
     }
-    
+
     @Override
-    public ArrayList<String> initButtonLabels() 
+    public void customPostInit()
+    {
+        closeFont = FontServer.getFont(closeFontS);
+    }
+
+    @Override
+    public ArrayList<Object> getButtonFeatures()
+    {
+        // Create AL
+        ArrayList<Object> feats = new ArrayList<>();
+
+        // Add to AL
+        feats.add(getButtonLabels().size()); // Number of buttons
+        feats.add("res/misc/nothing.png"); // Image Location
+        feats.add(300); // startXpos
+        feats.add(125); // startYpos 
+        feats.add(350); // width
+        feats.add(80); // height
+        feats.add(0); // XSpacing
+        feats.add((int) Globals.screenH / 25); // YSpacing //always fits
+        feats.add(1); // NumberofColumns
+        feats.add(mainFontS); // FontString
+
+        return feats;
+    }
+
+    @Override
+    public ArrayList<String> getButtonLabels()
     {
         //Create AL
-       ArrayList<String> text = new ArrayList<>();
-       
-       // Add to text
-       text.add("THANKYOU FOR PLAYING");
-       text.add("   ");
-       text.add("The game will close shortly");
-       
-       return text;
+        ArrayList<String> text = new ArrayList<>();
+
+        // Add to text
+        text.add("THANKYOU");
+        text.add("FOR");
+        text.add("PLAYING");
+
+        return text;
     }
-    
-    
+
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta) 
+    public void update(GameContainer gc, StateBasedGame sbg, int delta)
     {
         // Initialise time of closing
         // Must be initialised here
@@ -77,40 +97,47 @@ public class Exit extends InfoScreen
         {
             exitTime = Globals.agc.getTime() + exitConstant;
         }
-        
+
         // Get time right now
         long now = Globals.agc.getTime();
-        
+
         // Calculate time left
         timeLeft = exitTime - now;
 
-        // Exit near when timeLeft has elapsed
-        // Must be greater than 0 to prevent negative from showing
-        if (timeLeft < 50)
+        // Calculate percentage
+        float perF = (float) timeLeft / (float) exitConstant;
+        perF = Math.round(perF * 100);
+        percentage = 100 - (int) perF;
+
+        // Exit after some time has elapsed
+        if (percentage >= 100)
         {
-           Globals.agc.exit();
+            Globals.agc.exit();
         }
-        
+
     }
-     
-    
+
     @Override
     public void customPostRender(Graphics g)
     {
-        // Show status
+        // Calculate position of text
+        int x = closeX;
+        int y = Globals.screenH - 75;
+
+        // Make closing strings
+        String close1 = "The game will close shortly";
+        String close2 = percentage + "% Closed";
+
+        // Draw closing status
         g.setColor(Color.white);
-        lineFont.drawString(
-                InfoScreen.lineX, 
-                400f, 
-                "Time left = " + timeLeft 
-        );
+        closeFont.drawString(x, y, close1);
+        closeFont.drawString(x, y + 25, close2);
     }
-    
-    
+
     @Override
     public boolean isDarkened()
     {
         return true;
     }
-    
+
 }

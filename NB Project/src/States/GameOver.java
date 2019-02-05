@@ -12,62 +12,61 @@ import org.newdawn.slick.state.StateBasedGame;
 
 /**
  * Shown just before exit
- * 
+ *
  * @author David
  */
 public class GameOver extends InfoScreen
 {
-    
+
     //Font 
     private TrueTypeFont lineFont;
-   
-    
+
     @Override
-    public int getID() { return Globals.states.get("GAMEOVER"); }
-    
+    public int getID()
+    {
+        return Globals.STATES.get("GAMEOVER");
+    }
+
     @Override
-    public void customInit()
+    public void customPostInit()
     {
         lineFont = FontServer.getFont(InfoScreen.lineFont);
     }
-    
+
     @Override
-    public ArrayList<String> initButtonLabels() 
+    public ArrayList<String> getButtonLabels()
     {
         //Create AL
-       ArrayList<String> text = new ArrayList<>();
-       
-       // Add to text
-       text.add("GAMEOVER");
-       
-       return text;
+        ArrayList<String> text = new ArrayList<>();
+
+        // Add to text
+        text.add("GAMEOVER");
+
+        return text;
     }
-    
-    
+
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta) 
+    public void update(GameContainer gc, StateBasedGame sbg, int delta)
     {
-        
+
     }
-     
-    
+
     @Override
     public void customPostRender(Graphics g)
     {
         // Show status
         g.setColor(Color.white);
         lineFont.drawString(
-                InfoScreen.lineX + 200, 
-                200f, 
-                "Lives left = " + Globals.playerLives 
+                InfoScreen.lineX + 200,
+                200f,
+                "Lives left = " + Globals.playerLives
         );
     }
-    
-    
+
     @Override
     public boolean isDarkened()
     {
         return true;
     }
-    
+
 }
