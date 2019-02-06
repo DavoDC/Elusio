@@ -61,7 +61,8 @@ public class Loading extends BasicGameState
             // Initialise AGC
             Globals.agc.setDefaultFont(FontServer.getFont("Segoe UI-Plain-16"));
 
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             System.err.println("Loading init issue");
         }
@@ -101,6 +102,7 @@ public class Loading extends BasicGameState
         sbg.addState(new GameOver());
 
         // LOADING already in
+        
         Globals.STATES.put("MAINMENU", Globals.STATES.size() + 1);
         sbg.addState(new MainMenu());
 

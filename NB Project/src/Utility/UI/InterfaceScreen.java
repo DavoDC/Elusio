@@ -134,7 +134,8 @@ public abstract class InterfaceScreen extends BasicGameState
         if (isDarkened())
         {
             g.drawImage(bg, 0, 0, Color.darkGray);
-        } else
+        }
+        else
         {
             g.drawImage(bg, 0, 0);
         }

@@ -1,8 +1,9 @@
 package Entity;
 
 import Entity.Item.Item;
-import Main.Globals;
+
 import java.util.ArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
 
@@ -40,8 +41,8 @@ public class Player
     public Player()
     {
         // Initialise fields
-        xPos = 200;
-        yPos = 200;
+        xPos = 300;
+        yPos = 300;
 
         scale = 1.5;
         width = 33;
@@ -52,7 +53,8 @@ public class Player
         try
         {
             sprites = new SpriteSheet(spritesLocation, width, height);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
         }
 
@@ -170,7 +172,8 @@ public class Player
             if (config.contains(i))
             {
                 anim.setDuration(i, animSpeed);
-            } else //If not, deactivate
+            }
+            else //If not, deactivate
             {
                 anim.setDuration(i, 0);
             }

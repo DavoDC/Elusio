@@ -27,7 +27,8 @@ public class FontServer
                 InputStream inputStream = ResourceLoader.getResourceAsStream("res/misc/3dventure.ttf");
                 rawGameFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
                 fontLoads++;
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 System.err.println("Error loading font");
             }
@@ -62,7 +63,8 @@ public class FontServer
             initialiseGameFont();
             Font midFont = rawGameFont.deriveFont(size);
             fontOutput = new TrueTypeFont(midFont, false);
-        } else // Regular fonts
+        }
+        else // Regular fonts
         {
             Font raw = new Font(fontS, styleID, (int) size);
             fontOutput = new TrueTypeFont(raw, true);
@@ -77,15 +79,24 @@ public class FontServer
         if (style.contains("plain"))
         {
             id = Font.PLAIN;
-        } else if (style.contains("ital"))
+        }
+        else
         {
-            id = Font.ITALIC;
-        } else if (style.contains("bold"))
-        {
-            id = Font.BOLD;
-        } else
-        {
-            throw new IllegalArgumentException("Invalid style");
+            if (style.contains("ital"))
+            {
+                id = Font.ITALIC;
+            }
+            else
+            {
+                if (style.contains("bold"))
+                {
+                    id = Font.BOLD;
+                }
+                else
+                {
+                    throw new IllegalArgumentException("Invalid style");
+                }
+            }
         }
         return id;
     }

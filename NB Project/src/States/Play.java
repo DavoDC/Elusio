@@ -7,6 +7,7 @@ import Utility.Camera;
 import Entity.Player;
 import Utility.UI.HUD;
 import Utility.TiledMapPlus;
+import Utility.UI.PopupDisplayer;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -34,6 +35,9 @@ public class Play extends BasicGameState
 
     // HUD
     private HUD hud;
+    
+    // Popups
+    private PopupDisplayer popupDisp;
 
     /**
      * Used to identify STATES and switch to them
@@ -66,6 +70,8 @@ public class Play extends BasicGameState
         itemStore = new ItemStore(map);
 
         hud = new HUD(cam, alien, gc, game);
+        
+        popupDisp = new PopupDisplayer();
     }
 
     /**
@@ -95,15 +101,31 @@ public class Play extends BasicGameState
 
         // Update hud
         hud.update(cam, alien);
+        
+        // Update popups
+        popupDisp.updatePD(delta);
 
     }
 
     /**
-     * Handles input
+     * Acts based on user input
      */
     private void handleInput(Input input, StateBasedGame sbg, int rSpd) throws SlickException
     {
-        if (input.isKeyDown(Input.KEY_UP)) // Up arrow
+        // Get key down
+        boolean upArrowDown = input.isKeyDown(Input.KEY_UP);
+        boolean downArrowDown = input.isKeyDown(Input.KEY_DOWN);
+        boolean leftArrowDown = input.isKeyDown(Input.KEY_LEFT);
+        boolean rightArrowDown = input.isKeyDown(Input.KEY_RIGHT);
+        
+        boolean escapeDown = input.isKeyDown(Input.KEY_ESCAPE);
+        boolean altDown = input.isKeyDown(Input.KEY_RALT) || input.isKeyDown(Input.KEY_LALT);
+        
+        boolean fKeyDown = input.isKeyDown(Input.KEY_F);
+        boolean gKeyDown = input.isKeyDown(Input.KEY_G);
+        
+        // Check and act
+        if (upArrowDown)
         {
             // Change animation
             alien.startAnim("up");
@@ -113,7 +135,8 @@ public class Play extends BasicGameState
             {
                 alien.adjustY(-rSpd);
             }
-        } else if (input.isKeyDown(Input.KEY_DOWN)) // Down arrow
+        }
+        else if (downArrowDown) 
         {
             // Change animation
             alien.startAnim("down");
@@ -123,7 +146,8 @@ public class Play extends BasicGameState
             {
                 alien.adjustY(rSpd);
             }
-        } else if (input.isKeyDown(Input.KEY_LEFT)) //Left arrow
+        }
+        else if (leftArrowDown) 
         {
             // Change animation
             alien.startAnim("left");
@@ -133,7 +157,8 @@ public class Play extends BasicGameState
             {
                 alien.adjustX(-rSpd);
             }
-        } else if (input.isKeyDown(Input.KEY_RIGHT)) //Right arrow
+        }
+        else if (rightArrowDown) 
         {
             // Change animation
             alien.startAnim("right");
@@ -143,16 +168,19 @@ public class Play extends BasicGameState
             {
                 alien.adjustX(rSpd);
             }
-        } else if (input.isKeyDown(Input.KEY_ESCAPE)) // Escape key
+        }
+        else if (escapeDown || altDown) // Paused when alt-tabbed too
         {
             sbg.enterState(Globals.STATES.get("MAINMENU"));
             // No transitions because map goes weird
             Globals.hasBeenPaused = true;
-        } else if (input.isKeyDown(Input.KEY_F)) // F key
+        }
+        else if (fKeyDown) // Fullscreen toggle
         {
             boolean newStatus = !Globals.agc.isFullscreen();
             Globals.agc.setFullscreen(newStatus);
-        } else if (input.isKeyDown(Input.KEY_G)) // G key
+        }
+        else if (gKeyDown) // Grab key 
         {
             Item itemFound = (Item) itemStore.getEntityUnder(alien);
             if (itemFound != null)
@@ -160,25 +188,26 @@ public class Play extends BasicGameState
                 alien.addToInv(itemFound);
                 Globals.itemGrabbed = true;
             }
-        } else // When nothing is being pressed
+        }
+        else // When nothing is being pressed
         {
             alien.stopAnim();
         }
-
     }
 
-    /**
-     * This method should be used to draw to the screen. All of your game's
-     * rendering should take place in this method (or via calls) It is called
-     * constantly. Items are constantly redrawn
-     *
-     * @param gc
-     * @param sbg
-     * @param g
-     * @throws org.newdawn.slick.SlickException
-     */
-    @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
+
+/**
+ * This method should be used to draw to the screen. All of your game's
+ * rendering should take place in this method (or via calls) It is called
+ * constantly. Items are constantly redrawn
+ *
+ * @param gc
+ * @param sbg
+ * @param g
+ * @throws org.newdawn.slick.SlickException
+ */
+@Override
+public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
     {
         // Draw camera's view of map
         // Note: Drawing by layers individually is not done due to severe lag
@@ -193,6 +222,9 @@ public class Play extends BasicGameState
 
         // Draw HUD
         hud.drawHUD(g);
+        
+        // Draw popups
+        popupDisp.renderPopups(g);
     }
 
 }

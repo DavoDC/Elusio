@@ -1,7 +1,6 @@
 package Main;
 
 import States.Loading;
-import Utility.UI.FontServer;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -35,7 +34,8 @@ public class Entry extends StateBasedGame
             // Start AGC
             Globals.agc.start();
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }

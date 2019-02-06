@@ -59,7 +59,8 @@ public class Controls extends InfoScreen
             hint = new Image(folder + "hint.png");
             hint = hint.getScaledCopy(SCALE);
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.err.println("Image load issue");
         }

@@ -58,7 +58,7 @@ public class Camera
     protected float cameraY;
 
     /**
-     * Create a new camera
+     * Create a new camera Note: Map must be a square
      *
      * @param gc the GameContainer, used for getting the size of the GameCanvas
      * @param map the TiledMap used for the current scene

@@ -4,10 +4,12 @@ import Main.Globals;
 import Utility.UI.InterfaceScreen;
 import Utility.UI.DelayWriter;
 import Utility.UI.Button;
+import Utility.UI.FontServer;
 
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
 
@@ -19,9 +21,11 @@ public class MainMenu extends InterfaceScreen
 {
 
     // Title fields
-    private final String titleS = "Alien Aztec Adventure";
-    private final String titleFont = "gamefont-plain-70";
     private DelayWriter tw;
+    private final String titleS = "Alien Aztec Adventure";
+    private final String titleFontS = "gamefont-plain-70";
+    private TrueTypeFont titleFont;
+
 
     // Menu fields
     private final String menuFont = "gamefont-plain-50";
@@ -35,7 +39,9 @@ public class MainMenu extends InterfaceScreen
     @Override
     public void customPostInit()
     {
-        tw = new DelayWriter(titleS, titleFont, 70);
+        tw = new DelayWriter(70);
+        tw.setText(titleS);
+        titleFont = FontServer.getFont(titleFontS);
 
         super.getButtonGrid().applyActions(new ComponentListener()
         {
@@ -67,7 +73,7 @@ public class MainMenu extends InterfaceScreen
 
         // Add to AL
         feats.add(getButtonLabels().size()); // Number of buttons
-        feats.add("res/ui/menu/panel.png"); // Image Location
+        feats.add("res/ui/general.png"); // Image Location
         feats.add(300); // startXpos
         feats.add(150); // startYpos 
         feats.add(350); // width
@@ -120,7 +126,7 @@ public class MainMenu extends InterfaceScreen
     {
         // Draw title
         g.setColor(Color.white);
-        tw.drawText(200, 50);
+        tw.drawText(titleFont, 200, 50);
     }
 
     @Override

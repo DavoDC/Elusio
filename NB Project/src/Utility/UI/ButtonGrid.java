@@ -41,7 +41,8 @@ public class ButtonGrid
         try
         {
             img = new Image((String) common.get(1));
-        } catch (SlickException ex)
+        }
+        catch (SlickException ex)
         {
             System.err.println("BGMan : image error");
         }
@@ -212,6 +213,9 @@ public class ButtonGrid
 
     /**
      * Replace a button
+     *
+     * @param pos Position of old button
+     * @param newB The new button
      */
     public void replaceButton(int pos, Button newB)
     {
@@ -225,8 +229,8 @@ public class ButtonGrid
         Image img = null;
         try
         {
-            img = new Image("res/ui/menu/panel.png");
-        } 
+            img = new Image("res/ui/general.png");
+        }
         catch (SlickException ex)
         {
         }
@@ -261,7 +265,7 @@ public class ButtonGrid
             //curB.getLabel()
         }
     }
-    
+
     /**
      * Add actions to all buttons
      */
@@ -269,7 +273,7 @@ public class ButtonGrid
     {
         for (Button b : buttons)
         {
-            b.addAction(cl);
+            b.addListener(cl);
         }
     }
 

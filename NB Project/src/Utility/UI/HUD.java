@@ -22,7 +22,7 @@ public class HUD
 {
 
     // Resource folder
-    private final String folder = "res/ui/hud/";
+    private final String folder = "res/ui/";
 
     // Buttons
     private ButtonGrid buttonG;
@@ -79,7 +79,7 @@ public class HUD
         buttonG.getButtonByPos(3).setImageLoc(folder + "lives.png");
 
         // Add actions
-        buttonG.getButtonByPos(0).addAction( // Menu button
+        buttonG.getButtonByPos(0).addListener( // Menu button
                 (AbstractComponent source) ->
         {
             Globals.hasBeenPaused = true;
@@ -87,13 +87,13 @@ public class HUD
             // No transitions because map goes weird
         });
 
-        buttonG.getButtonByPos(1).addAction( // Inv button
+        buttonG.getButtonByPos(1).addListener( // Inv button
                 (AbstractComponent source) ->
         {
             //showInventory();
         });
 
-        buttonG.getButtonByPos(2).addAction( // Hint button 
+        buttonG.getButtonByPos(2).addListener( // Hint button 
                 (AbstractComponent source) ->
         {
             //showHint();

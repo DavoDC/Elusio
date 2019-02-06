@@ -1,11 +1,11 @@
 package Utility.UI;
 
-import Utility.UI.FontServer;
-import org.newdawn.slick.Graphics;
+
 import org.newdawn.slick.TrueTypeFont;
 
+
 /**
- * Helps writing text sequentially
+ * Helps writing text sequentially, as if it were printed
  *
  * @author David Charkey
  */
@@ -16,48 +16,50 @@ public class DelayWriter
     private String text;
 
     // End index of string 
-    int endIndex = 0;
+    int endIndex;
 
     // The time between character writes
     private long interval;
 
     // The time of adding
     private long addTime;
-
-    // Font
-    TrueTypeFont font;
+    
 
     /**
-     * Create a Time Writer
+     * Create a Delay Writer
      *
-     * @param text
-     * @param fontS
-     * @param interval
+     * @param interval Time between characters
      */
-    public DelayWriter(String text, String fontS, int interval)
+    public DelayWriter(int interval)
     {
-        this.text = text;
-
-        font = FontServer.getFont(fontS);
-
         // If divisible by ten
         if (interval % 10 == 0)
         {
             this.interval = interval;
-        } else //If not , throw exception
+        }
+        else //If not , throw exception
         {
             throw new IllegalArgumentException("TW Interval must be mult of 10");
         }
 
+        reset();
+    }
+    
+    /**
+     * Reset variables
+     */
+    private void reset()
+    {
+        endIndex = 0;
         addTime = 0;
     }
-
+   
     public void update()
     {
-        // If the last index hasn't been reached
+        // If the last index hasn't been reached, increase index
         if (endIndex != text.length())
         {
-            // When addTime hits 0
+            // Add a character everytime an interval has passed
             if (addTime == 0)
             {
                 // Initialise addTime to interval
@@ -67,14 +69,25 @@ public class DelayWriter
                 endIndex++;
             }
 
-            // Subtract to simulate time passing
+            // Subtract from addTime to simulate time passing
             addTime -= 10;
         }
-
     }
 
     /**
-     * Get a part of the string The part gets longer over time
+     * Change text and reset variables
+     * @param newText
+     */
+    public void setText(String newText)
+    {
+        text = newText;
+        reset();
+    }
+    
+    /**
+     * Returns current segment of the string
+     * Gets longer over time
+     * @return 
      */
     public String getText()
     {
@@ -86,10 +99,11 @@ public class DelayWriter
     /**
      * Draw the string
      *
+     * @param font
      * @param x
      * @param y
      */
-    public void drawText(int x, int y)
+    public void drawText(TrueTypeFont font, int x, int y)
     {
         font.drawString(x, y, getText());
     }

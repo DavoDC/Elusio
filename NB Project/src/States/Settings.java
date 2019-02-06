@@ -6,7 +6,6 @@ import Utility.UI.InterfaceScreen;
 
 import java.util.ArrayList;
 import org.newdawn.slick.gui.AbstractComponent;
-import org.newdawn.slick.gui.ComponentListener;
 
 /**
  *
@@ -35,7 +34,7 @@ public class Settings extends InterfaceScreen
         // Number of buttons
         feats.add(getButtonLabels().size());
         // Image Location
-        feats.add("res/ui/menu/panel.png");
+        feats.add("res/ui/general.png");
         // startXpos
         feats.add(300);
         // startYpos
@@ -80,7 +79,7 @@ public class Settings extends InterfaceScreen
         super.getButtonGrid().makeHeader();
 
         // Add action to stats button
-        super.getButtonGrid().getButtonByPos(1).addAction((AbstractComponent source) ->
+        super.getButtonGrid().getButtonByPos(1).addListener((AbstractComponent source) ->
         {
             Globals.showDevData = !Globals.showDevData;
             switchLabel(1, Globals.showDevData);
@@ -121,7 +120,8 @@ public class Settings extends InterfaceScreen
         if (state)
         {
             newS += "ON";
-        } else
+        }
+        else
         {
             newS += "OFF";
         }

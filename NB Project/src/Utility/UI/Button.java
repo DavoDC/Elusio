@@ -8,7 +8,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
 
@@ -24,7 +23,9 @@ public class Button extends MouseOverArea
     private Rectangle shape;
     private String label;
     private TrueTypeFont font;
-
+    private float textXoffset;
+    private float textYoffset;
+    
     /**
      * Default constructor - Don't use!
      *
@@ -52,6 +53,9 @@ public class Button extends MouseOverArea
         this.shape = (Rectangle) shape;
         label = "label";
         this.font = font;
+        
+        textXoffset = shape.getWidth() / 5;
+        textYoffset = - (shape.getHeight() / 20);
     }
 
     /**
@@ -141,27 +145,30 @@ public class Button extends MouseOverArea
 
     /**
      * Draw the text only
+     * Action listener not included
      *
      * @param g
      */
     public void drawText(Graphics g)
     {
         // Calculate text position
-        float textX = shape.getX() + shape.getWidth() / 5;
-        float textY = shape.getY() - shape.getHeight() / 20;
+        float textX = shape.getX() + textXoffset;
+        float textY = shape.getY() + textYoffset;
 
         // Draw label using font
         font.drawString(textX, textY, label);
     }
-
+    
     /**
-     * Add the action that occurs upon click
-     *
-     * @param cl
+     * Change where text is drawn
+     * Relative to top left hand corner of rectangle
+     * @param xOff
+     * @param yOff
      */
-    public void addAction(ComponentListener cl)
+    public void changeTextOffset(float xOff, float yOff)
     {
-        addListener(cl);
+        textXoffset = xOff;
+        textYoffset = yOff;
     }
 
     /**
@@ -187,7 +194,8 @@ public class Button extends MouseOverArea
         try
         {
             newImg = new Image(resLoc);
-        } catch (SlickException e)
+        }
+        catch (SlickException e)
         {
             System.err.println("Image loading failed");
         }

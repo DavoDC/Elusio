@@ -6,7 +6,7 @@ import org.newdawn.slick.tiled.TiledMap;
 /**
  * Handles map rendering Handles collisions Handles camera
  *
- * Note: The collision layer must have a property called blocked, set to true
+ * Note: Collision layers must have a property called blocked, set to true
  *
  * @author David
  */
@@ -17,12 +17,12 @@ public class TiledMapPlus extends TiledMap
     private boolean[][] blocked;
 
     // Determine X collision tightness
-    private final int Xfactor = 25; 
-    private final int Xadjuster = 50; 
+    private final int Xfactor = 25;
+    private final int Xadjuster = 50;
 
     // Determines Y collision tightnesss
-    private final int Yfactor = 60; 
-    private final int Yadjuster = 50; 
+    private final int Yfactor = 60;
+    private final int Yadjuster = 50;
 
     // Tile size
     public static final int tileSize = 64;
@@ -80,7 +80,7 @@ public class TiledMapPlus extends TiledMap
             int xBlock = convertXtoCol(x);
             int yBlock = convertYtoRow(y);
             return !blocked[xBlock][yBlock];
-        } 
+        }
         catch (Exception e)
         {
             return true;
@@ -118,10 +118,9 @@ public class TiledMapPlus extends TiledMap
     }
 
     /**
-     * Checks tile collision
-     * Note: Map bounds check not needed
-     * Player position cannot have negative values
-     * Exiting the topside of the map requires negative values
+     * Checks tile collision Note: Map bounds check not needed Player position
+     * cannot have negative values Exiting the topside of the map requires
+     * negative values
      *
      * @param playerX
      * @param playerY
@@ -133,7 +132,7 @@ public class TiledMapPlus extends TiledMap
         // Both True = No blocked tiles upwards
         boolean cond1 = canPass(playerX + Xfactor, playerY - relSpeed);
         boolean cond2 = canPass(playerX + Xadjuster, playerY - relSpeed);
-        
+
         return (cond1 && cond2);
 
     }
@@ -152,19 +151,18 @@ public class TiledMapPlus extends TiledMap
         float newY = playerY + Yfactor + relSpeed;
         boolean cond1 = canPass(playerX + Xfactor, newY);
         boolean cond2 = canPass(playerX + Xadjuster, newY);
-        
+
         // True if within map bounds
-        int yLimiter = (getHeight()*getTileHeight()) - (tileSize - tileSize/5);
+        int yLimiter = (getHeight() * getTileHeight()) - tileSize;
         boolean cond3 = !((playerY + relSpeed) > yLimiter);
 
         return (cond1 && cond2 && cond3);
     }
 
     /**
-     * Checks tile collision
-     * Note: Map bounds check not needed
-     * Player position cannot have negative values
-     * Exiting the leftside of the map requires negative values
+     * Checks tile collision Note: Map bounds check not needed Player position
+     * cannot have negative values Exiting the left-side of the map requires
+     * negative values
      *
      * @param playerX
      * @param playerY
@@ -176,7 +174,7 @@ public class TiledMapPlus extends TiledMap
         // True = No blocked tiles to the left
         boolean cond1 = canPass(playerX - relSpeed, playerY + Yadjuster);
         boolean cond2 = canPass(playerX - relSpeed, playerY + Yfactor);
-        
+
         return (cond1 && cond2);
     }
 
@@ -194,9 +192,9 @@ public class TiledMapPlus extends TiledMap
         float newX = playerX + Xfactor + relSpeed;
         boolean cond1 = canPass(newX, playerY + Yfactor);
         boolean cond2 = canPass(newX, playerY + Yadjuster);
-                
+
         // True if within map bounds 
-        int xLimiter = (getWidth()*getTileWidth()) - (tileSize - tileSize/5);
+        int xLimiter = (getWidth() * getTileWidth()) - (tileSize - tileSize / 6);
         boolean cond3 = !((playerX + relSpeed) > xLimiter);
 
         return (cond1 && cond2 && cond3);
