@@ -1,6 +1,8 @@
-package Utility.UI;
+package Components.ScreenTemplates;
 
 import Main.Globals;
+import Components.Buttons.ButtonGrid;
+import Components.Helpers.FontServer;
 import java.util.ArrayList;
 import java.util.Random;
 import org.newdawn.slick.BigImage;

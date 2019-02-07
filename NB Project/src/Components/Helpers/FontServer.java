@@ -1,4 +1,4 @@
-package Utility.UI;
+package Components.Helpers;
 
 import java.awt.Font;
 import java.io.InputStream;

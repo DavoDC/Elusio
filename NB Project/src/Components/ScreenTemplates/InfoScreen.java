@@ -1,4 +1,4 @@
-package Utility.UI;
+package Components.ScreenTemplates;
 
 import Main.Globals;
 import static Main.Globals.screenW;

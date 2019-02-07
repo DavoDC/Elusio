@@ -1,12 +1,13 @@
 package States;
 
 import Main.Globals;
-import Utility.UI.Button;
-import Utility.UI.InfoScreen;
+import Components.Buttons.Button;
+import Components.ScreenTemplates.InfoScreen;
 
 import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 /**
  * Displays the game's controls
@@ -17,7 +18,7 @@ public class Controls extends InfoScreen
 {
 
     // Res folder
-    private final String folder = "res/ui/hud/";
+    private final String folder = "res/ui/";
 
     // Parameters
     private final float SCALE = 0.45f;
@@ -60,9 +61,9 @@ public class Controls extends InfoScreen
             hint = hint.getScaledCopy(SCALE);
 
         }
-        catch (Exception e)
+        catch (SlickException e)
         {
-            System.err.println("Image load issue");
+            System.err.println("Image load issue in Controls.java");
         }
 
         Button menuRef = super.getButtonGrid().getButtonByLabel("MAINMENU");

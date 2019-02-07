@@ -1,6 +1,9 @@
-package Utility.UI;
+package Components.Popups;
 
-import Utility.TiledMapPlus;
+import Components.Buttons.Button;
+import Components.Structures.TiledMapPlus;
+import Components.Helpers.DelayWriter;
+import Components.Helpers.FontServer;
 import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -47,6 +50,7 @@ public class Popup
      * - Tile grid column
      * - Width as number of tiles
      * - Height as number of tiles
+     * - Interval for DW
      * - FontS or "default"
      * 
      * @param textLines Text in lines
@@ -58,7 +62,8 @@ public class Popup
         int c = (int) feats.get(1);
         int tileW = (int) feats.get(2);
         int tileH = (int) feats.get(3);
-        String fontS = (String) feats.get(4);
+        int interval = (int) feats.get(4);
+        String fontS = (String) feats.get(5);
         
         // Process font string
         if (fontS.equals("default")) { fontS = "Candara-Bold-26"; }
@@ -77,7 +82,7 @@ public class Popup
         textY = button.getY() + 12;
         
         // Initialise DW
-        dw = new DelayWriter(70);
+        dw = new DelayWriter(interval);
         dw.setText(textLines.get(curLineNo));
     }
     

@@ -1,8 +1,11 @@
-package Utility.UI;
+package Components.Structures;
 
 import Entity.Player;
 import Main.Globals;
-import Utility.Camera;
+import Components.Structures.Camera;
+import Components.Buttons.Button;
+import Components.Buttons.ButtonGrid;
+import Components.Helpers.FontServer;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 

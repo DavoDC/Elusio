@@ -1,7 +1,7 @@
 package States;
 
 import Main.Globals;
-import Utility.UI.InfoScreen;
+import Components.ScreenTemplates.InfoScreen;
 import java.util.ArrayList;
 
 /**

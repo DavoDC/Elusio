@@ -1,6 +1,6 @@
 package Entity;
 
-import Utility.TiledMapPlus;
+import Components.Structures.TiledMapPlus;
 import org.newdawn.slick.Image;
 
 /**

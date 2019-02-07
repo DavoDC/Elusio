@@ -9,17 +9,27 @@ There is dark soil around as well. (Done)
 There is a small range of plants(Done)
 A popup appears at the bottom. The text looks like it’s being typed out. (Done)
 
-“You: Where am I? … “ 
-“You: I was supposed to awake from cryosleep on my home planet” 
-“You: Something must have happened to Xadu” 
-“Xadu: Kaxo, I crashed when a solar flare damaged my electrospacemotor circuits”
-“Kaxo: Xadu! You surprised me! I’m so glad you’re still alive!”
-“Xadu: I do not dissipate that easily, my friend”
-“Kaxo: You must be quite hurt though. It seems will we need some conductive material to repair you”
-“Xadu: Indeed. This rich planet is bound to have some. Have a look around”
-A red exclamation mark appears on the HUD. You click on the book/quest button. You have new quest. It is represented by a gear on the left. The preview says “We need a conductive material to repair the ship. Have a look around!”.
-After Kaxo, when Kaxo walks up to Xadu, an “Interact” button comes up. When clicked on, or Q is pressed, Xadu says “Found any conductive material yet?”, then you say: “Not yet”.
-Kaxo walks around and realizes he is surrounded by rock. He finds some gold pieces near a shrine. The quest preview changes to “Keep finding more conductive material. We have 2% of what we need”.
+You: Where am I? … “ 
+You: I was supposed to awake from cryosleep on my home planet
+You: Something must have happened to Xadu
+Xadu: Kaxo, I crashed when a solar flare damaged my electrospacemotor circuits
+Kaxo: Xadu! You surprised me! I’m so glad you’re still alive!
+Xadu: I do not dissipate that easily, my friend
+Kaxo: You must be quite hurt though. It seems will we need some conductive material to repair you
+Xadu: Indeed. This rich planet is bound to have some. Have a look around
+
+
+
+A red exclamation mark appears on the Hint button
+Clicking on it brings a popup saying = “We need a conductive material to repair the ship. Have a look around!”
+
+After Kaxo, when Kaxo walks up to Xadu, an “Interact” button comes up. 
+When clicked on, or Q is pressed, Xadu says “Found any conductive material yet?”, then you say: “Not yet”.
+
+Kaxo walks around and realizes he is surrounded by rock. 
+He finds some gold pieces near a shrine. 
+The quest preview changes to “Keep finding more conductive material. We have 2% of what we need”.
+
 After going back to Xadu with the gold,  and interacting with him,
 Xadu says “This is perfect! With a significant amount of this, we will back home in no time!”.
 Kaxo says “Great!. I need some help though. The area is surrounded by rock!”

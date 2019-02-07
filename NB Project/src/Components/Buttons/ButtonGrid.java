@@ -1,7 +1,8 @@
-package Utility.UI;
+package Components.Buttons;
 
-import static Utility.UI.InfoScreen.headerFont;
-import static Utility.UI.InfoScreen.headerX;
+import Components.Helpers.FontServer;
+import static Components.ScreenTemplates.InfoScreen.headerFont;
+import static Components.ScreenTemplates.InfoScreen.headerX;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Graphics;

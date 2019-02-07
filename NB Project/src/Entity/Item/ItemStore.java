@@ -4,7 +4,7 @@ import Entity.Entity;
 import Entity.EntityStore;
 import Entity.Player;
 import Main.Globals;
-import Utility.TiledMapPlus;
+import Components.Structures.TiledMapPlus;
 import java.util.ArrayList;
 
 /**

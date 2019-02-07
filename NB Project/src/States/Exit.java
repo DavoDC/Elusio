@@ -1,11 +1,11 @@
 package States;
 
 import Main.Globals;
-import Utility.UI.Button;
-import Utility.UI.ButtonGrid;
-import Utility.UI.FontServer;
-import Utility.UI.InfoScreen;
-import Utility.UI.InterfaceScreen;
+import Components.Buttons.Button;
+import Components.Buttons.ButtonGrid;
+import Components.Helpers.FontServer;
+import Components.ScreenTemplates.InfoScreen;
+import Components.ScreenTemplates.InterfaceScreen;
 
 import java.util.ArrayList;
 

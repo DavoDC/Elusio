@@ -1,6 +1,7 @@
-package Utility.UI;
+package Components.Buttons;
 
 import Main.Globals;
+import Components.Helpers.FontServer;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;

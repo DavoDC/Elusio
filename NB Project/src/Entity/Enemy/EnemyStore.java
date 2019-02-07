@@ -3,7 +3,7 @@ package Entity.Enemy;
 import Entity.Entity;
 import Entity.EntityStore;
 import Entity.Player;
-import Utility.TiledMapPlus;
+import Components.Structures.TiledMapPlus;
 import java.util.ArrayList;
 
 /**

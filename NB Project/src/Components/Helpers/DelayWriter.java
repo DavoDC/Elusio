@@ -1,4 +1,4 @@
-package Utility.UI;
+package Components.Helpers;
 
 
 import org.newdawn.slick.TrueTypeFont;

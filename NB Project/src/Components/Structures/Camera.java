@@ -1,4 +1,4 @@
-package Utility;
+package Components.Structures;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Shape;

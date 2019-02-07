@@ -1,4 +1,4 @@
-package Utility.UI;
+package Components.Popups;
 
 import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
@@ -38,17 +38,26 @@ public class PopupDisplayer
     {
         // Features
         ArrayList<Object> feats = new ArrayList<>();
-        feats.add(8); //Tile grid row
-        feats.add(2); //Tile grid column 
+        feats.add(8);  // Tile grid row
+        feats.add(2);  // Tile grid column 
         feats.add(16); // Width as number of tiles 
-        feats.add(2); // Height as number of tiles 
+        feats.add(2);  // Height as number of tiles 
+        feats.add(40); // Interval for delay writer
         feats.add("default"); // FontS or "default"
         
         // Text
         ArrayList<String> textLines = new ArrayList<>();
-        textLines.add("You: Where am I? …");
-        textLines.add("You: I was supposed to awake from cryosleep on my home planet");
+        textLines.add("You: Where am I?");
+        textLines.add("You: I was supposed to awake from cryosleep on my home planet!");
         textLines.add("You: Something must have happened to Xadu ... ");
+        textLines.add("Xadu: Kaxo, I crashed when a solar flare "
+                + "damaged my electrospacemotor circuits");
+        textLines.add("Kaxo: Xadu! You surprised me! I am so glad you are still alive!");
+        textLines.add("Xadu: I do not dissipate that easily, my friend");
+        textLines.add("Kaxo: You must be quite hurt though. "
+                + "We need some conductive material to repair you");
+        textLines.add("Xadu: Indeed. This rich planet is "
+                + "bound to have some. Have a look around");
         
         // Return
         return new Popup(feats, textLines);
@@ -65,7 +74,7 @@ public class PopupDisplayer
         timeElapsed += delta;
         
         // Enable popups based off time
-        if (atTime(2000))
+        if (atTime(300))
         {
             popupList.get(0).setVisible(true);
         }
@@ -84,6 +93,7 @@ public class PopupDisplayer
 
     /**
      * Renders popups
+     * @param g
      */
     public void renderPopups(Graphics g)
     {

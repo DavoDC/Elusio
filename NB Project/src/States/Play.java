@@ -3,11 +3,11 @@ package States;
 import Entity.Item.Item;
 import Entity.Item.ItemStore;
 import Main.Globals;
-import Utility.Camera;
+import Components.Structures.Camera;
 import Entity.Player;
-import Utility.UI.HUD;
-import Utility.TiledMapPlus;
-import Utility.UI.PopupDisplayer;
+import Components.Structures.HUD;
+import Components.Structures.TiledMapPlus;
+import Components.Popups.PopupDisplayer;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -54,6 +54,7 @@ public class Play extends BasicGameState
      * This is only called when the game starts Used to load resources Used to
      * initialise the game state.
      *
+     * @param gc
      * @param game
      * @throws org.newdawn.slick.SlickException
      */

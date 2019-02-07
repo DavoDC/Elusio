@@ -35,9 +35,9 @@ public class Entry extends StateBasedGame
             Globals.agc.start();
 
         }
-        catch (Exception e)
+        catch (SlickException e)
         {
-            e.printStackTrace();
+            System.err.println("Main method error");
         }
     }
 

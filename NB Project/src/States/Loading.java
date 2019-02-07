@@ -1,7 +1,7 @@
 package States;
 
 import Main.Globals;
-import Utility.UI.FontServer;
+import Components.Helpers.FontServer;
 import org.newdawn.slick.Color;
 
 import org.newdawn.slick.GameContainer;
@@ -31,7 +31,9 @@ public class Loading extends BasicGameState
     long introTime = 3669;
 
     /**
-     * Used to identify STATES Used to switch to state
+     * Used to identify state
+     * Used to switch to state
+     * @return 
      */
     @Override
     public int getID()
@@ -42,6 +44,9 @@ public class Loading extends BasicGameState
     /**
      * This is only called when the game starts Used to load resources Used to
      * initialise the game state.
+     * @param gc
+     * @param game
+     * @throws org.newdawn.slick.SlickException
      */
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException
@@ -62,7 +67,7 @@ public class Loading extends BasicGameState
             Globals.agc.setDefaultFont(FontServer.getFont("Segoe UI-Plain-16"));
 
         }
-        catch (Exception ex)
+        catch (SlickException ex)
         {
             System.err.println("Loading init issue");
         }
@@ -75,7 +80,7 @@ public class Loading extends BasicGameState
      * should check input and change the state of the game.
      *
      * @param gc Holds the game
-     * @param game
+     * @param sbg
      * @param delta Amount of time since last update
      * @throws org.newdawn.slick.SlickException
      */
@@ -112,7 +117,7 @@ public class Loading extends BasicGameState
         Globals.STATES.put("SETTINGS", Globals.STATES.size() + 1);
         sbg.addState(new Settings());
 
-        // Initialise resources
+        // Load resources
         sbg.init(gc);
 
         // Wait to ensure loading screen is displayed 

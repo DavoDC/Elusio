@@ -1,8 +1,8 @@
 package States;
 
 import Main.Globals;
-import Utility.UI.FontServer;
-import Utility.UI.InfoScreen;
+import Components.Helpers.FontServer;
+import Components.ScreenTemplates.InfoScreen;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;

@@ -1,10 +1,10 @@
 package States;
 
 import Main.Globals;
-import Utility.UI.InterfaceScreen;
-import Utility.UI.DelayWriter;
-import Utility.UI.Button;
-import Utility.UI.FontServer;
+import Components.ScreenTemplates.InterfaceScreen;
+import Components.Helpers.DelayWriter;
+import Components.Buttons.Button;
+import Components.Helpers.FontServer;
 
 import java.util.ArrayList;
 import org.newdawn.slick.Color;

@@ -1,8 +1,8 @@
 package States;
 
 import Main.Globals;
-import Utility.UI.InfoScreen;
-import Utility.UI.InterfaceScreen;
+import Components.ScreenTemplates.InfoScreen;
+import Components.ScreenTemplates.InterfaceScreen;
 
 import java.util.ArrayList;
 import org.newdawn.slick.gui.AbstractComponent;
