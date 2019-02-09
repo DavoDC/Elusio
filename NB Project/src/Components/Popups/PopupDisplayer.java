@@ -1,5 +1,6 @@
 package Components.Popups;
 
+import Main.Globals;
 import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 
@@ -40,7 +41,7 @@ public class PopupDisplayer
         ArrayList<Object> feats = new ArrayList<>();
         feats.add(8);  // Tile grid row
         feats.add(2);  // Tile grid column 
-        feats.add(16); // Width as number of tiles 
+        feats.add(17); // Width as number of tiles 
         feats.add(2);  // Height as number of tiles 
         feats.add(40); // Interval for delay writer
         feats.add("default"); // FontS or "default"
@@ -74,8 +75,9 @@ public class PopupDisplayer
         timeElapsed += delta;
         
         // Enable popups based off time
-        if (atTime(300))
+        if (atTime(100))
         {
+            Globals.inputIgnored = true;
             popupList.get(0).setVisible(true);
         }
     }

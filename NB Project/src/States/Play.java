@@ -113,6 +113,9 @@ public class Play extends BasicGameState
      */
     private void handleInput(Input input, StateBasedGame sbg, int rSpd) throws SlickException
     {
+        // Only process keys if input is not been ignored
+        if (Globals.inputIgnored) { return; }
+        
         // Get key down
         boolean upArrowDown = input.isKeyDown(Input.KEY_UP);
         boolean downArrowDown = input.isKeyDown(Input.KEY_DOWN);

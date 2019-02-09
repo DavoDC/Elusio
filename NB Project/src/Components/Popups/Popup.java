@@ -4,6 +4,7 @@ import Components.Buttons.Button;
 import Components.Structures.TiledMapPlus;
 import Components.Helpers.DelayWriter;
 import Components.Helpers.FontServer;
+import Main.Globals;
 import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -19,27 +20,26 @@ import org.newdawn.slick.geom.Rectangle;
 public class Popup
 {
 
-    // Button
+    // Underlying button
     private Button button;
-    
-    // Text lines
-    private ArrayList<String> textLines;
-    
-    // Current textLines line
-    private int curLineNo;
-    
-    // Text font
-    private TrueTypeFont font;
 
     // Render status
     private boolean visible;
     
-    // Delay writer
-    private DelayWriter dw;
-    
-    // Text position
+    // Popup text (delayed)
+    private final DelayWriter textDW;
     private int textX;
     private int textY;
+    private TrueTypeFont textFont; 
+    private ArrayList<String> textLines; // AL of text lines
+    private int curLineNo; // Current line in AL above
+        
+    // Instructions (delayed)
+    private DelayWriter instDW;
+    private int instX;
+    private int instY;
+    private TrueTypeFont instFont; 
+    private final String instS = "Click here to continue!";
     
 
     /**
@@ -68,22 +68,31 @@ public class Popup
         // Process font string
         if (fontS.equals("default")) { fontS = "Candara-Bold-26"; }
                 
-        // Initialise fields
-        this.textLines = textLines;
-        curLineNo = 0;
-        font = FontServer.getFont(fontS);
+        // Initialise render status
         visible = false;
         
-        // Initialise button
-        initialiseButton(r, c, tileW, tileH);
-      
-        // Text position
-        textX = button.getX() + 12;
-        textY = button.getY() + 12;
+        // Initialise font (Must be before button init)
+        textFont = FontServer.getFont(fontS);
         
-        // Initialise DW
-        dw = new DelayWriter(interval);
-        dw.setText(textLines.get(curLineNo));
+        // Initialise button (Must before text pos init)
+        initialiseButton(r, c, tileW, tileH);
+        
+        // Initialise text DW
+        textDW = new DelayWriter(interval);
+        textDW.setText(textLines.get(curLineNo));
+        textX = button.getX() + 24;
+        textY = button.getY() + 24;
+        this.textLines = textLines;
+        curLineNo = 0;
+        
+        // Initialise instruction DW
+        instDW = new DelayWriter(interval + 10);
+        instDW.setText(instS);
+        instX = button.getX() + button.getWidth()/2 - 100;
+        instY = button.getY() + button.getHeight() - 48;
+        instFont = FontServer.getFont("Corbel-italic-22");
+        
+        
     }
     
     private void initialiseButton(int r, int c, int tileW, int tileH)
@@ -110,23 +119,23 @@ public class Popup
         Rectangle rect = new Rectangle(x, y, w, h);
 
         // Create button
-        button = new Button(img, rect, font);
+        button = new Button(img, rect, textFont);
         
         // Remove label
         button.setLabel("");
 
         // Add action
-        // Switch to next line when clicked on
         button.addListener((source) ->
                 {
-                    if (textLines.size()-1 == curLineNo)
+                    if (textLines.size()-1 == curLineNo) // When all lines shown
                     {
-                        visible = false;
+                        visible = false; // Hide popup
+                        Globals.inputIgnored = false; // Re-enable keys
                     }
-                    else
+                    else if (textDW.hasWrittenOnce()) // When line has been shown once
                     {
-                        curLineNo += 1;
-                        dw.setText(textLines.get(curLineNo));
+                        curLineNo += 1; // Increase line position
+                        textDW.setText(textLines.get(curLineNo)); // Load new line
                     }
                 }
         );
@@ -154,11 +163,20 @@ public class Popup
         // Draw button
         button.drawFull(g);
         
-        // Update slow writer
-        dw.update();
+        // Update dws
+        textDW.update();
+        instDW.update();
 
-        // Draw text
-        dw.drawText(font, textX, textY);
+        // Draw text dw
+        textDW.drawText(textFont, textX, textY);
+  
+        // Show instruction repeatedly
+        if (instDW.hasWrittenOnce()) // Only reset dw after it has written once
+        {
+            instDW.setText(instS); // Reset dw
+        }
+        instDW.drawText(instFont, instX, instY);
+        
   
     }
     

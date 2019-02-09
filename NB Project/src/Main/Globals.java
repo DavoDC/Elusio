@@ -68,5 +68,8 @@ public class Globals
 
     // Item grab status
     public static boolean itemGrabbed;
+    
+    // Allows input to disabled/enabled on play state
+    public static boolean inputIgnored = false;
 
 }

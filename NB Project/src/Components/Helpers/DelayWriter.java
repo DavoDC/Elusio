@@ -107,5 +107,14 @@ public class DelayWriter
     {
         font.drawString(x, y, getText());
     }
+    
+    /**
+     * Get written status
+     * @return True if written once
+     */
+    public boolean hasWrittenOnce()
+    {
+        return (endIndex >= text.length());
+    }
 
 }
