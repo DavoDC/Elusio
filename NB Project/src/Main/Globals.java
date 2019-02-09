@@ -19,57 +19,51 @@ import org.newdawn.slick.state.transition.*;
 public class Globals
 {
 
-    // AGC
+    // Game framework
     public static AppGameContainer agc = null;
     public static StateBasedGame SBG = null;
-
-    // Screen dimensions
-    public static int screenW = 0;
-    public static int screenH = 0;
-
-    // Cursor
-    public static Image cursor;
-
-    // States
+    
+    // A directory of game states
     public static HashMap<String, Integer> STATES = new HashMap<>();
-
-    // True if the game was paused at any point
-    public static boolean hasBeenPaused = false;
-
-    // Backgrounds
-    public static ArrayList<BigImage> backgrounds = new ArrayList<>();
-    public static final int BG_COUNT = 1; //TEMP, actually 17
-
+    
     // Game font
     public static TrueTypeFont gameFont = null;
 
     // Transitions
-    // Must be reinitialised each time, otherwise won't work
+    // Only work when re-created each time
     private static Transition leave;
-
     public static Transition getLeave()
     {
         leave = new FadeOutTransition(Color.black, 639);
         return leave;
     }
     private static Transition enter;
-
     public static Transition getEnter()
     {
         enter = new FadeInTransition(Color.black, 639);
         return enter;
     }
 
-    // Settings
-    public static boolean showDevData = true;
-
-    // Player lives
-    public static int playerLives = 5;
-
-    // Item grab status
-    public static boolean itemGrabbed;
     
-    // Allows input to disabled/enabled on play state
-    public static boolean inputIgnored = false;
+    // Global Numbers
+    public static int screenW = 0; // Screen width
+    public static int screenH = 0; // Screen height
+    public static int playerLives = 5; // Remaining lives of player
+    public static final int BG_COUNT = 17; // Number of backgrounds to load (max 17)
 
+    
+    // Global Images
+    public static Image cursor; // Image of cursor
+    public static ArrayList<BigImage> backgrounds = new ArrayList<>(); // Backgrounds
+    
+    
+    // Global Booleans
+    public static boolean showDevData = true; // Show stats in top left?
+    public static boolean itemGrabbed = false; // True = item was just grabbed
+    public static boolean inputIgnored = false; // True = input disabled for PLAY state
+    public static boolean hasBeenPaused = false; // True = Game was paused once
+
+
+
+    
 }
