@@ -1,4 +1,4 @@
-# AAA
+# Slick2D Game
 This is a 2d adventure game 
 
 An extraterrestial has crashed in an unusual, mysterious location
@@ -9,4 +9,4 @@ Language: Java
 IDE: NetBeans
 
 
-Made by David Charkey
+# Made by David Charkey
