@@ -1,2 +1,2 @@
-1. Compress into AAA.zip (use settings)
+1. Compress into AAA.zip, using settings in images
 2. Upload to Google Drive

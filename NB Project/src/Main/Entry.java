@@ -12,7 +12,7 @@ public class Entry extends StateBasedGame
 
     public Entry()
     {
-        super("Alien Aztec Adventure");
+        super(Globals.gameTitle);
     }
 
     public static void main(String[] args)

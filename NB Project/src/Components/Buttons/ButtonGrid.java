@@ -1,7 +1,6 @@
 package Components.Buttons;
 
 import Components.Helpers.FontServer;
-import static Components.ScreenTemplates.InfoScreen.headerFont;
 import static Components.ScreenTemplates.InfoScreen.headerX;
 import java.util.ArrayList;
 
@@ -67,28 +66,7 @@ public class ButtonGrid
             buttons.add(new Button(img, new Rectangle(x, y, w, h), font));
         }
 
-        // Change button positions
-        arrangePositions(common);
-
-        // Apply labels
-        applyLabels(labels);
-    }
-
-    /**
-     * Get the number of buttons in the grid
-     */
-    public int getSize()
-    {
-        return buttons.size();
-    }
-
-    /**
-     * Arranges the positions of all buttons See BGM constructor for param
-     * details
-     */
-    private void arrangePositions(ArrayList<Object> common)
-    {
-        // Extract required information
+         // Extract required information
         int xpos = (int) common.get(2);
         int ypos = (int) common.get(3);
         int bW = (int) common.get(4);
@@ -97,41 +75,87 @@ public class ButtonGrid
         int yspacing = (Integer) common.get(7);
         int columns = (Integer) common.get(8);
 
-        // Local variables
+        // Local loop variables
         int curxpos = xpos;
         int curypos = ypos;
 
         // Add button rectangles and modify them
-        int counter = 0;
         for (int i = 0; i < buttons.size(); i++)
         {
-            // Apply current position to current button
-            buttons.get(i).setBounds(curxpos, curypos, bW, bH);
-
-            // Update variables
-            counter++;
-            curxpos += (bW + xspacing);
-            if ((counter % columns) == 0)
+            // Get label
+            String curLabel = labels.get(i);
+            
+            if(curLabel.contains("header")) // Special header case
             {
-                curxpos = xpos;
-                curypos += (bH + yspacing);
+                // Replace button
+                replaceButton(i, getHeader(curLabel));
+            }
+            else 
+            {
+                // Apply current position to current button
+                buttons.get(i).setBounds(curxpos, curypos, bW, bH);
+                
+                // Apply label
+                buttons.get(i).setLabel(curLabel);
+
+                // Shift curX by width + spacing
+                curxpos += (bW + xspacing);
+                
+                // If current position is a multiple of columnNo
+                if ( ((i % columns) == 0) && (columns != buttonNo) )
+                {
+                    curxpos = xpos;  // Reset X
+                    curypos += (bH + yspacing); // Increase Y
+                }
             }
         }
+    }
 
+    
+    
+    private Button getHeader(String rawLabel)
+    {
+        // Process raw label
+        String[] parts = rawLabel.split("_");
+        String actualLabel = parts[1];
+        String headerFont = parts[2];
+        
+        // Make new button 
+        //  Make header image
+        Image img = null;
+        try
+        {
+            img = new Image("res/ui/general.png");
+        }
+        catch (SlickException ex)
+        {
+        }
+
+        //  Make Header rect
+        //  startXpos, startYpos, width, height
+        Rectangle rect = new Rectangle(headerX, 100, 450, 60);
+
+        //  Get Header font 
+        TrueTypeFont font = FontServer.getFont(headerFont);
+
+        //  Adjust image
+        img = img.getScaledCopy((int) rect.getWidth(), (int) rect.getHeight());
+
+        //  Make header button
+        Button header = new Button(img, rect, font);
+
+        //  Set label
+        header.setLabel(actualLabel);
+
+        return header;
     }
 
     /**
-     * Changes the labels of all buttons in order
-     *
-     * @param labels
+     * Get the number of buttons in the grid
      */
-    private void applyLabels(ArrayList<String> labels)
+    public int getSize()
     {
-        for (int i = 0; i < labels.size(); i++)
-        {
-            String newLabel = labels.get(i);
-            buttons.get(i).setLabel(newLabel);
-        }
+        return buttons.size();
     }
 
     /**
@@ -149,6 +173,9 @@ public class ButtonGrid
 
     /**
      * Draw all buttons fully, with offset
+     * @param g
+     * @param x
+     * @param y
      */
     public void drawButtonsShifted(Graphics g, int x, int y)
     {
@@ -166,6 +193,7 @@ public class ButtonGrid
      * Get a button using its position
      *
      * @param pos
+     * @return 
      */
     public Button getButtonByPos(int pos)
     {
@@ -218,53 +246,9 @@ public class ButtonGrid
      * @param pos Position of old button
      * @param newB The new button
      */
-    public void replaceButton(int pos, Button newB)
+    public final void replaceButton(int pos, Button newB)
     {
         buttons.set(pos, newB);
-    }
-
-    public void makeHeader()
-    {
-        // Make new button 
-        // Make header image
-        Image img = null;
-        try
-        {
-            img = new Image("res/ui/general.png");
-        }
-        catch (SlickException ex)
-        {
-        }
-
-        // Make Header rect
-        // startXpos, startYpos, width, height
-        Rectangle rect = new Rectangle(headerX, 100, 450, 60);
-
-        // Get Header font 
-        TrueTypeFont font = FontServer.getFont(headerFont);
-
-        // Adjust image
-        img = img.getScaledCopy((int) rect.getWidth(), (int) rect.getHeight());
-
-        // Make header button
-        Button header = new Button(img, rect, font);
-
-        // Set label
-        header.setLabel(buttons.get(0).getLabel());
-
-        // Replace first button with header
-        replaceButton(0, header);
-    }
-
-    /**
-     * Format button label text to make it look nicer
-     */
-    public void beautifyLabels()
-    {
-        for (Button curB : buttons)
-        {
-            //curB.getLabel()
-        }
     }
 
     /**

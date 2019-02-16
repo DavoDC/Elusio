@@ -2,10 +2,10 @@ package Components.Structures;
 
 import Entity.Player;
 import Main.Globals;
-import Components.Structures.Camera;
 import Components.Buttons.Button;
 import Components.Buttons.ButtonGrid;
 import Components.Helpers.FontServer;
+import Components.Popups.PopupDisplayer;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 
@@ -29,7 +29,7 @@ public class HUD
 
     // Buttons
     private ButtonGrid buttonG;
-    private final int BUTTON_NO = 4;
+    private final int BUTTON_NO = 1;
     private final int SIDE_SIZE = 64;
     private final int SPACING = 16;
     private int shiftX;
@@ -45,6 +45,10 @@ public class HUD
 
     // Font for lives
     private TrueTypeFont lifeFont;
+    
+    // Popup Displayer
+    private PopupDisplayer popupDisp;
+    
 
     /**
      * Initialise the HUD
@@ -58,7 +62,6 @@ public class HUD
     {
         // Create button features
         ArrayList<Object> feats = new ArrayList<>();
-
         feats.add(BUTTON_NO); // Number of buttons
         feats.add("res/misc/nothing.png"); // Image Location
         feats.add(SPACING); // startXpos
@@ -67,19 +70,24 @@ public class HUD
         feats.add(SIDE_SIZE); // height
         feats.add(SPACING); // Xspacing
         feats.add(0); // Yspacing
-        feats.add(10); // NumberofColumns
+        feats.add(BUTTON_NO); // NumberofColumns
         feats.add("calibri-plain-5"); // FontString
+        
+        // Create button labels
+        ArrayList<String> labels = new ArrayList<>();
+        int buttonNo = (int) feats.get(0);
+        for (int i = 0; i <= buttonNo; i++)
+        {
+            labels.add(" ");
+        }
 
-        buttonG = new ButtonGrid(feats, new ArrayList<>());
-
-        // Adjust labels
-        buttonG.applyLabel("");
+        buttonG = new ButtonGrid(feats, labels);
 
         // Change images
         buttonG.getButtonByPos(0).setImageLoc(folder + "menu.png");
-        buttonG.getButtonByPos(1).setImageLoc(folder + "inv.png");
-        buttonG.getButtonByPos(2).setImageLoc(folder + "hint.png");
-        buttonG.getButtonByPos(3).setImageLoc(folder + "lives.png");
+//        buttonG.getButtonByPos(1).setImageLoc(folder + "inv.png");
+//        buttonG.getButtonByPos(2).setImageLoc(folder + "hint.png");
+//        buttonG.getButtonByPos(3).setImageLoc(folder + "lives.png");
 
         // Add actions
         buttonG.getButtonByPos(0).addListener( // Menu button
@@ -90,17 +98,17 @@ public class HUD
             // No transitions because map goes weird
         });
 
-        buttonG.getButtonByPos(1).addListener( // Inv button
-                (AbstractComponent source) ->
-        {
-            //showInventory();
-        });
-
-        buttonG.getButtonByPos(2).addListener( // Hint button 
-                (AbstractComponent source) ->
-        {
-            //showHint();
-        });
+//        buttonG.getButtonByPos(1).addListener( // Inv button
+//                (AbstractComponent source) ->
+//        {
+//            //showInventory();
+//        });
+//
+//        buttonG.getButtonByPos(2).addListener( // Hint button 
+//                (AbstractComponent source) ->
+//        {
+//            //showHint();
+//        });
 
         // Initialise co-ordinates
         camX = cam.getX();
@@ -112,6 +120,9 @@ public class HUD
 
         // Initialise font
         lifeFont = FontServer.getFont("Cambria-Bold-25");
+        
+        // Initialise PD
+        popupDisp = new PopupDisplayer();
 
     }
 
@@ -120,8 +131,9 @@ public class HUD
      *
      * @param cam
      * @param player
+     * @param delta
      */
-    public void update(Camera cam, Player player)
+    public void update(Camera cam, Player player, int delta)
     {
         // Update button shift
         shiftX = cam.getX() - camX;
@@ -135,6 +147,9 @@ public class HUD
 
         // Offset mouse so that buttons work   
         Globals.agc.getInput().setOffset(camX + SPACING, camY);
+        
+        // Update PD
+        popupDisp.updatePD(delta);
 
     }
 
@@ -150,7 +165,10 @@ public class HUD
 
         // Draw info overlays
         drawStatsText(g);
-        drawLivesText(g);
+        // drawLivesText(g);
+        
+        // Draw popups
+        popupDisp.renderPopups(g);
     }
 
     /**

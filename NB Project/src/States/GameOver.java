@@ -18,7 +18,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameOver extends InfoScreen
 {
 
-    //Font 
+    // Font 
     private TrueTypeFont lineFont;
 
     @Override
@@ -30,7 +30,7 @@ public class GameOver extends InfoScreen
     @Override
     public void customPostInit()
     {
-        lineFont = FontServer.getFont(InfoScreen.lineFont);
+        lineFont = FontServer.getFont(getLineFontString());
     }
 
     @Override

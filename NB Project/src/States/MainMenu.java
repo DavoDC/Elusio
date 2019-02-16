@@ -22,7 +22,6 @@ public class MainMenu extends InterfaceScreen
 
     // Title fields
     private DelayWriter tw;
-    private final String titleS = "Alien Aztec Adventure";
     private final String titleFontS = "gamefont-plain-70";
     private TrueTypeFont titleFont;
 
@@ -40,7 +39,7 @@ public class MainMenu extends InterfaceScreen
     public void customPostInit()
     {
         tw = new DelayWriter(70);
-        tw.setText(titleS);
+        tw.setText(Globals.gameTitle);
         titleFont = FontServer.getFont(titleFontS);
 
         super.getButtonGrid().applyActions(new ComponentListener()
@@ -132,7 +131,7 @@ public class MainMenu extends InterfaceScreen
     @Override
     public boolean isDarkened()
     {
-        return false;
+        return true;
     }
 
 }

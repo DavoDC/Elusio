@@ -14,15 +14,16 @@ public abstract class InfoScreen extends InterfaceScreen
 
     // Line constants
     public static final float lineX = (Globals.screenW / 4) - 300;
-    public static final String lineFont = "Segoe UI-Plain-30";
+    public static final float lineY = 210;
 
     // Header constants
     public static final float headerX = (Globals.screenW / 2) - 175;
-    public static final String headerFont = "Gamefont-Plain-60";
 
+    
     @Override
     public abstract int getID();
 
+    
     @Override
     public ArrayList<Object> getButtonFeatures()
     {
@@ -32,31 +33,61 @@ public abstract class InfoScreen extends InterfaceScreen
         // Add to AL
         feats.add(getButtonLabels().size()); // Number of buttons
         feats.add("res/misc/nothing.png"); // Image Location
-        feats.add((int) lineX); // startXpos
-        feats.add(160); // startYpos
+        feats.add(getStartXPos()); // startXpos
+        feats.add(getStartYPos()); // startYpos
         feats.add((int) screenW); // Width
         feats.add(40); // Height
-        feats.add(15); // XSpacing
-        feats.add(5); // YSpacing
-        feats.add(1); // NumberofColumns
-        feats.add(lineFont); // FontString
+        feats.add(getXSpacing()); // XSpacing
+        feats.add(getYSpacing()); // YSpacing
+        feats.add(getColumnNo()); // NumberofColumns
+        feats.add(getLineFontString()); // FontString
 
         return feats;
     }
-
-    @Override
-    public abstract ArrayList<String> getButtonLabels();
-
-    @Override
-    public void customPostInit()
+    
+    public int getStartXPos()
     {
-        super.getButtonGrid().makeHeader();
+        return (int) lineX;
+    }
+    
+    public int getStartYPos()
+    {
+        return (int) lineY;
+    }
+    
+    public int getXSpacing()
+    {
+        return 20;
+    }
+    
+    public int getColumnNo()
+    {
+        return 1;
     }
 
+    public int getYSpacing()
+    {
+        return 5;
+    }
+    
+    
+    public String getLineFontString()
+    {
+        return "Segoe UI-Plain-30";
+    }
+
+    
+    @Override
+    public abstract ArrayList<String> getButtonLabels();
+    
     @Override
     public boolean isDarkened()
     {
         return true;
     }
+        
+    
+    
+    
 
 }

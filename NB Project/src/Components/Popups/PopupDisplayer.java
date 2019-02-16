@@ -29,6 +29,7 @@ public class PopupDisplayer
         // Initialise popuplist
         popupList = new ArrayList<>();
         popupList.add(getIntroPopup());
+        popupList.add(getHintPopup());
 
     }
     
@@ -43,7 +44,7 @@ public class PopupDisplayer
         feats.add(2);  // Tile grid column 
         feats.add(17); // Width as number of tiles 
         feats.add(2);  // Height as number of tiles 
-        feats.add(40); // Interval for delay writer
+        feats.add(20); // Interval for delay writer
         feats.add("default"); // FontS or "default"
         
         // Text
@@ -59,11 +60,34 @@ public class PopupDisplayer
                 + "We need some conductive material to repair you");
         textLines.add("Xadu: Indeed. This rich planet is "
                 + "bound to have some. Have a look around");
+        textLines.add("Xadu: Come back to me if you find something");
         
         // Return
         return new Popup(feats, textLines);
     }
-
+    
+        /**
+     * Returns the intro popup
+     */
+    private Popup getHintPopup()
+    {
+        // Features
+        ArrayList<Object> feats = new ArrayList<>();
+        feats.add(4);  // Tile grid row
+        feats.add(2);  // Tile grid column 
+        feats.add(17); // Width as number of tiles 
+        feats.add(2);  // Height as number of tiles 
+        feats.add(30); // Interval for delay writer
+        feats.add("default"); // FontS or "default"
+        
+        // Text
+        ArrayList<String> textLines = new ArrayList<>();
+        textLines.add("Explore as much as you can. You'll find something to grab");
+        
+        // Return
+        return new Popup(feats, textLines);
+    }
+    
     /**
      * Manages popups Handles input
      *
@@ -79,6 +103,14 @@ public class PopupDisplayer
         {
             Globals.inputIgnored = true;
             popupList.get(0).setVisible(true);
+        }
+        
+        // Enable popups based off conditions
+        if (Globals.newHintAdded)
+        {
+            Globals.inputIgnored = true;
+            //update hint popup
+            popupList.get(1).setVisible(true);
         }
     }
     

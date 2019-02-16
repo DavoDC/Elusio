@@ -9,23 +9,32 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.gui.AbstractComponent;
+import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
 
 /**
- *
+ * Models a button
  * @author David Charkey
  */
 public class Button extends MouseOverArea
 {
 
-    // Fields
+    // Basic components
     private Image img;
     private Rectangle shape;
     private String label;
     private TrueTypeFont font;
+    
+    // Text position
     private float textXoffset;
     private float textYoffset;
+    
+    // Alert status
+    private boolean alertOn;
+    
+    
     
     /**
      * Default constructor - Don't use!
@@ -57,6 +66,16 @@ public class Button extends MouseOverArea
         
         textXoffset = shape.getWidth() / 5;
         textYoffset = - (shape.getHeight() / 20);
+        
+        alertOn = false; 
+        
+        // Turn off alert after clicks
+        super.addListener(
+        (AbstractComponent source) ->
+        {
+            alertOn = false;
+        }
+        );
     }
 
     /**
@@ -133,6 +152,7 @@ public class Button extends MouseOverArea
     {
         drawImage(g);
         drawText(g);
+        drawAlert(g);
     }
 
     /**
@@ -219,6 +239,53 @@ public class Button extends MouseOverArea
         setNormalImage(img);
         setMouseOverImage(img);
         setMouseDownImage(img);
+    }
+    
+    /**
+     * Draw a red exclamation mark near the button
+     * @param g 
+     */
+    private void drawAlert(Graphics g)
+    {
+        // Only continue if alert is on
+        if (!alertOn) { return; } 
+        
+        // Load image if not already done so
+        if (Globals.alertMark == null)
+        {
+            try
+            {
+                Globals.alertMark = new Image("res/ui/alert.png");
+                int newSide = (int) shape.getHeight()/2;
+                Globals.alertMark = Globals.alertMark.getScaledCopy(newSide, newSide);
+            }
+            catch (SlickException e)
+            {
+            }
+        }
+        
+        // Calculate position of alert
+        int imageW = Globals.alertMark.getWidth();
+        float imgX = shape.getX() + imageW - imageW/2 + 5;
+        float imgY = shape.getY() + shape.getHeight() + 5;
+        
+        // Add jiggle factor
+        if (Math.random() < 0.15)
+        {
+            //imgX += Math.random()*5;
+            imgY += Math.random()*9;
+        }
+        
+        // Draw alert
+        g.drawImage(Globals.alertMark, imgX, imgY);
+    }
+    
+    /**
+     * Switch on the alert
+     */
+    public void activateAlert()
+    {
+        alertOn = true;
     }
 
 }

@@ -44,6 +44,12 @@ public class Globals
         return enter;
     }
 
+    // Global Strings
+    public static final String headerFont = "Gamefont-Plain-60";
+    public static final String gameTitle = "Escape from Somnium-9";
+    public static final String SFXres = "res/audio/effects/"; // SFX location
+    public static final String[] HINTS = new String[4]; // Hints as strings
+    
     
     // Global Numbers
     public static int screenW = 0; // Screen width
@@ -54,14 +60,19 @@ public class Globals
     
     // Global Images
     public static Image cursor; // Image of cursor
+    public static Image alertMark; // Image of exclamation mark
     public static ArrayList<BigImage> backgrounds = new ArrayList<>(); // Backgrounds
     
     
     // Global Booleans
-    public static boolean showDevData = true; // Show stats in top left?
+    //  Settings
+    public static boolean showDevData = false; // Show stats?
+    public static boolean fastText = false; // Increase popup write speed?
+    //  Internal      
     public static boolean itemGrabbed = false; // True = item was just grabbed
     public static boolean inputIgnored = false; // True = input disabled for PLAY state
     public static boolean hasBeenPaused = false; // True = Game was paused once
+    public static boolean newHintAdded = false; // Status of hints
 
 
 

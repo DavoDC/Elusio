@@ -20,7 +20,7 @@ public class Player
     private int yPos;
 
     // Dimensions of player
-    private double scale;
+    private double scale; // Size factor
     private int width;
     private int height;
 
@@ -48,7 +48,7 @@ public class Player
         width = 33;
         height = 48;
 
-        movSpeed = 1.5f; //normal = 0.25
+        movSpeed = 0.25f; // Normal = 0.25
 
         try
         {

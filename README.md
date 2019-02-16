@@ -1,7 +1,5 @@
 # AAA
-Alien Aztec Adventure
-
-AAA is a 2d adventure game 
+This is a 2d adventure game 
 
 An extraterrestial has crashed in an unusual, mysterious location
 He must find his way home, avoiding the perils of the land...

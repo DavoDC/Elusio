@@ -1,7 +1,6 @@
 package States;
 
 import Main.Globals;
-import Components.ScreenTemplates.InfoScreen;
 import Components.ScreenTemplates.InterfaceScreen;
 
 import java.util.ArrayList;
@@ -14,8 +13,6 @@ import org.newdawn.slick.gui.AbstractComponent;
 public class Settings extends InterfaceScreen
 {
 
-    // Font Strings
-    private final String headerFont = InfoScreen.headerFont;
     private final String settingsFont = "OCR A Extended-plain-35";
 
     @Override
@@ -58,7 +55,7 @@ public class Settings extends InterfaceScreen
     @Override
     public ArrayList<String> getButtonLabels()
     {
-        // Create strings
+        // Create setting strings
         boolean status = Globals.showDevData;
         String stats = processSwitchString("DEV DATA: X", status);
 
@@ -66,7 +63,7 @@ public class Settings extends InterfaceScreen
         ArrayList<String> labels = new ArrayList<>();
 
         // Add to AL
-        labels.add("SETTINGS");
+        labels.add("header_SETTINGS_" + Globals.headerFont);
         labels.add(stats);
 
         return labels;
@@ -75,9 +72,6 @@ public class Settings extends InterfaceScreen
     @Override
     public void customPostInit()
     {
-        // Adjust header
-        super.getButtonGrid().makeHeader();
-
         // Add action to stats button
         super.getButtonGrid().getButtonByPos(1).addListener((AbstractComponent source) ->
         {
@@ -133,7 +127,7 @@ public class Settings extends InterfaceScreen
     @Override
     public boolean isDarkened()
     {
-        return false;
+        return true;
     }
 
 }

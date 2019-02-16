@@ -46,8 +46,6 @@ public class Controls extends InfoScreen
     @Override
     public void customPostInit()
     {
-        super.getButtonGrid().makeHeader();
-
         try
         {
 
@@ -87,7 +85,7 @@ public class Controls extends InfoScreen
         ArrayList<String> text = new ArrayList<>();
 
         // Add to text
-        text.add("CONTROLS");
+        text.add("header_CONTROLS_" + Globals.headerFont);
         text.add("MOVEMENT = Arrow Keys");
         text.add("GRAB ITEM = G");
         text.add("BACK TO MAINMENU = Esc or");
@@ -109,5 +107,6 @@ public class Controls extends InfoScreen
         // Draw menu icon
         g.drawImage(menu, menuX, menuY);
     }
+  
 
 }

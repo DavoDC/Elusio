@@ -7,7 +7,6 @@ import Components.Structures.Camera;
 import Entity.Player;
 import Components.Structures.HUD;
 import Components.Structures.TiledMapPlus;
-import Components.Popups.PopupDisplayer;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -35,9 +34,6 @@ public class Play extends BasicGameState
 
     // HUD
     private HUD hud;
-    
-    // Popups
-    private PopupDisplayer popupDisp;
 
     /**
      * Used to identify STATES and switch to them
@@ -71,8 +67,7 @@ public class Play extends BasicGameState
         itemStore = new ItemStore(map);
 
         hud = new HUD(cam, alien, gc, game);
-        
-        popupDisp = new PopupDisplayer();
+       
     }
 
     /**
@@ -101,11 +96,7 @@ public class Play extends BasicGameState
         cam.centerOn(alien.getX(), alien.getY());
 
         // Update hud
-        hud.update(cam, alien);
-        
-        // Update popups
-        popupDisp.updatePD(delta);
-
+        hud.update(cam, alien, delta);
     }
 
     /**
@@ -226,9 +217,6 @@ public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws Slic
 
         // Draw HUD
         hud.drawHUD(g);
-        
-        // Draw popups
-        popupDisp.renderPopups(g);
     }
 
 }

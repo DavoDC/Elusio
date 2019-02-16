@@ -38,6 +38,8 @@ public class FontServer
     /**
      * Get a custom font Format: fontname-style-size e.g. "Calibri-Plain-20"
      *
+     * @param rawFontS
+     * @return 
      */
     public static TrueTypeFont getFont(String rawFontS)
     {
