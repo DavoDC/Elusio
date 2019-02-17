@@ -45,10 +45,19 @@ public class Globals
     }
 
     // Global Strings
+    public static final String root = "res/";
     public static final String headerFont = "Gamefont-Plain-60";
-    public static final String gameTitle = "Escape from Somnium-9";
-    public static final String SFXres = "res/audio/effects/"; // SFX location
-    public static final String[] HINTS = new String[4]; // Hints as strings
+    public static final String dimensionName = "Ellusio-9";
+    public static final String gameTitle = "Escaping " + dimensionName;
+    public static final String gameFontRes = root + "misc/3dventure.ttf";
+    public static final String alertRes = root + "ui/alert.png";
+    public static final String generalPanelRes = root + "ui/general.png";
+    public static final String emptyImgRes = root + "misc/nothing.png";
+    public static final String popupPanelRes = root + "ui/popup.png";
+    public static final String playerSprRes = root + "player/frames.png";
+    public static final String SFXres = root + "audio/effects/";
+    public static final String mapRes = root + "map/map.tmx";
+    public static final String cursorRes = root + "misc/cursor.png";
     
     
     // Global Numbers

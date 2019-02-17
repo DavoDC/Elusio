@@ -2,6 +2,7 @@ package Components.Buttons;
 
 import Components.Helpers.FontServer;
 import static Components.ScreenTemplates.InfoScreen.headerX;
+import Main.Globals;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Graphics;
@@ -125,7 +126,7 @@ public class ButtonGrid
         Image img = null;
         try
         {
-            img = new Image("res/ui/general.png");
+            img = new Image(Globals.generalPanelRes);
         }
         catch (SlickException ex)
         {
@@ -174,18 +175,14 @@ public class ButtonGrid
     /**
      * Draw all buttons fully, with offset
      * @param g
-     * @param x
-     * @param y
+     * @param sX
+     * @param sY
      */
-    public void drawButtonsShifted(Graphics g, int x, int y)
+    public void drawButtonsShifted(Graphics g, int sX, int sY)
     {
-        Button shift;
         for (Button curB : buttons)
         {
-            shift = curB;
-            shift.setX(shift.getX() + x);
-            shift.setY(shift.getY() + y);
-            shift.drawFull(g);
+            curB.drawShifted(g, sX, sY);
         }
     }
 

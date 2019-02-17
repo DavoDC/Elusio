@@ -1,5 +1,6 @@
 package Entity;
 
+import Components.Structures.Player;
 import Components.Structures.TiledMapPlus;
 import org.newdawn.slick.Image;
 
@@ -13,13 +14,12 @@ public class Entity
 
     // Info
     private String name;
-    private String desc;
 
     // Position
+    private int col;
+    private int row;
     private int xPos;
     private int yPos;
-    private int row;
-    private int col;
 
     // Tile image
     private Image tile;
@@ -29,21 +29,26 @@ public class Entity
      *
      * @param name
      * @param desc
-     * @param xPos
-     * @param yPos
+     * @param col
+     * @param row
      */
-    public Entity(String name, String desc, int xPos, int yPos)
+    public Entity(String name, int col, int row)
     {
         // Input assignments
         this.name = name;
-        this.desc = desc;
 
-        this.xPos = xPos;
-        this.yPos = yPos;
-
-        // Calculate row and column
-        col = TiledMapPlus.convertXtoCol(xPos);
-        row = TiledMapPlus.convertYtoRow(yPos);
+        // Save tile grid pos
+        this.col = col;
+        this.row = row;
+        
+        // Calculate co-ordinate pos
+        xPos = col * TiledMapPlus.tileSize;
+        yPos = row * TiledMapPlus.tileSize;
+    }
+    
+    public String getName()
+    {
+        return name;
     }
 
     /**

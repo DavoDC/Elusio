@@ -108,7 +108,7 @@ public class Popup
         Image img = null;
         try
         {
-            img = new Image("res/ui/popup.png");
+            img = new Image(Globals.popupPanelRes);
             img = img.getScaledCopy(w, h);
         }
         catch (SlickException e)
@@ -176,9 +176,8 @@ public class Popup
             instDW.setText(instS); // Reset dw
         }
         instDW.drawText(instFont, instX, instY);
-        
-  
     }
+   
     
 
 }

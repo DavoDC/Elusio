@@ -31,7 +31,7 @@ public class Settings extends InterfaceScreen
         // Number of buttons
         feats.add(getButtonLabels().size());
         // Image Location
-        feats.add("res/ui/general.png");
+        feats.add(Globals.generalPanelRes);
         // startXpos
         feats.add(300);
         // startYpos

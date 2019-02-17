@@ -24,7 +24,7 @@ public abstract class InterfaceScreen extends BasicGameState
 {
 
     // Resource folder
-    private final String folder = "res/backgrounds/";
+    private final String folder = Globals.root + "backgrounds/";
 
     // Background
     private BigImage bg;
@@ -69,7 +69,7 @@ public abstract class InterfaceScreen extends BasicGameState
         // Initialise image and replace cursor
         if (Globals.cursor == null) // Only do once
         {
-            Globals.cursor = new Image("res/misc/cursor.png");
+            Globals.cursor = new Image(Globals.cursorRes);
             Globals.cursor = Globals.cursor.getScaledCopy(0.75f);
         }
         gc.setMouseCursor(Globals.cursor, 0, 0);

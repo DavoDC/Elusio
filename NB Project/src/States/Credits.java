@@ -39,6 +39,8 @@ public class Credits extends InfoScreen
         text.add("Jorge Avila (HUD icons)");
         text.add("phoenix1291 (Sound effects)");
         text.add("Dural (https://icons8.com/music/author/dural), (Background music)");
+        text.add("J.W. Bjerk (Magic item sprites)");
+        text.add("Avery (Enemy sprites)");
 
         return text;
     }

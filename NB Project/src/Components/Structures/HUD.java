@@ -1,10 +1,10 @@
 package Components.Structures;
 
-import Entity.Player;
 import Main.Globals;
 import Components.Buttons.Button;
 import Components.Buttons.ButtonGrid;
 import Components.Helpers.FontServer;
+import Components.Popups.Popup;
 import Components.Popups.PopupDisplayer;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
@@ -25,11 +25,11 @@ public class HUD
 {
 
     // Resource folder
-    private final String folder = "res/ui/";
+    private final String folder = Globals.root + "ui/";
 
     // Buttons
     private ButtonGrid buttonG;
-    private final int BUTTON_NO = 1;
+    private final int BUTTON_NO = 2;
     private final int SIDE_SIZE = 64;
     private final int SPACING = 16;
     private int shiftX;
@@ -63,7 +63,7 @@ public class HUD
         // Create button features
         ArrayList<Object> feats = new ArrayList<>();
         feats.add(BUTTON_NO); // Number of buttons
-        feats.add("res/misc/nothing.png"); // Image Location
+        feats.add(Globals.emptyImgRes); // Image Location
         feats.add(SPACING); // startXpos
         feats.add(SPACING); // startYpos 
         feats.add(SIDE_SIZE); // width
@@ -85,9 +85,9 @@ public class HUD
 
         // Change images
         buttonG.getButtonByPos(0).setImageLoc(folder + "menu.png");
-//        buttonG.getButtonByPos(1).setImageLoc(folder + "inv.png");
-//        buttonG.getButtonByPos(2).setImageLoc(folder + "hint.png");
-//        buttonG.getButtonByPos(3).setImageLoc(folder + "lives.png");
+//        buttonG.getButtonByPos(X).setImageLoc(folder + "inv.png");
+        buttonG.getButtonByPos(1).setImageLoc(folder + "hint.png");
+//        buttonG.getButtonByPos(X).setImageLoc(folder + "lives.png");
 
         // Add actions
         buttonG.getButtonByPos(0).addListener( // Menu button
@@ -104,11 +104,12 @@ public class HUD
 //            //showInventory();
 //        });
 //
-//        buttonG.getButtonByPos(2).addListener( // Hint button 
-//                (AbstractComponent source) ->
-//        {
-//            //showHint();
-//        });
+        buttonG.getButtonByPos(1).addListener( // Hint button 
+                (AbstractComponent source) ->
+        {
+            // Show last item popup shown
+            popupDisp.enableSpecialPopup();
+        });
 
         // Initialise co-ordinates
         camX = cam.getX();
@@ -144,13 +145,12 @@ public class HUD
         this.camY = cam.getY();
         this.playerX = player.getX();
         this.playerY = player.getY();
-
-        // Offset mouse so that buttons work   
-        Globals.agc.getInput().setOffset(camX + SPACING, camY);
         
         // Update PD
         popupDisp.updatePD(delta);
 
+        // Offset mouse so that buttons work   
+        Globals.agc.getInput().setOffset(camX + SPACING, camY);
     }
 
     /**
@@ -232,6 +232,11 @@ public class HUD
         String livesS = "" + Globals.playerLives + "";
         lifeFont.drawString(drawX, drawY, livesS, Color.black);
 
+    }
+
+    public void loadPopup(Popup itemInfo)
+    {
+        popupDisp.loadSpecialPopup(itemInfo);
     }
 
 }

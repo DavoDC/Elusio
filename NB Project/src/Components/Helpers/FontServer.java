@@ -1,5 +1,6 @@
 package Components.Helpers;
 
+import Main.Globals;
 import java.awt.Font;
 import java.io.InputStream;
 
@@ -24,8 +25,9 @@ public class FontServer
         {
             try
             {
-                InputStream inputStream = ResourceLoader.getResourceAsStream("res/misc/3dventure.ttf");
-                rawGameFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+                InputStream inStream = null;
+                inStream= ResourceLoader.getResourceAsStream(Globals.gameFontRes);
+                rawGameFont = Font.createFont(Font.TRUETYPE_FONT, inStream);
                 fontLoads++;
             }
             catch (Exception e)

@@ -1,5 +1,6 @@
 package Entity;
 
+import Components.Structures.Player;
 import Components.Structures.TiledMapPlus;
 
 import java.util.ArrayList;
@@ -9,8 +10,11 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 /**
- *
- * @author CHARKEYD
+ * Handles a group of entities
+ * Creates them
+ * Draws them
+ * Removes them
+ * @author David Charkey
  */
 public abstract class EntityStore
 {
@@ -50,7 +54,7 @@ public abstract class EntityStore
      * @param player
      * @return
      */
-    public Entity getEntityUnder(Player player)
+    public final Entity getEntityUnder(Player player)
     {
         Entity foundEntity = null;
         for (Entity curEntity : entityList)
@@ -70,12 +74,12 @@ public abstract class EntityStore
      * @param g
      * @param alien
      */
-    public void updateMap(Graphics g, Player alien)
+    public final void updateMap(Graphics g, Player alien)
     {
         // Hides entities encountered
         hideEntities(g);
 
-        // Stop if no items have been newly grabbed
+        // Stop if no entitiess have been newly interacted with
         if (!getEntityInteractionStatus())
         {
             return;
@@ -121,8 +125,8 @@ public abstract class EntityStore
         int[] pos = entityEnc.getGridLoc();
         int row = pos[0];
         int col = pos[1];
-        int x = col * 64;
-        int y = row * 64;
+        int x = col * TiledMapPlus.tileSize;
+        int y = row * TiledMapPlus.tileSize;
 
         // Save info required to hide entity
         Image groundTile = mapCopy.getTileImage(col, row, 0);
@@ -133,6 +137,9 @@ public abstract class EntityStore
         int entityLayerIndex = mapCopy.getLayerIndex(entityLayerName);
         Image entityTile = mapCopy.getTileImage(col, row, entityLayerIndex);
         entityEnc.addTileImage(entityTile);
+        
+        // Do custom actions
+        doCustomInteraction(entityEnc);
 
         // Update status as entity processing is complete
         switchEntityInteractionStatus();
@@ -145,6 +152,11 @@ public abstract class EntityStore
     public abstract Entity getLastInteractedEntity(Player player);
 
     public abstract boolean getEntityInteractionStatus();
+    
+    public void doCustomInteraction(Entity ent)
+    {
+        
+    }
 
     public abstract void switchEntityInteractionStatus();
 

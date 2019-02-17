@@ -10,7 +10,6 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.gui.AbstractComponent;
-import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
 
@@ -154,6 +153,20 @@ public class Button extends MouseOverArea
         drawText(g);
         drawAlert(g);
     }
+    
+    /** 
+     * Draw the button, shifted
+     * @param b
+     * @param g
+     * @param sX
+     * @param sY
+     */
+    public void drawShifted(Graphics g, int sX, int sY)
+    {
+        setX(getX() + sX);
+        setY(getY() + sY);
+        drawFull(g);
+    }
 
     /**
      * Draw the image only
@@ -255,7 +268,7 @@ public class Button extends MouseOverArea
         {
             try
             {
-                Globals.alertMark = new Image("res/ui/alert.png");
+                Globals.alertMark = new Image(Globals.alertRes);
                 int newSide = (int) shape.getHeight()/2;
                 Globals.alertMark = Globals.alertMark.getScaledCopy(newSide, newSide);
             }

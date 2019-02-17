@@ -61,7 +61,7 @@ public class Exit extends InterfaceScreen
 
         // Add to AL
         feats.add(getButtonLabels().size()); // Number of buttons
-        feats.add("res/misc/nothing.png"); // Image Location
+        feats.add(Globals.emptyImgRes); // Image Location
         feats.add(300); // startXpos
         feats.add(125); // startYpos 
         feats.add(350); // width

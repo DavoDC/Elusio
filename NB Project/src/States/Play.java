@@ -1,12 +1,13 @@
 package States;
 
-import Entity.Item.Item;
+import Components.Popups.Popup;
 import Entity.Item.ItemStore;
 import Main.Globals;
 import Components.Structures.Camera;
-import Entity.Player;
+import Components.Structures.Player;
 import Components.Structures.HUD;
 import Components.Structures.TiledMapPlus;
+import Entity.Item.Item;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -59,7 +60,7 @@ public class Play extends BasicGameState
     {
         alien = new Player();
 
-        map = new TiledMapPlus("res/map/map.tmx");
+        map = new TiledMapPlus(Globals.mapRes);
 
         cam = new Camera(gc, map);
         cam.centerOn(alien.getX(), alien.getX());
@@ -117,7 +118,7 @@ public class Play extends BasicGameState
         boolean altDown = input.isKeyDown(Input.KEY_RALT) || input.isKeyDown(Input.KEY_LALT);
         
         boolean fKeyDown = input.isKeyDown(Input.KEY_F);
-        boolean gKeyDown = input.isKeyDown(Input.KEY_G);
+        boolean qKeyDown = input.isKeyDown(Input.KEY_Q);
         
         // Check and act
         if (upArrowDown)
@@ -175,14 +176,9 @@ public class Play extends BasicGameState
             boolean newStatus = !Globals.agc.isFullscreen();
             Globals.agc.setFullscreen(newStatus);
         }
-        else if (gKeyDown) // Grab key 
+        else if (qKeyDown) // Grab key 
         {
-            Item itemFound = (Item) itemStore.getEntityUnder(alien);
-            if (itemFound != null)
-            {
-                alien.addToInv(itemFound);
-                Globals.itemGrabbed = true;
-            }
+            processItem();
         }
         else // When nothing is being pressed
         {
@@ -190,6 +186,23 @@ public class Play extends BasicGameState
         }
     }
 
+private void processItem()
+{
+    // Get the item underneath the player
+    // Otherwise, return null
+    Item itemFound = (Item) itemStore.getEntityUnder(alien);
+    
+    // If item was found
+    if (itemFound != null)
+    {
+        alien.addToInv(itemFound); // Add to player inventory
+        Globals.itemGrabbed = true; // Notify itemStore
+        int r = TiledMapPlus.convertYtoRow(alien.getY()); // Get row
+        int c = TiledMapPlus.convertXtoCol(alien.getX()); // Get col
+        Popup itemInfo = itemStore.getInfoPopup(itemFound, r, c); // Generate info
+        hud.loadPopup(itemInfo); // Show it
+    }
+}
 
 /**
  * This method should be used to draw to the screen. All of your game's
