@@ -1,8 +1,8 @@
-package Entity.Item;
+package Actionable.Item;
 
 import Components.Popups.Popup;
-import Entity.Entity;
-import Entity.EntityStore;
+import Actionable.Base.Actionable;
+import Actionable.Base.ActionStore;
 import Components.Structures.Player;
 import Main.Globals;
 import Components.Structures.TiledMapPlus;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author David Charkey
  */
-public class ItemStore extends EntityStore
+public class ItemStore extends ActionStore
 {
 
     public ItemStore(TiledMapPlus map)
@@ -22,10 +22,10 @@ public class ItemStore extends EntityStore
     }
 
     @Override
-    public ArrayList<Entity> getEntities()
+    public ArrayList<Actionable> getEntities()
     {
         // Create list
-        ArrayList<Entity> itemList = new ArrayList<>();
+        ArrayList<Actionable> itemList = new ArrayList<>();
 
         // Add magic items
         itemList.add(new MagicItem(
@@ -41,17 +41,17 @@ public class ItemStore extends EntityStore
         
         // Add crystals
         itemList.add(new Item( // Highest
-                "Crystal", 
+                "Crystal1", 
                 65, 6));
         itemList.add(new Item( // Leftest
-                "Crystal", 
+                "Crystal2", 
                 30, 3));
         itemList.add(new Item( // Mid
-                "Crystal",
+                "Crystal3",
                 89, 41));
         itemList.add(new Item( // Lowest
-                "Crystal",
-                84, 90));
+                "Crystal4",
+                71, 81));
         
         // Return list
         return itemList;
@@ -65,7 +65,7 @@ public class ItemStore extends EntityStore
     }
 
     @Override
-    public Entity getLastInteractedEntity(Player player)
+    public Actionable getLastInteractedEntity(Player player)
     {
         return player.getLastAddedItem();
     }

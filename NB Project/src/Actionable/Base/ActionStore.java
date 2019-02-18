@@ -1,4 +1,4 @@
-package Entity;
+package Actionable.Base;
 
 import Components.Structures.Player;
 import Components.Structures.TiledMapPlus;
@@ -16,11 +16,11 @@ import org.newdawn.slick.Image;
  * Removes them
  * @author David Charkey
  */
-public abstract class EntityStore
+public abstract class ActionStore
 {
 
     // Stores entities
-    private ArrayList<Entity> entityList;
+    private ArrayList<Actionable> entityList;
 
     // Stores information about encountered entities
     private HashMap<String, Image> hiddenEntities;
@@ -36,7 +36,7 @@ public abstract class EntityStore
      *
      * @param map The current game map
      */
-    public EntityStore(TiledMapPlus map)
+    public ActionStore(TiledMapPlus map)
     {
         entityList = new ArrayList<>();
         entityList.addAll(getEntities());
@@ -54,10 +54,10 @@ public abstract class EntityStore
      * @param player
      * @return
      */
-    public final Entity getEntityUnder(Player player)
+    public final Actionable getEntityUnder(Player player)
     {
-        Entity foundEntity = null;
-        for (Entity curEntity : entityList)
+        Actionable foundEntity = null;
+        for (Actionable curEntity : entityList)
         {
             if (curEntity.isEntityUnder(player))
             {
@@ -119,7 +119,7 @@ public abstract class EntityStore
     private void handleNewInteractions(Player player)
     {
         // Get entity just encountered
-        Entity entityEnc = getLastInteractedEntity(player);
+        Actionable entityEnc = getLastInteractedEntity(player);
 
         // Get grid location info
         int[] pos = entityEnc.getGridLoc();
@@ -145,15 +145,15 @@ public abstract class EntityStore
         switchEntityInteractionStatus();
     }
 
-    public abstract ArrayList<Entity> getEntities();
+    public abstract ArrayList<Actionable> getEntities();
 
     public abstract String getEntityLayerName();
 
-    public abstract Entity getLastInteractedEntity(Player player);
+    public abstract Actionable getLastInteractedEntity(Player player);
 
     public abstract boolean getEntityInteractionStatus();
     
-    public void doCustomInteraction(Entity ent)
+    public void doCustomInteraction(Actionable ent)
     {
         
     }

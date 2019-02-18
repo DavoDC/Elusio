@@ -3,20 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity.Item;
-
-import Entity.Entity;
+package Actionable.Enemy;
 
 /**
- *
- * @author CHARKEYD
+ * Handles a group of enemies
+ * @author DavidCharkey
  */
-public class Item extends Entity
+public class EnemyStore
 {
-    
-    public Item(String name, int col, int row)
-    {
-        super(name, col, row);
-    }
     
 }

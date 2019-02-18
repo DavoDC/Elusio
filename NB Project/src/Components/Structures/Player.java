@@ -1,7 +1,7 @@
 package Components.Structures;
 
-import Entity.Item.Item;
-import Entity.Item.MagicItem;
+import Actionable.Item.Item;
+import Actionable.Item.MagicItem;
 import Main.Globals;
 
 import java.util.ArrayList;

@@ -1,13 +1,13 @@
 package States;
 
 import Components.Popups.Popup;
-import Entity.Item.ItemStore;
+import Actionable.Item.ItemStore;
 import Main.Globals;
 import Components.Structures.Camera;
 import Components.Structures.Player;
 import Components.Structures.HUD;
 import Components.Structures.TiledMapPlus;
-import Entity.Item.Item;
+import Actionable.Item.Item;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

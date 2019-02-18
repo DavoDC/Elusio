@@ -1,6 +1,6 @@
-package Entity.Item;
+package Actionable.Item;
 
-import Entity.Entity;
+import Actionable.Base.Actionable;
 
 /**
  * Models in-game items

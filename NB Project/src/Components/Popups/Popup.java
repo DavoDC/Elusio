@@ -23,8 +23,9 @@ public class Popup
     // Underlying button
     private Button button;
 
-    // Render status
+    // Status
     private boolean visible;
+    private boolean shown;
     
     // Popup text (delayed)
     private final DelayWriter textDW;
@@ -68,8 +69,9 @@ public class Popup
         // Process font string
         if (fontS.equals("default")) { fontS = "Candara-Bold-26"; }
                 
-        // Initialise render status
+        // Initialise status
         visible = false;
+        shown = false;
         
         // Initialise font (Must be before button init)
         textFont = FontServer.getFont(fontS);
@@ -131,6 +133,7 @@ public class Popup
                     {
                         visible = false; // Hide popup
                         Globals.inputIgnored = false; // Re-enable keys
+                        shown = true;
                     }
                     else if (textDW.hasWrittenOnce()) // When line has been shown once
                     {
@@ -178,6 +181,10 @@ public class Popup
         instDW.drawText(instFont, instX, instY);
     }
    
+    public boolean hasBeenShown()
+    {
+        return shown;
+    }
     
 
 }
