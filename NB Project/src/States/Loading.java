@@ -2,6 +2,7 @@ package States;
 
 import Main.Globals;
 import Components.Helpers.FontServer;
+import Components.Structures.Map;
 import org.newdawn.slick.Color;
 
 import org.newdawn.slick.GameContainer;
@@ -60,11 +61,10 @@ public class Loading extends BasicGameState
             // Initialise font
             font = FontServer.getFont("gamefont-plain-75");
 
-            // Initialise SBG
+            // Special initialisations
             Globals.SBG = game;
-
-            // Initialise AGC
             Globals.agc.setDefaultFont(FontServer.getFont("Segoe UI-Plain-16"));
+            Globals.map = new Map(Globals.mapRes);
 
         }
         catch (SlickException ex)

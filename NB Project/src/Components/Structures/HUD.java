@@ -189,31 +189,52 @@ public class HUD
         int drawY = camY + 12;
 
         // Set font color
-        g.setColor(Color.red);
+        g.setColor(Color.black);
+        
+        // YSpacing
+        int yGap = 20;
 
         // Draw FPS
         String fps = "FPS: " + Globals.agc.getFPS();
         g.drawString(fps, drawX, drawY);
 
-        // Draw memory use
+        // Draw memory use = 1
         long freeMem = Runtime.getRuntime().freeMemory();
         long totalMem = Runtime.getRuntime().totalMemory();
         long memoryUsed = (totalMem - freeMem) / 1000000;
         String mem = "Mem. Use: " + memoryUsed + " MB";
-        g.drawString(mem, drawX, drawY + 20);
+        g.drawString(mem, drawX, drawY + 1*yGap);
 
-        // Draw co-ordinates
-        String player = "pX: " + playerX + " , pY: " + playerY;
-        g.drawString(player, drawX, drawY + 40);
-
+        // Draw cam = 2 and 3
         String cam = "cX: " + camX + " , cY: " + camY;
-        g.drawString(cam, drawX, drawY + 60);
+        g.drawString(cam, drawX, drawY + 2*yGap);
+        int camCol = Map.convertXtoCol(camX);
+        int camRow = Map.convertYtoRow(camY);
+        String camTile = "cC: " + camCol + " , cR: " + camRow;
+        g.drawString(camTile, drawX, drawY + 3*yGap);
+        
+        // Draw player = 4 and 5
+        int adjPX = playerX + Globals.playerXadj;
+        int adjPY = playerY + Globals.playerYadj;
+        String player = "pX: " + adjPX + " , pY: " + adjPY;
+        g.drawString(player, drawX, drawY + 4*yGap);
+        int playerCol = Map.convertXtoCol(adjPX);
+        int playerRow = Map.convertYtoRow(adjPY);
+        String playerTile = "pC: " + playerCol + " , pR: " + playerRow;
+        g.drawString(playerTile, drawX, drawY + 5*yGap);
 
+        // Get extra mouse info
         Input input = Globals.agc.getInput();
         int mX = input.getMouseX();
         int mY = input.getMouseY();
+        
+        // Draw mouse = 6 and 7 
         String mouse = "mX: " + mX + " , mY: " + mY;
-        g.drawString(mouse, drawX, drawY + 80);
+        g.drawString(mouse, drawX, drawY + 6*yGap);
+        int mCol = Map.convertXtoCol(mX);
+        int mRow = Map.convertYtoRow(mY);
+        String mouseTile = "pC: " + mCol + " , pR: " + mRow;
+        g.drawString(mouseTile, drawX, drawY + 7*yGap);
     }
 
     /**
@@ -229,14 +250,18 @@ public class HUD
         int drawY = ref.getY() + SIDE_SIZE / 4 + 2;
 
         // Draw number of lives
-        String livesS = "" + Globals.playerLives + "";
-        lifeFont.drawString(drawX, drawY, livesS, Color.black);
+        // String livesS = "" + Globals.playerLives + "";
+        // lifeFont.drawString(drawX, drawY, livesS, Color.black);
 
     }
 
+    /**
+     * Load a popup into the displayer
+     * @param itemInfo 
+     */
     public void loadPopup(Popup itemInfo)
     {
         popupDisp.loadSpecialPopup(itemInfo);
     }
-
+    
 }

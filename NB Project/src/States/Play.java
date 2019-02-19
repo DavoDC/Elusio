@@ -1,13 +1,15 @@
 package States;
 
 import Components.Popups.Popup;
-import Actionable.Item.ItemStore;
 import Main.Globals;
 import Components.Structures.Camera;
 import Components.Structures.Player;
 import Components.Structures.HUD;
-import Components.Structures.TiledMapPlus;
-import Actionable.Item.Item;
+import Components.Structures.Map;
+import Entity.Enemy.Enemy;
+import Entity.Enemy.EnemyStore;
+import Entity.Item.Item;
+import Entity.Item.ItemStore;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -23,18 +25,16 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Play extends BasicGameState
 {
 
-    // Player
+    // Structures
     private Player alien;
-
-    // Map objects
-    private TiledMapPlus map;
     private Camera cam;
-
-    // Items
-    private ItemStore itemStore;
-
-    // HUD
     private HUD hud;
+
+    // Entity Stores
+    private ItemStore itemStore;
+    private EnemyStore enemyStore;
+
+    
 
     /**
      * Used to identify STATES and switch to them
@@ -60,12 +60,11 @@ public class Play extends BasicGameState
     {
         alien = new Player();
 
-        map = new TiledMapPlus(Globals.mapRes);
-
-        cam = new Camera(gc, map);
+        cam = new Camera(gc, Globals.map);
         cam.centerOn(alien.getX(), alien.getX());
 
-        itemStore = new ItemStore(map);
+        itemStore = new ItemStore();
+        enemyStore = new EnemyStore();
 
         hud = new HUD(cam, alien, gc, game);
        
@@ -127,7 +126,7 @@ public class Play extends BasicGameState
             alien.startAnim("up");
 
             // Move but dont collide
-            if (map.isUpAllowed(alien.getX(), alien.getY(), rSpd))
+            if (Globals.map.isUpAllowed(alien.getX(), alien.getY(), rSpd))
             {
                 alien.adjustY(-rSpd);
             }
@@ -138,7 +137,7 @@ public class Play extends BasicGameState
             alien.startAnim("down");
 
             // Move if conditions are satisfied
-            if (map.isDownAllowed(alien.getX(), alien.getY(), rSpd))
+            if (Globals.map.isDownAllowed(alien.getX(), alien.getY(), rSpd))
             {
                 alien.adjustY(rSpd);
             }
@@ -149,7 +148,7 @@ public class Play extends BasicGameState
             alien.startAnim("left");
 
             // Move if conditions are satisfied
-            if (map.isLeftAllowed(alien.getX(), alien.getY(), rSpd))
+            if (Globals.map.isLeftAllowed(alien.getX(), alien.getY(), rSpd))
             {
                 alien.adjustX(-rSpd);
             }
@@ -160,7 +159,7 @@ public class Play extends BasicGameState
             alien.startAnim("right");
 
             // Move if conditions are satisfied
-            if (map.isRightAllowed(alien.getX(), alien.getY(), rSpd))
+            if (Globals.map.isRightAllowed(alien.getX(), alien.getY(), rSpd))
             {
                 alien.adjustX(rSpd);
             }
@@ -190,15 +189,29 @@ private void processItem()
 {
     // Get the item underneath the player
     // Otherwise, return null
-    Item itemFound = (Item) itemStore.getEntityUnder(alien);
+    Item itemFound = itemStore.getItemUnder(alien);
     
-    // If item was found
-    if (itemFound != null)
+    // If item was found, and hasn't been found before
+    if (itemFound != null && !itemFound.isFound())
     {
-        alien.addToInv(itemFound); // Add to player inventory
+        // Process item
+        itemFound.setFound(true); // Set the item as found
+        alien.addToEntities(itemFound); // Add to player inventory
         Globals.itemGrabbed = true; // Notify itemStore
-        int r = TiledMapPlus.convertYtoRow(alien.getY()); // Get row
-        int c = TiledMapPlus.convertXtoCol(alien.getX()); // Get col
+        
+        // Check for protectors
+        String protectorName = itemFound.getProtector();
+        if (!protectorName.equals("none"))
+        {
+            Enemy enemy = enemyStore.getEnemy(protectorName);
+            alien.addToEntities(enemy); // Add to player
+            Globals.enemyEnc = true; // Notify enemyStore
+        }
+        
+        // Show item info as a popup
+        int r = Map.convertYtoRow(cam.getY() + 3*Globals.tileSize);
+        int c = Map.convertXtoCol(cam.getX() + 2*Globals.tileSize);
+        
         Popup itemInfo = itemStore.getInfoPopup(itemFound, r, c); // Generate info
         hud.loadPopup(itemInfo); // Show it
     }
@@ -224,6 +237,7 @@ public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws Slic
 
         // Account for grabbed items
         itemStore.updateMap(g, alien);
+        enemyStore.updateMap(g, alien);
 
         // Draw player
         alien.drawPlayer(alien.getX(), alien.getY());

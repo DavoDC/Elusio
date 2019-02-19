@@ -1,7 +1,7 @@
 package Components.Popups;
 
 import Components.Buttons.Button;
-import Components.Structures.TiledMapPlus;
+import Components.Structures.Map;
 import Components.Helpers.DelayWriter;
 import Components.Helpers.FontServer;
 import Main.Globals;
@@ -100,7 +100,7 @@ public class Popup
     private void initialiseButton(int r, int c, int tileW, int tileH)
     {
         // Calculate bounds
-        int tileSide = TiledMapPlus.tileSize;
+        int tileSide = Globals.tileSize;
         int x = c * tileSide;
         int y = r * tileSide;
         int w = tileW * tileSide;

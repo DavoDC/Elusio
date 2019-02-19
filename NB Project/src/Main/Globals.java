@@ -1,5 +1,6 @@
 package Main;
 
+import Components.Structures.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,6 +26,9 @@ public class Globals
     
     // A directory of game states
     public static HashMap<String, Integer> STATES = new HashMap<>();
+    
+    // The game mpa
+    public static Map map = null;
     
     // Game font
     public static TrueTypeFont gameFont = null;
@@ -63,8 +67,10 @@ public class Globals
     // Global Numbers
     public static int screenW = 0; // Screen width
     public static int screenH = 0; // Screen height
-    public static int playerLives = 5; // Remaining lives of player
-    public static final int BG_COUNT = 17; // Number of backgrounds to load (max 17)
+    public static int tileSize = 64; // Side length of tiles
+    public static final int BG_COUNT = 2; // Number of backgrounds to load (max 17) //test
+    public static final int playerXadj = 22; // Adjust player X pos
+    public static final int playerYadj = 64; // Adjusts player Y pos
 
     
     // Global Images
@@ -75,13 +81,13 @@ public class Globals
     
     // Global Booleans
     //  Settings
-    public static boolean showDevData = false; // Show stats?
-    public static boolean fastText = false; // Increase popup write speed?
+    public static boolean showDevData = true; // Show stats? //test
+    public static boolean fastText = true; // Increase popup write speed? //test
     //  Internal      
     public static boolean itemGrabbed = false; // True = item was just grabbed
+    public static boolean enemyEnc = false; // True = enemy just encountered
     public static boolean inputIgnored = false; // True = input disabled for PLAY state
     public static boolean hasBeenPaused = false; // True = Game was paused once
-    public static boolean newHintAdded = false; // Status of hints
 
 
 

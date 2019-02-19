@@ -1,16 +1,18 @@
 package Components.Structures;
 
+import Main.Globals;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 /**
  * Handles map rendering Handles collisions Handles camera
- *
  * Note: Collision layers must have a property called blocked, set to true
+ * Note: Embed tilesets 
+ * Note: Don't change probabilities
  *
- * @author David
+ * @author David Charkey
  */
-public class TiledMapPlus extends TiledMap
+public class Map extends TiledMap
 {
 
     // Tile array
@@ -23,20 +25,16 @@ public class TiledMapPlus extends TiledMap
     // Determines Y collision tightnesss
     private final int Yfactor = 60;
     private final int Yadjuster = 50;
-
-    // Tile size
-    public static final int tileSize = 64;
+   
 
     /**
-     * Initializes array of "tile cells" Each cell represents a tile "True"
-     * means blocked
-     *
-     * Note: - Embed tilesets - Don't change probabilities
-     *
+     * Initializes array of "tile cells"
+     * Each cell represents a tile
+     * "True" means blocked
      * @param ref
      * @throws SlickException
      */
-    public TiledMapPlus(String ref) throws SlickException
+    public Map(String ref) throws SlickException
     {
         super(ref);
 
@@ -114,7 +112,7 @@ public class TiledMapPlus extends TiledMap
      */
     private static int getGridFromCoord(float coord)
     {
-        return ((int) coord / tileSize);
+        return ((int) coord / Globals.tileSize);
     }
 
     /**
@@ -153,7 +151,7 @@ public class TiledMapPlus extends TiledMap
         boolean cond2 = canPass(playerX + Xadjuster, newY);
 
         // True if within map bounds
-        int yLimiter = (getHeight() * getTileHeight()) - tileSize;
+        int yLimiter = (getHeight() * getTileHeight()) - Globals.tileSize;
         boolean cond3 = !((playerY + relSpeed) > yLimiter);
 
         return (cond1 && cond2 && cond3);
@@ -194,6 +192,7 @@ public class TiledMapPlus extends TiledMap
         boolean cond2 = canPass(newX, playerY + Yadjuster);
 
         // True if within map bounds 
+        int tileSize = Globals.tileSize;
         int xLimiter = (getWidth() * getTileWidth()) - (tileSize - tileSize / 6);
         boolean cond3 = !((playerX + relSpeed) > xLimiter);
 

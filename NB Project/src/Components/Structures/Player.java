@@ -1,7 +1,8 @@
 package Components.Structures;
 
-import Actionable.Item.Item;
-import Actionable.Item.MagicItem;
+import Entity.Base.Entity;
+import Entity.Enemy.Enemy;
+import Entity.Item.Item;
 import Main.Globals;
 
 import java.util.ArrayList;
@@ -37,9 +38,14 @@ public class Player
     private int animSpeed;
     private Animation anim;
 
-    // Items of player
+    // Entities encountered
     private ArrayList<Item> inv;
+    private ArrayList<Enemy> enemies;
 
+    
+    /**
+     * Create a player with preset values
+     */
     public Player()
     {
         // Initialise fields
@@ -50,7 +56,7 @@ public class Player
         width = 33;
         height = 48;
 
-        movSpeed = 0.25f; // Normal = 0.25
+        movSpeed = 0.369f; //test increased speed
 
         try
         {
@@ -64,6 +70,7 @@ public class Player
         anim = new Animation(sprites, animSpeed);
 
         inv = new ArrayList<>();
+        enemies = new ArrayList<>();
 
         // Adjust animation
         anim.stop();  // Prevents animation from starting on its own
@@ -205,18 +212,23 @@ public class Player
     }
 
     /**
-     * Add an item to the player's inventory
-     *
-     * @param item
+     * Add an entity
+     * @param ent
      */
-    public void addToInv(Item item)
+    public void addToEntities(Entity ent)
     {
-        inv.add(item);
+        if (ent instanceof Item)
+        {
+            inv.add((Item) ent);
+        }
+        else if (ent instanceof Enemy)
+        {
+            enemies.add((Enemy) ent);
+        }
     }
 
     /**
      * Get the item that was grabbed most recently
-     *
      * @return
      */
     public Item getLastAddedItem()
@@ -224,5 +236,17 @@ public class Player
         int pos = inv.size() - 1;
         return inv.get(pos);
     }
+    
+    /**
+     * Get the item that was grabbed most recently
+     * @return
+     */
+    public Enemy getLastEnemy()
+    {
+        int pos = enemies.size() - 1;
+        return enemies.get(pos);
+    }
+
+
 
 }

@@ -20,6 +20,7 @@
             <word>popup</word>
             <word>popups</word>
             <word>stats</word>
+            <word>tilesets</word>
         </spellchecker-wordlist>
     </configuration>
 </project>

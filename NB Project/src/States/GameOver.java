@@ -59,7 +59,7 @@ public class GameOver extends InfoScreen
         lineFont.drawString(
                 InfoScreen.lineX + 200,
                 200f,
-                "Lives left = " + Globals.playerLives
+                "Some text here"
         );
     }
 
