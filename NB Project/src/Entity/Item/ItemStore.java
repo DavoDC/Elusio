@@ -23,7 +23,7 @@ public class ItemStore extends EntityStore
 
         // Add magic items
         itemList.add(new Item(
-                "Cryocapacitor", 
+                "Cryocapacitors", 
                 "absorb small amounts of nearby energy as antimatter",
                 "annihilating some weak, dry matter once activated",
                 "none",

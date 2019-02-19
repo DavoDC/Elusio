@@ -84,10 +84,12 @@ public class Globals
     public static boolean showDevData = true; // Show stats? //test
     public static boolean fastText = true; // Increase popup write speed? //test
     //  Internal      
-    public static boolean itemGrabbed = false; // True = item was just grabbed
-    public static boolean enemyEnc = false; // True = enemy just encountered
     public static boolean inputIgnored = false; // True = input disabled for PLAY state
     public static boolean hasBeenPaused = false; // True = Game was paused once
+    // Entity Store Processing
+    public static boolean itemGrabbed = false; // True = item was just grabbed
+    public static boolean enemyEnc = false; // True = enemy just encountered
+    public static boolean obstEnc = false; // True = obst just encountered
 
 
 

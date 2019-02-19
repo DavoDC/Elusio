@@ -10,6 +10,7 @@ import Entity.Enemy.Enemy;
 import Entity.Enemy.EnemyStore;
 import Entity.Item.Item;
 import Entity.Item.ItemStore;
+import Entity.Obstacle.ObstacleStore;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -33,6 +34,7 @@ public class Play extends BasicGameState
     // Entity Stores
     private ItemStore itemStore;
     private EnemyStore enemyStore;
+    private ObstacleStore obStore;
 
     
 
@@ -65,6 +67,7 @@ public class Play extends BasicGameState
 
         itemStore = new ItemStore();
         enemyStore = new EnemyStore();
+        obStore = new ObstacleStore();
 
         hud = new HUD(cam, alien, gc, game);
        
@@ -118,6 +121,8 @@ public class Play extends BasicGameState
         
         boolean fKeyDown = input.isKeyDown(Input.KEY_F);
         boolean qKeyDown = input.isKeyDown(Input.KEY_Q);
+        boolean eKeyDown = input.isKeyDown(Input.KEY_E);
+        
         
         // Check and act
         if (upArrowDown)
@@ -175,9 +180,13 @@ public class Play extends BasicGameState
             boolean newStatus = !Globals.agc.isFullscreen();
             Globals.agc.setFullscreen(newStatus);
         }
-        else if (qKeyDown) // Grab key 
+        else if (qKeyDown) // Grab item key 
         {
-            processItem();
+            processItemGrab();
+        }
+        else if (eKeyDown) // Use items key
+        {
+            processItemUse();
         }
         else // When nothing is being pressed
         {
@@ -185,7 +194,7 @@ public class Play extends BasicGameState
         }
     }
 
-private void processItem()
+private void processItemGrab()
 {
     // Get the item underneath the player
     // Otherwise, return null
@@ -217,6 +226,19 @@ private void processItem()
     }
 }
 
+private void processItemUse()
+{
+    // Get the items the player has
+    
+    // Get the obstacle AREAS the player is in 
+    
+    // If obstacle ARea key item is in player inventory, remove obstacle
+    
+    // Unblock obstacle
+    
+
+}
+
 /**
  * This method should be used to draw to the screen. All of your game's
  * rendering should take place in this method (or via calls) It is called
@@ -238,6 +260,7 @@ public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws Slic
         // Account for grabbed items
         itemStore.updateMap(g, alien);
         enemyStore.updateMap(g, alien);
+        obStore.updateMap(g, alien);
 
         // Draw player
         alien.drawPlayer(alien.getX(), alien.getY());
