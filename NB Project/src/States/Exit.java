@@ -24,7 +24,7 @@ public class Exit extends InterfaceScreen
 {
 
     // The absolute time of closing
-    private long exitConstant = 3669 / 2;
+    private long exitConstant = 3369 / 2;
 
     // The actual time of closing
     private long exitTime = 0;

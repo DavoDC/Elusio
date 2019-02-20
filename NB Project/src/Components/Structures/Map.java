@@ -1,5 +1,6 @@
 package Components.Structures;
 
+import Entity.Base.Entity;
 import Main.Globals;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
@@ -9,6 +10,7 @@ import org.newdawn.slick.tiled.TiledMap;
  * Note: Collision layers must have a property called blocked, set to true
  * Note: Embed tilesets 
  * Note: Don't change probabilities
+ * Note: Don't rotate/flip tiles
  *
  * @author David Charkey
  */
@@ -113,6 +115,32 @@ public class Map extends TiledMap
     private static int getGridFromCoord(float coord)
     {
         return ((int) coord / Globals.tileSize);
+    }
+    
+    /**
+     * Make an entity's area unblocked
+     * @param ent
+     */
+    public void unblockEntity(Entity ent)
+    {
+        // Retrieve entity positions
+        String[][] entPos = ent.getGridPosArray();
+        
+        // For every position in the entity
+        for (String[] row : entPos)
+        {
+            for (String pos : row)
+            {
+                // Get a position in OZ
+                String[] posPair = pos.split("-");
+                int curEcol = Integer.parseInt(posPair[0]);
+                int curErow = Integer.parseInt(posPair[1]);
+
+                // Change blocked array
+                blocked[curEcol][curErow] = false;
+                
+            }
+        }
     }
 
     /**

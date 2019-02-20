@@ -6,11 +6,15 @@ import Components.Structures.Camera;
 import Components.Structures.Player;
 import Components.Structures.HUD;
 import Components.Structures.Map;
+import Entity.Base.Entity;
 import Entity.Enemy.Enemy;
 import Entity.Enemy.EnemyStore;
 import Entity.Item.Item;
 import Entity.Item.ItemStore;
+import Entity.Obstacle.Obstacle;
 import Entity.Obstacle.ObstacleStore;
+import Entity.Obstacle.ObstacleZone;
+import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -228,14 +232,34 @@ private void processItemGrab()
 
 private void processItemUse()
 {
-    // Get the items the player has
+    // Retrieve the items the player has currently
+    ArrayList<Item> invCopy = alien.getInv();
+    String invString = "";
+    for (Item i : invCopy) { invString += i.getName(); }
     
-    // Get the obstacle AREAS the player is in 
+    // Get the obstacle zone the player is currently inside, if any
+    ObstacleZone obZone = obStore.getCurObZone(alien);
     
-    // If obstacle ARea key item is in player inventory, remove obstacle
-    
-    // Unblock obstacle
-    
+    // If a locked obstacle was found
+    if ((obZone != null) && (obZone.isLocked())) 
+    {
+        // If the key item of the zone is in the player's inventory
+        if(invString.contains(obZone.getKeyItem()))
+        {
+            // Set as unlocked
+            obZone.setLocked(false);
+            
+            // Get the zone's matching obstacle
+            Obstacle obst = obStore.getMatchOfZone(obZone.getName());
+
+            // Hide the obstacle
+            alien.addToEntities(obst); // Add to player
+            Globals.obstEnc = true; // Notify obstStore
+            
+            // Unblock the obstacle
+            Globals.map.unblockEntity(obst);
+        }
+    }
 
 }
 

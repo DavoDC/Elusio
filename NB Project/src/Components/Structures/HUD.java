@@ -29,7 +29,7 @@ public class HUD
 
     // Buttons
     private ButtonGrid buttonG;
-    private final int BUTTON_NO = 2;
+    private final int BUTTON_NO = 1;
     private final int SIDE_SIZE = 64;
     private final int SPACING = 16;
     private int shiftX;
@@ -86,7 +86,7 @@ public class HUD
         // Change images
         buttonG.getButtonByPos(0).setImageLoc(folder + "menu.png");
 //        buttonG.getButtonByPos(X).setImageLoc(folder + "inv.png");
-        buttonG.getButtonByPos(1).setImageLoc(folder + "hint.png");
+//        buttonG.getButtonByPos(1).setImageLoc(folder + "hint.png");
 //        buttonG.getButtonByPos(X).setImageLoc(folder + "lives.png");
 
         // Add actions
@@ -104,12 +104,12 @@ public class HUD
 //            //showInventory();
 //        });
 //
-        buttonG.getButtonByPos(1).addListener( // Hint button 
-                (AbstractComponent source) ->
-        {
-            // Show last item popup shown
-            popupDisp.enableSpecialPopup();
-        });
+//        buttonG.getButtonByPos(1).addListener( // Hint button 
+//                (AbstractComponent source) ->
+//        {
+//            // Show last item popup shown
+//            popupDisp.enableSpecialPopup();
+//        });
 
         // Initialise co-ordinates
         camX = cam.getX();

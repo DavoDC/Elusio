@@ -109,6 +109,31 @@ public abstract class Entity
     {
         return ((gridPos[r][c]).split("-"));
     }
+    
+    /**
+     * Get array of positions
+     * @return 
+     */
+    public String[][] getGridPosArray()
+    {
+        return gridPos;
+    }
+    
+    /**
+     * Replace all under images with input
+     * @param rep
+     */
+    public void replaceUndImages(Image rep)
+    {
+        for (int r = 0; r < undImages.length; r++) 
+        {
+            for (int c = 0; c < undImages[r].length; c++)
+             {
+                 undImages[r][c] = null;
+                 undImages[r][c] = rep;
+             }
+        }
+    }
 
     /**
      * Hide an entity

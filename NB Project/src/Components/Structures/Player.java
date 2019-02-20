@@ -3,6 +3,7 @@ package Components.Structures;
 import Entity.Base.Entity;
 import Entity.Enemy.Enemy;
 import Entity.Item.Item;
+import Entity.Obstacle.Obstacle;
 import Main.Globals;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class Player
     // Entities encountered
     private ArrayList<Item> inv;
     private ArrayList<Enemy> enemies;
+    private ArrayList<Obstacle> obstacles;
 
     
     /**
@@ -71,6 +73,7 @@ public class Player
 
         inv = new ArrayList<>();
         enemies = new ArrayList<>();
+        obstacles = new ArrayList<>();
 
         // Adjust animation
         anim.stop();  // Prevents animation from starting on its own
@@ -225,6 +228,19 @@ public class Player
         {
             enemies.add((Enemy) ent);
         }
+        else if (ent instanceof Obstacle)
+        {
+            obstacles.add((Obstacle) ent);
+        }
+    }
+    
+    /**
+     * Get all items
+     * @return 
+     */
+    public ArrayList<Item> getInv()
+    {
+        return inv;
     }
 
     /**
@@ -246,7 +262,15 @@ public class Player
         int pos = enemies.size() - 1;
         return enemies.get(pos);
     }
-
-
+    
+    /**
+     * Get the item that was grabbed most recently
+     * @return
+     */
+    public Obstacle getLastObstacle()
+    {
+        int pos = obstacles.size() - 1;
+        return obstacles.get(pos);
+    }
 
 }

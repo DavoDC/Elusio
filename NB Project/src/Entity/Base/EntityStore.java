@@ -56,6 +56,15 @@ public abstract class EntityStore
         {
             curEnt.initTileImages(entityLayerName);
         }
+        
+        // Custom changes
+        customizeEntities(entityList);
+    }
+    
+    
+    public void customizeEntities(ArrayList<Entity> entList)
+    {
+        
     }
     
     /**
