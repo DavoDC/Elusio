@@ -67,6 +67,7 @@ public class PopupDisplayer
 //        textLines.add("Xaidu: Something disturbed my phase-shift inhibitor"); 
 //        textLines.add("You: Perhaps something similar to electrovelox could help....");
 //        textLines.add("Xaidu: Good idea!. There should be some in this diverse dimension.");
+// i shall help you navigate the land. listen closely to my messages
         
         // Return
         return new Popup(feats, textLines);

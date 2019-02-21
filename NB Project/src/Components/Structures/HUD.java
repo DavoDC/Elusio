@@ -85,7 +85,7 @@ public class HUD
 
         // Change images
         buttonG.getButtonByPos(0).setImageLoc(folder + "menu.png");
-//        buttonG.getButtonByPos(X).setImageLoc(folder + "inv.png");
+//        buttonG.getButtonByPos(1).setImageLoc(folder + "inv.png");
 //        buttonG.getButtonByPos(1).setImageLoc(folder + "hint.png");
 //        buttonG.getButtonByPos(X).setImageLoc(folder + "lives.png");
 
@@ -102,13 +102,6 @@ public class HUD
 //                (AbstractComponent source) ->
 //        {
 //            //showInventory();
-//        });
-//
-//        buttonG.getButtonByPos(1).addListener( // Hint button 
-//                (AbstractComponent source) ->
-//        {
-//            // Show last item popup shown
-//            popupDisp.enableSpecialPopup();
 //        });
 
         // Initialise co-ordinates

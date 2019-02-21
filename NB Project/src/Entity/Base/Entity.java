@@ -58,13 +58,14 @@ public abstract class Entity
     }
     
     /**
-     * Initialise the images of the entity and its ground tiles
-     * @param entlayerName 
+     * Initialise the images of the entity and its ground tiles 
+     * @param entLS
+     * @param undLS
      */
-    public void initTileImages(String entlayerName)
+    public void initTileImages(String entLS, String undLS)
     {
-        int entLayerIndex = Globals.map.getLayerIndex(entlayerName);
-        int undLayerIndex = Globals.map.getLayerIndex("Ground");
+        int entLayerIndex = Globals.map.getLayerIndex(entLS);
+        int undLayerIndex = Globals.map.getLayerIndex(undLS);
         
         for (String[] gridRow : gridPos) 
         {
@@ -119,21 +120,21 @@ public abstract class Entity
         return gridPos;
     }
     
-    /**
-     * Replace all under images with input
-     * @param rep
-     */
-    public void replaceUndImages(Image rep)
-    {
-        for (int r = 0; r < undImages.length; r++) 
-        {
-            for (int c = 0; c < undImages[r].length; c++)
-             {
-                 undImages[r][c] = null;
-                 undImages[r][c] = rep;
-             }
-        }
-    }
+//    /**
+//     * Replace all under images with input
+//     * @param rep
+//     */
+//    public void replaceUndImages(Image rep)
+//    {
+//        for (int r = 0; r < undImages.length; r++) 
+//        {
+//            for (int c = 0; c < undImages[r].length; c++)
+//             {
+//                 undImages[r][c] = null;
+//                 undImages[r][c] = rep;
+//             }
+//        }
+//    }
 
     /**
      * Hide an entity
@@ -157,8 +158,11 @@ public abstract class Entity
                 // Get ground image
                 Image undImage = undImages[arrRow][arrCol];
                 
-                // Draw it
-                g.drawImage(undImage, xPos, yPos);
+                // If not null, draw it
+                if (undImage != null)
+                {
+                    g.drawImage(undImage, xPos, yPos);
+                }
             }
         } 
     }

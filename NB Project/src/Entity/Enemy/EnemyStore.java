@@ -26,27 +26,9 @@ public class EnemyStore extends EntityStore
     }
 
     @Override
-    public String getEntityLayerName()
+    public String getEntLS()
     {
         return "Enemies";
-    }
-
-    @Override
-    public Entity getLastInteractedEntity(Player player)
-    {
-        return player.getLastEnemy();
-    }
-
-    @Override
-    public boolean getEntityInteractionStatus()
-    {
-        return Globals.enemyEnc;
-    }
-
-    @Override
-    public void switchEntityInteractionStatus()
-    {
-        Globals.enemyEnc = !Globals.enemyEnc;
     }
     
     /**

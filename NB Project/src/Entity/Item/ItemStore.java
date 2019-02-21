@@ -1,11 +1,9 @@
 package Entity.Item;
 
 import Components.Popups.Popup;
-import Components.Structures.Map;
+import Components.Structures.Player;
 import Entity.Base.Entity;
 import Entity.Base.EntityStore;
-import Components.Structures.Player;
-import Main.Globals;
 import java.util.ArrayList;
 
 /**
@@ -24,40 +22,55 @@ public class ItemStore extends EntityStore
         // Add magic items
         itemList.add(new Item(
                 "Cryocapacitor Set", 
-                "absorb small amounts of nearby energy as antimatter",
-                "annihilating some weak, dry matter once activated",
-                "none",
+                new String[] 
+                { 
+                "Seems to be absorbing small amounts of nearby energy as antimatter",
+                "Could annihilate some weak, dry matter once activated"
+                },
                 23, 25));
         itemList.add(new Item(
-                "Magistructor Orb",
-                "beat rhythmically with creative vigor",
-                "manifest, build and extend an existing substance",
-                "none",
+                "Magistructor Orb", 
+                new String[] 
+                { 
+                "It beats rhythmically with creative vigor",
+                "May be able to manifest, build and/or extend an existing substance"
+                },
                 82, 5));
-        
+
         // Add crystals
-        itemList.add(new Item( // Highest
-                "Crystal",
-                "be embued with a signature enchantment",
-                "... unknown",
-                "none",
+        itemList.add(new Item(
+                "Crystal12",
+                new String[]
+                {
+                "A high, specific EMR frequency is emanating.. 1122Hz",
+                "Somehow it seems that .. it is longing for something... "
+                },
                 65, 6));
-        itemList.add(new Item( // Leftest
-                "Crystal", 
-                "be embued with a signature enchantment",
-                "... unknown",
+        itemList.add(new ProtectedItem( 
+                "Crystal3", 
+                new String[]
+                {
+                "Has an EMR signature of 333Hz",
+                "It .. misses the presence of something... "
+                },
                 "Viridash",
                 30, 33));
-        itemList.add(new Item( // Mid
-                "Crystal", 
-                "be embued with a signature enchantment",
-                "... unknown",
+        itemList.add(new ProtectedItem( 
+                "Crystal6", 
+                new String[]
+                {
+                "It emanates a particular EMR frequency .. 666Hz",
+                "It is longing for something... "
+                },
                 "Trevil",
                 89, 41));
-        itemList.add(new Item( // Lowest
-                "Crystal", 
-                "be embued with a signature enchantment",
-                "... unknown",
+        itemList.add(new ProtectedItem(
+                "Crystal9", 
+                new String[]
+                {
+                "A particular EMR frequency is being emitted .. 999Hz",
+                "This crystal yearns to join something ... "
+                },
                 "Mycovolence",
                 71, 81));
         
@@ -66,75 +79,33 @@ public class ItemStore extends EntityStore
 
     }
     
-     /**
-     * Get item under player
-     * @param player
-     * @return foundItem, or null
-     */
-    public final Item getItemUnder(Player player)
-    {
-        Item foundItem = null;
-        for (Entity curEnt : super.getEntityList())
-        {
-            if (isItemUnder(player, (Item) curEnt))
-            {
-                foundItem = (Item) curEnt;
-                break;
-            }
-        }
-        return foundItem; 
-    }
-    
-    /**
-     * Check if an item is under a given player
-     * @param player
-     * @param item
-     * @return 
-     */
-    public boolean isItemUnder(Player player, Item item)
-    {
-        // Get player position and adjust
-        int xPlayer = player.getX() + Globals.playerXadj;   
-        int yPlayer = player.getY() + Globals.playerYadj;
-        int playerCol = Map.convertXtoCol(xPlayer);
-        int playerRow = Map.convertYtoRow(yPlayer);
-        
-        // Get entity position
-        String[] posPair = item.getGridPosPair(0, 0);
-        int itemCol = Integer.parseInt(posPair[0]);
-        int itemRow = Integer.parseInt(posPair[1]);
-
-        // Compare positions
-        boolean isUnder = (playerCol == itemCol) && (playerRow == itemRow);
-        
-        // Return result
-        return isUnder;
-    }
-
     @Override
-    public String getEntityLayerName()
+    public String getEntLS()
     {
         return "Items";
     }
 
-    @Override
-    public Entity getLastInteractedEntity(Player player)
+    /**
+     * Get item under player
+     * @param alien
+     * @return Item, or null if nothing/non-item
+     */
+    public Item getItemUnder(Player alien)
     {
-        return player.getLastAddedItem();
+        // Get entity
+        Entity entityFound = super.getEntityUnder(alien);
+        
+        Item item = null;
+        if (entityFound instanceof Item)
+        {
+            // Return item if an item
+            item = (Item) entityFound;
+        }
+        
+        // Return null if not an item
+        return item;
     }
-
-    @Override
-    public boolean getEntityInteractionStatus()
-    {
-        return Globals.itemGrabbed;
-    }
-
-    @Override
-    public void switchEntityInteractionStatus()
-    {
-        Globals.itemGrabbed = !Globals.itemGrabbed;
-    }
-
+    
     /**
      * Get a popup with item information
      * @param item
@@ -144,7 +115,7 @@ public class ItemStore extends EntityStore
      */
     public Popup getInfoPopup(Item item, int r, int c)
     {
-        // Features
+        // Set features of popip
         ArrayList<Object> feats = new ArrayList<>();
         feats.add(r);  // Tile grid row
         feats.add(c);  // Tile grid column 
@@ -153,30 +124,17 @@ public class ItemStore extends EntityStore
         feats.add(20); // Interval for delay writer
         feats.add("default"); // FontS or "default"
         
-        // Text
-        ArrayList<String> text = new ArrayList<>();
+        // Create popup lines 
+        ArrayList<String> itemLines = item.getInfoLines();
+        ArrayList<String> newLines = new ArrayList<>();
         String start = "(Xaidu, telepathically): ";
-        
-        // Add name info
-        String name = start;
-        name += "Here is my appraisal of what I would call a ";
-        name += item.getName();
-        text.add(name);
-
-        // Add properties info
-        String prop = start;
-        prop += "It appears to: ";
-        prop += item.getProp();
-        text.add(prop);
-
-        // Add usage info
-        String use = start;
-        use += "It could be used for: ";
-        use += item.getUse();
-        text.add(use);
+        for (String curItemLine : itemLines)
+        {
+            newLines.add(start + curItemLine);
+        }
 
         // Return
-        return (new Popup(feats, text));
+        return (new Popup(feats, newLines));
     }
 
     

@@ -129,14 +129,19 @@ public class Popup
         // Add action
         button.addListener((source) ->
                 {
-                    if (textLines.size()-1 == curLineNo) // When all lines shown
+                    // When popup clicked =
+                    if (textLines.size()-1 == curLineNo) // If on last line
                     {
-                        visible = false; // Hide popup
-                        Globals.inputIgnored = false; // Re-enable keys
-                        shown = true;
+                        if (textDW.hasWrittenOnce()) // Has finished writing out
+                        {
+                            visible = false; // Hide popup
+                            Globals.inputIgnored = false; // Re-enable keys
+                            shown = true;
+                        }
                     }
-                    else if (textDW.hasWrittenOnce()) // When line has been shown once
+                    else if (textDW.hasWrittenOnce()) // If line has been shown
                     {
+                        // Allow the loading of a new line
                         curLineNo += 1; // Increase line position
                         textDW.setText(textLines.get(curLineNo)); // Load new line
                     }

@@ -1,14 +1,11 @@
-
 package Entity.Obstacle;
 
-import Components.Structures.Map;
 import Components.Structures.Player;
 import Entity.Base.Entity;
 import Entity.Base.EntityStore;
-import Entity.Item.Item;
 import Main.Globals;
+
 import java.util.ArrayList;
-import org.newdawn.slick.Image;
 
 /**
  * Handles obstacles
@@ -16,132 +13,79 @@ import org.newdawn.slick.Image;
  */
 public class ObstacleStore extends EntityStore
 {
+    // Crystals placed
+    int crystalsPlaced = 0;
 
     @Override
     public ArrayList<Entity> getEntities()
     {
         ArrayList<Entity> obstacles = new ArrayList<>();
+
+        // Trees that enclose initial area
+        obstacles.add(new Obstacle("Trees", "TreeZone", 32, 9, 5, 5, true));
+        obstacles.add(new ObstacleZone("TreeZone", "Cryocap", 29, 7, 6, 6));
         
-        Obstacle trees = new Obstacle("Trees", 32, 9, 5, 5);
-        obstacles.add(trees); 
-        obstacles.add(new ObstacleZone("Trees", "Cryocap", 29, 7, 6, 6));
+        // Crystal placement to open gate
+        obstacles.add(new Obstacle("HiGate", "HiSpot", 82, 9, 1, 1, false));
+        obstacles.add(new Obstacle("HiCrystal", "HiSpot", 82, 14, 1, 1, false));
+        obstacles.add(new ObstacleZone("HiSpot", "Crystal12", 82, 14, 1, 1));
+                
+        obstacles.add(new Obstacle("LoGate", "LoSpot", 82, 10, 1, 1, false));
+        obstacles.add(new Obstacle("LoCrystal", "LoSpot", 82, 16, 1, 1, false));
+        obstacles.add(new ObstacleZone("LoSpot", "Crystal3", 82, 16, 1, 1));
+
+        obstacles.add(new Obstacle("LeftGate", "LeftSpot", 81, 9, 1, 2, false));
+        obstacles.add(new Obstacle("LeftCrystal", "LeftSpot", 81, 15, 1, 1, false));
+        obstacles.add(new ObstacleZone("LeftSpot", "Crystal6", 81, 15, 1, 1));
+                
+        obstacles.add(new Obstacle("RightGate", "RightSpot", 83, 9, 1, 2, false));
+        obstacles.add(new Obstacle("RightCrystal", "RightSpot", 83, 15, 1, 1, false));
+        obstacles.add(new ObstacleZone("RightSpot", "Crystal9", 83, 15, 1, 1));
         
         return obstacles;
     }
-    
-    @Override
-    public void customizeEntities(ArrayList<Entity> entList)
-    {
-        for(Entity curEnt : entList)
-        {
-            if (curEnt instanceof Obstacle)
-            {
-                if (curEnt.getName().equals("Trees"))
-                {
-                    addIceTiles(curEnt);
-                }
-            }
-        }
-    }
-    
-    private void addIceTiles(Entity ent)
-    {
-        int iceCol = 23;
-        int iceRow = 24;
-        int groundIndex = Globals.map.getLayerIndex("Ground");
-        Image iceTile = Globals.map.getTileImage(iceCol, iceRow, groundIndex);
-
-        ent.replaceUndImages(iceTile);
-    }
 
     @Override
-    public String getEntityLayerName()
+    public String getEntLS()
     {
         return "Obstacles"; 
     }
-
+    
     @Override
-    public boolean getEntityInteractionStatus()
+    public String getHideLS()
     {
-        return Globals.obstEnc;
-    }
-
-    @Override
-    public Entity getLastInteractedEntity(Player player)
-    {
-        return player.getLastObstacle();
-    }
-
-    @Override
-    public void switchEntityInteractionStatus()
-    {
-        Globals.obstEnc = !Globals.obstEnc;
+        return "ObHide";
     }
     
     /**
      * Get obstacle zone under player
-     * @param player
-     * @return foundOZ, or null
+     * @param alien
+     * @return OZ, or null if nothing/non-item
      */
-    public final ObstacleZone getCurObZone(Player player)
+    public ObstacleZone getZoneUnder(Player alien)
     {
-        ObstacleZone foundOZ = null;
-        
-        for (Entity curEnt : super.getEntityList())
-        {
-            if (curEnt instanceof ObstacleZone)
-            {               
-                if (isObstUnder(player, (ObstacleZone) curEnt))
+        // For all entities
+        for (Entity curEnt : getEntityList())
+        { 
+            // If under player
+            if (isEntityUnder(alien, curEnt))
+            {
+                // If an obstacle zone
+                if (curEnt instanceof ObstacleZone)
                 {
-                    foundOZ = (ObstacleZone) curEnt;
-                    break;
+                    return (ObstacleZone) curEnt;
                 }
             }
         }
         
-        return foundOZ;
-    }
-    
-    /**
-     * Check if an Obstacle Zone is under a given player
-     * @param player
-     * @param OZ
-     * @return 
-     */
-    public boolean isObstUnder(Player player, ObstacleZone OZ)
-    {
-        // Get player position and adjust
-        int xPlayer = player.getX() + Globals.playerXadj;   
-        int yPlayer = player.getY() + Globals.playerYadj;
-        int playerCol = Map.convertXtoCol(xPlayer);
-        int playerRow = Map.convertYtoRow(yPlayer);
-        
-        // Compare positions of OZ to player
-        String[][] obZonePos = OZ.getGridPosArray();
-        for (String[] row : obZonePos)
-        {
-            for (String pos : row)
-            {
-                // Get a position in OZ
-                String[] posPair = pos.split("-");
-                int curOZcol = Integer.parseInt(posPair[0]);
-                int curOZrow = Integer.parseInt(posPair[1]);
-                
-                // Compare to player
-                boolean sameCol = (playerCol == curOZcol);
-                boolean sameRow = (playerRow == curOZrow);
-                boolean samePos = sameCol && sameRow;
-                if (samePos) { return true; }
-            }
-        }
-        
         // Return default
-        return false;
+        return null;
     }
     
-    public Obstacle getMatchOfZone(String zoneName)
+    public ArrayList<Obstacle> getMatchingObstacles(ObstacleZone obZone)
     {
-        Obstacle foundObst = null;
+        String obZoneName = obZone.getName();
+        ArrayList<Obstacle> matches = new ArrayList<>();
         
         // For all obstacles
         for (Entity curEnt : super.getEntityList())
@@ -149,15 +93,41 @@ public class ObstacleStore extends EntityStore
             // If is an obstacle, not zone
             if (curEnt instanceof Obstacle)
             {
-                // And names match
-                if (zoneName.equals(curEnt.getName()))
+                // Get the name of the zone in the obstacle
+                String curObstaclesZone = ((Obstacle) curEnt).getOZName();
+                
+                // Compare current zone to current obstacle's zone
+                if (curObstaclesZone.contains(obZoneName))
                 {
-                    foundObst = (Obstacle) curEnt;
-                    break;
+                    // Add if a match
+                    matches.add(((Obstacle) curEnt));
                 }
             }
         }
         
-        return foundObst;
+        return matches;
+    }
+
+    /**
+     * Unblock gate when 4 crystals placed
+     */
+    public void crystalPlaced()
+    {
+        crystalsPlaced++;
+        
+        if (crystalsPlaced == 4)
+        {
+            ArrayList<Entity> entities = super.getEntityList();
+            for (Entity curEnt : entities)
+            {
+                if (curEnt instanceof Obstacle)
+                {
+                    if(curEnt.getName().contains("Gate"))
+                    {
+                        Globals.map.unblockEntity(curEnt);
+                    }
+                }
+            }
+        }
     }
 }

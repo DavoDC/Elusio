@@ -6,14 +6,9 @@ import Components.Structures.Camera;
 import Components.Structures.Player;
 import Components.Structures.HUD;
 import Components.Structures.Map;
-import Entity.Base.Entity;
-import Entity.Enemy.Enemy;
-import Entity.Enemy.EnemyStore;
-import Entity.Item.Item;
-import Entity.Item.ItemStore;
-import Entity.Obstacle.Obstacle;
-import Entity.Obstacle.ObstacleStore;
-import Entity.Obstacle.ObstacleZone;
+import Entity.Item.*;
+import Entity.Enemy.*;
+import Entity.Obstacle.*;
 import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
@@ -24,7 +19,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- *
+ * Models game play
  * @author David
  */
 public class Play extends BasicGameState
@@ -200,34 +195,47 @@ public class Play extends BasicGameState
 
 private void processItemGrab()
 {
-    // Get the item underneath the player
-    // Otherwise, return null
-    Item itemFound = itemStore.getItemUnder(alien);
+    // Get item under player, or null if no item
+    Item itemFound = (Item) itemStore.getItemUnder(alien);
     
-    // If item was found, and hasn't been found before
+    // If an item was found, and hasn't been found before
     if (itemFound != null && !itemFound.isFound())
     {
         // Process item
         itemFound.setFound(true); // Set the item as found
-        alien.addToEntities(itemFound); // Add to player inventory
-        Globals.itemGrabbed = true; // Notify itemStore
+        itemStore.addEncounter(itemFound); // Hide item
+        alien.addItem(itemFound); // Add to player inventory
         
-        // Check for protectors
-        String protectorName = itemFound.getProtector();
-        if (!protectorName.equals("none"))
-        {
-            Enemy enemy = enemyStore.getEnemy(protectorName);
-            alien.addToEntities(enemy); // Add to player
-            Globals.enemyEnc = true; // Notify enemyStore
-        }
+        // Process protectors, if any
+        processProtector(itemFound);
         
-        // Show item info as a popup
-        int r = Map.convertYtoRow(cam.getY() + 3*Globals.tileSize);
-        int c = Map.convertXtoCol(cam.getX() + 2*Globals.tileSize);
-        
-        Popup itemInfo = itemStore.getInfoPopup(itemFound, r, c); // Generate info
-        hud.loadPopup(itemInfo); // Show it
+        // Show info popup
+        showItemPopup(itemFound);
+       
     }
+}
+
+private void processProtector(Item item)
+{
+    // Check if protected
+    if (!(item instanceof ProtectedItem)) { return; } 
+
+    // Get protector name
+    String protectorName = ((ProtectedItem) item).getProtector(); 
+    Enemy enemy = enemyStore.getEnemy(protectorName); // Get enemy
+    enemyStore.addEncounter(enemy); // Hide enemy
+    Globals.map.unblockEntity(enemy); // Unblock enemy 
+}
+
+
+private void showItemPopup(Item item)
+{
+    // Show item info as a popup
+    int r = Map.convertYtoRow(cam.getY() + 3*Globals.tileSize);
+    int c = Map.convertXtoCol(cam.getX() + 2*Globals.tileSize);
+
+    Popup itemInfo = itemStore.getInfoPopup(item, r, c); // Generate info
+    hud.loadPopup(itemInfo); // Show it
 }
 
 private void processItemUse()
@@ -238,29 +246,41 @@ private void processItemUse()
     for (Item i : invCopy) { invString += i.getName(); }
     
     // Get the obstacle zone the player is currently inside, if any
-    ObstacleZone obZone = obStore.getCurObZone(alien);
+    ObstacleZone obZone = obStore.getZoneUnder(alien);
     
-    // If a locked obstacle was found
+    // If a obstacle was found that is locked
     if ((obZone != null) && (obZone.isLocked())) 
     {
+        
         // If the key item of the zone is in the player's inventory
         if(invString.contains(obZone.getKeyItem()))
         {
             // Set as unlocked
             obZone.setLocked(false);
             
-            // Get the zone's matching obstacle
-            Obstacle obst = obStore.getMatchOfZone(obZone.getName());
-
-            // Hide the obstacle
-            alien.addToEntities(obst); // Add to player
-            Globals.obstEnc = true; // Notify obstStore
+            // Get the zone's matching obstacle(s)
+            ArrayList<Obstacle> obstacles = obStore.getMatchingObstacles(obZone);
             
-            // Unblock the obstacle
-            Globals.map.unblockEntity(obst);
+            // For every matching obstacle
+            for (Obstacle obst : obstacles)
+            {
+                // Hide the obstacle
+                obStore.addEncounter(obst);
+                
+                // Special processing of crystals
+                if (obst.getName().contains("Gate"))
+                {
+                   obStore.crystalPlaced();
+                }
+
+                // Unblock the obstacle
+                if (obst.isUnblockOn())
+                {
+                    Globals.map.unblockEntity(obst);
+                }
+            }
         }
     }
-
 }
 
 /**

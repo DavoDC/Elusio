@@ -41,8 +41,6 @@ public class Player
 
     // Entities encountered
     private ArrayList<Item> inv;
-    private ArrayList<Enemy> enemies;
-    private ArrayList<Obstacle> obstacles;
 
     
     /**
@@ -72,8 +70,6 @@ public class Player
         anim = new Animation(sprites, animSpeed);
 
         inv = new ArrayList<>();
-        enemies = new ArrayList<>();
-        obstacles = new ArrayList<>();
 
         // Adjust animation
         anim.stop();  // Prevents animation from starting on its own
@@ -215,23 +211,12 @@ public class Player
     }
 
     /**
-     * Add an entity
-     * @param ent
+     * Add to player's inventory
+     * @param item
      */
-    public void addToEntities(Entity ent)
+    public void addItem(Item item)
     {
-        if (ent instanceof Item)
-        {
-            inv.add((Item) ent);
-        }
-        else if (ent instanceof Enemy)
-        {
-            enemies.add((Enemy) ent);
-        }
-        else if (ent instanceof Obstacle)
-        {
-            obstacles.add((Obstacle) ent);
-        }
+        inv.add(item);
     }
     
     /**
@@ -242,35 +227,6 @@ public class Player
     {
         return inv;
     }
-
-    /**
-     * Get the item that was grabbed most recently
-     * @return
-     */
-    public Item getLastAddedItem()
-    {
-        int pos = inv.size() - 1;
-        return inv.get(pos);
-    }
     
-    /**
-     * Get the item that was grabbed most recently
-     * @return
-     */
-    public Enemy getLastEnemy()
-    {
-        int pos = enemies.size() - 1;
-        return enemies.get(pos);
-    }
-    
-    /**
-     * Get the item that was grabbed most recently
-     * @return
-     */
-    public Obstacle getLastObstacle()
-    {
-        int pos = obstacles.size() - 1;
-        return obstacles.get(pos);
-    }
 
 }

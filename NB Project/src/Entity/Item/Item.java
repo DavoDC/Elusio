@@ -1,6 +1,8 @@
 package Entity.Item;
 
 import Entity.Base.Entity;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Models in-game items
@@ -11,9 +13,7 @@ public class Item extends Entity
 {
     
     // Info
-    private String properties;
-    private String use;
-    private String protector;
+    private ArrayList<String> info;
     
     // Discovery Status
     private boolean isFound;
@@ -33,45 +33,29 @@ public class Item extends Entity
     
 
     /**
-     * Create a magic item
-     * @param name Name
-     * @param properties e.g. "collect energy"
-     * @param use e.g. "destroy things"
-     * @param protector Enemy name or "none"
+     * Create a item
+     * @param name Item name
+     * @param infoArr Item information
      * @param col Column on tile grid
      * @param row Row on tile grid
      */
-    public Item(
-            String name, 
-            String properties, 
-            String use, 
-            String protector,
-            int col, 
-            int row)
+    public Item(String name, String[] infoArr, int col, int row)
     {
         super(name, col, row, 1, 1);
-        this.properties = properties;
-        this.protector = protector.toLowerCase();
-        this.use = use;
+        
+        info = new ArrayList<>();
+        info.addAll(Arrays.asList(infoArr));
+        
         isFound = false;
     }
     
     /**
-     * Get properties
+     * Get info lines
      * @return 
      */
-    public String getProp()
+    public ArrayList<String> getInfoLines()
     {
-        return properties;
-    }
-    
-    /**
-     * Get use
-     * @return 
-     */
-    public String getUse()
-    {
-        return use;
+        return info;
     }
 
     /**
@@ -92,12 +76,4 @@ public class Item extends Entity
         isFound = newStatus;
     }
     
-    /**
-     * Get protector name
-     * @return 
-     */
-    public String getProtector()
-    {
-        return protector;
-    }
 }

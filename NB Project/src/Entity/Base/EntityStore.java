@@ -1,6 +1,8 @@
 package Entity.Base;
 
+import Components.Structures.Map;
 import Components.Structures.Player;
+import Main.Globals;
 
 import java.util.ArrayList;
 
@@ -16,14 +18,11 @@ import org.newdawn.slick.Graphics;
 public abstract class EntityStore
 {
 
-    // Stores entities
+    // Stores information about all entities
     private ArrayList<Entity> entityList;
 
     // Stores information about encountered entities
-    private ArrayList<Entity> hiddenEntities;
-
-    // The name of the entity layer
-    private String entityLayerName;
+    private ArrayList<Entity> encEntities;
     
 
     /**
@@ -32,7 +31,7 @@ public abstract class EntityStore
     public EntityStore()
     {
         // Initialise fields, where possible
-        hiddenEntities = new ArrayList<>();
+        encEntities = new ArrayList<>();
         entityList = new ArrayList<>();
         
         // Do custom initialisations
@@ -48,23 +47,15 @@ public abstract class EntityStore
         // Populate entity list
         entityList.addAll(getEntities());
         
-        // Get name of entity layer
-        this.entityLayerName = getEntityLayerName();
+        // Get layer names
+        String entLS = getEntLS();
+        String hideLS = getHideLS();
         
         // Initialise entity images
         for(Entity curEnt : entityList)
         {
-            curEnt.initTileImages(entityLayerName);
+            curEnt.initTileImages(entLS, hideLS);
         }
-        
-        // Custom changes
-        customizeEntities(entityList);
-    }
-    
-    
-    public void customizeEntities(ArrayList<Entity> entList)
-    {
-        
     }
     
     /**
@@ -77,8 +68,16 @@ public abstract class EntityStore
      * Get the name of the layer where the entities are
      * @return 
      */
-    public abstract String getEntityLayerName();
-
+    public abstract String getEntLS();
+    
+    /**
+     * Get the name of the layer to hide the entity
+     * @return 
+     */
+    public String getHideLS()
+    {
+        return "Ground";
+    }
 
     /**
      * Access the entity list
@@ -90,54 +89,83 @@ public abstract class EntityStore
     }
     
     /**
+     * Get first entity under player
+     * @param player
+     * @return Entity found, or null
+     */
+    public final Entity getEntityUnder(Player player)
+    {
+        Entity foundEnt = null;
+        
+        for (Entity curEnt : getEntityList())
+        {          
+            if (isEntityUnder(player, curEnt))
+            {
+                foundEnt = curEnt;
+                break;
+            }
+        }
+        
+        return foundEnt;
+    }   
+    
+    /**
+     * Check if an entity is under a given player
+     * @param player
+     * @param ent Entity
+     * @return True if underneath
+     */
+    public boolean isEntityUnder(Player player, Entity ent)
+    {
+        // Get player position and adjust
+        int xPlayer = player.getX() + Globals.playerXadj;   
+        int yPlayer = player.getY() + Globals.playerYadj;
+        int playerCol = Map.convertXtoCol(xPlayer);
+        int playerRow = Map.convertYtoRow(yPlayer);
+        
+        // Compare positions of entity to player
+        String[][] gridPos = ent.getGridPosArray();
+        for (String[] row : gridPos)
+        {
+            for (String pos : row)
+            {
+                // Extract position
+                String[] posPair = pos.split("-");
+                int curEntCol = Integer.parseInt(posPair[0]);
+                int curEntRow = Integer.parseInt(posPair[1]);
+                
+                // Compare to player
+                boolean sameCol = (playerCol == curEntCol);
+                boolean sameRow = (playerRow == curEntRow);
+                boolean samePos = sameCol && sameRow;
+                if (samePos) { return true; }
+            }
+        }
+        
+        // Return default
+        return false;
+    }
+    
+    /**
      * Update map according to interactions
      * @param g
      * @param alien
      */
     public final void updateMap(Graphics g, Player alien)
     {
-        // Hides entities encountered
-        hideEntities(g);
-
-        // Stop if no entitiess have been newly interacted with
-        if (!getEntityInteractionStatus()) { return; }
-
-        // Processes new encounters
-        handleNewInteractions(alien);
-    }
-    
-    public abstract boolean getEntityInteractionStatus();
-
-    /**
-     * Hides entities encountered
-     */
-    private void hideEntities(Graphics g)
-    {
-        for (Entity ent : hiddenEntities)
+        for (Entity ent : encEntities)
         {
             ent.hideEntity(g);
         }
     }
-
+ 
     /**
-     * Process encounters with entities
-     *
-     * @param player
+     * Add to list of encounters
+     * @param ent 
      */
-    private void handleNewInteractions(Player player)
+    public void addEncounter(Entity ent)
     {
-        // Get entity just encountered
-        Entity entEnc = getLastInteractedEntity(player);
-
-        // Add to hidden entities
-        hiddenEntities.add(entEnc);
-
-        // Update status as entity processing is complete
-        switchEntityInteractionStatus();
+        encEntities.add(ent);
     }
-
-    public abstract Entity getLastInteractedEntity(Player player);
-
-    public abstract void switchEntityInteractionStatus();
 
 }

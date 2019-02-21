@@ -7,7 +7,7 @@ import Entity.Base.Entity;
  * Represents the zone near an obstacle, where it can be unlocked
  * @author David Charkey
  */
-public class ObstacleZone extends Obstacle
+public class ObstacleZone extends Entity
 {
     // Name of item that removes obstacle
     String keyItem;

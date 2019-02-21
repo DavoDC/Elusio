@@ -9,9 +9,38 @@ import Entity.Base.Entity;
  */
 public class Obstacle extends Entity
 {
-    public Obstacle(String name, int tlc, int tlr, int w, int h)
+    // Matching zone
+    private String obZoneName;
+    
+    // Should unblock when encountered?
+    private boolean unblockOn;
+    
+    
+    public Obstacle(
+            String name, 
+            String obZoneName, 
+            int tlc, 
+            int tlr, 
+            int w, 
+            int h, 
+            boolean unblockOn)
     {
         super(name, tlc, tlr, w, h);
+        
+        this.obZoneName = obZoneName;
+        
+        this.unblockOn = unblockOn;
     }
+    
+    public String getOZName()
+    {
+        return obZoneName;
+    }
+    
+    public boolean isUnblockOn()
+    {
+        return unblockOn;
+    }
+    
     
 }
