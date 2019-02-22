@@ -6,11 +6,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 /**
- * Handles map rendering Handles collisions Handles camera
- * Note: Collision layers must have a property called blocked, set to true
- * Note: Embed tilesets 
- * Note: Don't change probabilities
- * Note: Don't rotate/flip tiles
+ * Handles map rendering Handles collisions Handles camera Note: Collision
+ * layers must have a property called blocked, set to true Note: Embed tilesets
+ * Note: Don't change probabilities Note: Don't rotate/flip tiles
  *
  * @author David Charkey
  */
@@ -27,12 +25,11 @@ public class Map extends TiledMap
     // Determines Y collision tightnesss
     private final int Yfactor = 60;
     private final int Yadjuster = 50;
-   
 
     /**
-     * Initializes array of "tile cells"
-     * Each cell represents a tile
-     * "True" means blocked
+     * Initializes array of "tile cells" Each cell represents a tile "True"
+     * means blocked
+     *
      * @param ref
      * @throws SlickException
      */
@@ -40,8 +37,8 @@ public class Map extends TiledMap
     {
         super(ref);
 
-        int HorizontalTileNo = getHeight() - 2;
-        int VerticalTileNo = getWidth() - 2;
+        int HorizontalTileNo = getHeight();
+        int VerticalTileNo = getWidth();
         int layerCount = getLayerCount();
 
         blocked = new boolean[HorizontalTileNo][VerticalTileNo];
@@ -116,16 +113,17 @@ public class Map extends TiledMap
     {
         return ((int) coord / Globals.tileSize);
     }
-    
+
     /**
      * Make an entity's area unblocked
+     *
      * @param ent
      */
     public void unblockEntity(Entity ent)
     {
         // Retrieve entity positions
         String[][] entPos = ent.getGridPosArray();
-        
+
         // For every position in the entity
         for (String[] row : entPos)
         {
@@ -138,7 +136,7 @@ public class Map extends TiledMap
 
                 // Change blocked array
                 blocked[curEcol][curErow] = false;
-                
+
             }
         }
     }

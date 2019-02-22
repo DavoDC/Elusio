@@ -19,11 +19,9 @@ public abstract class InfoScreen extends InterfaceScreen
     // Header constants
     public static final float headerX = (Globals.screenW / 2) - 175;
 
-    
     @Override
     public abstract int getID();
 
-    
     @Override
     public ArrayList<Object> getButtonFeatures()
     {
@@ -44,22 +42,22 @@ public abstract class InfoScreen extends InterfaceScreen
 
         return feats;
     }
-    
+
     public int getStartXPos()
     {
         return (int) lineX;
     }
-    
+
     public int getStartYPos()
     {
         return (int) lineY;
     }
-    
+
     public int getXSpacing()
     {
         return 20;
     }
-    
+
     public int getColumnNo()
     {
         return 1;
@@ -69,25 +67,19 @@ public abstract class InfoScreen extends InterfaceScreen
     {
         return 5;
     }
-    
-    
+
     public String getLineFontString()
     {
         return "Segoe UI-Plain-30";
     }
 
-    
     @Override
     public abstract ArrayList<String> getButtonLabels();
-    
+
     @Override
     public boolean isDarkened()
     {
         return true;
     }
-        
-    
-    
-    
 
 }

@@ -12,14 +12,12 @@ import java.util.ArrayList;
 public class Credits extends InfoScreen
 {
 
-    
     @Override
     public int getID()
     {
         return Globals.STATES.get("CREDITS");
     }
 
-    
     @Override
     public ArrayList<String> getButtonLabels()
     {
@@ -44,26 +42,24 @@ public class Credits extends InfoScreen
 
         return text;
     }
-        
-    
+
     @Override
     public int getStartXPos()
     {
         return (int) (InfoScreen.lineX - 200);
     }
-    
+
 //    @Override
 //    public int getStartYPos()
 //    {
 //        return (int) (InfoScreen.lineY + 40);
 //    }
-    
     @Override
     public int getXSpacing()
     {
         return -750;
     }
-    
+
     @Override
     public int getColumnNo()
     {
@@ -81,6 +77,5 @@ public class Credits extends InfoScreen
     {
         return "Segoe UI-Plain-18";
     }
-    
 
 }

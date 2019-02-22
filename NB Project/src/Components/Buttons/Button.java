@@ -15,6 +15,7 @@ import org.newdawn.slick.gui.MouseOverArea;
 
 /**
  * Models a button
+ *
  * @author David Charkey
  */
 public class Button extends MouseOverArea
@@ -25,16 +26,14 @@ public class Button extends MouseOverArea
     private Rectangle shape;
     private String label;
     private TrueTypeFont font;
-    
+
     // Text position
     private float textXoffset;
     private float textYoffset;
-    
+
     // Alert status
     private boolean alertOn;
-    
-    
-    
+
     /**
      * Default constructor - Don't use!
      *
@@ -62,15 +61,15 @@ public class Button extends MouseOverArea
         this.shape = (Rectangle) shape;
         label = "label";
         this.font = font;
-        
+
         textXoffset = shape.getWidth() / 5;
-        textYoffset = - (shape.getHeight() / 20);
-        
-        alertOn = false; 
-        
+        textYoffset = -(shape.getHeight() / 20);
+
+        alertOn = false;
+
         // Turn off alert after clicks
         super.addListener(
-        (AbstractComponent source) ->
+                (AbstractComponent source) ->
         {
             alertOn = false;
         }
@@ -153,9 +152,10 @@ public class Button extends MouseOverArea
         drawText(g);
         drawAlert(g);
     }
-    
-    /** 
+
+    /**
      * Draw the button, shifted
+     *
      * @param b
      * @param g
      * @param sX
@@ -178,8 +178,7 @@ public class Button extends MouseOverArea
     }
 
     /**
-     * Draw the text only
-     * Action listener not included
+     * Draw the text only Action listener not included
      *
      * @param g
      */
@@ -192,10 +191,10 @@ public class Button extends MouseOverArea
         // Draw label using font
         font.drawString(textX, textY, label);
     }
-    
+
     /**
-     * Change where text is drawn
-     * Relative to top left hand corner of rectangle
+     * Change where text is drawn Relative to top left hand corner of rectangle
+     *
      * @param xOff
      * @param yOff
      */
@@ -253,46 +252,50 @@ public class Button extends MouseOverArea
         setMouseOverImage(img);
         setMouseDownImage(img);
     }
-    
+
     /**
      * Draw a red exclamation mark near the button
-     * @param g 
+     *
+     * @param g
      */
     private void drawAlert(Graphics g)
     {
         // Only continue if alert is on
-        if (!alertOn) { return; } 
-        
+        if (!alertOn)
+        {
+            return;
+        }
+
         // Load image if not already done so
         if (Globals.alertMark == null)
         {
             try
             {
                 Globals.alertMark = new Image(Globals.alertRes);
-                int newSide = (int) shape.getHeight()/2;
+                int newSide = (int) shape.getHeight() / 2;
                 Globals.alertMark = Globals.alertMark.getScaledCopy(newSide, newSide);
             }
             catch (SlickException e)
             {
             }
         }
-        
+
         // Calculate position of alert
         int imageW = Globals.alertMark.getWidth();
-        float imgX = shape.getX() + imageW - imageW/2 + 5;
+        float imgX = shape.getX() + imageW - imageW / 2 + 5;
         float imgY = shape.getY() + shape.getHeight() + 5;
-        
+
         // Add jiggle factor
         if (Math.random() < 0.15)
         {
             //imgX += Math.random()*5;
-            imgY += Math.random()*9;
+            imgY += Math.random() * 9;
         }
-        
+
         // Draw alert
         g.drawImage(Globals.alertMark, imgX, imgY);
     }
-    
+
     /**
      * Switch on the alert
      */

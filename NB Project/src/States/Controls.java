@@ -57,7 +57,6 @@ public class Controls extends InfoScreen
 //
 //            hint = new Image(folder + "hint.png");
 //            hint = hint.getScaledCopy(SCALE);
-
         }
         catch (SlickException e)
         {
@@ -75,7 +74,6 @@ public class Controls extends InfoScreen
 //        Button hintRef = super.getButtonGrid().getButtonByLabel("HINT");
 //        hintX = hintRef.getX() + SHIFT;
 //        hintY = hintRef.getY();
-
     }
 
     @Override
@@ -104,10 +102,8 @@ public class Controls extends InfoScreen
 
         // Draw inv icon
         // g.drawImage(inv, invX, invY);
-
         // Draw menu icon
         g.drawImage(menu, menuX, menuY);
     }
-  
 
 }

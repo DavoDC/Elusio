@@ -26,7 +26,7 @@ public class FontServer
             try
             {
                 InputStream inStream = null;
-                inStream= ResourceLoader.getResourceAsStream(Globals.gameFontRes);
+                inStream = ResourceLoader.getResourceAsStream(Globals.gameFontRes);
                 rawGameFont = Font.createFont(Font.TRUETYPE_FONT, inStream);
                 fontLoads++;
             }
@@ -41,7 +41,7 @@ public class FontServer
      * Get a custom font Format: fontname-style-size e.g. "Calibri-Plain-20"
      *
      * @param rawFontS
-     * @return 
+     * @return
      */
     public static TrueTypeFont getFont(String rawFontS)
     {

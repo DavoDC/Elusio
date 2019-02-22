@@ -32,9 +32,9 @@ public class Loading extends BasicGameState
     long introTime = 3669;
 
     /**
-     * Used to identify state
-     * Used to switch to state
-     * @return 
+     * Used to identify state Used to switch to state
+     *
+     * @return
      */
     @Override
     public int getID()
@@ -45,6 +45,7 @@ public class Loading extends BasicGameState
     /**
      * This is only called when the game starts Used to load resources Used to
      * initialise the game state.
+     *
      * @param gc
      * @param game
      * @throws org.newdawn.slick.SlickException
@@ -107,12 +108,11 @@ public class Loading extends BasicGameState
         sbg.addState(new GameOver());
 
         // LOADING already in
-        
         Globals.STATES.put("MAINMENU", Globals.STATES.size() + 1);
         sbg.addState(new MainMenu());
 
         Globals.STATES.put("PLAY", Globals.STATES.size() + 1);
-        sbg.addState(new Play());
+        sbg.addState(new ActualGame());
 
         Globals.STATES.put("SETTINGS", Globals.STATES.size() + 1);
         sbg.addState(new Settings());

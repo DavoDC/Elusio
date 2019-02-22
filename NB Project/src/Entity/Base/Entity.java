@@ -17,13 +17,12 @@ public abstract class Entity
 
     // Grid Positions
     private String[][] gridPos;
-    
+
     // Tiles of entity
     private Image[][] entImages;
-    
+
     // Tiles of ground underneath
     private Image[][] undImages;
-    
 
     /**
      * Create an item
@@ -38,27 +37,28 @@ public abstract class Entity
     {
         // Save variables
         this.name = name;
-        
+
         // Initialise arrays
         entImages = new Image[h][w];
         undImages = new Image[h][w];
         gridPos = new String[h][w];
-        
+
         // Populate grid positions
-        for (int r = 0; r < gridPos.length; r++) 
+        for (int r = 0; r < gridPos.length; r++)
         {
             int actualRow = r + tlr;
             for (int c = 0; c < gridPos[r].length; c++)
-             {
-                 int actualCol = c + tlc;
-                 gridPos[r][c] = actualCol + "-" + actualRow + "-" + c + "-" + r;
-             }
+            {
+                int actualCol = c + tlc;
+                gridPos[r][c] = actualCol + "-" + actualRow + "-" + c + "-" + r;
+            }
         }
-    
+
     }
-    
+
     /**
-     * Initialise the images of the entity and its ground tiles 
+     * Initialise the images of the entity and its ground tiles
+     *
      * @param entLS
      * @param undLS
      */
@@ -66,8 +66,8 @@ public abstract class Entity
     {
         int entLayerIndex = Globals.map.getLayerIndex(entLS);
         int undLayerIndex = Globals.map.getLayerIndex(undLS);
-        
-        for (String[] gridRow : gridPos) 
+
+        for (String[] gridRow : gridPos)
         {
             for (String locString : gridRow)
             {
@@ -77,49 +77,50 @@ public abstract class Entity
                 int mapRow = Integer.parseInt(locPair[1]);
                 int arrCol = Integer.parseInt(locPair[2]);
                 int arrRow = Integer.parseInt(locPair[3]);
-                
+
                 // Get and save entity image
                 Image entImage = Globals.map.getTileImage(mapCol, mapRow, entLayerIndex);
                 entImages[arrRow][arrCol] = entImage;
-                
+
                 // Get and save ground image
                 Image undImage = Globals.map.getTileImage(mapCol, mapRow, undLayerIndex);
                 undImages[arrRow][arrCol] = undImage;
             }
         }
     }
-   
-    
+
     /**
      * Get the name of the entity
-     * @return 
+     *
+     * @return
      */
     public String getName()
     {
         return name;
     }
-    
+
     /**
-     * Get grid position pair
-     * Uses array values
+     * Get grid position pair Uses array values
+     *
      * @param c
      * @param r
-     * @return 
+     * @return
      */
     public String[] getGridPosPair(int c, int r)
     {
         return ((gridPos[r][c]).split("-"));
     }
-    
+
     /**
      * Get array of positions
-     * @return 
+     *
+     * @return
      */
     public String[][] getGridPosArray()
     {
         return gridPos;
     }
-    
+
 //    /**
 //     * Replace all under images with input
 //     * @param rep
@@ -135,14 +136,14 @@ public abstract class Entity
 //             }
 //        }
 //    }
-
     /**
      * Hide an entity
+     *
      * @param g
      */
     public void hideEntity(Graphics g)
     {
-        for (String[] gridRow : gridPos) 
+        for (String[] gridRow : gridPos)
         {
             for (String locString : gridRow)
             {
@@ -154,17 +155,17 @@ public abstract class Entity
                 int yPos = mapRow * Globals.tileSize;
                 int arrCol = Integer.parseInt(locPair[2]);
                 int arrRow = Integer.parseInt(locPair[3]);
-                
+
                 // Get ground image
                 Image undImage = undImages[arrRow][arrCol];
-                
+
                 // If not null, draw it
                 if (undImage != null)
                 {
                     g.drawImage(undImage, xPos, yPos);
                 }
             }
-        } 
+        }
     }
-    
+
 }

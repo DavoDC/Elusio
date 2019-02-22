@@ -9,10 +9,8 @@ import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 
 /**
- * Handles a group of entities
- * Creates them
- * Draws them
- * Removes them
+ * Handles a group of entities Creates them Draws them Removes them
+ *
  * @author David Charkey
  */
 public abstract class EntityStore
@@ -23,7 +21,6 @@ public abstract class EntityStore
 
     // Stores information about encountered entities
     private ArrayList<Entity> encEntities;
-    
 
     /**
      * Initialise entity store
@@ -33,12 +30,12 @@ public abstract class EntityStore
         // Initialise fields, where possible
         encEntities = new ArrayList<>();
         entityList = new ArrayList<>();
-        
+
         // Do custom initialisations
         specificInit();
 
     }
-    
+
     /**
      * Add entity-specific data
      */
@@ -46,33 +43,36 @@ public abstract class EntityStore
     {
         // Populate entity list
         entityList.addAll(getEntities());
-        
+
         // Get layer names
         String entLS = getEntLS();
         String hideLS = getHideLS();
-        
+
         // Initialise entity images
-        for(Entity curEnt : entityList)
+        for (Entity curEnt : entityList)
         {
             curEnt.initTileImages(entLS, hideLS);
         }
     }
-    
+
     /**
      * Get pre-made entity objects
-     * @return 
+     *
+     * @return
      */
     public abstract ArrayList<Entity> getEntities();
-    
+
     /**
      * Get the name of the layer where the entities are
-     * @return 
+     *
+     * @return
      */
     public abstract String getEntLS();
-    
+
     /**
      * Get the name of the layer to hide the entity
-     * @return 
+     *
+     * @return
      */
     public String getHideLS()
     {
@@ -81,36 +81,39 @@ public abstract class EntityStore
 
     /**
      * Access the entity list
-     * @return 
+     *
+     * @return
      */
     public final ArrayList<Entity> getEntityList()
     {
         return entityList;
     }
-    
+
     /**
      * Get first entity under player
+     *
      * @param player
      * @return Entity found, or null
      */
     public final Entity getEntityUnder(Player player)
     {
         Entity foundEnt = null;
-        
+
         for (Entity curEnt : getEntityList())
-        {          
+        {
             if (isEntityUnder(player, curEnt))
             {
                 foundEnt = curEnt;
                 break;
             }
         }
-        
+
         return foundEnt;
-    }   
-    
+    }
+
     /**
      * Check if an entity is under a given player
+     *
      * @param player
      * @param ent Entity
      * @return True if underneath
@@ -118,11 +121,11 @@ public abstract class EntityStore
     public boolean isEntityUnder(Player player, Entity ent)
     {
         // Get player position and adjust
-        int xPlayer = player.getX() + Globals.playerXadj;   
+        int xPlayer = player.getX() + Globals.playerXadj;
         int yPlayer = player.getY() + Globals.playerYadj;
         int playerCol = Map.convertXtoCol(xPlayer);
         int playerRow = Map.convertYtoRow(yPlayer);
-        
+
         // Compare positions of entity to player
         String[][] gridPos = ent.getGridPosArray();
         for (String[] row : gridPos)
@@ -133,21 +136,25 @@ public abstract class EntityStore
                 String[] posPair = pos.split("-");
                 int curEntCol = Integer.parseInt(posPair[0]);
                 int curEntRow = Integer.parseInt(posPair[1]);
-                
+
                 // Compare to player
                 boolean sameCol = (playerCol == curEntCol);
                 boolean sameRow = (playerRow == curEntRow);
                 boolean samePos = sameCol && sameRow;
-                if (samePos) { return true; }
+                if (samePos)
+                {
+                    return true;
+                }
             }
         }
-        
+
         // Return default
         return false;
     }
-    
+
     /**
      * Update map according to interactions
+     *
      * @param g
      * @param alien
      */
@@ -158,10 +165,11 @@ public abstract class EntityStore
             ent.hideEntity(g);
         }
     }
- 
+
     /**
      * Add to list of encounters
-     * @param ent 
+     *
+     * @param ent
      */
     public void addEncounter(Entity ent)
     {

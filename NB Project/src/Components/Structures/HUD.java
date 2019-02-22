@@ -45,10 +45,9 @@ public class HUD
 
     // Font for lives
     private TrueTypeFont lifeFont;
-    
+
     // Popup Displayer
     private PopupDisplayer popupDisp;
-    
 
     /**
      * Initialise the HUD
@@ -72,7 +71,7 @@ public class HUD
         feats.add(0); // Yspacing
         feats.add(BUTTON_NO); // NumberofColumns
         feats.add("calibri-plain-5"); // FontString
-        
+
         // Create button labels
         ArrayList<String> labels = new ArrayList<>();
         int buttonNo = (int) feats.get(0);
@@ -103,7 +102,6 @@ public class HUD
 //        {
 //            //showInventory();
 //        });
-
         // Initialise co-ordinates
         camX = cam.getX();
         camY = cam.getY();
@@ -114,7 +112,7 @@ public class HUD
 
         // Initialise font
         lifeFont = FontServer.getFont("Cambria-Bold-25");
-        
+
         // Initialise PD
         popupDisp = new PopupDisplayer();
 
@@ -138,9 +136,9 @@ public class HUD
         this.camY = cam.getY();
         this.playerX = player.getX();
         this.playerY = player.getY();
-        
+
         // Update PD
-        popupDisp.updatePD(delta);
+        popupDisp.updatePD();
 
         // Offset mouse so that buttons work   
         Globals.agc.getInput().setOffset(camX + SPACING, camY);
@@ -159,7 +157,7 @@ public class HUD
         // Draw info overlays
         drawStatsText(g);
         // drawLivesText(g);
-        
+
         // Draw popups
         popupDisp.renderPopups(g);
     }
@@ -183,7 +181,7 @@ public class HUD
 
         // Set font color
         g.setColor(Color.black);
-        
+
         // YSpacing
         int yGap = 20;
 
@@ -196,38 +194,38 @@ public class HUD
         long totalMem = Runtime.getRuntime().totalMemory();
         long memoryUsed = (totalMem - freeMem) / 1000000;
         String mem = "Mem. Use: " + memoryUsed + " MB";
-        g.drawString(mem, drawX, drawY + 1*yGap);
+        g.drawString(mem, drawX, drawY + 1 * yGap);
 
         // Draw cam = 2 and 3
         String cam = "cX: " + camX + " , cY: " + camY;
-        g.drawString(cam, drawX, drawY + 2*yGap);
+        g.drawString(cam, drawX, drawY + 2 * yGap);
         int camCol = Map.convertXtoCol(camX);
         int camRow = Map.convertYtoRow(camY);
         String camTile = "cC: " + camCol + " , cR: " + camRow;
-        g.drawString(camTile, drawX, drawY + 3*yGap);
-        
+        g.drawString(camTile, drawX, drawY + 3 * yGap);
+
         // Draw player = 4 and 5
         int adjPX = playerX + Globals.playerXadj;
         int adjPY = playerY + Globals.playerYadj;
         String player = "pX: " + adjPX + " , pY: " + adjPY;
-        g.drawString(player, drawX, drawY + 4*yGap);
+        g.drawString(player, drawX, drawY + 4 * yGap);
         int playerCol = Map.convertXtoCol(adjPX);
         int playerRow = Map.convertYtoRow(adjPY);
         String playerTile = "pC: " + playerCol + " , pR: " + playerRow;
-        g.drawString(playerTile, drawX, drawY + 5*yGap);
+        g.drawString(playerTile, drawX, drawY + 5 * yGap);
 
         // Get extra mouse info
         Input input = Globals.agc.getInput();
         int mX = input.getMouseX();
         int mY = input.getMouseY();
-        
+
         // Draw mouse = 6 and 7 
         String mouse = "mX: " + mX + " , mY: " + mY;
-        g.drawString(mouse, drawX, drawY + 6*yGap);
+        g.drawString(mouse, drawX, drawY + 6 * yGap);
         int mCol = Map.convertXtoCol(mX);
         int mRow = Map.convertYtoRow(mY);
         String mouseTile = "pC: " + mCol + " , pR: " + mRow;
-        g.drawString(mouseTile, drawX, drawY + 7*yGap);
+        g.drawString(mouseTile, drawX, drawY + 7 * yGap);
     }
 
     /**
@@ -245,16 +243,16 @@ public class HUD
         // Draw number of lives
         // String livesS = "" + Globals.playerLives + "";
         // lifeFont.drawString(drawX, drawY, livesS, Color.black);
-
     }
 
     /**
      * Load a popup into the displayer
-     * @param itemInfo 
+     *
+     * @param itemInfo
      */
     public void loadPopup(Popup itemInfo)
     {
-        popupDisp.loadSpecialPopup(itemInfo);
+        popupDisp.loadPopup(itemInfo);
     }
-    
+
 }

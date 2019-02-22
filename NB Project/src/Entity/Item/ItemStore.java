@@ -4,10 +4,12 @@ import Components.Popups.Popup;
 import Components.Structures.Player;
 import Entity.Base.Entity;
 import Entity.Base.EntityStore;
+import Main.Globals;
 import java.util.ArrayList;
 
 /**
  * Handles items
+ *
  * @author David Charkey
  */
 public class ItemStore extends EntityStore
@@ -21,64 +23,182 @@ public class ItemStore extends EntityStore
 
         // Add magic items
         itemList.add(new Item(
-                "Cryocapacitor Set", 
-                new String[] 
-                { 
-                "Seems to be absorbing small amounts of nearby energy as antimatter",
-                "Could annihilate some weak, dry matter once activated"
-                },
+                "Cryocapacitor Set",
+                "Its storing microamounts of nearby energy as antimatter",
+                "It could annihilate some weak, dry matter once activated",
                 23, 25));
         itemList.add(new Item(
-                "Magistructor Orb", 
-                new String[] 
-                { 
-                "It beats rhythmically with creative vigor",
-                "May be able to manifest, build and/or extend an existing substance"
-                },
+                "Magistructor Orb",
+                "Inside, it beats rhythmically with creative vigor",
+                "Upon activation, it could manifest more of an existing substance",
                 82, 5));
 
         // Add crystals
         itemList.add(new Item(
                 "Crystal12",
-                new String[]
-                {
                 "A high, specific EMR frequency is emanating.. 1122Hz",
-                "Somehow it seems that .. it is longing for something... "
-                },
+                "Somehow it seems that .. it is longing for something... ",
                 65, 6));
-        itemList.add(new ProtectedItem( 
-                "Crystal3", 
-                new String[]
-                {
+        itemList.add(new ProtectedItem(
+                "Crystal3",
                 "Has an EMR signature of 333Hz",
-                "It .. misses the presence of something... "
-                },
+                "It .. misses the presence of something... ",
                 "Viridash",
                 30, 33));
-        itemList.add(new ProtectedItem( 
-                "Crystal6", 
-                new String[]
-                {
+        itemList.add(new ProtectedItem(
+                "Crystal6",
                 "It emanates a particular EMR frequency .. 666Hz",
-                "It is longing for something... "
-                },
+                "It is longing for something... ",
                 "Trevil",
                 89, 41));
         itemList.add(new ProtectedItem(
-                "Crystal9", 
-                new String[]
-                {
+                "Crystal9",
                 "A particular EMR frequency is being emitted .. 999Hz",
-                "This crystal yearns to join something ... "
-                },
+                "This crystal yearns to join something ... ",
                 "Mycovolence",
                 71, 81));
-        
+
+        // Add gold coin
+        itemList.add(new Item(
+                "GoldCoins",
+                new String[]
+                {
+                    "Hmmm .. a pile of metal discs .. ",
+                    "Hold the phone! This is a substitute for electrovelox!",
+                    "If you find more of it, we could repair me and go home!"
+                },
+                50, 79));
+
+        // Add ipod = small speed increase
+        itemList.add(new InstantItem(
+                "iPod",
+                "Using ESP, I can perceive sound waves emanating!",
+                "The arrangement of them makes me feel energized! Try it!",
+                34, 1)
+        {
+            @Override
+            public void activateEffect(Player player)
+            {
+                player.changeMovSpeed(0.07f);
+            }
+        });
+
+        // Add watch = small speed increase
+        itemList.add(new InstantItem(
+                "Wristwatch",
+                "This looks like it came from a dimension where time goes faster...",
+                "Wearing it will bring some of that aspect nearby",
+                37, 87)
+        {
+            @Override
+            public void activateEffect(Player player)
+            {
+                player.changeMovSpeed(0.08f);
+            }
+        });
+
+        // Add ring = small speed increase
+        itemList.add(new InstantItem(
+                "Alacrity Ring",
+                "This ring is enchanted with alacrity essence",
+                "You should wear it to speed up your movement!",
+                59, 50)
+        {
+            @Override
+            public void activateEffect(Player player)
+            {
+                player.changeMovSpeed(0.08f);
+            }
+        });
+
+        // Add Syringe = huge speed increase
+        itemList.add(new InstantItem(
+                "Syringe",
+                "A common stimulant from Izukia, named STH06",
+                "Its highly potent. Be careful. ",
+                3, 44)
+        {
+            @Override
+            public void activateEffect(Player player)
+            {
+                player.changeMovSpeed(player.getMovSpeed());
+            }
+        });
+
+        // Add Ciggarette = huge slow down
+        itemList.add(new InstantItem(
+                "Cigarette",
+                "Psionically embued with the name: Two Number 9s",
+                "Not sure what this might do ... ",
+                79, 37)
+        {
+            @Override
+            public void activateEffect(Player player)
+            {
+                player.changeMovSpeed(-player.getMovSpeed() / 2);
+            }
+        });
+
+        // Add floppy disk = glitch maker
+        itemList.add(new InstantItem(
+                "FloppyDisk",
+                new String[]
+                {
+                    "It’s some sort of primitive storage device ...",
+                    "<Y2Kalamity – Zero Divisor> has been scribbled on it",
+                    "I sense touching it has activated it somehow"
+                },
+                72, 1)
+        {
+            @Override
+            public void activateEffect(Player player)
+            {
+                player.activateGlitch();
+            }
+        });
+
+        // Add software = glitch fixer/disabler
+        itemList.add(new InstantItem(
+                "SoftwareDisc",
+                new String[]
+                {
+                    "Looks like a light-based data record",
+                    "A faint label reads: Bug Compliance Kit – 1996 - Planet City",
+                    "Amazing! The software is running inexplicably while stored!"
+                },
+                45, 46)
+        {
+            @Override
+            public void activateEffect(Player player)
+            {
+                player.disableGlitch();
+            }
+        });
+
+        // Add clock at 0 = teleport back to starting loc
+        itemList.add(new InstantItem(
+                "DigitalClock",
+                new String[]
+                {
+                    "A digital time-keeper .. ",
+                    "Thats strange ... It has no Higgs field",
+                    "Wow! It teleported you back here!"
+                },
+                12, 54)
+        {
+            @Override
+            public void activateEffect(Player player)
+            {
+                player.resetLocation();
+
+            }
+        });
+
         // Return list
         return itemList;
 
     }
-    
+
     @Override
     public String getEntLS()
     {
@@ -87,6 +207,7 @@ public class ItemStore extends EntityStore
 
     /**
      * Get item under player
+     *
      * @param alien
      * @return Item, or null if nothing/non-item
      */
@@ -94,24 +215,25 @@ public class ItemStore extends EntityStore
     {
         // Get entity
         Entity entityFound = super.getEntityUnder(alien);
-        
+
         Item item = null;
         if (entityFound instanceof Item)
         {
             // Return item if an item
             item = (Item) entityFound;
         }
-        
+
         // Return null if not an item
         return item;
     }
-    
+
     /**
      * Get a popup with item information
+     *
      * @param item
      * @param r
      * @param c
-     * @return 
+     * @return
      */
     public Popup getInfoPopup(Item item, int r, int c)
     {
@@ -123,7 +245,7 @@ public class ItemStore extends EntityStore
         feats.add(2);  // Height as number of tiles 
         feats.add(20); // Interval for delay writer
         feats.add("default"); // FontS or "default"
-        
+
         // Create popup lines 
         ArrayList<String> itemLines = item.getInfoLines();
         ArrayList<String> newLines = new ArrayList<>();
@@ -132,10 +254,10 @@ public class ItemStore extends EntityStore
         {
             newLines.add(start + curItemLine);
         }
+        newLines.add("(You, telepathically): Thanks for the info, Xaidu!");
 
         // Return
         return (new Popup(feats, newLines));
     }
 
-    
- }
+}

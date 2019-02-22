@@ -1,8 +1,6 @@
 package Components.Helpers;
 
-
 import org.newdawn.slick.TrueTypeFont;
-
 
 /**
  * Helps writing text sequentially, as if it were printed
@@ -23,7 +21,6 @@ public class DelayWriter
 
     // The time of adding
     private long addTime;
-    
 
     /**
      * Create a Delay Writer
@@ -44,7 +41,7 @@ public class DelayWriter
 
         reset();
     }
-    
+
     /**
      * Reset variables
      */
@@ -53,7 +50,7 @@ public class DelayWriter
         endIndex = 0;
         addTime = 0;
     }
-   
+
     public void update()
     {
         // If the last index hasn't been reached, increase index
@@ -76,6 +73,7 @@ public class DelayWriter
 
     /**
      * Change text and reset variables
+     *
      * @param newText
      */
     public void setText(String newText)
@@ -83,11 +81,11 @@ public class DelayWriter
         text = newText;
         reset();
     }
-    
+
     /**
-     * Returns current segment of the string
-     * Gets longer over time
-     * @return 
+     * Returns current segment of the string Gets longer over time
+     *
+     * @return
      */
     public String getText()
     {
@@ -107,9 +105,10 @@ public class DelayWriter
     {
         font.drawString(x, y, getText());
     }
-    
+
     /**
      * Get written status
+     *
      * @return True if written once
      */
     public boolean hasWrittenOnce()

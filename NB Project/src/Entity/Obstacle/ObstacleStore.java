@@ -9,10 +9,12 @@ import java.util.ArrayList;
 
 /**
  * Handles obstacles
+ *
  * @author David Charkey
  */
 public class ObstacleStore extends EntityStore
 {
+
     // Crystals placed
     int crystalsPlaced = 0;
 
@@ -24,12 +26,12 @@ public class ObstacleStore extends EntityStore
         // Trees that enclose initial area
         obstacles.add(new Obstacle("Trees", "TreeZone", 32, 9, 5, 5, true));
         obstacles.add(new ObstacleZone("TreeZone", "Cryocap", 29, 7, 6, 6));
-        
+
         // Crystal placement to open gate
         obstacles.add(new Obstacle("HiGate", "HiSpot", 82, 9, 1, 1, false));
         obstacles.add(new Obstacle("HiCrystal", "HiSpot", 82, 14, 1, 1, false));
         obstacles.add(new ObstacleZone("HiSpot", "Crystal12", 82, 14, 1, 1));
-                
+
         obstacles.add(new Obstacle("LoGate", "LoSpot", 82, 10, 1, 1, false));
         obstacles.add(new Obstacle("LoCrystal", "LoSpot", 82, 16, 1, 1, false));
         obstacles.add(new ObstacleZone("LoSpot", "Crystal3", 82, 16, 1, 1));
@@ -37,28 +39,29 @@ public class ObstacleStore extends EntityStore
         obstacles.add(new Obstacle("LeftGate", "LeftSpot", 81, 9, 1, 2, false));
         obstacles.add(new Obstacle("LeftCrystal", "LeftSpot", 81, 15, 1, 1, false));
         obstacles.add(new ObstacleZone("LeftSpot", "Crystal6", 81, 15, 1, 1));
-                
+
         obstacles.add(new Obstacle("RightGate", "RightSpot", 83, 9, 1, 2, false));
         obstacles.add(new Obstacle("RightCrystal", "RightSpot", 83, 15, 1, 1, false));
         obstacles.add(new ObstacleZone("RightSpot", "Crystal9", 83, 15, 1, 1));
-        
+
         return obstacles;
     }
 
     @Override
     public String getEntLS()
     {
-        return "Obstacles"; 
+        return "Obstacles";
     }
-    
+
     @Override
     public String getHideLS()
     {
         return "ObHide";
     }
-    
+
     /**
      * Get obstacle zone under player
+     *
      * @param alien
      * @return OZ, or null if nothing/non-item
      */
@@ -66,7 +69,7 @@ public class ObstacleStore extends EntityStore
     {
         // For all entities
         for (Entity curEnt : getEntityList())
-        { 
+        {
             // If under player
             if (isEntityUnder(alien, curEnt))
             {
@@ -77,16 +80,16 @@ public class ObstacleStore extends EntityStore
                 }
             }
         }
-        
+
         // Return default
         return null;
     }
-    
+
     public ArrayList<Obstacle> getMatchingObstacles(ObstacleZone obZone)
     {
         String obZoneName = obZone.getName();
         ArrayList<Obstacle> matches = new ArrayList<>();
-        
+
         // For all obstacles
         for (Entity curEnt : super.getEntityList())
         {
@@ -95,7 +98,7 @@ public class ObstacleStore extends EntityStore
             {
                 // Get the name of the zone in the obstacle
                 String curObstaclesZone = ((Obstacle) curEnt).getOZName();
-                
+
                 // Compare current zone to current obstacle's zone
                 if (curObstaclesZone.contains(obZoneName))
                 {
@@ -104,7 +107,7 @@ public class ObstacleStore extends EntityStore
                 }
             }
         }
-        
+
         return matches;
     }
 
@@ -114,7 +117,7 @@ public class ObstacleStore extends EntityStore
     public void crystalPlaced()
     {
         crystalsPlaced++;
-        
+
         if (crystalsPlaced == 4)
         {
             ArrayList<Entity> entities = super.getEntityList();
@@ -122,7 +125,7 @@ public class ObstacleStore extends EntityStore
             {
                 if (curEnt instanceof Obstacle)
                 {
-                    if(curEnt.getName().contains("Gate"))
+                    if (curEnt.getName().contains("Gate"))
                     {
                         Globals.map.unblockEntity(curEnt);
                     }
@@ -130,4 +133,5 @@ public class ObstacleStore extends EntityStore
             }
         }
     }
+
 }

@@ -25,7 +25,6 @@ public class MainMenu extends InterfaceScreen
     private final String titleFontS = "gamefont-plain-70";
     private TrueTypeFont titleFont;
 
-
     // Menu fields
     private final String menuFont = "gamefont-plain-50";
 

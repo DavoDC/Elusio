@@ -1,2 +1,9 @@
-1. Compress into AAA.zip, using settings in images
-2. Upload to Google Drive
+1. Run codacy and fix up code
+2. Clean and build in Netbeans twice
+3. Run launch4j and create .exe
+4. Test executable
+5. Copy deployable folder to downloads
+6. Compress into EE9<version>.zip, using settings in image  (start at 0.1)
+7. Upload to Google Drive folder
+8. Update wiki
+9. Send wiki link to subscribers

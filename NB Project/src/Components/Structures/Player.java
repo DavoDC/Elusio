@@ -1,9 +1,6 @@
 package Components.Structures;
 
-import Entity.Base.Entity;
-import Entity.Enemy.Enemy;
 import Entity.Item.Item;
-import Entity.Obstacle.Obstacle;
 import Main.Globals;
 
 import java.util.ArrayList;
@@ -20,9 +17,13 @@ import org.newdawn.slick.SpriteSheet;
 public class Player
 {
 
-    // Starting location of player
+    // Player location
     private int xPos;
     private int yPos;
+
+    // Starting location
+    private final int START_X = 300;
+    private final int START_Y = 300;
 
     // Dimensions of player
     private double scale; // Size factor
@@ -36,27 +37,32 @@ public class Player
     private SpriteSheet sprites;
 
     // Animation of player moving
-    private int animSpeed;
-    private Animation anim;
+    private int animSpeed; 
+    private Animation anim; 
+    
+    // Amount of animSpeed per movSpeed
+    private final int speedRatio = 2000; 
 
-    // Entities encountered
+    // Inventory
     private ArrayList<Item> inv;
 
-    
+    // Glitch status
+    private boolean glitched;
+
     /**
      * Create a player with preset values
      */
     public Player()
     {
         // Initialise fields
-        xPos = 300;
-        yPos = 300;
+        xPos = START_X;
+        yPos = START_Y;
 
         scale = 1.5;
         width = 33;
         height = 48;
 
-        movSpeed = 0.369f; //test increased speed
+        movSpeed = 0.20f; // Default = 0.20
 
         try
         {
@@ -66,10 +72,12 @@ public class Player
         {
         }
 
-        animSpeed = 500;
+        harmonizeSpeeds();
         anim = new Animation(sprites, animSpeed);
 
         inv = new ArrayList<>();
+
+        glitched = false;
 
         // Adjust animation
         anim.stop();  // Prevents animation from starting on its own
@@ -77,6 +85,11 @@ public class Player
 
     }
 
+    private void harmonizeSpeeds()
+    {
+        animSpeed = (int) ((1/movSpeed) * speedRatio);
+    }
+    
     public int getX()
     {
         return xPos;
@@ -97,6 +110,10 @@ public class Player
         {
             xPos -= change;
         }
+
+        // Account for glitch
+        xPos += getGlitchValue();
+
     }
 
     public void adjustY(int change)
@@ -109,11 +126,45 @@ public class Player
         {
             yPos -= change;
         }
+
+        // Account for glitch
+        yPos += getGlitchValue();
+    }
+
+    private int getGlitchValue()
+    {
+        if (glitched)
+        {
+            int randomVal = 0;
+
+            // Add random value
+            randomVal += (int) (Math.random() * 10);
+
+            // Apply random sign
+            boolean flip = Math.random() >= 0.5;
+            randomVal = randomVal * (flip ? -1 : 1);
+
+            return randomVal;
+        }
+
+        return 0;
+    }
+
+    public void resetLocation()
+    {
+        xPos = START_X;
+        yPos = START_Y;
     }
 
     public float getMovSpeed()
     {
         return movSpeed;
+    }
+
+    public void changeMovSpeed(float change)
+    {
+        movSpeed += change;
+        harmonizeSpeeds();
     }
 
     public void updateAnimation(int delta)
@@ -212,21 +263,63 @@ public class Player
 
     /**
      * Add to player's inventory
+     *
      * @param item
      */
     public void addItem(Item item)
     {
         inv.add(item);
     }
-    
+
+    /**
+     * Check if the player has a given item Uses "contains"
+     *
+     * @param itemName
+     * @return
+     */
+    public boolean hasItem(String itemName)
+    {
+        // Check for item name
+        for (Item curItem : inv)
+        {
+            // Get current item's name
+            String curItemS = curItem.getName();
+
+            // Return true and stop searching, if matches input
+            if (curItemS.contains(itemName))
+            {
+                return true;
+            }
+        }
+
+        // Default
+        return false;
+    }
+
     /**
      * Get all items
-     * @return 
+     *
+     * @return
      */
     public ArrayList<Item> getInv()
     {
         return inv;
     }
-    
+
+    /**
+     * Activate movement glitch
+     */
+    public void activateGlitch()
+    {
+        glitched = true;
+    }
+
+    /**
+     * Turn off movement glitch
+     */
+    public void disableGlitch()
+    {
+        glitched = false;
+    }
 
 }

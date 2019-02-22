@@ -11,29 +11,30 @@ import java.util.Arrays;
  */
 public class Item extends Entity
 {
-    
+
     // Info
     private ArrayList<String> info;
-    
+
     // Discovery Status
     private boolean isFound;
-    
+
     /**
      * Default constructor = Don't use
+     *
      * @param name
      * @param tlc
      * @param tlr
      * @param w
-     * @param h 
+     * @param h
      */
     private Item(String name, int tlc, int tlr, int w, int h)
     {
         super(name, tlc, tlr, w, h);
     }
-    
 
     /**
-     * Create a item
+     * Create a item with any number of info lines
+     *
      * @param name Item name
      * @param infoArr Item information
      * @param col Column on tile grid
@@ -42,16 +43,37 @@ public class Item extends Entity
     public Item(String name, String[] infoArr, int col, int row)
     {
         super(name, col, row, 1, 1);
-        
+
         info = new ArrayList<>();
         info.addAll(Arrays.asList(infoArr));
-        
+
         isFound = false;
     }
-    
+
+    /**
+     * Quick constructor for 2 info-line items
+     *
+     * @param name Item name
+     * @param infoLine1
+     * @param infoLine2
+     * @param col Column on tile grid
+     * @param row Row on tile grid
+     */
+    public Item(String name, String infoLine1, String infoLine2, int col, int row)
+    {
+        super(name, col, row, 1, 1);
+
+        info = new ArrayList<>();
+        info.add(infoLine1);
+        info.add(infoLine2);
+
+        isFound = false;
+    }
+
     /**
      * Get info lines
-     * @return 
+     *
+     * @return
      */
     public ArrayList<String> getInfoLines()
     {
@@ -60,20 +82,22 @@ public class Item extends Entity
 
     /**
      * Get discovery status
-     * @return 
+     *
+     * @return
      */
     public boolean isFound()
     {
         return isFound;
     }
-    
+
     /**
      * Set discovery status
-     * @param newStatus 
+     *
+     * @param newStatus
      */
     public void setFound(boolean newStatus)
     {
         isFound = newStatus;
     }
-    
+
 }

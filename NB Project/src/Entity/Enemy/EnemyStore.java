@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Handles a group of enemies
+ *
  * @author David Charkey
  */
 public class EnemyStore extends EntityStore
@@ -17,10 +18,10 @@ public class EnemyStore extends EntityStore
     public ArrayList<Entity> getEntities()
     {
         ArrayList<Entity> enemies = new ArrayList<>();
-        
-        enemies.add( new Enemy("Mycovolence", 72, 80));
-        enemies.add( new Enemy("Trevil", 90, 40));
-        enemies.add( new Enemy("Viridash", 31, 32));
+
+        enemies.add(new Enemy("Mycovolence", 72, 80));
+        enemies.add(new Enemy("Trevil", 90, 40));
+        enemies.add(new Enemy("Viridash", 31, 32));
 
         return enemies;
     }
@@ -30,16 +31,17 @@ public class EnemyStore extends EntityStore
     {
         return "Enemies";
     }
-    
+
     /**
      * Get an enemy by name
+     *
      * @param name
      * @return Enemy, or null
      */
     public Enemy getEnemy(String name)
     {
         name = name.toLowerCase();
-                
+
         Enemy enemy = null;
         for (Entity curEnt : getEntityList())
         {
@@ -49,8 +51,8 @@ public class EnemyStore extends EntityStore
                 break;
             }
         }
-        
+
         return enemy;
     }
-    
+
 }

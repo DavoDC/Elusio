@@ -67,7 +67,7 @@ public class ButtonGrid
             buttons.add(new Button(img, new Rectangle(x, y, w, h), font));
         }
 
-         // Extract required information
+        // Extract required information
         int xpos = (int) common.get(2);
         int ypos = (int) common.get(3);
         int bW = (int) common.get(4);
@@ -85,25 +85,25 @@ public class ButtonGrid
         {
             // Get label
             String curLabel = labels.get(i);
-            
-            if(curLabel.contains("header")) // Special header case
+
+            if (curLabel.contains("header")) // Special header case
             {
                 // Replace button
                 replaceButton(i, getHeader(curLabel));
             }
-            else 
+            else
             {
                 // Apply current position to current button
                 buttons.get(i).setBounds(curxpos, curypos, bW, bH);
-                
+
                 // Apply label
                 buttons.get(i).setLabel(curLabel);
 
                 // Shift curX by width + spacing
                 curxpos += (bW + xspacing);
-                
+
                 // If current position is a multiple of columnNo
-                if ( ((i % columns) == 0) && (columns != buttonNo) )
+                if (((i % columns) == 0) && (columns != buttonNo))
                 {
                     curxpos = xpos;  // Reset X
                     curypos += (bH + yspacing); // Increase Y
@@ -112,15 +112,13 @@ public class ButtonGrid
         }
     }
 
-    
-    
     private Button getHeader(String rawLabel)
     {
         // Process raw label
         String[] parts = rawLabel.split("_");
         String actualLabel = parts[1];
         String headerFont = parts[2];
-        
+
         // Make new button 
         //  Make header image
         Image img = null;
@@ -174,6 +172,7 @@ public class ButtonGrid
 
     /**
      * Draw all buttons fully, with offset
+     *
      * @param g
      * @param sX
      * @param sY
@@ -190,7 +189,7 @@ public class ButtonGrid
      * Get a button using its position
      *
      * @param pos
-     * @return 
+     * @return
      */
     public Button getButtonByPos(int pos)
     {
