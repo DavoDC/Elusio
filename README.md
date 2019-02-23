@@ -9,7 +9,7 @@ Language: Java
 IDE: NetBeans
 
 Gameplay Screenshot:
-![Alt text](/SlicGame/tree/master/Executable/Screenshot.png?raw=true "Gameplay Screenshot")
+![Alt text](/SlickGame/tree/master/Executable/Screenshot.png?raw=true "Gameplay Screenshot")
 
 
 _Copyright © 2019 David Charkey. All Rights Reserved._
