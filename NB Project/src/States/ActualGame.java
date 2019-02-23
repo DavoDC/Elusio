@@ -26,11 +26,6 @@ import org.newdawn.slick.state.StateBasedGame;
 public class ActualGame extends BasicGameState
 {
 
-    // Structures
-    private Player alien;
-    private Camera cam;
-    private HUD hud;
-
     // Entity Stores
     private ItemStore itemStore;
     private EnemyStore enemyStore;
@@ -58,16 +53,10 @@ public class ActualGame extends BasicGameState
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException
     {
-        alien = new Player();
-
-        cam = new Camera(gc, Globals.map);
-        cam.centerOn(alien.getX(), alien.getX());
 
         itemStore = new ItemStore();
         enemyStore = new EnemyStore();
         obStore = new ObstacleStore();
-
-        hud = new HUD(cam, alien, gc, game);
 
     }
 
@@ -85,19 +74,19 @@ public class ActualGame extends BasicGameState
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
     {
         // Make animation use game time
-        alien.updateAnimation(delta);
+        Globals.alien.updateAnimation(delta);
 
         // Relative speed
-        int relSpeed = (int) (Math.round(delta * alien.getMovSpeed()));
+        int relSpeed = (int) (Math.round(delta * Globals.alien.getMovSpeed()));
 
         // Handle input
         handleInput(gc.getInput(), sbg, relSpeed);
 
         // Update camera
-        cam.centerOn(alien.getX(), alien.getY());
+        Globals.cam.centerOn(Globals.alien.getX(), Globals.alien.getY());
 
-        // Update hud
-        hud.update(cam, alien, delta);
+        // Update Globals.hud
+        Globals.hud.update(Globals.cam, Globals.alien, delta);
     }
 
     /**
@@ -128,45 +117,45 @@ public class ActualGame extends BasicGameState
         if (upArrowDown)
         {
             // Change animation
-            alien.startAnim("up");
+            Globals.alien.startAnim("up");
 
             // Move but dont collide
-            if (Globals.map.isUpAllowed(alien.getX(), alien.getY(), rSpd))
+            if (Globals.map.isUpAllowed(Globals.alien.getX(), Globals.alien.getY(), rSpd))
             {
-                alien.adjustY(-rSpd);
+                Globals.alien.adjustY(-rSpd);
             }
         }
         else if (downArrowDown)
         {
             // Change animation
-            alien.startAnim("down");
+            Globals.alien.startAnim("down");
 
             // Move if conditions are satisfied
-            if (Globals.map.isDownAllowed(alien.getX(), alien.getY(), rSpd))
+            if (Globals.map.isDownAllowed(Globals.alien.getX(), Globals.alien.getY(), rSpd))
             {
-                alien.adjustY(rSpd);
+                Globals.alien.adjustY(rSpd);
             }
         }
         else if (leftArrowDown)
         {
             // Change animation
-            alien.startAnim("left");
+            Globals.alien.startAnim("left");
 
             // Move if conditions are satisfied
-            if (Globals.map.isLeftAllowed(alien.getX(), alien.getY(), rSpd))
+            if (Globals.map.isLeftAllowed(Globals.alien.getX(), Globals.alien.getY(), rSpd))
             {
-                alien.adjustX(-rSpd);
+                Globals.alien.adjustX(-rSpd);
             }
         }
         else if (rightArrowDown)
         {
             // Change animation
-            alien.startAnim("right");
+            Globals.alien.startAnim("right");
 
             // Move if conditions are satisfied
-            if (Globals.map.isRightAllowed(alien.getX(), alien.getY(), rSpd))
+            if (Globals.map.isRightAllowed(Globals.alien.getX(), Globals.alien.getY(), rSpd))
             {
-                alien.adjustX(rSpd);
+                Globals.alien.adjustX(rSpd);
             }
         }
         else if (escapeDown || altDown) // Paused when alt-tabbed too
@@ -190,14 +179,14 @@ public class ActualGame extends BasicGameState
         }
         else // When nothing is being pressed
         {
-            alien.stopAnim();
+            Globals.alien.stopAnim();
         }
     }
 
     private void processItemGrab()
     {
         // Get item under player, or null if no item
-        Item itemFound = (Item) itemStore.getItemUnder(alien);
+        Item itemFound = (Item) itemStore.getItemUnder(Globals.alien);
 
         // If an item was found, and hasn't been found before
         if (itemFound != null && !itemFound.isFound())
@@ -205,7 +194,7 @@ public class ActualGame extends BasicGameState
             // Process item
             itemFound.setFound(true); // Set the item as found
             itemStore.addEncounter(itemFound); // Hide item
-            alien.addItem(itemFound); // Add to player inventory
+            Globals.alien.addItem(itemFound); // Add to player inventory
 
             // Check for protector items and process
             processProtector(itemFound);
@@ -215,7 +204,7 @@ public class ActualGame extends BasicGameState
 
             // Show info popup
             showItemPopup(itemFound);
-            
+
         }
     }
 
@@ -229,7 +218,8 @@ public class ActualGame extends BasicGameState
 
         // Get protector name
         String protectorName = ((ProtectedItem) item).getProtector();
-        Enemy enemy = enemyStore.getEnemy(protectorName); // Get enemy
+        Enemy enemy = enemyStore.getEnemy(protectorName); // Get enemy/protector
+        enemy.doAction();
         enemyStore.addEncounter(enemy); // Hide enemy
         Globals.map.unblockEntity(enemy); // Unblock enemy 
     }
@@ -243,47 +233,62 @@ public class ActualGame extends BasicGameState
         }
 
         // Activate
-        ((InstantItem) item).activateEffect(alien);
+        ((InstantItem) item).activateEffect(Globals.alien);
     }
 
     /**
      * Show information about an item as a popup
-     * @param item 
+     *
+     * @param item
      */
     private void showItemPopup(Item item)
     {
         // Calculate adjustment from camera
-        int camRadj = 3; 
+        int camRadj = 3;
         int camCadj = 2;
         int camYadj = camRadj * Globals.tileSize;
         int camXadj = camCadj * Globals.tileSize;
 
         // Calculate actual position
-        int r = Map.convertYtoRow(cam.getY() + camYadj);
-        int c = Map.convertXtoCol(cam.getX() + camXadj);
-        
-        // Special case = teleportation
-        if (item.getName().toLowerCase().contains("clock"))
+        int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
+        int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
+
+        // Special cases = teleportation
+        String name = item.getName().toLowerCase();
+        if (name.contains("clock"))
         {
-            r = camRadj;
-            c = camCadj;
+            r = Map.convertYtoRow(Globals.cam.getY() + camYadj - 34 * 64);
+            c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
+        }
+        else if (name.contains("shipgold"))
+        {
+            r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
+            c = Map.convertXtoCol(Globals.cam.getX() + camXadj + 6 * 64);
+            item.afterAction();
         }
 
         Popup itemInfo = itemStore.getInfoPopup(item, r, c); // Generate info
-        hud.loadPopup(itemInfo); // Show it
+        Globals.hud.loadPopup(itemInfo); // Show it
     }
 
     private void processItemUse()
     {
         // Get the obstacle zone the player is currently inside, if any
-        ObstacleZone obZone = obStore.getZoneUnder(alien);
+        ObstacleZone obZone = obStore.getZoneUnder(Globals.alien);
 
         // If a obstacle was found that is locked
         if ((obZone != null) && (obZone.isLocked()))
         {
             // If the key item of the zone is in the player's inventory
-            if (alien.hasItem(obZone.getKeyItem()))
+            if (Globals.alien.hasItem(obZone.getKeyItem()))
             {
+                // Special
+                if (obZone.getKeyItem().equals("ShipGold"))
+                {
+                    obZone.afterAction();
+                    return;
+                }
+
                 // Set as unlocked
                 obZone.setLocked(false);
 
@@ -297,17 +302,50 @@ public class ActualGame extends BasicGameState
                     obStore.addEncounter(obst);
 
                     // Special processing of crystals
-                    if (obst.getName().contains("Gate"))
+                    String obN = obst.getName();
+                    if (obN.contains("Gate"))
                     {
                         obStore.crystalPlaced();
                     }
+                  
+                    // Usables
+                    boolean cryo = obN.contains("Tree");
+                    boolean gun = obN.contains("Lime");
+                    boolean orb = obN.contains("Water");
+                    // Calculate adjustment from camera
+                        int camRadj = 3;
+                        int camCadj = 2;
+                        int camYadj = camRadj * Globals.tileSize;
+                        int camXadj = camCadj * Globals.tileSize;
 
+                        // Calculate actual position
+                        int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
+                        int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
+                    if (cryo)
+                    {
+                        UsableItem item = Globals.alien.getItemByName("Cryo");
+                        Globals.hud.loadPopup(itemStore.getUsablePopup(item, r, c));
+                    }
+                    else if (gun)
+                    {
+                        UsableItem item = Globals.alien.getItemByName("Acid");
+                        Globals.hud.loadPopup(itemStore.getUsablePopup(item, r, c));
+                    }
+                    else if (orb)
+                    {
+                        UsableItem item = Globals.alien.getItemByName("Orb");
+                        Globals.hud.loadPopup(itemStore.getUsablePopup(item, r, c));
+                    }
+
+                    
                     // Unblock the obstacle
                     if (obst.isUnblockOn())
                     {
                         Globals.map.unblockEntity(obst);
                     }
                 }
+                
+               
             }
         }
     }
@@ -327,19 +365,19 @@ public class ActualGame extends BasicGameState
     {
         // Draw camera's view of map
         // Note: Drawing by layers individually is not done due to severe lag
-        cam.drawMap();
-        cam.translateGraphics();
+        Globals.cam.drawMap();
+        Globals.cam.translateGraphics();
 
         // Account for grabbed items
-        itemStore.updateMap(g, alien);
-        enemyStore.updateMap(g, alien);
-        obStore.updateMap(g, alien);
+        itemStore.updateMap(g, Globals.alien);
+        enemyStore.updateMap(g, Globals.alien);
+        obStore.updateMap(g, Globals.alien);
 
         // Draw player
-        alien.drawPlayer(alien.getX(), alien.getY());
+        Globals.alien.drawPlayer(Globals.alien.getX(), Globals.alien.getY());
 
         // Draw HUD
-        hud.drawHUD(g);
+        Globals.hud.drawHUD(g);
     }
 
 }

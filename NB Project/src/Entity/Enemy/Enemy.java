@@ -7,7 +7,7 @@ import Entity.Base.Entity;
  *
  * @author David Charkey
  */
-public class Enemy extends Entity
+public abstract class Enemy extends Entity
 {
 
     /**
@@ -35,5 +35,7 @@ public class Enemy extends Entity
     {
         super(name, tlc, tlr, 2, 2);
     }
+
+    public abstract void doAction();
 
 }

@@ -1,6 +1,9 @@
 package Main;
 
+import Components.Structures.Camera;
+import Components.Structures.HUD;
 import Components.Structures.Map;
+import Components.Structures.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,6 +11,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BigImage;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.*;
@@ -27,9 +31,15 @@ public class Globals
     // A directory of game states
     public static HashMap<String, Integer> STATES = new HashMap<>();
 
-    // The game mpa
-    public static Map map = null;
+    // Structures
+    public static Map map;
+    public static Camera cam;
+    public static Player alien;
+    public static HUD hud;
 
+    // Music
+    public static Music ambientMusic;
+    
     // Game font
     public static TrueTypeFont gameFont = null;
 
@@ -64,12 +74,13 @@ public class Globals
     public static final String SFXres = root + "audio/effects/";
     public static final String mapRes = root + "map/map.tmx";
     public static final String cursorRes = root + "misc/cursor.png";
+    public static final String ambMusRes = root + "audio/music/ambmus.ogg";
 
     // Global Numbers
     public static int screenW = 0; // Screen width
     public static int screenH = 0; // Screen height
     public static int tileSize = 64; // Side length of tiles
-    public static final int BG_COUNT = 2; // Number of backgrounds to load (max 17) //test
+    public static final int BG_COUNT = 17; // Number of backgrounds to load (max 17) 
     public static final int playerXadj = 22; // Adjust player X pos
     public static final int playerYadj = 64; // Adjusts player Y pos
 
@@ -80,8 +91,8 @@ public class Globals
 
     // Global Booleans
     //  Settings
-    public static boolean showDevData = true; // Show stats? //test
-    public static boolean fastText = true; // Increase popup write speed? //test
+    public static boolean showDevData = false; // Show stats? 
+    public static boolean fastText = false; // Increase popup write speed? 
     //  Internal      
     public static boolean inputIgnored = false; // True = input disabled for PLAY state
     public static boolean hasBeenPaused = false; // True = Game was paused once

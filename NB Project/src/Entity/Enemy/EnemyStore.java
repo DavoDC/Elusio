@@ -19,9 +19,45 @@ public class EnemyStore extends EntityStore
     {
         ArrayList<Entity> enemies = new ArrayList<>();
 
-        enemies.add(new Enemy("Mycovolence", 72, 80));
-        enemies.add(new Enemy("Trevil", 90, 40));
-        enemies.add(new Enemy("Viridash", 31, 32));
+        // Mycovolence
+        enemies.add(new Enemy("Mycovolence", 72, 80)
+        {
+            @Override
+            public void doAction()
+            {
+                //Globals.SBG.enterState(Globals.STATES.get("CHALLENGE"));
+            }
+        });
+
+        // Trevil
+        enemies.add(new Enemy("Trevil", 90, 40)
+        {
+            @Override
+            public void doAction()
+            {
+                //Globals.SBG.enterState(Globals.STATES.get("CHALLENGE"));
+            }
+        });
+
+        // Viridash
+        enemies.add(new Enemy("Viridash", 31, 32)
+        {
+            @Override
+            public void doAction()
+            {
+                //Globals.SBG.enterState(Globals.STATES.get("CHALLENGE"));
+            }
+        });
+
+        // Ship
+        enemies.add(new Enemy("Ship", 11, 76)
+        {
+            @Override
+            public void doAction()
+            {
+                //Globals.SBG.enterState(Globals.STATES.get("CHALLENGE"));
+            }
+        });
 
         return enemies;
     }

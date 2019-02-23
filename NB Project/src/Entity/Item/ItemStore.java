@@ -22,41 +22,70 @@ public class ItemStore extends EntityStore
         ArrayList<Entity> itemList = new ArrayList<>();
 
         // Add magic items
-        itemList.add(new Item(
+        itemList.add(new UsableItem(
                 "Cryocapacitor Set",
                 "Its storing microamounts of nearby energy as antimatter",
                 "It could annihilate some weak, dry matter once activated",
+                "The cryocapacitors annihilated the dead trees!",
                 23, 25));
-        itemList.add(new Item(
+        itemList.add(new UsableItem(
                 "Magistructor Orb",
                 "Inside, it beats rhythmically with creative vigor",
                 "Upon activation, it could manifest more of an existing substance",
+                "The orb created a magistruct replica of the nearby wood!",
                 82, 5));
+
+        // Add limestone items
+        itemList.add(new Item(
+                "LimestoneSample",
+                "Hmmm .. Looks like high calcium limestone",
+                2, 28));
+        itemList.add(new UsableItem(
+                "AcidGun",
+                "A rifle that uses some sort of acerbic fluid",
+                "The fluid could corrode certain materials",
+                "The rifle's acid reacted with the carbonate!",
+                21, 3));
 
         // Add crystals
         itemList.add(new Item(
                 "Crystal12",
-                "A high, specific EMR frequency is emanating.. 1122Hz",
+                "This crystal has a high, specific EMR frequency .. 1122Hz",
                 "Somehow it seems that .. it is longing for something... ",
                 65, 6));
         itemList.add(new ProtectedItem(
                 "Crystal3",
-                "Has an EMR signature of 333Hz",
+                "This crystal has an EMR signature of 333Hz",
                 "It .. misses the presence of something... ",
                 "Viridash",
                 30, 33));
         itemList.add(new ProtectedItem(
                 "Crystal6",
-                "It emanates a particular EMR frequency .. 666Hz",
+                "The crystal emanates a particular EMR frequency .. 666Hz",
                 "It is longing for something... ",
                 "Trevil",
                 89, 41));
         itemList.add(new ProtectedItem(
                 "Crystal9",
-                "A particular EMR frequency is being emitted .. 999Hz",
+                "A particular EMR frequency is being emitted by this crystal.. 999Hz",
                 "This crystal yearns to join something ... ",
                 "Mycovolence",
                 71, 81));
+
+        // Ship gold
+        itemList.add(new ProtectedItem(
+                "ShipGold",
+                "We have all the electrovelox substitute we could ever need!",
+                "Now we can finally repair me! Come back to me",
+                "Ship",
+                10, 74, 3, 6)
+        {
+            @Override
+            public void afterAction()
+            {
+                Globals.alien.adjustX(Globals.tileSize * 6);
+            }
+        });
 
         // Add gold coin
         itemList.add(new Item(
@@ -101,7 +130,7 @@ public class ItemStore extends EntityStore
         itemList.add(new InstantItem(
                 "Alacrity Ring",
                 "This ring is enchanted with alacrity essence",
-                "You should wear it to speed up your movement!",
+                "I recommend wearing it!",
                 59, 50)
         {
             @Override
@@ -114,8 +143,13 @@ public class ItemStore extends EntityStore
         // Add Syringe = huge speed increase
         itemList.add(new InstantItem(
                 "Syringe",
+                new String[]
+                {
                 "A common stimulant from Izukia, named STH06",
-                "Its highly potent. Be careful. ",
+                "Its highly potent. Be careful... I'm receiving something ",
+                "I just heard " + quote("BigDaz") + " say " + quote("You skitz druggo") + "!",
+                "That was really strange ...",
+                },
                 3, 44)
         {
             @Override
@@ -145,7 +179,7 @@ public class ItemStore extends EntityStore
                 new String[]
                 {
                     "It’s some sort of primitive storage device ...",
-                    "<Y2Kalamity – Zero Divisor> has been scribbled on it",
+                    "<Y2Kalamity Insect> has been scribbled on it",
                     "I sense touching it has activated it somehow"
                 },
                 72, 1)
@@ -181,15 +215,15 @@ public class ItemStore extends EntityStore
                 new String[]
                 {
                     "A digital time-keeper .. ",
-                    "Thats strange ... It has no Higgs field",
-                    "Wow! It teleported you back here!"
+                    "Thats strange ... It has no Higgs boson field",
+                    "Wow! It teleported you !"
                 },
                 12, 54)
         {
             @Override
             public void activateEffect(Player player)
             {
-                player.resetLocation();
+                player.adjustY(-34 * 64);
 
             }
         });
@@ -197,6 +231,11 @@ public class ItemStore extends EntityStore
         // Return list
         return itemList;
 
+    }
+    
+    private String quote(String in)
+    {
+        return ('"' + in + '"');
     }
 
     @Override
@@ -249,12 +288,43 @@ public class ItemStore extends EntityStore
         // Create popup lines 
         ArrayList<String> itemLines = item.getInfoLines();
         ArrayList<String> newLines = new ArrayList<>();
-        String start = "(Xaidu, telepathically): ";
+        String start = "(Ehecatl, telepathically): ";
         for (String curItemLine : itemLines)
         {
             newLines.add(start + curItemLine);
         }
-        newLines.add("(You, telepathically): Thanks for the info, Xaidu!");
+        newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
+
+        // Return
+        return (new Popup(feats, newLines));
+    }
+    
+    
+       /**
+     * Get a popup with item information
+     *
+     * @param item
+     * @param r
+     * @param c
+     * @return
+     */
+    public Popup getUsablePopup(Item item, int r, int c)
+    {
+        // Set features of popip
+        ArrayList<Object> feats = new ArrayList<>();
+        feats.add(r);  // Tile grid row
+        feats.add(c);  // Tile grid column 
+        feats.add(18); // Width as number of tiles 
+        feats.add(2);  // Height as number of tiles 
+        feats.add(20); // Interval for delay writer
+        feats.add("default"); // FontS or "default"
+
+        // Create popup lines 
+        ArrayList<String> itemLines = item.getInfoLines();
+        ArrayList<String> newLines = new ArrayList<>();
+        String start = "(Ehecatl, telepathically): ";
+        newLines.add(start + ((UsableItem)item).getUseLine());
+        newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
 
         // Return
         return (new Popup(feats, newLines));

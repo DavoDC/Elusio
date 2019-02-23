@@ -54,10 +54,8 @@ public class HUD
      *
      * @param cam
      * @param player
-     * @param guiC
-     * @param sbg
      */
-    public HUD(Camera cam, Player player, GUIContext guiC, StateBasedGame sbg)
+    public HUD(Camera cam, Player player)
     {
         // Create button features
         ArrayList<Object> feats = new ArrayList<>();
@@ -93,7 +91,7 @@ public class HUD
                 (AbstractComponent source) ->
         {
             Globals.hasBeenPaused = true;
-            sbg.enterState(Globals.STATES.get("MAINMENU"));
+            Globals.SBG.enterState(Globals.STATES.get("MAINMENU"));
             // No transitions because map goes weird
         });
 

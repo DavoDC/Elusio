@@ -168,4 +168,18 @@ public abstract class Entity
         }
     }
 
+    /**
+     * Action that occurs before item grab
+     */
+    public void beforeAction()
+    {
+    }
+
+    /**
+     * Action that occurs after item grab
+     */
+    public void afterAction()
+    {
+    }
+
 }

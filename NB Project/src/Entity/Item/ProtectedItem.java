@@ -25,6 +25,13 @@ public class ProtectedItem extends Item
         this.protector = protector;
     }
 
+    public ProtectedItem(String name, String info1, String info2, String prot, int c, int r, int w, int h)
+    {
+        super(name, info1, info2, c, r, w, h);
+
+        this.protector = prot;
+    }
+
     /**
      * Get protector name
      *

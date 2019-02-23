@@ -1,13 +1,18 @@
 package States;
 
+import Challenge.Challenge;
 import Main.Globals;
 import Components.Helpers.FontServer;
+import Components.Structures.Camera;
+import Components.Structures.HUD;
 import Components.Structures.Map;
+import Components.Structures.Player;
 import org.newdawn.slick.Color;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
@@ -65,7 +70,19 @@ public class Loading extends BasicGameState
             // Special initialisations
             Globals.SBG = game;
             Globals.agc.setDefaultFont(FontServer.getFont("Segoe UI-Plain-16"));
+
+            // Structures
             Globals.map = new Map(Globals.mapRes);
+            Globals.alien = new Player();
+            Globals.cam = new Camera(gc, Globals.map);
+            Globals.cam.centerOn(Globals.alien.getX(), Globals.alien.getX());
+            Globals.hud = new HUD(Globals.cam, Globals.alien);
+            
+            // Music
+            Globals.agc.setMusicOn(true);
+            Globals.agc.setMusicVolume(0.69f);
+            Globals.ambientMusic = new Music(Globals.ambMusRes);
+            Globals.ambientMusic.loop();
 
         }
         catch (SlickException ex)
@@ -116,6 +133,9 @@ public class Loading extends BasicGameState
 
         Globals.STATES.put("SETTINGS", Globals.STATES.size() + 1);
         sbg.addState(new Settings());
+
+        Globals.STATES.put("CHALLENGE", Globals.STATES.size() + 1);
+        sbg.addState(new Challenge());
 
         // Load resources
         sbg.init(gc);

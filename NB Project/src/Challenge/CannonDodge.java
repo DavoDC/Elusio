@@ -1,4 +1,4 @@
-package Minigame;
+package Challenge;
 
 //package code.GameStates.Minigame;
 //

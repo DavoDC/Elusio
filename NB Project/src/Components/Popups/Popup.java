@@ -133,6 +133,7 @@ public class Popup
                     visible = false; // Hide popup
                     Globals.inputIgnored = false; // Re-enable keys
                     shown = true;
+                    action();
                 }
             }
             else if (textDW.hasWrittenOnce()) // If line has been shown
@@ -143,6 +144,10 @@ public class Popup
             }
         }
         );
+    }
+
+    public void action()
+    {
     }
 
     /**

@@ -1,6 +1,7 @@
 package Components.Structures;
 
 import Entity.Item.Item;
+import Entity.Item.UsableItem;
 import Main.Globals;
 
 import java.util.ArrayList;
@@ -37,11 +38,11 @@ public class Player
     private SpriteSheet sprites;
 
     // Animation of player moving
-    private int animSpeed; 
-    private Animation anim; 
-    
+    private int animSpeed;
+    private Animation anim;
+
     // Amount of animSpeed per movSpeed
-    private final int speedRatio = 2000; 
+    private final int speedRatio = 90;
 
     // Inventory
     private ArrayList<Item> inv;
@@ -87,9 +88,9 @@ public class Player
 
     private void harmonizeSpeeds()
     {
-        animSpeed = (int) ((1/movSpeed) * speedRatio);
+        animSpeed = (int) ((1 / movSpeed) * speedRatio);
     }
-    
+
     public int getX()
     {
         return xPos;
@@ -138,7 +139,7 @@ public class Player
             int randomVal = 0;
 
             // Add random value
-            randomVal += (int) (Math.random() * 10);
+            randomVal += (int) (Math.random() * 20);
 
             // Apply random sign
             boolean flip = Math.random() >= 0.5;
@@ -320,6 +321,21 @@ public class Player
     public void disableGlitch()
     {
         glitched = false;
+    }
+
+    public UsableItem getItemByName(String nameQ)
+    {
+        if (hasItem(nameQ))
+        {
+            for (Item i : inv)
+            {
+                if (i.getName().contains(nameQ))
+                {
+                    return (UsableItem) i;
+                }
+            }
+        }
+        return null;
     }
 
 }

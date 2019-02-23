@@ -16,11 +16,11 @@ public class ObstacleZone extends Entity
     // Status of lock
     boolean locked;
 
-    public ObstacleZone(String name, String key, int tlc, int tlr, int w, int h)
+    public ObstacleZone(String name, String keyItem, int tlc, int tlr, int w, int h)
     {
         super(name, tlc, tlr, w, h);
 
-        keyItem = key;
+        this.keyItem = keyItem;
         locked = true;
     }
 
