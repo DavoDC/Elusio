@@ -23,7 +23,9 @@ import org.newdawn.slick.state.transition.*;
  */
 public class Globals
 {
-
+    // Game version
+    public static final String VERSION = "Version 0.1.1";
+    
     // Game framework
     public static AppGameContainer agc = null;
     public static StateBasedGame SBG = null;

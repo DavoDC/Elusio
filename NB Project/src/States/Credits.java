@@ -26,7 +26,7 @@ public class Credits extends InfoScreen
 
         // Add to text
         text.add("header_CREDITS_" + Globals.headerFont);
-        text.add("David Charkey (Programmer, Designer, Tester, Start Logo)");
+        text.add("David Charkey (Programmer, Designer, Tester, Logo)");
         text.add("Rawdanitsu (Menu Backgrounds)");
         text.add("hiddenone, Kadokawa (Alien sprites)");
         text.add("Ivan Voirol, Aweryn (Tiles)");
@@ -36,9 +36,10 @@ public class Credits extends InfoScreen
         text.add("Tuomo Untinen (Sailing Ship Sprites)");
         text.add("Jorge Avila (HUD icons)");
         text.add("phoenix1291 (Sound effects)");
-        text.add("Dural (https://icons8.com/music/author/dural), (Background music)");
+        text.add("Dural from icons8.com (Background music)");
         text.add("J.W. Bjerk (Magic item sprites)");
         text.add("Avery (Enemy sprites)");
+		text.add("Alex Celenza (Playtester)");
 
         return text;
     }

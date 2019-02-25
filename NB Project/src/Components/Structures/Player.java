@@ -49,6 +49,7 @@ public class Player
 
     // Glitch status
     private boolean glitched;
+    private boolean permaPatched;
 
     /**
      * Create a player with preset values
@@ -79,6 +80,7 @@ public class Player
         inv = new ArrayList<>();
 
         glitched = false;
+        permaPatched = false;
 
         // Adjust animation
         anim.stop();  // Prevents animation from starting on its own
@@ -134,19 +136,22 @@ public class Player
 
     private int getGlitchValue()
     {
-        if (glitched)
-        {
-            int randomVal = 0;
-
-            // Add random value
-            randomVal += (int) (Math.random() * 20);
-
-            // Apply random sign
-            boolean flip = Math.random() >= 0.5;
-            randomVal = randomVal * (flip ? -1 : 1);
-
-            return randomVal;
-        }
+//        if (glitched && !permaPatched)
+//        {
+//            int randomVal = 0;
+//
+//            // Randomly add random value
+//            if (Math.random() < 0.01)
+//            {
+//                randomVal += (int) Globals.tileSize/4;
+//            }
+//            
+//            // Apply random sign
+//            boolean flip = Math.random() >= 0.5;
+//            randomVal = randomVal * (flip ? -1 : 1);
+//
+//            return randomVal;
+//        }
 
         return 0;
     }
@@ -321,6 +326,7 @@ public class Player
     public void disableGlitch()
     {
         glitched = false;
+        permaPatched = true;
     }
 
     public UsableItem getItemByName(String nameQ)

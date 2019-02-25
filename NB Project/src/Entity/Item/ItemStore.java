@@ -173,41 +173,45 @@ public class ItemStore extends EntityStore
             }
         });
 
-        // Add floppy disk = glitch maker
-        itemList.add(new InstantItem(
-                "FloppyDisk",
-                new String[]
-                {
-                    "It’s some sort of primitive storage device ...",
-                    "<Y2Kalamity Insect> has been scribbled on it",
-                    "I sense touching it has activated it somehow"
-                },
-                72, 1)
-        {
-            @Override
-            public void activateEffect(Player player)
-            {
-                player.activateGlitch();
-            }
-        });
-
-        // Add software = glitch fixer/disabler
-        itemList.add(new InstantItem(
-                "SoftwareDisc",
-                new String[]
-                {
-                    "Looks like a light-based data record",
-                    "A faint label reads: Bug Compliance Kit – 1996 - Planet City",
-                    "Amazing! The software is running inexplicably while stored!"
-                },
-                45, 46)
-        {
-            @Override
-            public void activateEffect(Player player)
-            {
-                player.disableGlitch();
-            }
-        });
+//        // Add floppy disk = glitch maker
+//        itemList.add(new InstantItem(
+//                "FloppyDisk",
+//                new String[]
+//                {
+//                    "It’s some sort of primitive storage device ...",
+//                    "<Y2Kalamity Insect> has been scribbled on it",
+//                    "I sense touching it has activated it somehow",
+//                    "Uh oh! Its malicious! Its hacking the nature of spacetime!",
+//                    "You may experience strange effects!",
+//                    "As per resonance theory, there is probably a cure around!", 
+//                    "Probably a software kit, look for it!"
+//                },
+//                72, 1)
+//        {
+//            @Override
+//            public void activateEffect(Player player)
+//            {
+//                player.activateGlitch();
+//            }
+//        });
+//
+//        // Add software = glitch fixer/disabler
+//        itemList.add(new InstantItem(
+//                "SoftwareDisc",
+//                new String[]
+//                {
+//                    "Looks like a light-based data record",
+//                    "A faint label reads: Bug Compliance Kit – 1996 - Planet City",
+//                    "Amazing! The software is running inexplicably while stored!"
+//                },
+//                45, 46)
+//        {
+//            @Override
+//            public void activateEffect(Player player)
+//            {
+//                player.disableGlitch();
+//            }
+//        });
 
         // Add clock at 0 = teleport back to starting loc
         itemList.add(new InstantItem(

@@ -1,1 +1,0 @@
-InvisibleMouseIssue = Turn pointer trails on then off
