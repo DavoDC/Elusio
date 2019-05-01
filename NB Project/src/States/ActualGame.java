@@ -2,9 +2,6 @@ package States;
 
 import Components.Popups.Popup;
 import Main.Globals;
-import Components.Structures.Camera;
-import Components.Structures.Player;
-import Components.Structures.HUD;
 import Components.Structures.Map;
 import Entity.Item.*;
 import Entity.Enemy.*;
