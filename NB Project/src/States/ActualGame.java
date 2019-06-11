@@ -16,7 +16,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * Models game play
+ * Handles actual gameplay
  *
  * @author David
  */
@@ -273,77 +273,71 @@ public class ActualGame extends BasicGameState
         // Get the obstacle zone the player is currently inside, if any
         ObstacleZone obZone = obStore.getZoneUnder(Globals.alien);
 
-        // If a obstacle was found that is locked
-        if ((obZone != null) && (obZone.isLocked()))
+        // If (locked obstacle found) && (player has key item of zone)
+        if (((obZone != null) && (obZone.isLocked())) && (Globals.alien.hasItem(obZone.getKeyItem())))
         {
-            // If the key item of the zone is in the player's inventory
-            if (Globals.alien.hasItem(obZone.getKeyItem()))
+            // Special
+            if (obZone.getKeyItem().equals("ShipGold"))
             {
-                // Special
-                if (obZone.getKeyItem().equals("ShipGold"))
-                {
-                    obZone.afterAction();
-                    return;
-                }
-
-                // Set as unlocked
-                obZone.setLocked(false);
-
-                // Get the zone's matching obstacle(s)
-                ArrayList<Obstacle> obstacles = obStore.getMatchingObstacles(obZone);
-
-                // For every matching obstacle
-                for (Obstacle obst : obstacles)
-                {
-                    // Hide the obstacle
-                    obStore.addEncounter(obst);
-
-                    // Special processing of crystals
-                    String obN = obst.getName();
-                    if (obN.contains("Gate"))
-                    {
-                        obStore.crystalPlaced();
-                    }
-                  
-                    // Usables
-                    boolean cryo = obN.contains("Tree");
-                    boolean gun = obN.contains("Lime");
-                    boolean orb = obN.contains("Water");
-                    // Calculate adjustment from camera
-                        int camRadj = 3;
-                        int camCadj = 2;
-                        int camYadj = camRadj * Globals.tileSize;
-                        int camXadj = camCadj * Globals.tileSize;
-
-                        // Calculate actual position
-                        int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
-                        int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
-                    if (cryo)
-                    {
-                        UsableItem item = Globals.alien.getItemByName("Cryo");
-                        Globals.hud.loadPopup(itemStore.getUsablePopup(item, r, c));
-                    }
-                    else if (gun)
-                    {
-                        UsableItem item = Globals.alien.getItemByName("Acid");
-                        Globals.hud.loadPopup(itemStore.getUsablePopup(item, r, c));
-                    }
-                    else if (orb)
-                    {
-                        UsableItem item = Globals.alien.getItemByName("Orb");
-                        Globals.hud.loadPopup(itemStore.getUsablePopup(item, r, c));
-                    }
-
-                    
-                    // Unblock the obstacle
-                    if (obst.isUnblockOn())
-                    {
-                        Globals.map.unblockEntity(obst);
-                    }
-                }
-                
-               
+                obZone.afterAction();
+                return;
             }
+
+            // Set as unlocked
+            obZone.setLocked(false);
+
+            // Get the zone's matching obstacle(s)
+            ArrayList<Obstacle> obstacles = obStore.getMatchingObstacles(obZone);
+
+            // For every matching obstacle
+            for (Obstacle obst : obstacles)
+            {
+                // Hide the obstacle
+                obStore.addEncounter(obst);
+
+                // Special processing of crystals
+                String obN = obst.getName();
+                if (obN.contains("Gate"))
+                {
+                    obStore.crystalPlaced();
+                }
+
+                // Usables
+                boolean cryo = obN.contains("Tree");
+                boolean gun = obN.contains("Lime");
+                boolean orb = obN.contains("Water");
+                // Calculate adjustment from camera
+                int camRadj = 3;
+                int camCadj = 2;
+                int camYadj = camRadj * Globals.tileSize;
+                int camXadj = camCadj * Globals.tileSize;
+
+                // Calculate actual position
+                int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
+                int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
+                if (cryo)
+                {
+                    UsableItem item = Globals.alien.getItemByName("Cryo");
+                    Globals.hud.loadPopup(itemStore.getUsablePopup(item, r, c));
+                }
+                else if (gun)
+                {
+                    UsableItem item = Globals.alien.getItemByName("Acid");
+                    Globals.hud.loadPopup(itemStore.getUsablePopup(item, r, c));
+                }
+                else if (orb)
+                {
+                    UsableItem item = Globals.alien.getItemByName("Orb");
+                    Globals.hud.loadPopup(itemStore.getUsablePopup(item, r, c));
+                }
+
+                // Unblock the obstacle
+                if (obst.isUnblockOn())
+                {
+                    Globals.map.unblockEntity(obst);
+                }
+            }
+
         }
     }
 

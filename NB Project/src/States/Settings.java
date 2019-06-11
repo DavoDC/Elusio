@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import org.newdawn.slick.gui.AbstractComponent;
 
 /**
+ * Provides an interface for making setting adjustments
  *
  * @author David
  */
 public class Settings extends InterfaceScreen
 {
 
+    // Font
     private final String settingsFont = "OCR A Extended-plain-35";
 
     @Override
@@ -76,7 +78,7 @@ public class Settings extends InterfaceScreen
         super.getButtonGrid().getButtonByPos(1).addListener((AbstractComponent source) ->
         {
             Globals.showDevData = !Globals.showDevData;
-            switchLabel(1, Globals.showDevData);
+            switchLabel(Globals.showDevData);
         });
 
     }
@@ -89,7 +91,7 @@ public class Settings extends InterfaceScreen
      * @param state boolean status
      * @return
      */
-    private void switchLabel(int pos, boolean state)
+    private void switchLabel(boolean state)
     {
         // Get previous string
         String prev = super.getButtonGrid().getButtonByPos(1).getLabel();

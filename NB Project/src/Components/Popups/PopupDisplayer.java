@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 
 /**
- * Helps to display information in-game Does this using interactive text boxes
+ * Displays information in-game using interactive text boxes
  *
  * @author David Charkey
  */
@@ -43,9 +43,7 @@ public class PopupDisplayer
         // Text
         ArrayList<String> textLines = new ArrayList<>();
         textLines.add("You: Argh ... my head ... Where am I?");
-        String locLine = "Ehecatl: We appear to have materialised in ";
-        locLine += Globals.dimensionName + ". There was...";
-        textLines.add(locLine);
+        textLines.add("Ehecatl: We appear to have materialised in Ellusio. There was...");
         textLines.add("You: Ehecatl! You surprised me! I am so glad you are still alive!");
         textLines.add("Ehecatl: I do not dissipate that easily, my friend");
         textLines.add("You: What happened to you?");

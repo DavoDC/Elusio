@@ -11,10 +11,10 @@ public class ObstacleZone extends Entity
 {
 
     // Name of item that removes obstacle
-    String keyItem;
+    private String keyItem;
 
     // Status of lock
-    boolean locked;
+    private boolean locked;
 
     public ObstacleZone(String name, String keyItem, int tlc, int tlr, int w, int h)
     {

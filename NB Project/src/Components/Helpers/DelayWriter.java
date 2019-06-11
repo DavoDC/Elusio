@@ -14,7 +14,7 @@ public class DelayWriter
     private String text;
 
     // End index of string 
-    int endIndex;
+    private int endIndex;
 
     // The time between character writes
     private long interval;

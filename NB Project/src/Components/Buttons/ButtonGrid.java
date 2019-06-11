@@ -151,6 +151,7 @@ public class ButtonGrid
 
     /**
      * Get the number of buttons in the grid
+     * @return 
      */
     public int getSize()
     {
@@ -249,6 +250,7 @@ public class ButtonGrid
 
     /**
      * Add actions to all buttons
+     * @param cl
      */
     public void applyActions(ComponentListener cl)
     {
@@ -260,6 +262,7 @@ public class ButtonGrid
 
     /**
      * Apply a font to all buttons
+     * @param fontS
      */
     public void applyFont(String fontS)
     {
@@ -271,6 +274,7 @@ public class ButtonGrid
 
     /**
      * Apply a label to all buttons
+     * @param newS
      */
     public void applyLabel(String newS)
     {

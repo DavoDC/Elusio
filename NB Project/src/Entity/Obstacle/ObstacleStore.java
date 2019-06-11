@@ -5,7 +5,6 @@ import Components.Structures.Map;
 import Components.Structures.Player;
 import Entity.Base.Entity;
 import Entity.Base.EntityStore;
-import Entity.Item.Item;
 import Main.Globals;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class ObstacleStore extends EntityStore
 {
 
     // Crystals placed
-    int crystalsPlaced = 0;
+    private int crystalsPlaced = 0;
 
     @Override
     public ArrayList<Entity> getEntities()
@@ -130,14 +129,10 @@ public class ObstacleStore extends EntityStore
         // For all entities
         for (Entity curEnt : getEntityList())
         {
-            // If under player
-            if (isEntityUnder(alien, curEnt))
+            // If under player AND if an obstacle zone
+            if (isEntityUnder(alien, curEnt) && (curEnt instanceof ObstacleZone))
             {
-                // If an obstacle zone
-                if (curEnt instanceof ObstacleZone)
-                {
-                    return (ObstacleZone) curEnt;
-                }
+                return (ObstacleZone) curEnt;
             }
         }
 
@@ -183,19 +178,16 @@ public class ObstacleStore extends EntityStore
             ArrayList<Entity> entities = super.getEntityList();
             for (Entity curEnt : entities)
             {
-                if (curEnt instanceof Obstacle)
+                // If is entity is an obstacle AND has Gate in name
+                if ((curEnt instanceof Obstacle) && (curEnt.getName().contains("Gate")))
                 {
-                    if (curEnt.getName().contains("Gate"))
-                    {
-                        Globals.map.unblockEntity(curEnt);
-                        Globals.hud.loadPopup(getGatePopup());
-                    }
+                    Globals.map.unblockEntity(curEnt);
+                    Globals.hud.loadPopup(getGatePopup());
                 }
             }
         }
     }
-    
-    
+
     private Popup getGatePopup()
     {
         // Calculate 
@@ -207,7 +199,7 @@ public class ObstacleStore extends EntityStore
         // Calculate actual position
         int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
         int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
-        
+
         // Set features of popup
         ArrayList<Object> feats = new ArrayList<>();
         feats.add(r);  // Tile grid row
@@ -224,7 +216,6 @@ public class ObstacleStore extends EntityStore
         newLines.add(start + "Felt like an etherealise spell");
         newLines.add(start + "You should investigate it!");
         newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
- 
 
         // Return
         return (new Popup(feats, newLines));

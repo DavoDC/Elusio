@@ -5,7 +5,7 @@ import Components.ScreenTemplates.InfoScreen;
 import java.util.ArrayList;
 
 /**
- * Displays info about those who contributed to the game
+ * Provides information about the game's contributors
  *
  * @author David
  */
@@ -39,7 +39,7 @@ public class Credits extends InfoScreen
         text.add("Dural from icons8.com (Background music)");
         text.add("J.W. Bjerk (Magic item sprites)");
         text.add("Avery (Enemy sprites)");
-		text.add("Alex Celenza (Playtester)");
+        text.add("Alex Celenza (Playtester)");
 
         return text;
     }

@@ -109,8 +109,8 @@ public abstract class InterfaceScreen extends BasicGameState
         Input input = gc.getInput();
 
         // Act on back button presses
-        boolean escClicked = gc.getInput().isKeyDown(Input.KEY_ESCAPE);
-        boolean middleClicked = gc.getInput().isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON);
+        boolean escClicked = input.isKeyDown(Input.KEY_ESCAPE);
+        boolean middleClicked = input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON);
         if (escClicked || middleClicked)
         {
             // Unless there, go to main menu
@@ -161,6 +161,7 @@ public abstract class InterfaceScreen extends BasicGameState
      */
     public void customPostInit()
     {
+        // For overriding
     }
 
     /**
@@ -168,6 +169,7 @@ public abstract class InterfaceScreen extends BasicGameState
      */
     public void customPreUpdate()
     {
+        // For overriding
     }
 
     /**
@@ -175,6 +177,7 @@ public abstract class InterfaceScreen extends BasicGameState
      */
     public void customPostRender(Graphics g)
     {
+        // For overriding
     }
 
     /**

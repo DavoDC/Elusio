@@ -5,13 +5,11 @@ import Components.Helpers.FontServer;
 import Components.ScreenTemplates.InfoScreen;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * Shown just before exit
+ * Shown when a mini-game is failed
  *
  * @author David
  */
@@ -43,12 +41,6 @@ public class GameOver extends InfoScreen
         text.add("GAMEOVER");
 
         return text;
-    }
-
-    @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta)
-    {
-
     }
 
     @Override

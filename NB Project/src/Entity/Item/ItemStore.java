@@ -145,10 +145,10 @@ public class ItemStore extends EntityStore
                 "Syringe",
                 new String[]
                 {
-                "A common stimulant from Izukia, named STH06",
-                "Its highly potent. Be careful... I'm receiving something ",
-                "I just heard " + quote("BigDaz") + " say " + quote("You skitz druggo") + "!",
-                "That was really strange ...",
+                    "A common stimulant from Izukia, named STH06",
+                    "Its highly potent. Be careful... I'm receiving something ",
+                    "I just heard " + quote("BigDaz") + " say " + quote("You skitz druggo") + "!",
+                    "That was really strange ...",
                 },
                 3, 44)
         {
@@ -212,7 +212,6 @@ public class ItemStore extends EntityStore
 //                player.disableGlitch();
 //            }
 //        });
-
         // Add clock at 0 = teleport back to starting loc
         itemList.add(new InstantItem(
                 "DigitalClock",
@@ -236,7 +235,7 @@ public class ItemStore extends EntityStore
         return itemList;
 
     }
-    
+
     private String quote(String in)
     {
         return ('"' + in + '"');
@@ -302,9 +301,8 @@ public class ItemStore extends EntityStore
         // Return
         return (new Popup(feats, newLines));
     }
-    
-    
-       /**
+
+    /**
      * Get a popup with item information
      *
      * @param item
@@ -327,7 +325,7 @@ public class ItemStore extends EntityStore
         ArrayList<String> itemLines = item.getInfoLines();
         ArrayList<String> newLines = new ArrayList<>();
         String start = "(Ehecatl, telepathically): ";
-        newLines.add(start + ((UsableItem)item).getUseLine());
+        newLines.add(start + ((UsableItem) item).getUseLine());
         newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
 
         // Return

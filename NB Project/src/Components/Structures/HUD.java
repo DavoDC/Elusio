@@ -13,8 +13,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.gui.AbstractComponent;
-import org.newdawn.slick.gui.GUIContext;
-import org.newdawn.slick.state.StateBasedGame;
 
 /**
  * Helps to draw HUD elements

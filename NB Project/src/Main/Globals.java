@@ -17,20 +17,22 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.*;
 
 /**
- * Global constants
+ * Global scope objects and constants
  *
  * @author David
  */
 public class Globals
 {
-    // Game version
+
+    // Game information
+    public static final String gameTitle = "Escaping Ellusio";
     public static final String VERSION = "Version 0.1.1";
-    
+
     // Game framework
     public static AppGameContainer agc = null;
     public static StateBasedGame SBG = null;
 
-    // A directory of game states
+    // Game state dictionary
     public static HashMap<String, Integer> STATES = new HashMap<>();
 
     // Structures
@@ -41,32 +43,13 @@ public class Globals
 
     // Music
     public static Music ambientMusic;
-    
+
     // Game font
     public static TrueTypeFont gameFont = null;
 
-    // Transitions
-    // Only work when re-created each time
-    private static Transition leave;
-
-    public static Transition getLeave()
-    {
-        leave = new FadeOutTransition(Color.black, 639);
-        return leave;
-    }
-    private static Transition enter;
-
-    public static Transition getEnter()
-    {
-        enter = new FadeInTransition(Color.black, 639);
-        return enter;
-    }
-
-    // Global Strings
+    // Resource filepath strings
     public static final String root = "res/";
     public static final String headerFont = "Gamefont-Plain-60";
-    public static final String dimensionName = "Ellusio-9";
-    public static final String gameTitle = "Escaping " + dimensionName;
     public static final String gameFontRes = root + "misc/3dventure.ttf";
     public static final String alertRes = root + "ui/alert.png";
     public static final String generalPanelRes = root + "ui/general.png";
@@ -78,7 +61,7 @@ public class Globals
     public static final String cursorRes = root + "misc/cursor.png";
     public static final String ambMusRes = root + "audio/music/ambmus.ogg";
 
-    // Global Numbers
+    // Constants
     public static int screenW = 0; // Screen width
     public static int screenH = 0; // Screen height
     public static int tileSize = 64; // Side length of tiles
@@ -86,17 +69,28 @@ public class Globals
     public static final int playerXadj = 22; // Adjust player X pos
     public static final int playerYadj = 64; // Adjusts player Y pos
 
-    // Global Images
+    // Images
     public static Image cursor; // Image of cursor
     public static Image alertMark; // Image of exclamation mark
     public static ArrayList<BigImage> backgrounds = new ArrayList<>(); // Backgrounds
 
-    // Global Booleans
+    // Booleans
     //  Settings
     public static boolean showDevData = false; // Show stats? 
     public static boolean fastText = false; // Increase popup write speed? 
     //  Internal      
     public static boolean inputIgnored = false; // True = input disabled for PLAY state
     public static boolean hasBeenPaused = false; // True = Game was paused once
+
+    // Transitions
+    public static Transition getLeave()
+    {
+        return new FadeOutTransition(Color.black, 639);
+    }
+
+    public static Transition getEnter()
+    {
+        return new FadeInTransition(Color.black, 639);
+    }
 
 }

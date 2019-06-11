@@ -14,6 +14,7 @@ import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
 
 /**
+ * Provides an interface for accessing the game and information
  *
  * @author David
  */
@@ -125,7 +126,7 @@ public class MainMenu extends InterfaceScreen
         // Draw title
         g.setColor(Color.white);
         tw.drawText(titleFont, 200, 50);
-        
+
         // Draw version 
         g.drawString(Globals.VERSION, 20, Globals.screenH - 25);
     }

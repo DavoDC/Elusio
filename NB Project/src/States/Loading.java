@@ -20,6 +20,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.*;
 
 /**
+ * Shown while the game is loading
  *
  * @author David
  */
@@ -33,8 +34,8 @@ public class Loading extends BasicGameState
     private TrueTypeFont font;
 
     // Time
-    long startRef = Globals.agc.getTime();
-    long introTime = 3669;
+    private long startRef = Globals.agc.getTime();
+    private long introTime = 3669;
 
     /**
      * Used to identify state Used to switch to state
@@ -77,7 +78,7 @@ public class Loading extends BasicGameState
             Globals.cam = new Camera(gc, Globals.map);
             Globals.cam.centerOn(Globals.alien.getX(), Globals.alien.getX());
             Globals.hud = new HUD(Globals.cam, Globals.alien);
-            
+
             // Music
             Globals.agc.setMusicOn(true);
             Globals.agc.setMusicVolume(0.69f);

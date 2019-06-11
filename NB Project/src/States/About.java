@@ -5,6 +5,7 @@ import Components.ScreenTemplates.InfoScreen;
 import java.util.ArrayList;
 
 /**
+ * Provides information about the game
  *
  * @author David
  */

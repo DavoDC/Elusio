@@ -1,7 +1,6 @@
 package Components.Popups;
 
 import Components.Buttons.Button;
-import Components.Structures.Map;
 import Components.Helpers.DelayWriter;
 import Components.Helpers.FontServer;
 import Main.Globals;
@@ -61,7 +60,7 @@ public class Popup
         String fontS = (String) feats.get(5);
 
         // Process font string
-        if (fontS.equals("default"))
+        if ("default".equals(fontS))
         {
             fontS = "Candara-Bold-26";
         }
@@ -146,8 +145,12 @@ public class Popup
         );
     }
 
+    /**
+     * Allows for actions to be attached to popups via overriding this method
+     */
     public void action()
     {
+        // For over-riding
     }
 
     /**
@@ -191,6 +194,11 @@ public class Popup
         instDW.drawText(instFont, instX, instY);
     }
 
+    /**
+     * Check whether popup has been shown
+     *
+     * @return
+     */
     public boolean hasBeenShown()
     {
         return shown;

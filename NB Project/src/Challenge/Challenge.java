@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Challenge;
 
 import Components.ScreenTemplates.InfoScreen;
@@ -17,18 +12,17 @@ import java.util.ArrayList;
 public class Challenge extends InfoScreen
 {
 
-    //        /**
-//     * in update = // Increase time
-//        timeElapsed += delta;
-//     * Helps interpreting time data
-//     */
-//    private boolean atTime(int time)
-//    {
-//        boolean before = (time - 40) < timeElapsed;
-//        boolean after = (time + 40) > timeElapsed;
-//        
-//        return (before && after);
-//    }
+    //
+    // In update = Increase time using "timeElapsed += delta;"
+    //    
+    // For timing events:    
+    //    private boolean atTime(int time)
+    //    {
+    //        boolean before = (time - 40) < timeElapsed;
+    //        boolean after = (time + 40) > timeElapsed;
+    //        
+    //        return (before && after);
+    //    }
     @Override
     public int getID()
     {
@@ -43,7 +37,7 @@ public class Challenge extends InfoScreen
         lines.add("CHALLENGE");
         lines.add("This is where a boss battle would be!");
         lines.add("Would be quite complex though...");
-        lines.add("May come in version 0.2! ");
+        lines.add("May come in next version! ");
         lines.add(" ");
         lines.add("To resume play: Press ESC to go to the MainMenu,");
         lines.add("and click on CONTINUE");

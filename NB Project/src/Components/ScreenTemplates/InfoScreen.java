@@ -1,7 +1,6 @@
 package Components.ScreenTemplates;
 
 import Main.Globals;
-import static Main.Globals.screenW;
 import java.util.ArrayList;
 
 /**
@@ -33,7 +32,7 @@ public abstract class InfoScreen extends InterfaceScreen
         feats.add(Globals.emptyImgRes); // Image Location
         feats.add(getStartXPos()); // startXpos
         feats.add(getStartYPos()); // startYpos
-        feats.add((int) screenW); // Width
+        feats.add((int) Globals.screenW); // Width
         feats.add(40); // Height
         feats.add(getXSpacing()); // XSpacing
         feats.add(getYSpacing()); // YSpacing

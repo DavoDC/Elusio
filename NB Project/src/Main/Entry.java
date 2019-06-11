@@ -7,6 +7,11 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * An entry point to the game
+ *
+ * @author David
+ */
 public class Entry extends StateBasedGame
 {
 

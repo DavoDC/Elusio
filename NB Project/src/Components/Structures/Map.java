@@ -6,9 +6,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 /**
- * Handles map rendering Handles collisions Handles camera Note: Collision
- * layers must have a property called blocked, set to true Note: Embed tilesets
- * Note: Don't change probabilities Note: Don't rotate/flip tiles
+ * Handles map rendering and collisions Note: - Collision layers must have a
+ * property called blocked, set to true - Embed tilesets - Don't change
+ * probabilities - Don't rotate/flip tiles
  *
  * @author David Charkey
  */
@@ -16,7 +16,7 @@ public class Map extends TiledMap
 {
 
     // Tile array
-    private boolean[][] blocked;
+    private final boolean[][] blocked;
 
     // Determine X collision tightness
     private final int Xfactor = 25;
@@ -46,9 +46,11 @@ public class Map extends TiledMap
         for (int l = 0; l < layerCount; l++)
         {
             String layerValue = getLayerProperty(l, "blocked", "false");
-            if (layerValue.equals("true"))
+            if ("true".equals(layerValue))
             {
-
+            }
+            else
+            {
                 for (int c = 0; c < VerticalTileNo; c++)
                 {
                     for (int r = 0; r < HorizontalTileNo; r++)
@@ -178,7 +180,7 @@ public class Map extends TiledMap
 
         // True if within map bounds
         int yLimiter = (getHeight() * getTileHeight()) - Globals.tileSize;
-        boolean cond3 = !((playerY + relSpeed) > yLimiter);
+        boolean cond3 = ((playerY + relSpeed) < yLimiter);
 
         return (cond1 && cond2 && cond3);
     }
@@ -220,7 +222,7 @@ public class Map extends TiledMap
         // True if within map bounds 
         int tileSize = Globals.tileSize;
         int xLimiter = (getWidth() * getTileWidth()) - (tileSize - tileSize / 6);
-        boolean cond3 = !((playerX + relSpeed) > xLimiter);
+        boolean cond3 = ((playerX + relSpeed) < xLimiter);
 
         return (cond1 && cond2 && cond3);
     }

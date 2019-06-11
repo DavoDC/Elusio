@@ -1,8 +1,6 @@
 package States;
 
 import Main.Globals;
-import Components.Buttons.Button;
-import Components.Buttons.ButtonGrid;
 import Components.Helpers.FontServer;
 import Components.ScreenTemplates.InfoScreen;
 import Components.ScreenTemplates.InterfaceScreen;
@@ -16,7 +14,7 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * Shown just before exit
+ * Shown just before the game exits
  *
  * @author David
  */
@@ -24,22 +22,19 @@ public class Exit extends InterfaceScreen
 {
 
     // The absolute time of closing
-    private long exitConstant = 3369 / 2;
+    private final long exitConstant = 3369 / 2;
 
     // The actual time of closing
     private long exitTime = 0;
-
-    // The time left before closing
-    private long timeLeft = exitConstant;
 
     // Percentage closed
     private int percentage = 0;
 
     // Text
-    private String mainFontS = "Castellar-Bold-60";
-    private String closeFontS = "Tahoma-Italic-16";
+    private final String mainFontS = "Castellar-Bold-60";
+    private final String closeFontS = "Tahoma-Italic-16";
     private TrueTypeFont closeFont;
-    private int closeX = (int) InfoScreen.lineX + 400;
+    private final int closeX = (int) InfoScreen.lineX + 400;
 
     @Override
     public int getID()
@@ -102,7 +97,7 @@ public class Exit extends InterfaceScreen
         long now = Globals.agc.getTime();
 
         // Calculate time left
-        timeLeft = exitTime - now;
+        long timeLeft = exitTime - now;
 
         // Calculate percentage
         float perF = (float) timeLeft / (float) exitConstant;

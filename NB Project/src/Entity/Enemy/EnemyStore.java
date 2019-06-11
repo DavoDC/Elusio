@@ -1,9 +1,7 @@
 package Entity.Enemy;
 
-import Components.Structures.Player;
 import Entity.Base.Entity;
 import Entity.Base.EntityStore;
-import Main.Globals;
 import java.util.ArrayList;
 
 /**
@@ -76,12 +74,10 @@ public class EnemyStore extends EntityStore
      */
     public Enemy getEnemy(String name)
     {
-        name = name.toLowerCase();
-
         Enemy enemy = null;
         for (Entity curEnt : getEntityList())
         {
-            if (curEnt.getName().toLowerCase().equals(name))
+            if (curEnt.getName().equalsIgnoreCase(name))
             {
                 enemy = (Enemy) curEnt;
                 break;

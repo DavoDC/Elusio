@@ -46,8 +46,7 @@ public class FontServer
     public static TrueTypeFont getFont(String rawFontS)
     {
         // Process font string
-        rawFontS = rawFontS.toLowerCase();
-        String[] parts = rawFontS.split("-");
+        String[] parts = rawFontS.toLowerCase().split("-");
         String fontS = parts[0];
         int styleID = interpretStyle(parts[1]);
         float size = Float.parseFloat(parts[2]);
