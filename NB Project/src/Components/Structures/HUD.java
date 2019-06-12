@@ -1,9 +1,7 @@
 package Components.Structures;
 
 import Main.Globals;
-import Components.Buttons.Button;
 import Components.Buttons.ButtonGrid;
-import Components.Helpers.FontServer;
 import Components.Popups.Popup;
 import Components.Popups.PopupDisplayer;
 import java.util.ArrayList;
@@ -11,7 +9,6 @@ import org.newdawn.slick.Color;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.gui.AbstractComponent;
 
 /**

@@ -34,9 +34,6 @@ public class Player
     // Movement speed of player
     private float movSpeed;
 
-    // Spritesheet holding all frames of player
-    private SpriteSheet sprites;
-
     // Animation of player moving
     private int animSpeed;
     private Animation anim;
@@ -62,9 +59,10 @@ public class Player
 
         movSpeed = 0.20f; // Default = 0.20
 
+        SpriteSheet sprites = null;
         try
         {
-            sprites = new SpriteSheet(Globals.playerSprRes, width, height);
+        sprites = new SpriteSheet(Globals.playerSprRes, width, height);
         }
         catch (SlickException e)
         {

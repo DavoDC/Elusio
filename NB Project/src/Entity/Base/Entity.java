@@ -19,7 +19,7 @@ public abstract class Entity
     private String[][] gridPos;
 
     // Tiles of entity
-    private Image[][] entImages;
+    // private Image[][] entImages;
 
     // Tiles of ground underneath
     private Image[][] undImages;
@@ -39,7 +39,7 @@ public abstract class Entity
         this.name = name;
 
         // Initialise arrays
-        entImages = new Image[h][w];
+        // entImages = new Image[h][w];
         undImages = new Image[h][w];
         gridPos = new String[h][w];
 
@@ -64,7 +64,7 @@ public abstract class Entity
      */
     public void initTileImages(String entLS, String undLS)
     {
-        int entLayerIndex = Globals.map.getLayerIndex(entLS);
+        // int entLayerIndex = Globals.map.getLayerIndex(entLS);
         int undLayerIndex = Globals.map.getLayerIndex(undLS);
 
         for (String[] gridRow : gridPos)
@@ -78,9 +78,9 @@ public abstract class Entity
                 int arrCol = Integer.parseInt(locPair[2]);
                 int arrRow = Integer.parseInt(locPair[3]);
 
-                // Get and save entity image
-                Image entImage = Globals.map.getTileImage(mapCol, mapRow, entLayerIndex); 
-                entImages[arrRow][arrCol] = entImage;
+//                // Get and save entity image
+//                Image entImage = Globals.map.getTileImage(mapCol, mapRow, entLayerIndex); 
+//                entImages[arrRow][arrCol] = entImage;
 
                 // Get and save ground image
                 Image undImage = Globals.map.getTileImage(mapCol, mapRow, undLayerIndex);
@@ -121,21 +121,6 @@ public abstract class Entity
         return gridPos;
     }
 
-//    /**
-//     * Replace all under images with input
-//     * @param rep
-//     */
-//    public void replaceUndImages(Image rep)
-//    {
-//        for (int r = 0; r < undImages.length; r++) 
-//        {
-//            for (int c = 0; c < undImages[r].length; c++)
-//             {
-//                 undImages[r][c] = null;
-//                 undImages[r][c] = rep;
-//             }
-//        }
-//    }
     /**
      * Hide an entity
      *
