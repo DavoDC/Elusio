@@ -48,31 +48,9 @@ public class ItemStore extends EntityStore
                 21, 3));
 
         // Add crystals
-        itemList.add(new Item(
-                "Crystal12",
-                "This crystal has a high, specific EMR frequency .. 1122Hz",
-                "Somehow it seems that .. it is longing for something... ",
-                65, 6));
-        itemList.add(new ProtectedItem(
-                "Crystal3",
-                "This crystal has an EMR signature of 333Hz",
-                "It .. misses the presence of something... ",
-                "Viridash",
-                30, 33));
-        itemList.add(new ProtectedItem(
-                "Crystal6",
-                "The crystal emanates a particular EMR frequency .. 666Hz",
-                "It is longing for something... ",
-                "Trevil",
-                89, 41));
-        itemList.add(new ProtectedItem(
-                "Crystal9",
-                "A particular EMR frequency is being emitted by this crystal.. 999Hz",
-                "This crystal yearns to join something ... ",
-                "Mycovolence",
-                71, 81));
-
-        // Ship gold
+        addCrystals(itemList);
+        
+        // Add ship gold
         itemList.add(new ProtectedItem(
                 "ShipGold",
                 "We have all the electrovelox substitute we could ever need!",
@@ -98,7 +76,73 @@ public class ItemStore extends EntityStore
                 },
                 50, 79));
 
-        // Add ipod = small speed increase
+        // Add speed modifiers
+        addSpeedItems(itemList);
+        
+
+        // Add clock at 0 = teleport back to starting loc
+        itemList.add(new InstantItem(
+                "DigitalClock",
+                new String[]
+                {
+                    "A digital time-keeper .. ",
+                    "Thats strange ... It has no Higgs boson field",
+                    "Wow! It teleported you !"
+                },
+                12, 54)
+        {
+            @Override
+            public void activateEffect(Player player)
+            {
+                player.adjustY(-34 * 64);
+
+            }
+        });
+
+        // Return list
+        return itemList;
+
+    }
+    
+    /**
+     * Add crystals
+     * @param itemList 
+     */
+    private void addCrystals(ArrayList<Entity> itemList)
+    {
+       itemList.add(new Item(
+                "Crystal12",
+                "This crystal has a high, specific EMR frequency .. 1122Hz",
+                "Somehow it seems that .. it is longing for something... ",
+                65, 6));
+        itemList.add(new ProtectedItem(
+                "Crystal3",
+                "This crystal has an EMR signature of 333Hz",
+                "It .. misses the presence of something... ",
+                "Viridash",
+                30, 33));
+        itemList.add(new ProtectedItem(
+                "Crystal6",
+                "The crystal emanates a particular EMR frequency .. 666Hz",
+                "It is longing for something... ",
+                "Trevil",
+                89, 41));
+        itemList.add(new ProtectedItem(
+                "Crystal9",
+                "A particular EMR frequency is being emitted by this crystal.. 999Hz",
+                "This crystal yearns to join something ... ",
+                "Mycovolence",
+                71, 81));
+
+    }
+    
+    /**
+     * Add speed altering items 
+     * @param itemList 
+     */
+    private void addSpeedItems(ArrayList<Entity> itemList)
+    {
+                // Add ipod = small speed increase
         itemList.add(new InstantItem(
                 "iPod",
                 "Using ESP, I can perceive sound waves emanating!",
@@ -111,7 +155,7 @@ public class ItemStore extends EntityStore
                 player.changeMovSpeed(0.07f);
             }
         });
-
+        
         // Add watch = small speed increase
         itemList.add(new InstantItem(
                 "Wristwatch",
@@ -172,68 +216,6 @@ public class ItemStore extends EntityStore
                 player.changeMovSpeed(-player.getMovSpeed() / 2);
             }
         });
-
-//        // Add floppy disk = glitch maker
-//        itemList.add(new InstantItem(
-//                "FloppyDisk",
-//                new String[]
-//                {
-//                    "It’s some sort of primitive storage device ...",
-//                    "<Y2Kalamity Insect> has been scribbled on it",
-//                    "I sense touching it has activated it somehow",
-//                    "Uh oh! Its malicious! Its hacking the nature of spacetime!",
-//                    "You may experience strange effects!",
-//                    "As per resonance theory, there is probably a cure around!", 
-//                    "Probably a software kit, look for it!"
-//                },
-//                72, 1)
-//        {
-//            @Override
-//            public void activateEffect(Player player)
-//            {
-//                player.activateGlitch();
-//            }
-//        });
-//
-//        // Add software = glitch fixer/disabler
-//        itemList.add(new InstantItem(
-//                "SoftwareDisc",
-//                new String[]
-//                {
-//                    "Looks like a light-based data record",
-//                    "A faint label reads: Bug Compliance Kit – 1996 - Planet City",
-//                    "Amazing! The software is running inexplicably while stored!"
-//                },
-//                45, 46)
-//        {
-//            @Override
-//            public void activateEffect(Player player)
-//            {
-//                player.disableGlitch();
-//            }
-//        });
-        // Add clock at 0 = teleport back to starting loc
-        itemList.add(new InstantItem(
-                "DigitalClock",
-                new String[]
-                {
-                    "A digital time-keeper .. ",
-                    "Thats strange ... It has no Higgs boson field",
-                    "Wow! It teleported you !"
-                },
-                12, 54)
-        {
-            @Override
-            public void activateEffect(Player player)
-            {
-                player.adjustY(-34 * 64);
-
-            }
-        });
-
-        // Return list
-        return itemList;
-
     }
 
     private String quote(String in)
@@ -322,7 +304,6 @@ public class ItemStore extends EntityStore
         feats.add("default"); // FontS or "default"
 
         // Create popup lines 
-        ArrayList<String> itemLines = item.getInfoLines();
         ArrayList<String> newLines = new ArrayList<>();
         String start = "(Ehecatl, telepathically): ";
         newLines.add(start + ((UsableItem) item).getUseLine());

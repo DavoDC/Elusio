@@ -46,10 +46,8 @@ public class Map extends TiledMap
         for (int l = 0; l < layerCount; l++)
         {
             String layerValue = getLayerProperty(l, "blocked", "false");
+            
             if ("true".equals(layerValue))
-            {
-            }
-            else
             {
                 for (int c = 0; c < VerticalTileNo; c++)
                 {

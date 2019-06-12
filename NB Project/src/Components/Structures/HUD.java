@@ -42,7 +42,7 @@ public class HUD
     private int playerY;
 
     // Font for lives
-    private TrueTypeFont lifeFont;
+    // private TrueTypeFont lifeFont;
 
     // Popup Displayer
     private PopupDisplayer popupDisp;
@@ -107,7 +107,7 @@ public class HUD
         shiftY = 0;
 
         // Initialise font
-        lifeFont = FontServer.getFont("Cambria-Bold-25");
+        // lifeFont = FontServer.getFont("Cambria-Bold-25");
 
         // Initialise PD
         popupDisp = new PopupDisplayer();
@@ -224,22 +224,22 @@ public class HUD
         g.drawString(mouseTile, drawX, drawY + 7 * yGap);
     }
 
-    /**
-     * Draws the number of lives in the bottom right
-     *
-     * @param g
-     */
-    private void drawLivesText(Graphics g)
-    {
-        // Calculate position
-        Button ref = buttonG.getButtonByPos(3);
-        int drawX = ref.getX() + SIDE_SIZE / 3 + 2;
-        int drawY = ref.getY() + SIDE_SIZE / 4 + 2;
-
-        // Draw number of lives
-        // String livesS = "" + Globals.playerLives + "";
-        // lifeFont.drawString(drawX, drawY, livesS, Color.black);
-    }
+//    /**
+//     * Draws the number of lives in the bottom right
+//     *
+//     * @param g
+//     */
+//    private void drawLivesText(Graphics g)
+//    {
+//        // Calculate position
+//        Button ref = buttonG.getButtonByPos(3);
+//        int drawX = ref.getX() + SIDE_SIZE / 3 + 2;
+//        int drawY = ref.getY() + SIDE_SIZE / 4 + 2;
+//
+//        // Draw number of lives
+//         String livesS = "" + Globals.playerLives + "";
+//         lifeFont.drawString(drawX, drawY, livesS, Color.black);
+//    }
 
     /**
      * Load a popup into the displayer

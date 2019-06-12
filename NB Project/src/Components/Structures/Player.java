@@ -47,10 +47,6 @@ public class Player
     // Inventory
     private ArrayList<Item> inv;
 
-    // Glitch status
-    private boolean glitched;
-    private boolean permaPatched;
-
     /**
      * Create a player with preset values
      */
@@ -79,9 +75,6 @@ public class Player
 
         inv = new ArrayList<>();
 
-        glitched = false;
-        permaPatched = false;
-
         // Adjust animation
         anim.stop();  // Prevents animation from starting on its own
         anim.setCurrentFrame(1); // Puts animation on "standing still" frame
@@ -105,7 +98,7 @@ public class Player
 
     public void adjustX(int change)
     {
-        // Adjust x
+        // Adjust X
         xPos += change;
 
         // Prevent negative values
@@ -113,15 +106,11 @@ public class Player
         {
             xPos -= change;
         }
-
-        // Account for glitch
-        xPos += getGlitchValue();
-
     }
 
     public void adjustY(int change)
     {
-        // Adjust x
+        // Adjust Y
         yPos += change;
 
         // Prevent negative values
@@ -129,31 +118,6 @@ public class Player
         {
             yPos -= change;
         }
-
-        // Account for glitch
-        yPos += getGlitchValue();
-    }
-
-    private int getGlitchValue()
-    {
-//        if (glitched && !permaPatched)
-//        {
-//            int randomVal = 0;
-//
-//            // Randomly add random value
-//            if (Math.random() < 0.01)
-//            {
-//                randomVal += (int) Globals.tileSize/4;
-//            }
-//            
-//            // Apply random sign
-//            boolean flip = Math.random() >= 0.5;
-//            randomVal = randomVal * (flip ? -1 : 1);
-//
-//            return randomVal;
-//        }
-
-        return 0;
     }
 
     public void resetLocation()
@@ -185,26 +149,31 @@ public class Player
      */
     public void startAnim(String dir)
     {
+        // Start animation
         anim.start();
 
-        String frameConfig = "n0";
-
+        // Determine frames needed
+        String frameConfig;
         switch (dir)
         {
             case "up":
-                frameConfig = "n9n10n11"; // back
+                frameConfig = "n9n10n11"; // Back frames
                 break;
             case "down":
-                frameConfig = "n0n1n2"; //front 
+                frameConfig = "n0n1n2"; // Front frames
                 break;
             case "left":
-                frameConfig = "n3n4n5"; //left
+                frameConfig = "n3n4n5"; // Left frames
                 break;
             case "right":
-                frameConfig = "n6n7n8"; //right
+                frameConfig = "n6n7n8"; // Right frames
+                break;
+            default:
+                frameConfig = "n0n1n2"; // Front frames
                 break;
         }
 
+        // Limit frames to those needed
         configureFrames(frameConfig);
     }
 
@@ -313,22 +282,11 @@ public class Player
     }
 
     /**
-     * Activate movement glitch
+     * Retrieve an item by its name. Otherwise returns null
+     *
+     * @param nameQ
+     * @return
      */
-    public void activateGlitch()
-    {
-        glitched = true;
-    }
-
-    /**
-     * Turn off movement glitch
-     */
-    public void disableGlitch()
-    {
-        glitched = false;
-        permaPatched = true;
-    }
-
     public UsableItem getItemByName(String nameQ)
     {
         if (hasItem(nameQ))

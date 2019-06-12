@@ -79,7 +79,7 @@ public abstract class Entity
                 int arrRow = Integer.parseInt(locPair[3]);
 
                 // Get and save entity image
-                Image entImage = Globals.map.getTileImage(mapCol, mapRow, entLayerIndex);
+                Image entImage = Globals.map.getTileImage(mapCol, mapRow, entLayerIndex); 
                 entImages[arrRow][arrCol] = entImage;
 
                 // Get and save ground image
@@ -173,6 +173,7 @@ public abstract class Entity
      */
     public void beforeAction()
     {
+        // To be overidden
     }
 
     /**
@@ -180,6 +181,7 @@ public abstract class Entity
      */
     public void afterAction()
     {
+        // To be overidden
     }
 
 }
