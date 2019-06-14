@@ -1,6 +1,6 @@
-package Entity.Obstacle;
+package entity.obstacle;
 
-import Entity.Base.Entity;
+import entity.base.Entity;
 
 /**
  * Represents the zone near an obstacle, where it can be unlocked

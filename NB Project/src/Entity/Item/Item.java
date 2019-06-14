@@ -1,8 +1,10 @@
-package Entity.Item;
+package entity.item;
 
-import Entity.Base.Entity;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import entity.base.Entity;
+
 
 /**
  * Models in-game items
@@ -12,14 +14,14 @@ import java.util.Arrays;
 public class Item extends Entity
 {
 
-    // Info
+    // Description lines
     private ArrayList<String> info;
 
     // Discovery Status
     private boolean isFound;
 
     /**
-     * Default constructor = Don't use
+     * Create an oversimplified item (do not use)
      *
      * @param name
      * @param tlc
@@ -33,7 +35,7 @@ public class Item extends Entity
     }
 
     /**
-     * Create a item with any number of info lines
+     * Create a item with many description lines
      *
      * @param name Item name
      * @param infoArr Item information

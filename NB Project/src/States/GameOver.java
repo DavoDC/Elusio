@@ -1,9 +1,11 @@
-package States;
+package states;
 
-import Main.Globals;
-import Components.Helpers.FontServer;
-import Components.ScreenTemplates.InfoScreen;
 import java.util.ArrayList;
+
+import main.Globals;
+import components.helpers.FontServer;
+import components.screentemps.InfoScreen;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;

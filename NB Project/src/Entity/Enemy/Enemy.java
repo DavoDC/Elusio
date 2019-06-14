@@ -1,6 +1,6 @@
-package Entity.Enemy;
+package entity.enemy;
 
-import Entity.Base.Entity;
+import entity.base.Entity;
 
 /**
  * Models an enemy

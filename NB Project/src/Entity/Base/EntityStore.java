@@ -1,8 +1,8 @@
-package Entity.Base;
+package entity.base;
 
-import Components.Structures.Map;
-import Components.Structures.Player;
-import Main.Globals;
+import components.structures.Map;
+import components.structures.Player;
+import main.Globals;
 
 import java.util.ArrayList;
 

@@ -1,12 +1,13 @@
-package Components.Structures;
+package components.structures;
 
-import Main.Globals;
-import Components.Buttons.ButtonGrid;
-import Components.Popups.Popup;
-import Components.Popups.PopupDisplayer;
 import java.util.ArrayList;
-import org.newdawn.slick.Color;
 
+import main.Globals;
+import components.buttons.ButtonGrid;
+import components.popups.Popup;
+import components.popups.PopupDisplayer;
+
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.gui.AbstractComponent;

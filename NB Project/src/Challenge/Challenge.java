@@ -1,7 +1,8 @@
-package Challenge;
+package challenge;
 
-import Components.ScreenTemplates.InfoScreen;
-import Main.Globals;
+import components.screentemps.InfoScreen;
+import main.Globals;
+
 import java.util.ArrayList;
 
 /**

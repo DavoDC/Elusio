@@ -1,9 +1,9 @@
-package States;
-
-import Main.Globals;
-import Components.ScreenTemplates.InfoScreen;
+package states;
 
 import java.util.ArrayList;
+
+import main.Globals;
+import components.screentemps.InfoScreen;
 
 /**
  * Provides information about the game's controls
@@ -31,8 +31,8 @@ public class Controls extends InfoScreen
         text.add("MOVEMENT = Arrow Keys");
         text.add("GRAB ITEM = Q");
         text.add("USE ITEM(S) = E");
-        // text.add("SHOW HINT = H or");
-        // text.add("SHOW INVENTORY = I or");
+        text.add("SHOW HINT = H");
+        text.add("SHOW INVENTORY = I");
 
         return text;
     }

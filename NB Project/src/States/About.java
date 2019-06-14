@@ -1,8 +1,10 @@
-package States;
+package states;
 
-import Main.Globals;
-import Components.ScreenTemplates.InfoScreen;
 import java.util.ArrayList;
+
+import main.Globals;
+import components.screentemps.InfoScreen;
+
 
 /**
  * Provides information about the game

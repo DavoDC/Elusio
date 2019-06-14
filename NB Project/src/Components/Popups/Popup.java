@@ -1,10 +1,12 @@
-package Components.Popups;
+package components.popups;
 
-import Components.Buttons.Button;
-import Components.Helpers.DelayWriter;
-import Components.Helpers.FontServer;
-import Main.Globals;
 import java.util.ArrayList;
+
+import components.buttons.Button;
+import components.helpers.DelayWriter;
+import components.helpers.FontServer;
+import main.Globals;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -28,17 +30,17 @@ public class Popup
 
     // Popup text (delayed)
     private final DelayWriter textDW;
-    private int textX;
-    private int textY;
-    private TrueTypeFont textFont;
-    private ArrayList<String> textLines; // AL of text lines
+    private final int textX;
+    private final int textY;
+    private final TrueTypeFont textFont;
+    private final ArrayList<String> textLines; // AL of text lines
     private int curLineNo; // Current line in AL above
 
     // Instructions (delayed)
-    private DelayWriter instDW;
-    private int instX;
-    private int instY;
-    private TrueTypeFont instFont;
+    private final DelayWriter instDW;
+    private final int instX;
+    private final int instY;
+    private final TrueTypeFont instFont;
     private final String instS = "Click here to continue!";
 
     /**

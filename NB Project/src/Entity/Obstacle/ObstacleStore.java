@@ -1,13 +1,13 @@
-package Entity.Obstacle;
-
-import Components.Popups.Popup;
-import Components.Structures.Map;
-import Components.Structures.Player;
-import Entity.Base.Entity;
-import Entity.Base.EntityStore;
-import Main.Globals;
+package entity.obstacle;
 
 import java.util.ArrayList;
+
+import main.Globals;
+import components.popups.Popup;
+import components.structures.Map;
+import components.structures.Player;
+import entity.base.Entity;
+import entity.base.EntityStore;
 
 /**
  * Handles obstacles

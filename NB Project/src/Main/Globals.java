@@ -1,11 +1,12 @@
-package Main;
+package main;
 
-import Components.Structures.Camera;
-import Components.Structures.HUD;
-import Components.Structures.Map;
-import Components.Structures.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import components.structures.Camera;
+import components.structures.HUD;
+import components.structures.Map;
+import components.structures.Player;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BigImage;

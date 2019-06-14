@@ -1,8 +1,9 @@
-package Components.Helpers;
+package components.helpers;
 
-import Main.Globals;
 import java.awt.Font;
 import java.io.InputStream;
+
+import main.Globals;
 
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.util.ResourceLoader;

@@ -1,11 +1,12 @@
-package Entity.Item;
+package entity.item;
 
-import Components.Popups.Popup;
-import Components.Structures.Player;
-import Entity.Base.Entity;
-import Entity.Base.EntityStore;
-import Main.Globals;
 import java.util.ArrayList;
+
+import main.Globals;
+import components.popups.Popup;
+import components.structures.Player;
+import entity.base.Entity;
+import entity.base.EntityStore;
 
 /**
  * Handles items

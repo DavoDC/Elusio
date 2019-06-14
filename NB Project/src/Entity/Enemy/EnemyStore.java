@@ -1,8 +1,10 @@
-package Entity.Enemy;
+package entity.enemy;
 
-import Entity.Base.Entity;
-import Entity.Base.EntityStore;
 import java.util.ArrayList;
+
+import entity.base.Entity;
+import entity.base.EntityStore;
+
 
 /**
  * Handles a group of enemies

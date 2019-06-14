@@ -1,12 +1,13 @@
-package States;
-
-import Main.Globals;
-import Components.ScreenTemplates.InterfaceScreen;
-import Components.Helpers.DelayWriter;
-import Components.Buttons.Button;
-import Components.Helpers.FontServer;
+package states;
 
 import java.util.ArrayList;
+
+import main.Globals;
+import components.screentemps.InterfaceScreen;
+import components.helpers.DelayWriter;
+import components.buttons.Button;
+import components.helpers.FontServer;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;

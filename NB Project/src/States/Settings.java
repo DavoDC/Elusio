@@ -1,9 +1,10 @@
-package States;
-
-import Main.Globals;
-import Components.ScreenTemplates.InterfaceScreen;
+package states;
 
 import java.util.ArrayList;
+
+import main.Globals;
+import components.screentemps.InterfaceScreen;
+
 import org.newdawn.slick.gui.AbstractComponent;
 
 /**

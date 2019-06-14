@@ -1,10 +1,12 @@
-package Components.ScreenTemplates;
+package components.screentemps;
 
-import Main.Globals;
-import Components.Buttons.ButtonGrid;
-import Components.Helpers.FontServer;
 import java.util.ArrayList;
 import java.util.Random;
+
+import main.Globals;
+import components.buttons.ButtonGrid;
+import components.helpers.FontServer;
+
 import org.newdawn.slick.BigImage;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;

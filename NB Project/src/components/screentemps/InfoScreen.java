@@ -1,7 +1,8 @@
-package Components.ScreenTemplates;
+package components.screentemps;
 
-import Main.Globals;
 import java.util.ArrayList;
+
+import main.Globals;
 
 /**
  * Models a screen containing info

@@ -1,8 +1,8 @@
-package Components.Structures;
+package components.structures;
 
-import Entity.Item.Item;
-import Entity.Item.UsableItem;
-import Main.Globals;
+import entity.item.Item;
+import entity.item.UsableItem;
+import main.Globals;
 
 import java.util.ArrayList;
 

@@ -1,14 +1,14 @@
-package States;
+package states;
 
-import Challenge.Challenge;
-import Main.Globals;
-import Components.Helpers.FontServer;
-import Components.Structures.Camera;
-import Components.Structures.HUD;
-import Components.Structures.Map;
-import Components.Structures.Player;
+import main.Globals;
+import challenge.Challenge;
+import components.helpers.FontServer;
+import components.structures.Camera;
+import components.structures.HUD;
+import components.structures.Map;
+import components.structures.Player;
+
 import org.newdawn.slick.Color;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -20,25 +20,25 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.*;
 
 /**
- * Shown while the game is loading
+ * Loads the game's resources and shows a loading screen
  *
  * @author David
  */
 public class Loading extends BasicGameState
 {
 
-    // Background
+    // Background image
     private Image introLogo;
 
-    // Font
+    // Text font
     private TrueTypeFont font;
 
     // Time
-    private long startRef = Globals.agc.getTime();
-    private long introTime = 3669;
+    private final long startRef = Globals.agc.getTime();
+    private final long introTime = 3669;
 
     /**
-     * Used to identify state Used to switch to state
+     * Used to identify this state
      *
      * @return
      */
@@ -49,19 +49,18 @@ public class Loading extends BasicGameState
     }
 
     /**
-     * This is only called when the game starts Used to load resources Used to
-     * initialise the game state.
+     * Loads the game's resources
      *
      * @param gc
-     * @param game
+     * @param sbg
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void init(GameContainer gc, StateBasedGame game) throws SlickException
+    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException
     {
         try
         {
-            // Initialise and adjust bg
+            // Initialise and adjust background
             introLogo = new Image("res/misc/intro.png");
             introLogo = introLogo.getScaledCopy(Globals.screenW, Globals.screenH);
 
@@ -69,17 +68,17 @@ public class Loading extends BasicGameState
             font = FontServer.getFont("gamefont-plain-75");
 
             // Special initialisations
-            Globals.SBG = game;
+            Globals.SBG = sbg;
             Globals.agc.setDefaultFont(FontServer.getFont("Segoe UI-Plain-16"));
 
-            // Structures
+            // Create structures
             Globals.map = new Map(Globals.mapRes);
             Globals.alien = new Player();
             Globals.cam = new Camera(gc, Globals.map);
             Globals.cam.centerOn(Globals.alien.getX(), Globals.alien.getX());
             Globals.hud = new HUD(Globals.cam, Globals.alien);
 
-            // Music
+            // Initialise and start music
             Globals.agc.setMusicOn(true);
             Globals.agc.setMusicVolume(0.69f);
             Globals.ambientMusic = new Music(Globals.ambMusRes);
@@ -88,15 +87,13 @@ public class Loading extends BasicGameState
         }
         catch (SlickException ex)
         {
-            System.err.println("Loading init issue");
+            System.err.println("Error in 'init' of Loading");
         }
 
     }
 
     /**
-     * The method is called each game loop to cause your game to update it's
-     * logic. This is where you should make objects move. This is also where you
-     * should check input and change the state of the game.
+     * Add
      *
      * @param gc Holds the game
      * @param sbg
@@ -106,10 +103,9 @@ public class Loading extends BasicGameState
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
     {
-        // Add all STATES
-        // Loading state is state 0
+        // Add all states
+        // Loading state is already added as state 0
         // IDs are determined automatically
-
         Globals.STATES.put("ABOUT", Globals.STATES.size() + 1);
         sbg.addState(new About());
 
@@ -125,7 +121,6 @@ public class Loading extends BasicGameState
         Globals.STATES.put("GAMEOVER", Globals.STATES.size() + 1);
         sbg.addState(new GameOver());
 
-        // LOADING already in
         Globals.STATES.put("MAINMENU", Globals.STATES.size() + 1);
         sbg.addState(new MainMenu());
 
@@ -137,26 +132,24 @@ public class Loading extends BasicGameState
 
         Globals.STATES.put("CHALLENGE", Globals.STATES.size() + 1);
         sbg.addState(new Challenge());
-
-        // Load resources
+        
+        // Initialize SBG
         sbg.init(gc);
 
-        // Wait to ensure loading screen is displayed 
+        // Wait until time is elapsed (allow loading screen to be shown)
         if (Globals.agc.getTime() > startRef + introTime)
         {
             // Enter main menu
             sbg.enterState(Globals.STATES.get("MAINMENU"),
-                    new FadeOutTransition(Color.black, 2000), //leave
-                    new FadeInTransition(Color.black, 10) //enter
+                    new FadeOutTransition(Color.black, 2000), // Leave
+                    new FadeInTransition(Color.black, 10) // Enter
             );
         }
 
     }
 
     /**
-     * This method should be used to draw to the screen. All of your game's
-     * rendering should take place in this method (or via calls) It is called
-     * constantly. Items are constantly redrawn
+     * Draws background and loading text
      *
      * @param gc
      * @param game

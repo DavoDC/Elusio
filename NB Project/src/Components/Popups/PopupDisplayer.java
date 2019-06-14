@@ -1,7 +1,9 @@
-package Components.Popups;
+package components.popups;
 
-import Main.Globals;
 import java.util.ArrayList;
+
+import main.Globals;
+
 import org.newdawn.slick.Graphics;
 
 /**

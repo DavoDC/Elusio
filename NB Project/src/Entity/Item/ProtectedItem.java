@@ -1,4 +1,4 @@
-package Entity.Item;
+package entity.item;
 
 /**
  * Models in-game items protected by enemies

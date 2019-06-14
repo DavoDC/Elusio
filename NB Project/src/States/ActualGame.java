@@ -1,12 +1,13 @@
-package States;
+package states;
 
-import Components.Popups.Popup;
-import Main.Globals;
-import Components.Structures.Map;
-import Entity.Item.*;
-import Entity.Enemy.*;
-import Entity.Obstacle.*;
 import java.util.ArrayList;
+
+import main.Globals;
+import components.popups.Popup;
+import components.structures.Map;
+import entity.item.*;
+import entity.enemy.*;
+import entity.obstacle.*;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

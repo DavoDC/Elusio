@@ -1,9 +1,10 @@
-package Components.Buttons;
+package components.buttons;
 
-import Components.Helpers.FontServer;
-import static Components.ScreenTemplates.InfoScreen.headerX;
-import Main.Globals;
 import java.util.ArrayList;
+
+import components.helpers.FontServer;
+import static components.screentemps.InfoScreen.headerX;
+import main.Globals;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;

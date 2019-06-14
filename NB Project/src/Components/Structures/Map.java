@@ -1,24 +1,22 @@
-package Components.Structures;
+package components.structures;
 
-import Entity.Base.Entity;
-import Main.Globals;
+import entity.base.Entity;
+import main.Globals;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 /**
- * Handles map rendering and collisions Note: - Collision layers must have a
- * property called blocked, set to true - Embed tilesets - Don't change
- * probabilities - Don't rotate/flip tiles
+ * Contains the map and handles collision processing
  *
  * @author David Charkey
  */
 public class Map extends TiledMap
 {
 
-    // Tile array
+    // Stores the 'hittable' status of every tile
     private final boolean[][] blocked;
 
-    // Determine X collision tightness
+    // Determines X collision tightness
     private final int Xfactor = 25;
     private final int Xadjuster = 50;
 
@@ -27,26 +25,33 @@ public class Map extends TiledMap
     private final int Yadjuster = 50;
 
     /**
-     * Initializes array of "tile cells" Each cell represents a tile "True"
-     * means blocked
+     * Initializes tile collision array, where "True" means blocked
      *
-     * @param ref
+     * @param filepath
      * @throws SlickException
      */
-    public Map(String ref) throws SlickException
+    public Map(String filepath) throws SlickException
     {
-        super(ref);
+        // Load the map file, ensuring that:
+        // - Collision layers have a property called blocked, set to true 
+        // - All tilesets are embedded
+        // - No probabilities have been changed
+        // - No tiles have been rotated/flipped
+        super(filepath);
 
+        // Get map properties
         int HorizontalTileNo = getHeight();
         int VerticalTileNo = getWidth();
         int layerCount = getLayerCount();
 
+        // Initialise array
         blocked = new boolean[HorizontalTileNo][VerticalTileNo];
 
+        // Fill array with values using blocked layer information
         for (int l = 0; l < layerCount; l++)
         {
             String layerValue = getLayerProperty(l, "blocked", "false");
-            
+
             if ("true".equals(layerValue))
             {
                 for (int c = 0; c < VerticalTileNo; c++)
@@ -64,28 +69,7 @@ public class Map extends TiledMap
     }
 
     /**
-     * Checks if a point is on a blocked tile
-     *
-     * @param x
-     * @param y
-     * @return
-     */
-    private boolean canPass(float x, float y)
-    {
-        try
-        {
-            int xBlock = convertXtoCol(x);
-            int yBlock = convertYtoRow(y);
-            return !blocked[xBlock][yBlock];
-        }
-        catch (Exception e)
-        {
-            return true;
-        }
-    }
-
-    /**
-     * Convert a x coordinate to the tile column
+     * Converts an X coordinate to tile column form
      *
      * @param xPos
      * @return
@@ -96,7 +80,7 @@ public class Map extends TiledMap
     }
 
     /**
-     * Convert a x coordinate to the tile column
+     * Convert a Y coordinate to tile row form
      *
      * @param yPos
      * @return Column
@@ -107,7 +91,7 @@ public class Map extends TiledMap
     }
 
     /**
-     * Convert x/y to r/c
+     * Helps to convert coordinates to row/column values
      */
     private static int getGridFromCoord(float coord)
     {
@@ -115,36 +99,7 @@ public class Map extends TiledMap
     }
 
     /**
-     * Make an entity's area unblocked
-     *
-     * @param ent
-     */
-    public void unblockEntity(Entity ent)
-    {
-        // Retrieve entity positions
-        String[][] entPos = ent.getGridPosArray();
-
-        // For every position in the entity
-        for (String[] row : entPos)
-        {
-            for (String pos : row)
-            {
-                // Get a position in OZ
-                String[] posPair = pos.split("-");
-                int curEcol = Integer.parseInt(posPair[0]);
-                int curErow = Integer.parseInt(posPair[1]);
-
-                // Change blocked array
-                blocked[curEcol][curErow] = false;
-
-            }
-        }
-    }
-
-    /**
-     * Checks tile collision Note: Map bounds check not needed Player position
-     * cannot have negative values Exiting the topside of the map requires
-     * negative values
+     * Returns true if upward movement is allowed
      *
      * @param playerX
      * @param playerY
@@ -157,12 +112,15 @@ public class Map extends TiledMap
         boolean cond1 = canPass(playerX + Xfactor, playerY - relSpeed);
         boolean cond2 = canPass(playerX + Xadjuster, playerY - relSpeed);
 
+        // Map bounds check = Already handled by Player class
+        // Negative Y values (outside top of map) are prevented
+        // Return result
         return (cond1 && cond2);
 
     }
 
     /**
-     * Checks tile collision and map bounds
+     * Returns true if downward movement is allowed
      *
      * @param playerX
      * @param playerY
@@ -184,9 +142,7 @@ public class Map extends TiledMap
     }
 
     /**
-     * Checks tile collision Note: Map bounds check not needed Player position
-     * cannot have negative values Exiting the left-side of the map requires
-     * negative values
+     * Returns true if leftward movement is allowed
      *
      * @param playerX
      * @param playerY
@@ -199,11 +155,14 @@ public class Map extends TiledMap
         boolean cond1 = canPass(playerX - relSpeed, playerY + Yadjuster);
         boolean cond2 = canPass(playerX - relSpeed, playerY + Yfactor);
 
+        // Map bounds check = Already handled by Player class
+        // Negative X values (outside left of map) are prevented
+        // Return result
         return (cond1 && cond2);
     }
 
     /**
-     * Checks tile collision and map bounds
+     * Returns true if rightward movement is allowed
      *
      * @param playerX
      * @param playerY
@@ -222,7 +181,56 @@ public class Map extends TiledMap
         int xLimiter = (getWidth() * getTileWidth()) - (tileSize - tileSize / 6);
         boolean cond3 = ((playerX + relSpeed) < xLimiter);
 
+        // Return result
         return (cond1 && cond2 && cond3);
+    }
+
+    /**
+     * Helps to check if a coordinate is on a blocked tile
+     *
+     * @param x
+     * @param y
+     * @return
+     */
+    private boolean canPass(float x, float y)
+    {
+        try
+        {
+            int xBlock = convertXtoCol(x);
+            int yBlock = convertYtoRow(y);
+            return !blocked[xBlock][yBlock];
+        }
+        catch (Exception e)
+        {
+            return true;
+        }
+    }
+
+    /**
+     * Unblocks the given entity
+     *
+     * @param ent The entity to be blocked
+     */
+    public void unblockEntity(Entity ent)
+    {
+        // Retrieve entity positions
+        String[][] entPos = ent.getGridPosArray();
+
+        // For every position in the entity
+        for (String[] row : entPos)
+        {
+            for (String pos : row)
+            {
+                // Get a position in OZ
+                String[] posPair = pos.split("-");
+                int curEcol = Integer.parseInt(posPair[0]);
+                int curErow = Integer.parseInt(posPair[1]);
+
+                // Change blocked array
+                blocked[curEcol][curErow] = false;
+
+            }
+        }
     }
 
 }
