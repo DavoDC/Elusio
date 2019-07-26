@@ -20,12 +20,12 @@ import org.newdawn.slick.gui.AbstractComponent;
 public class HUD
 {
 
-    // Resource folder
+    // Resource folder path
     private final String folder = Globals.root + "ui/";
 
     // Buttons
-    private ButtonGrid buttonG;
-    private final int BUTTON_NO = 1;
+    private final ButtonGrid buttonG;
+    private final int BUTTON_NO = 3;
     private final int SIDE_SIZE = 64;
     private final int SPACING = 16;
     private int shiftX;
@@ -41,9 +41,8 @@ public class HUD
 
     // Font for lives
     // private TrueTypeFont lifeFont;
-
     // Popup Displayer
-    private PopupDisplayer popupDisp;
+    private final PopupDisplayer popupDisp;
 
     /**
      * Initialise the HUD
@@ -66,7 +65,7 @@ public class HUD
         feats.add(BUTTON_NO); // NumberofColumns
         feats.add("calibri-plain-5"); // FontString
 
-        // Create button labels
+        // Create (empty) button labels
         ArrayList<String> labels = new ArrayList<>();
         int buttonNo = (int) feats.get(0);
         for (int i = 0; i <= buttonNo; i++)
@@ -74,16 +73,18 @@ public class HUD
             labels.add(" ");
         }
 
+        // Initialize BG
         buttonG = new ButtonGrid(feats, labels);
 
         // Change images
         buttonG.getButtonByPos(0).setImageLoc(folder + "menu.png");
-//        buttonG.getButtonByPos(1).setImageLoc(folder + "inv.png");
-//        buttonG.getButtonByPos(1).setImageLoc(folder + "hint.png");
+        buttonG.getButtonByPos(1).setImageLoc(folder + "inv.png");
+        buttonG.getButtonByPos(2).setImageLoc(folder + "hint.png");
 //        buttonG.getButtonByPos(X).setImageLoc(folder + "lives.png");
 
         // Add actions
-        buttonG.getButtonByPos(0).addListener( // Menu button
+        //  MainMenu button
+        buttonG.getButtonByPos(0).addListener(
                 (AbstractComponent source) ->
         {
             Globals.hasBeenPaused = true;
@@ -91,11 +92,14 @@ public class HUD
             // No transitions because map goes weird
         });
 
-//        buttonG.getButtonByPos(1).addListener( // Inv button
-//                (AbstractComponent source) ->
-//        {
-//            //showInventory();
-//        });
+        //  Inventory button
+        buttonG.getButtonByPos(1).addListener(
+                (AbstractComponent source) ->
+        {
+            Globals.hasBeenPaused = true;
+            Globals.SBG.enterState(Globals.STATES.get("INVENTORY"));
+        });
+
         // Initialise co-ordinates
         camX = cam.getX();
         camY = cam.getY();
@@ -106,14 +110,13 @@ public class HUD
 
         // Initialise font
         // lifeFont = FontServer.getFont("Cambria-Bold-25");
-
         // Initialise PD
         popupDisp = new PopupDisplayer();
 
     }
 
     /**
-     * Updates internal values Changes where the HUD is drawn
+     * Updates internal values and shifts HUD with player
      *
      * @param cam
      * @param player
@@ -157,7 +160,7 @@ public class HUD
     }
 
     /**
-     * Draws stats text on top of button
+     * Show runtime game values on top right
      *
      * @param g
      */
@@ -238,7 +241,6 @@ public class HUD
 //         String livesS = "" + Globals.playerLives + "";
 //         lifeFont.drawString(drawX, drawY, livesS, Color.black);
 //    }
-
     /**
      * Load a popup into the displayer
      *

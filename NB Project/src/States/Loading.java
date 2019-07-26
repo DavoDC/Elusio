@@ -134,6 +134,9 @@ public class Loading extends BasicGameState
         Globals.STATES.put("CHALLENGE", Globals.STATES.size() + 1);
         sbg.addState(new Challenge());
         
+        Globals.STATES.put("INVENTORY", Globals.STATES.size() + 1);
+        sbg.addState(new Inventory());
+        
         // Initialize SBG
         sbg.init(gc);
 

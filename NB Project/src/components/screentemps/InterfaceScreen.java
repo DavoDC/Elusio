@@ -107,10 +107,15 @@ public abstract class InterfaceScreen extends BasicGameState
     {
         customPreUpdate();
 
-        // Get input
-        Input input = gc.getInput();
+        // Don't proceed to back button processing if is a special state
+        int curStateID = sbg.getCurrentStateID();
+        if (specialStates.contains(curStateID))
+        {
+            return;
+        }
 
         // Act on back button presses
+        Input input = gc.getInput();
         boolean escClicked = input.isKeyDown(Input.KEY_ESCAPE);
         boolean middleClicked = input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON);
         if (escClicked || middleClicked)
@@ -147,7 +152,7 @@ public abstract class InterfaceScreen extends BasicGameState
         // Draw buttons
         buttonGrid.drawButtons(g);
 
-        // On certain STATES, reveal back button 
+        // If not a special state, reveal back button 
         int curStateID = game.getCurrentStateID();
         if (!specialStates.contains(curStateID))
         {
