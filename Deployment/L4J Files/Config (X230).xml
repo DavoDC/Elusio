@@ -19,7 +19,7 @@
     <windowTitle>SlickGame</windowTitle>
   </singleInstance>
   <classPath>
-    <mainClass>Main.Entry</mainClass>
+    <mainClass>main.Entry</mainClass>
     <cp>*.*</cp>
   </classPath>
   <jre>

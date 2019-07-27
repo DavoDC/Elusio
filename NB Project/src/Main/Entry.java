@@ -1,9 +1,5 @@
 package main;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.stream.Collectors;
 import states.Loading;
 
 import org.newdawn.slick.AppGameContainer;
@@ -34,11 +30,9 @@ public class Entry extends StateBasedGame
      */
     public static void main(String[] args)
     {
+        System.out.println("hi");
         try
         {
-            // Load OpenAL to fix sound
-            fixSoundError();
-
             // Create AGC
             Globals.agc = new AppGameContainer(new Entry());
 
@@ -53,6 +47,10 @@ public class Entry extends StateBasedGame
             Globals.agc.setSmoothDeltas(true);
             Globals.agc.setShowFPS(false);
 
+            // Prevents OpenAL DLL loading error when running in IDE, 
+            // thereby enabling sound/music for IDE (64 bit only)
+            System.loadLibrary("OpenAL64");
+            
             // Start AGC
             Globals.agc.start();
 
@@ -60,42 +58,6 @@ public class Entry extends StateBasedGame
         catch (SlickException e)
         {
             System.err.println("Main method in 'Entry' had an error");
-        }
-    }
-
-    /**
-     * Determines if OS is 64 and 32 and loads corresponding OpenAL DLL
-     */
-    private static void fixSoundError()
-    {
-        // Run CMD command
-        ProcessBuilder builder = new ProcessBuilder(
-                "cmd.exe", "/c", "wmic OS get OSArchitecture");
-        builder.redirectErrorStream(true);
-        Process p;
-
-        // Process result
-        String OSresult = "";
-        try
-        {
-            p = builder.start();
-            InputStream is = p.getInputStream();
-            BufferedReader buffer = new BufferedReader(new InputStreamReader(is));
-            OSresult = buffer.lines().collect(Collectors.joining("\n"));
-        }
-        catch (Exception ex)
-        {
-            System.err.println("Error in fixSound method");
-        }
-
-        // Load DLL based on OS found
-        if (OSresult.contains("64"))
-        {
-            System.loadLibrary("OpenAL64");
-        }
-        else
-        {
-            System.loadLibrary("OpenAL32");
         }
     }
 
