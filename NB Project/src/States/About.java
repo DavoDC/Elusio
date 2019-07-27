@@ -7,7 +7,7 @@ import components.screentemps.InfoScreen;
 
 
 /**
- * Provides information about the game
+ * A screen that provides information about the game
  *
  * @author David
  */
@@ -15,7 +15,7 @@ public class About extends InfoScreen
 {
 
     /**
-     * Override ID
+     * Used to identify state
      *
      * @return ID
      */
@@ -25,6 +25,10 @@ public class About extends InfoScreen
         return Globals.STATES.get("ABOUT");
     }
 
+    /**
+     * Used to get text of screen
+     * @return 
+     */
     @Override
     public ArrayList<String> getButtonLabels()
     {
@@ -34,7 +38,7 @@ public class About extends InfoScreen
         // Add to text
         text.add("header_ABOUT_" + Globals.headerFont);
         text.add("Main Creator: David Charkey");
-        text.add("Date of Creation: Early 2019");
+        text.add("First Created: January 2019");
         text.add("Language: Java");
         text.add("IDE: NetBeans");
         text.add("Engine: Slick2D");

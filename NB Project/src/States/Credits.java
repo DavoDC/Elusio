@@ -6,28 +6,37 @@ import main.Globals;
 import components.screentemps.InfoScreen;
 
 /**
- * Provides information about the game's contributors
+ * A screen that provides information about the game's contributors
  *
- * @author David
+ * @author David Charkey
  */
 public class Credits extends InfoScreen
 {
 
+    /**
+     * Used to identify the state
+     * @return 
+     */
     @Override
     public int getID()
     {
         return Globals.STATES.get("CREDITS");
     }
 
+    /**
+     * Provides the text for the screen
+     * @return 
+     */
     @Override
     public ArrayList<String> getButtonLabels()
     {
-        //Create AL
+        // Create AL
         ArrayList<String> text = new ArrayList<>();
 
         // Add to text
         text.add("header_CREDITS_" + Globals.headerFont);
         text.add("David Charkey (Programmer, Designer, Tester, Logo)");
+        text.add("Alex Celenza (Playtester)");
         text.add("Rawdanitsu (Menu Backgrounds)");
         text.add("hiddenone, Kadokawa (Alien sprites)");
         text.add("Ivan Voirol, Aweryn (Tiles)");
@@ -40,40 +49,54 @@ public class Credits extends InfoScreen
         text.add("Dural from icons8.com (Background music)");
         text.add("J.W. Bjerk (Magic item sprites)");
         text.add("Avery (Enemy sprites)");
-        text.add("Alex Celenza (Playtester)");
 
         return text;
     }
 
+    /**
+     * Provides the X position
+     * @return 
+     */
     @Override
     public int getStartXPos()
     {
         return (int) (InfoScreen.lineX - 200);
     }
 
-//    @Override
-//    public int getStartYPos()
-//    {
-//        return (int) (InfoScreen.lineY + 40);
-//    }
+    /**
+     * Provides the X Spacing
+     * @return 
+     */
     @Override
     public int getXSpacing()
     {
         return -750;
     }
-
-    @Override
-    public int getColumnNo()
-    {
-        return 2;
-    }
-
+    
+    /**
+     * Provides the Y Spacing
+     * @return 
+     */
     @Override
     public int getYSpacing()
     {
         return 0;
     }
 
+    /**
+     * Provides the number of columns
+     * @return 
+     */
+    @Override
+    public int getColumnNo()
+    {
+        return 2;
+    }
+
+    /**
+     * Provides the font for the text
+     * @return 
+     */
     @Override
     public String getLineFontString()
     {

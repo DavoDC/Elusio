@@ -30,16 +30,16 @@ public class Globals
 
     // Game information
     public static final String gameTitle = "Escaping Ellusio";
-    public static final String VERSION = "Version 0.1.1";
+    public static final String VERSION = "Version 0.1.2";
 
     // Game framework
     public static AppGameContainer agc = null;
     public static StateBasedGame SBG = null;
 
-    // Game state dictionary
+    // Game state directory
     public static HashMap<String, Integer> STATES = new HashMap<>();
 
-    // Structures
+    // Main structures
     public static Map map;
     public static Camera cam;
     public static Player alien;
