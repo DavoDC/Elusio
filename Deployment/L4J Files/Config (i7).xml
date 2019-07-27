@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\charkeyd\Google Drive\Personal\Computery\Programming Projects\NetBeans Projects\Slick2D Game\NB Project\dist\SlickGame.jar</jar>
-  <outfile>C:\Users\charkeyd\Google Drive\Personal\Computery\Programming Projects\NetBeans Projects\Slick2D Game\Deployment\Deployable\SlickGame.exe</outfile>
+  <jar>C:\Users\David\Google Drive\Personal\Computery\Programming Projects\NetBeans Projects\Slick2D Game\NB Project\dist\SlickGame.jar</jar>
+  <outfile>C:\Users\David\Google Drive\Personal\Computery\Programming Projects\NetBeans Projects\Slick2D Game\Deployment\Deployable\SlickGame.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>./required</chdir>
@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\Users\charkeyd\Google Drive\Personal\Computery\Programming Projects\NetBeans Projects\Slick2D Game\Deployment\L4J Files\icon.ico</icon>
+  <icon>C:\Users\David\Google Drive\Personal\Computery\Programming Projects\NetBeans Projects\Slick2D Game\Deployment\L4J Files\icon.ico</icon>
   <singleInstance>
     <mutexName>SlickGame</mutexName>
     <windowTitle>SlickGame</windowTitle>
@@ -27,7 +27,7 @@
     <bundledJre64Bit>false</bundledJre64Bit>
     <bundledJreAsFallback>false</bundledJreAsFallback>
     <minVersion>2.0</minVersion>
-    <maxVersion>10.0</maxVersion>
+    <maxVersion>50.0</maxVersion>
     <jdkPreference>preferJre</jdkPreference>
     <runtimeBits>64/32</runtimeBits>
   </jre>
