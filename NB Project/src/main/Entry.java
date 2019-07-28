@@ -33,6 +33,10 @@ public class Entry extends StateBasedGame
         System.out.println("hi");
         try
         {
+            // Prevents OpenAL DLL loading error when running in IDE, 
+            // thereby enabling sound/music for IDE (64 bit only)
+            System.loadLibrary("OpenAL64");
+
             // Create AGC
             Globals.agc = new AppGameContainer(new Entry());
 
@@ -47,10 +51,6 @@ public class Entry extends StateBasedGame
             Globals.agc.setSmoothDeltas(true);
             Globals.agc.setShowFPS(false);
 
-            // Prevents OpenAL DLL loading error when running in IDE, 
-            // thereby enabling sound/music for IDE (64 bit only)
-            System.loadLibrary("OpenAL64");
-            
             // Start AGC
             Globals.agc.start();
 
