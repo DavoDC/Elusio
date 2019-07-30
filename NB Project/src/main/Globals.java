@@ -30,7 +30,7 @@ public class Globals
 
     // Game information
     public static final String gameTitle = "Escaping Ellusio";
-    public static final String VERSION = "Version 0.1.2";
+    public static final String VERSION = "0.1.2";
 
     // Game framework
     public static AppGameContainer agc = null;

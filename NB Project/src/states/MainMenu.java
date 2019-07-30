@@ -129,7 +129,7 @@ public class MainMenu extends InterfaceScreen
         tw.drawText(titleFont, 200, 50);
 
         // Draw version 
-        g.drawString(Globals.VERSION, 20, Globals.screenH - 25);
+        g.drawString("Version " + Globals.VERSION, 20, Globals.screenH - 25);
     }
 
     @Override

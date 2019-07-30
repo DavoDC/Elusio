@@ -30,7 +30,10 @@ public class Entry extends StateBasedGame
      */
     public static void main(String[] args)
     {
-        System.out.println("hi");
+        // Print out version info
+        System.out.println("\nSlick2DGame V" + Globals.VERSION + " Testing \n");
+
+        // Start up game
         try
         {
             // Prevents OpenAL DLL loading error when running in IDE, 
@@ -45,7 +48,11 @@ public class Entry extends StateBasedGame
             Globals.screenH = Globals.agc.getScreenHeight();
 
             // Adjust AGC
-            Globals.agc.setDisplayMode(Globals.screenW, Globals.screenH, true);
+			// NOTE = THINGS ARE MISSING FROM SCREEN, NEED TO ADD DEPENDENCY ON AGC dimension
+            int border = 100;
+            int winW = Globals.screenW - border;
+            int winH = Globals.screenH - border;
+            Globals.agc.setDisplayMode(winW, winH, false);
             Globals.agc.setTargetFrameRate(60);
             Globals.agc.setAlwaysRender(true);
             Globals.agc.setSmoothDeltas(true);
