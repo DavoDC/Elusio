@@ -1,4 +1,4 @@
-## Escaping Elusio 9
+## Escaping Elusio
 This is the GitHub repo for a Slick2D game.
 
 Please see the [Game's Official Wiki](https://github.com/DavoDC/SlickGame/wiki) for more information.
