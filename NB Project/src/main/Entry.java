@@ -38,7 +38,8 @@ public class Entry extends StateBasedGame
         {
             // Prevents OpenAL DLL loading error when running in IDE, 
             // thereby enabling sound/music for IDE (64 bit only)
-            System.loadLibrary("OpenAL64");
+            // DISABLE WHEN NOT IN IDE
+            // System.loadLibrary("OpenAL64");
 
             // Create AGC
             Globals.agc = new AppGameContainer(new Entry());
@@ -48,7 +49,7 @@ public class Entry extends StateBasedGame
             Globals.screenH = Globals.agc.getScreenHeight();
 
             // Adjust AGC
-			// NOTE = THINGS ARE MISSING FROM SCREEN, NEED TO ADD DEPENDENCY ON AGC dimension
+            // NOTE = THINGS ARE MISSING FROM SCREEN, NEED TO ADD DEPENDENCY ON AGC dimension
             int border = 100;
             int winW = Globals.screenW - border;
             int winH = Globals.screenH - border;
