@@ -12,34 +12,31 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author David Charkey
  */
-public class Entry extends StateBasedGame
-{
+public class Entry extends StateBasedGame {
 
     /**
      * Creates an entry point object
      */
-    public Entry()
-    {
+    public Entry() {
         super(Globals.gameTitle);
     }
 
     /**
-     * Entry method - Sets up the game-containing application
-     *
+     * The entry point for the game program. Sets up the execution environment
      * @param args
      */
-    public static void main(String[] args)
-    {
-        // Print out version info
-        System.out.println("\nSlick2DGame V" + Globals.VERSION + " Testing \n");
+    public static void main(String[] args) {
+        try {
 
-        // Start up game
-        try
-        {
-            // Prevents OpenAL DLL loading error when running in IDE, 
-            // thereby enabling sound/music for IDE (64 bit only)
-            // DISABLE WHEN NOT IN IDE
-            // System.loadLibrary("OpenAL64");
+            // Print out version info
+            System.out.println("\n" + Globals.gameTitle + " V" + Globals.VERSION + " Testing \n");
+
+            // If being run in IDE
+            if (args.length != 0 && args[0].equals("IDE")) {
+
+                // Load OpenAL DLL to prevent IDE giving error and being muted
+                System.loadLibrary("OpenAL64");
+            }
 
             // Create AGC
             Globals.agc = new AppGameContainer(new Entry());
@@ -49,11 +46,7 @@ public class Entry extends StateBasedGame
             Globals.screenH = Globals.agc.getScreenHeight();
 
             // Adjust AGC
-            // NOTE = THINGS ARE MISSING FROM SCREEN, NEED TO ADD DEPENDENCY ON AGC dimension
-            int border = 100;
-            int winW = Globals.screenW - border;
-            int winH = Globals.screenH - border;
-            Globals.agc.setDisplayMode(winW, winH, false);
+            Globals.agc.setDisplayMode(Globals.screenW, Globals.screenH, true);
             Globals.agc.setTargetFrameRate(60);
             Globals.agc.setAlwaysRender(true);
             Globals.agc.setSmoothDeltas(true);
@@ -62,9 +55,7 @@ public class Entry extends StateBasedGame
             // Start AGC
             Globals.agc.start();
 
-        }
-        catch (SlickException e)
-        {
+        } catch (SlickException e) {
             System.err.println("Main method in 'Entry' had an error");
         }
     }
@@ -76,8 +67,7 @@ public class Entry extends StateBasedGame
      * @throws SlickException
      */
     @Override
-    public void initStatesList(GameContainer gc) throws SlickException
-    {
+    public void initStatesList(GameContainer gc) throws SlickException {
         addState(new Loading());
     }
 

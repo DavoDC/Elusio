@@ -35,7 +35,7 @@ public class Credits extends InfoScreen
 
         // Add to text
         text.add("header_CREDITS_" + Globals.headerFont);
-        text.add("David Charkey (Programmer, Designer, Tester, Logo)");
+        text.add("David Charkey (Programmer, Designer, Playtester, Logo)");
         text.add("Alex Celenza (Playtester)");
         text.add("Rawdanitsu (Menu Backgrounds)");
         text.add("hiddenone, Kadokawa (Alien sprites)");
@@ -49,6 +49,7 @@ public class Credits extends InfoScreen
         text.add("Dural from icons8.com (Background music)");
         text.add("J.W. Bjerk (Magic item sprites)");
         text.add("Avery (Enemy sprites)");
+        text.add("and thankyou to you!");
 
         return text;
     }
@@ -70,7 +71,7 @@ public class Credits extends InfoScreen
     @Override
     public int getXSpacing()
     {
-        return -750;
+        return -900;
     }
     
     /**
@@ -100,7 +101,7 @@ public class Credits extends InfoScreen
     @Override
     public String getLineFontString()
     {
-        return "Segoe UI-Plain-18";
+        return "Segoe UI-Plain-22";
     }
 
 }
