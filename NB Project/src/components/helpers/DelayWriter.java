@@ -34,7 +34,7 @@ public class DelayWriter
         {
             this.interval = interval;
         }
-        else //If not , throw exception
+        else // If not , throw exception
         {
             throw new IllegalArgumentException("TW Interval must be mult of 10");
         }

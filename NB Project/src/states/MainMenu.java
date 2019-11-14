@@ -40,7 +40,7 @@ public class MainMenu extends InterfaceScreen
     public void customPostInit()
     {
         tw = new DelayWriter(70);
-        tw.setText(Globals.gameTitle);
+        tw.setText(Globals.gameTitle + " - The Dimensional Adventure");
         titleFont = FontServer.getFont(titleFontS);
 
         super.getButtonGrid().applyActions(new ComponentListener()
