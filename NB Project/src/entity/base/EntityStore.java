@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 
 /**
- * Handles a group of entities Creates them Draws them Removes them
+ * Handles a group of entities = Creates, Draws and Removes
  *
- * @author David Charkey
+ * @author David 
  */
 public abstract class EntityStore
 {

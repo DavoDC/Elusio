@@ -7,7 +7,7 @@ import main.Globals;
 /**
  * Models a screen containing info
  *
- * @author David Charkey
+ * @author David 
  */
 public abstract class InfoScreen extends InterfaceScreen
 {

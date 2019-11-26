@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Base class for challenge states
  *
- * @author David Charkey
+ * @author David 
  */
 public class Challenge extends InfoScreen
 {

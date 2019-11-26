@@ -10,7 +10,7 @@ import org.newdawn.slick.state.StateBasedGame;
 /**
  * The entry class from which the game application starts
  *
- * @author David Charkey
+ * @author David 
  */
 public class Entry extends StateBasedGame {
 

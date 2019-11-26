@@ -5,7 +5,7 @@ import org.newdawn.slick.TrueTypeFont;
 /**
  * Helps writing text sequentially, as if it were printed
  *
- * @author David Charkey
+ * @author David
  */
 public class DelayWriter
 {

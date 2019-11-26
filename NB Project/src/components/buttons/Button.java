@@ -16,7 +16,7 @@ import org.newdawn.slick.gui.MouseOverArea;
 /**
  * Models a button
  *
- * @author David Charkey
+ * @author David 
  */
 public class Button extends MouseOverArea
 {

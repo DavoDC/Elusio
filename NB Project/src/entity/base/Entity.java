@@ -7,7 +7,7 @@ import org.newdawn.slick.Image;
 /**
  * Models entities
  *
- * @author David Charkey
+ * @author David
  */
 public abstract class Entity
 {

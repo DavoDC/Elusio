@@ -5,7 +5,7 @@ import entity.base.Entity;
 /**
  * Represents an obstructed area
  *
- * @author David Charkey
+ * @author David 
  */
 public class Obstacle extends Entity
 {

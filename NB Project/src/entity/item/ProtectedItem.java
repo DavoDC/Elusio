@@ -3,7 +3,7 @@ package entity.item;
 /**
  * Models in-game items protected by enemies
  *
- * @author David Charkey
+ * @author David 
  */
 public class ProtectedItem extends Item
 {

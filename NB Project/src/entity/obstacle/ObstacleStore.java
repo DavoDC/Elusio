@@ -12,7 +12,7 @@ import entity.base.EntityStore;
 /**
  * Handles obstacles
  *
- * @author David Charkey
+ * @author David 
  */
 public class ObstacleStore extends EntityStore
 {

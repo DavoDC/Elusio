@@ -8,4 +8,4 @@ Gameplay Screenshot:
 ![Alt text](https://github.com/DavoDC/SlickGame/blob/master/Documents/Screenshot.png?raw=true "Gameplay Screenshot")
 
 
-_Copyright © 2019 David Charkey. All Rights Reserved._
+_Copyright © 2019 David. All Rights Reserved._

@@ -9,7 +9,7 @@ import org.newdawn.slick.Graphics;
 /**
  * Displays information in-game using interactive text boxes
  *
- * @author David Charkey
+ * @author David 
  */
 public class PopupDisplayer
 {

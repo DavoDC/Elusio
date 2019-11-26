@@ -5,7 +5,7 @@ import entity.base.Entity;
 /**
  * Represents the zone near an obstacle, where it can be unlocked
  *
- * @author David Charkey
+ * @author David
  */
 public class ObstacleZone extends Entity
 {
