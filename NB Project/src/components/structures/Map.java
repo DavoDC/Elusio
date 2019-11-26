@@ -8,7 +8,7 @@ import org.newdawn.slick.tiled.TiledMap;
 /**
  * Contains the map and handles collision processing
  *
- * @author David Charkey
+ * @author David 
  */
 public class Map extends TiledMap
 {

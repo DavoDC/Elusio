@@ -11,7 +11,7 @@ import entity.base.EntityStore;
 /**
  * Handles items
  *
- * @author David Charkey
+ * @author David
  */
 public class ItemStore extends EntityStore
 {

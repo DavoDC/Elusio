@@ -5,7 +5,7 @@ import components.structures.Player;
 /**
  * Items that have instant effects
  *
- * @author David Charkey
+ * @author David
  */
 public abstract class InstantItem extends Item
 {

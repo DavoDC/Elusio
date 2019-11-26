@@ -20,7 +20,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 /**
  *
- * @author David Charkey
+ * @author David 
  */
 public abstract class InterfaceScreen extends BasicGameState
 {

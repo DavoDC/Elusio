@@ -5,7 +5,7 @@ import entity.base.Entity;
 /**
  * Models an enemy
  *
- * @author David Charkey
+ * @author David
  */
 public abstract class Enemy extends Entity
 {

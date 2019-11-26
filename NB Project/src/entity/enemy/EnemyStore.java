@@ -9,7 +9,7 @@ import entity.base.EntityStore;
 /**
  * Handles a group of enemies
  *
- * @author David Charkey
+ * @author David
  */
 public class EnemyStore extends EntityStore
 {

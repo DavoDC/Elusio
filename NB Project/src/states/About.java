@@ -37,7 +37,7 @@ public class About extends InfoScreen
 
         // Add to text
         text.add("header_ABOUT_" + Globals.headerFont);
-        text.add("Main Creator: David Charkey");
+        text.add("Main Creator: David C");
         text.add("First Created: January 2019");
         text.add("Language: Java");
         text.add("IDE: NetBeans");

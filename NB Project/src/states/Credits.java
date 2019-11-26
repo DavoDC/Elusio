@@ -8,7 +8,7 @@ import components.screentemps.InfoScreen;
 /**
  * A screen that provides information about the game's contributors
  *
- * @author David Charkey
+ * @author David 
  */
 public class Credits extends InfoScreen
 {
@@ -35,7 +35,7 @@ public class Credits extends InfoScreen
 
         // Add to text
         text.add("header_CREDITS_" + Globals.headerFont);
-        text.add("David Charkey (Programmer, Designer, Playtester, Logo)");
+        text.add("David C (Programmer, Designer, Playtester, Logo)");
         text.add("Alex Celenza (Playtester)");
         text.add("Rawdanitsu (Menu Backgrounds)");
         text.add("hiddenone, Kadokawa (Alien sprites)");

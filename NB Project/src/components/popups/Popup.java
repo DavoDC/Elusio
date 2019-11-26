@@ -16,7 +16,7 @@ import org.newdawn.slick.geom.Rectangle;
 /**
  * Helps to display information
  *
- * @author David Charkey
+ * @author David
  */
 public class Popup
 {

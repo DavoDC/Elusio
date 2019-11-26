@@ -16,7 +16,7 @@ import org.newdawn.slick.gui.ComponentListener;
 /**
  * Helps controlling large numbers of buttons
  *
- * @author David Charkey
+ * @author David 
  */
 public class ButtonGrid
 {

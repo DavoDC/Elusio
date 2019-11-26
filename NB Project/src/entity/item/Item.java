@@ -9,7 +9,7 @@ import entity.base.Entity;
 /**
  * Models in-game items
  *
- * @author David Charkey
+ * @author David 
  */
 public class Item extends Entity
 {
