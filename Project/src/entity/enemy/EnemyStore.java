@@ -5,56 +5,50 @@ import java.util.ArrayList;
 import entity.base.Entity;
 import entity.base.EntityStore;
 
-
 /**
  * Handles a group of enemies
  *
  * @author David
  */
-public class EnemyStore extends EntityStore
-{
+public class EnemyStore extends EntityStore {
 
+    /**
+     * Create list of all enemies
+     *
+     * @return
+     */
     @Override
-    public ArrayList<Entity> getEntities()
-    {
+    public ArrayList<Entity> getEntities() {
         ArrayList<Entity> enemies = new ArrayList<>();
 
         // Mycovolence
-        enemies.add(new Enemy("Mycovolence", 72, 80)
-        {
+        enemies.add(new Enemy("Mycovolence", 72, 80) {
             @Override
-            public void doAction()
-            {
+            public void doAction() {
                 //Globals.SBG.enterState(Globals.STATES.get("CHALLENGE"));
             }
         });
 
         // Trevil
-        enemies.add(new Enemy("Trevil", 90, 40)
-        {
+        enemies.add(new Enemy("Trevil", 90, 40) {
             @Override
-            public void doAction()
-            {
+            public void doAction() {
                 //Globals.SBG.enterState(Globals.STATES.get("CHALLENGE"));
             }
         });
 
         // Viridash
-        enemies.add(new Enemy("Viridash", 31, 32)
-        {
+        enemies.add(new Enemy("Viridash", 31, 32) {
             @Override
-            public void doAction()
-            {
+            public void doAction() {
                 //Globals.SBG.enterState(Globals.STATES.get("CHALLENGE"));
             }
         });
 
         // Ship
-        enemies.add(new Enemy("Ship", 11, 76)
-        {
+        enemies.add(new Enemy("Ship", 11, 76) {
             @Override
-            public void doAction()
-            {
+            public void doAction() {
                 //Globals.SBG.enterState(Globals.STATES.get("CHALLENGE"));
             }
         });
@@ -62,31 +56,37 @@ public class EnemyStore extends EntityStore
         return enemies;
     }
 
+    /**
+     * Get layer holding enemy entities
+     *
+     * @return
+     */
     @Override
-    public String getEntLS()
-    {
+    public String getEntLS() {
         return "Enemies";
     }
 
     /**
-     * Get an enemy by name
+     * Get an enemy by its exact name, ignoring case
      *
      * @param name
      * @return Enemy, or null
      */
-    public Enemy getEnemy(String name)
-    {
-        Enemy enemy = null;
-        for (Entity curEnt : getEntityList())
-        {
-            if (curEnt.getName().equalsIgnoreCase(name))
-            {
-                enemy = (Enemy) curEnt;
-                break;
+    public Enemy getEnemy(String name) {
+
+        // For all enemies
+        for (Entity curEnt : getEntityList()) {
+
+            // If current enemy name matches given name
+            if (curEnt.getName().equalsIgnoreCase(name)) {
+
+                // Return enemy
+                return (Enemy) curEnt;
             }
         }
 
-        return enemy;
+        // If no enemy was found, return null
+        return null;
     }
 
 }

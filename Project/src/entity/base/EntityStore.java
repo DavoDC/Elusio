@@ -9,38 +9,36 @@ import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 
 /**
- * Handles a group of entities = Creates, Draws and Removes
+ * Handle a group of entities (Creation, Drawing and Removal)
  *
- * @author David 
+ * @author David
  */
-public abstract class EntityStore
-{
+public abstract class EntityStore {
 
-    // Stores information about all entities
-    private ArrayList<Entity> entityList;
+    // A list of all entities
+    private final ArrayList<Entity> entityList;
 
-    // Stores information about encountered entities
-    private ArrayList<Entity> encEntities;
+    // A list of all encountered entities
+    private final ArrayList<Entity> encEntities;
 
     /**
      * Initialise entity store
      */
-    public EntityStore()
-    {
+    public EntityStore() {
+
         // Initialise fields, where possible
         encEntities = new ArrayList<>();
         entityList = new ArrayList<>();
 
         // Do custom initialisations
         specificInit();
-
     }
 
     /**
      * Add entity-specific data
      */
-    private void specificInit()
-    {
+    private void specificInit() {
+
         // Populate entity list
         entityList.addAll(getEntities());
 
@@ -49,14 +47,13 @@ public abstract class EntityStore
         String hideLS = getHideLS();
 
         // Initialise entity images
-        for (Entity curEnt : entityList)
-        {
+        for (Entity curEnt : entityList) {
             curEnt.initTileImages(entLS, hideLS);
         }
     }
 
     /**
-     * Get pre-made entity objects
+     * Get entity objects
      *
      * @return
      */
@@ -74,18 +71,16 @@ public abstract class EntityStore
      *
      * @return
      */
-    public String getHideLS()
-    {
+    public String getHideLS() {
         return "Ground";
     }
 
     /**
-     * Access the entity list
+     * Retrieve the list of all entities
      *
      * @return
      */
-    public final ArrayList<Entity> getEntityList()
-    {
+    public final ArrayList<Entity> getEntityList() {
         return entityList;
     }
 
@@ -95,20 +90,21 @@ public abstract class EntityStore
      * @param player
      * @return Entity found, or null
      */
-    public final Entity getEntityUnder(Player player)
-    {
-        Entity foundEnt = null;
+    public final Entity getEntityUnder(Player player) {
 
-        for (Entity curEnt : getEntityList())
-        {
-            if (isEntityUnder(player, curEnt))
-            {
-                foundEnt = curEnt;
-                break;
+        // For all entities
+        for (Entity curEnt : getEntityList()) {
+
+            // If entity is under player
+            if (isEntityUnder(player, curEnt)) {
+
+                // Return entity
+                return curEnt;
             }
         }
 
-        return foundEnt;
+        // If nothing found, return null
+        return null;
     }
 
     /**
@@ -118,31 +114,32 @@ public abstract class EntityStore
      * @param ent Entity
      * @return True if underneath
      */
-    public boolean isEntityUnder(Player player, Entity ent)
-    {
+    public boolean isEntityUnder(Player player, Entity ent) {
+
         // Get player position and adjust
         int xPlayer = player.getX() + Globals.playerXadj;
         int yPlayer = player.getY() + Globals.playerYadj;
         int playerCol = Map.convertXtoCol(xPlayer);
         int playerRow = Map.convertYtoRow(yPlayer);
 
-        // Compare positions of entity to player
+        // Get information of entity tiles
         String[][] gridPos = ent.getGridPosArray();
-        for (String[] row : gridPos)
-        {
-            for (String pos : row)
-            {
-                // Extract position
+
+        // For all tiles
+        for (String[] row : gridPos) {
+            for (String pos : row) {
+
+                // Extract position of entity tiles
                 String[] posPair = pos.split("-");
                 int curEntCol = Integer.parseInt(posPair[0]);
                 int curEntRow = Integer.parseInt(posPair[1]);
 
-                // Compare to player
+                // Compare entity tile to player
                 boolean sameCol = (playerCol == curEntCol);
                 boolean sameRow = (playerRow == curEntRow);
-                boolean samePos = sameCol && sameRow;
-                if (samePos)
-                {
+                if (sameCol && sameRow) {
+
+                    // Return true if the column and row match
                     return true;
                 }
             }
@@ -153,26 +150,28 @@ public abstract class EntityStore
     }
 
     /**
-     * Update map according to interactions
+     * Hide all encountered entities
      *
      * @param g
-     * @param alien
      */
-    public final void updateMap(Graphics g, Player alien)
-    {
-        for (Entity ent : encEntities)
-        {
+    public final void updateMap(Graphics g) {
+
+        // For all encountered entities
+        for (Entity ent : encEntities) {
+
+            // Hide from map
             ent.hideEntity(g);
         }
     }
 
     /**
-     * Add to list of encounters
+     * Add an entity to the list of encountered entities
      *
      * @param ent
      */
-    public void addEncounter(Entity ent)
-    {
+    public void addEncounter(Entity ent) {
+
+        // Add to list
         encEntities.add(ent);
     }
 

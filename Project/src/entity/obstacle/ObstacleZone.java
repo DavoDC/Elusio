@@ -3,54 +3,65 @@ package entity.obstacle;
 import entity.base.Entity;
 
 /**
- * Represents the zone near an obstacle, where it can be unlocked
+ * Represents the zone near an obstacle, in which an item can be used to remove
+ * the obstacle
  *
  * @author David
  */
-public class ObstacleZone extends Entity
-{
+public class ObstacleZone extends Entity {
 
-    // Name of item that removes obstacle
-    private String keyItem;
+    // The name of item that removes the obstacle
+    private final String keyItem;
 
-    // Status of lock
+    // The status of the lockable obstacle zone
     private boolean locked;
 
-    public ObstacleZone(String name, String keyItem, int tlc, int tlr, int w, int h)
-    {
+    /**
+     * Create an ObstacleZone
+     *
+     * @param name The zone the name
+     * @param keyItem The name of the item that unlocks the zone
+     * @param tlc The map column
+     * @param tlr The map row
+     * @param w The width (in tiles)
+     * @param h The height (in tiles)
+     */
+    public ObstacleZone(String name, String keyItem, int tlc, int tlr, int w, int h) {
+
+        // Call entity constructor
         super(name, tlc, tlr, w, h);
 
+        // Save keyItem
         this.keyItem = keyItem;
+
+        // Initialize as locked
         locked = true;
     }
 
     /**
      * Get name of key item
      *
-     * @return
+     * @return keyItem name string
      */
-    public String getKeyItem()
-    {
+    public String getKeyItem() {
         return keyItem;
     }
 
     /**
      * Return lock status
      *
-     * @return
+     * @return lock status
      */
-    public boolean isLocked()
-    {
+    public boolean isLocked() {
         return locked;
     }
 
     /**
      * Change lock status
      *
-     * @param newStatus
+     * @param newStatus The new lock status
      */
-    public void setLocked(boolean newStatus)
-    {
+    public void setLocked(boolean newStatus) {
         locked = newStatus;
     }
 

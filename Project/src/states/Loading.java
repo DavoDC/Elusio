@@ -21,12 +21,11 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 /**
- * Shows a loading screen while loading the game's resources
+ * Shows a loading screen while its loads resources
  *
  * @author David
  */
-public class Loading extends BasicGameState
-{
+public class Loading extends BasicGameState {
 
     // Background image
     private Image introLogo;
@@ -39,16 +38,15 @@ public class Loading extends BasicGameState
     private final long introTime = 3669; // Duration of loading
 
     // State loading status
-    private boolean statesLoaded;
+    private boolean statesLoaded = false;
 
     /**
-     * Used to identify this state
+     * Return ID used to identify state
      *
-     * @return
+     * @return ID
      */
     @Override
-    public int getID()
-    {
+    public int getID() {
         return 0;
     }
 
@@ -60,12 +58,8 @@ public class Loading extends BasicGameState
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException
-    {
-        try
-        {
-            // Set state loading status
-            statesLoaded = false;
+    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        try {
 
             // Initialise and adjust background
             introLogo = new Image("res/misc/intro.png");
@@ -78,12 +72,12 @@ public class Loading extends BasicGameState
             Globals.SBG = sbg;
             Globals.agc.setDefaultFont(FontServer.getFont("Segoe UI-Plain-16"));
 
-            // Create structures
+            // Create main structures
             Globals.map = new Map(Globals.mapRes);
-            Globals.alien = new Player();
+            Globals.player = new Player();
             Globals.cam = new Camera(gc, Globals.map);
-            Globals.cam.centerOn(Globals.alien.getX(), Globals.alien.getX());
-            Globals.hud = new HUD(Globals.cam, Globals.alien);
+            Globals.cam.centerOn(Globals.player.getX(), Globals.player.getX());
+            Globals.hud = new HUD(Globals.cam, Globals.player);
 
             // Initialise and start music
             Globals.agc.setMusicOn(true);
@@ -92,9 +86,7 @@ public class Loading extends BasicGameState
             Globals.ambientMusic = new Music(Globals.ambMusRes);
             Globals.ambientMusic.loop();
 
-        }
-        catch (SlickException ex)
-        {
+        } catch (SlickException ex) {
             System.err.println("Error in 'init' of Loading");
         }
 
@@ -102,7 +94,7 @@ public class Loading extends BasicGameState
 
     /**
      * Add all states. ID numbers are determined automatically. Loading state is
-     * not included as it is already added as state 0.
+     * not added here as it is already added as state 0.
      *
      * @param gc Holds the game
      * @param sbg
@@ -110,12 +102,12 @@ public class Loading extends BasicGameState
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
-    {
-        // If states have not been loaded yet
-        if (!statesLoaded)
-        {
-            // Add states to directory and game
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+
+        // If all states have not been loaded yet
+        if (!statesLoaded) {
+
+            // Add state mappings and add actual states
             Globals.STATES.put("ABOUT", Globals.STATES.size() + 1);
             sbg.addState(new About());
 
@@ -154,8 +146,8 @@ public class Loading extends BasicGameState
         sbg.init(gc);
 
         // Wait a bit, to allow loading screen to be shown
-        if (Globals.agc.getTime() > startRef + introTime)
-        {
+        if (Globals.agc.getTime() > startRef + introTime) {
+
             // Enter main menu
             sbg.enterState(Globals.STATES.get("MAINMENU"),
                     new FadeOutTransition(Color.black, 2000), // Leave
@@ -173,12 +165,12 @@ public class Loading extends BasicGameState
      * @param g
      */
     @Override
-    public void render(GameContainer gc, StateBasedGame game, Graphics g)
-    {
+    public void render(GameContainer gc, StateBasedGame game, Graphics g) {
+
         // Draw intro/logo background
         g.drawImage(introLogo, 0, 0);
 
-        // Write text = 'LOADING'
+        // Write 'LOADING' text
         int Xpos = (Globals.screenW / 2) - 150;
         int Ypos = Globals.screenH - 100;
         font.drawString(Xpos, Ypos, "LOADING");

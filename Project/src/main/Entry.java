@@ -10,7 +10,7 @@ import org.newdawn.slick.state.StateBasedGame;
 /**
  * The entry class from which the game application starts
  *
- * @author David 
+ * @author David
  */
 public class Entry extends StateBasedGame {
 
@@ -23,18 +23,45 @@ public class Entry extends StateBasedGame {
 
     /**
      * The entry point for the game program. Sets up the execution environment
+     *
      * @param args
      */
     public static void main(String[] args) {
         try {
 
-            // Print out version info
-            System.out.println("\n" + Globals.gameTitle + " V" + Globals.VERSION + " Testing \n");
+            // Argument info string
+            String argInfo = "Argument Required: 'IDE' or 'Desktop'";
+
+            // If there is not exactly one argument 
+            if (args.length != 1) {
+
+                // Throw error
+                throw new IllegalArgumentException(argInfo);
+
+            } else {
+
+                // Determine whether the program is 
+                // being run in the IDE or the Exe
+                Globals.inIDE = args[0].contains("IDE");
+                Globals.inExe = args[0].contains("Exe");
+
+                // If the program is not being run in either
+                if (!(Globals.inIDE || Globals.inExe)) {
+
+                    // Throw error
+                    throw new IllegalArgumentException(argInfo);
+                }
+            }
 
             // If being run in IDE
-            if (args.length != 0 && args[0].equals("IDE")) {
+            if (Globals.inIDE) {
 
-                // Load OpenAL DLL to prevent IDE giving error and being muted
+                // Print out version info for IDE testing
+                String verInfo = Globals.gameTitle + " V" + Globals.VERSION + " Testing ";
+                System.out.println("\n" + verInfo + "\n");
+
+                // Load OpenAL DLL to prevent IDE giving 
+                // related error and prevent it being muted
                 System.loadLibrary("OpenAL64");
             }
 

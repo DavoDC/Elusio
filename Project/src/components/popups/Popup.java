@@ -14,12 +14,11 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
 
 /**
- * Helps to display information
+ * Models interactive text boxes that come up during game play
  *
  * @author David
  */
-public class Popup
-{
+public class Popup {
 
     // Underlying button
     private Button button;
@@ -33,8 +32,8 @@ public class Popup
     private final int textX;
     private final int textY;
     private final TrueTypeFont textFont;
-    private final ArrayList<String> textLines; // AL of text lines
-    private int curLineNo; // Current line in AL above
+    private final ArrayList<String> textLines;
+    private int curLineNo;
 
     // Instructions (delayed)
     private final DelayWriter instDW;
@@ -46,13 +45,12 @@ public class Popup
     /**
      * Create a popup
      *
-     * @param feats - Tile grid row - Tile grid column - Width as number of
-     * tiles - Height as number of tiles - Interval for DW - FontS or "default"
-     *
+     * @param feats Tile grid row, Tile grid column, Width in tiles, Height in
+     * tiles, Interval for DW, FontS or "default"
      * @param textLines Text in lines
      */
-    public Popup(ArrayList<Object> feats, ArrayList<String> textLines)
-    {
+    public Popup(ArrayList<Object> feats, ArrayList<String> textLines) {
+
         // Extract info
         int r = (int) feats.get(0);
         int c = (int) feats.get(1);
@@ -62,8 +60,7 @@ public class Popup
         String fontS = (String) feats.get(5);
 
         // Process font string
-        if ("default".equals(fontS))
-        {
+        if ("default".equals(fontS)) {
             fontS = "Candara-Bold-26";
         }
 
@@ -71,10 +68,10 @@ public class Popup
         visible = false;
         shown = false;
 
-        // Initialise font (Must be before button init)
+        // Initialise font (must be before button init)
         textFont = FontServer.getFont(fontS);
 
-        // Initialise button (Must before text pos init)
+        // Initialise button (must before text pos init)
         initialiseButton(r, c, tileW, tileH);
 
         // Initialise text DW
@@ -91,11 +88,18 @@ public class Popup
         instX = button.getX() + button.getWidth() / 2 - 100;
         instY = button.getY() + button.getHeight() - 48;
         instFont = FontServer.getFont("Corbel-italic-22");
-
     }
 
-    private void initialiseButton(int r, int c, int tileW, int tileH)
-    {
+    /**
+     * Initialize the underlying button
+     *
+     * @param r row
+     * @param c column
+     * @param tileW tile width
+     * @param tileH tile height
+     */
+    private void initialiseButton(int r, int c, int tileW, int tileH) {
+
         // Calculate bounds
         int tileSide = Globals.tileSize;
         int x = c * tileSide;
@@ -103,18 +107,15 @@ public class Popup
         int w = tileW * tileSide;
         int h = tileH * tileSide;
 
-        // Image
+        // Initialize image
         Image img = null;
-        try
-        {
+        try {
             img = new Image(Globals.popupPanelRes);
             img = img.getScaledCopy(w, h);
-        }
-        catch (SlickException e)
-        {
+        } catch (SlickException e) {
         }
 
-        // Rectangle
+        // Initialize rectangle
         Rectangle rect = new Rectangle(x, y, w, h);
 
         // Create button
@@ -123,35 +124,42 @@ public class Popup
         // Remove label
         button.setLabel("");
 
-        // Add action
-        button.addListener((source) ->
-        {
-            // When popup clicked =
+        // Add action when popup is clicked
+        button.addListener((source)
+                -> {
+
+            // If on last line
             if (textLines.size() - 1 == curLineNo) // If on last line
             {
+                // If text has finished writing once
                 if (textDW.hasWrittenOnce()) // Has finished writing out
                 {
-                    visible = false; // Hide popup
-                    Globals.inputIgnored = false; // Re-enable keys
+                    // Update status
+                    visible = false;
                     shown = true;
-                    action();
+
+                    // Re-enable keys
+                    Globals.inputIgnored = false;
+
+                    // Do custom action
+                    postAction();
                 }
-            }
-            else if (textDW.hasWrittenOnce()) // If line has been shown
-            {
-                // Allow the loading of a new line
-                curLineNo += 1; // Increase line position
-                textDW.setText(textLines.get(curLineNo)); // Load new line
+
+            } else if (textDW.hasWrittenOnce()) {
+
+                // If line has been shown,
+                // increase line position and load new line
+                curLineNo++;
+                textDW.setText(textLines.get(curLineNo));
             }
         }
         );
     }
 
     /**
-     * Allows for actions to be attached to popups via overriding this method
+     * Can be overridden to give popups a custom post action
      */
-    public void action()
-    {
+    public void postAction() {
         // For over-riding
     }
 
@@ -160,8 +168,7 @@ public class Popup
      *
      * @param newStatus
      */
-    public void setVisible(boolean newStatus)
-    {
+    public void setVisible(boolean newStatus) {
         visible = newStatus;
     }
 
@@ -170,39 +177,42 @@ public class Popup
      *
      * @param g
      */
-    public void show(Graphics g)
-    {
-        // Dont render if not visible
-        if (!visible)
-        {
+    public void show(Graphics g) {
+
+        // If not visible
+        if (!visible) {
+
+            // Do not continue with rendering
             return;
         }
 
         // Draw button
         button.drawFull(g);
 
-        // Update dws
+        // Update delay writers
         textDW.update();
         instDW.update();
 
-        // Draw text dw
+        // Draw delayed popup text
         textDW.drawText(textFont, textX, textY);
 
         // Show instruction repeatedly
-        if (instDW.hasWrittenOnce()) // Only reset dw after it has written once
-        {
-            instDW.setText(instS); // Reset dw
+        // If instruction has finished writing
+        if (instDW.hasWrittenOnce()) {
+            // Reset instruction
+            instDW.setText(instS);
         }
+
+        // Draw delayed instruction text
         instDW.drawText(instFont, instX, instY);
     }
 
     /**
-     * Check whether popup has been shown
+     * Return true if the popup has been shown
      *
      * @return
      */
-    public boolean hasBeenShown()
-    {
+    public boolean hasBeenShown() {
         return shown;
     }
 

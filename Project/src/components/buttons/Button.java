@@ -10,20 +10,18 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.gui.AbstractComponent;
-import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
 
 /**
- * Models a button
+ * Models a button - a clickable area that does something
  *
- * @author David 
+ * @author David
  */
-public class Button extends MouseOverArea
-{
+public class Button extends MouseOverArea {
 
     // Basic components
     private Image img;
-    private Rectangle shape;
+    private final Rectangle shape;
     private String label;
     private TrueTypeFont font;
 
@@ -35,42 +33,36 @@ public class Button extends MouseOverArea
     private boolean alertOn;
 
     /**
-     * Default constructor - Don't use!
+     * Create a button
      *
-     * @param container
      * @param image
      * @param shape
+     * @param font of button label
      */
-    public Button(GUIContext container, Image image, Shape shape)
-    {
-        super(container, image, shape);
-        throw new IllegalArgumentException("Wrong constructor");
-    }
+    public Button(Image image, Shape shape, TrueTypeFont font) {
 
-    /**
-     * Refined constructor
-     *
-     * @param image
-     * @param shape
-     * @param font
-     */
-    public Button(Image image, Shape shape, TrueTypeFont font)
-    {
+        // Call MouseOverArea constructor
         super(Globals.agc, image, shape);
+
+        // Save image, shape and font
         this.img = image;
         this.shape = (Rectangle) shape;
-        label = "label";
         this.font = font;
 
+        // Set label to default value
+        label = "label";
+
+        // Calculate and save offsets
         textXoffset = shape.getWidth() / 5;
         textYoffset = -(shape.getHeight() / 20);
 
+        // Initialize with alert off
         alertOn = false;
 
         // Turn off alert after clicks
         super.addListener(
-                (AbstractComponent source) ->
-        {
+                (AbstractComponent source)
+                -> {
             alertOn = false;
         }
         );
@@ -79,30 +71,30 @@ public class Button extends MouseOverArea
     /**
      * Change the position of the button
      *
-     * @param x
-     * @param y
+     * @param x coordinate
+     * @param y coordinate
      */
-    private void setPosition(float x, float y)
-    {
-        // Change mouseoverarea
+    private void setPosition(float x, float y) {
+
+        // Change MouseOverArea location
         super.setLocation(x, y);
 
-        // Change shape
+        // Change shape location
         shape.setLocation(x, y);
     }
 
     /**
      * Change button dimensions
      *
-     * @param w
-     * @param h
+     * @param w width
+     * @param h height
      */
-    public void setDimensions(int w, int h)
-    {
-        // Change image
+    public void setDimensions(int w, int h) {
+
+        // Change image size
         img = img.getScaledCopy(w, h);
 
-        // Change shape
+        // Change shape size
         shape.setSize(w, h);
     }
 
@@ -114,10 +106,15 @@ public class Button extends MouseOverArea
      * @param w
      * @param h
      */
-    public void setBounds(int x, int y, int w, int h)
-    {
+    public void setBounds(int x, int y, int w, int h) {
+
+        // Change position
         setPosition(x, y);
+
+        // Change size
         setDimensions(w, h);
+
+        // Update image
         updateImage();
     }
 
@@ -126,19 +123,34 @@ public class Button extends MouseOverArea
      *
      * @param label
      */
-    public void setLabel(String label)
-    {
+    public void setLabel(String label) {
         this.label = label;
     }
 
     /**
      * Retrieve the label of a button
      *
-     * @return
+     * @return label string
      */
-    public String getLabel()
-    {
+    public String getLabel() {
         return label;
+    }
+
+    /**
+     * Draw the button, shifted
+     *
+     * @param g
+     * @param sX
+     * @param sY
+     */
+    public void drawShifted(Graphics g, int sX, int sY) {
+
+        // Move position
+        setX(getX() + sX);
+        setY(getY() + sY);
+
+        // Draw all of button
+        drawFull(g);
     }
 
     /**
@@ -146,33 +158,19 @@ public class Button extends MouseOverArea
      *
      * @param g
      */
-    public void drawFull(Graphics g)
-    {
+    public void drawFull(Graphics g) {
         drawImage(g);
         drawText(g);
         drawAlert(g);
     }
 
     /**
-     * Draw the button, shifted
-     *
-     * @param b
-     * @param g
-     * @param sX
-     * @param sY
-     */
-    public void drawShifted(Graphics g, int sX, int sY)
-    {
-        setX(getX() + sX);
-        setY(getY() + sY);
-        drawFull(g);
-    }
-
-    /**
      * Draw the image only
+     *
+     * @param g
      */
-    public void drawImage(Graphics g)
-    {
+    public void drawImage(Graphics g) {
+
         // Draw image and MouseOverArea
         super.render(Globals.agc, g);
     }
@@ -182,8 +180,8 @@ public class Button extends MouseOverArea
      *
      * @param g
      */
-    public void drawText(Graphics g)
-    {
+    public void drawText(Graphics g) {
+
         // Calculate text position
         float textX = shape.getX() + textXoffset;
         float textY = shape.getY() + textYoffset;
@@ -193,13 +191,13 @@ public class Button extends MouseOverArea
     }
 
     /**
-     * Change where text is drawn Relative to top left hand corner of rectangle
+     * Change where text is drawn (Note: Offset is relative to top left hand
+     * corner of rectangle)
      *
      * @param xOff
      * @param yOff
      */
-    public void changeTextOffset(float xOff, float yOff)
-    {
+    public void changeTextOffset(float xOff, float yOff) {
         textXoffset = xOff;
         textYoffset = yOff;
     }
@@ -209,45 +207,44 @@ public class Button extends MouseOverArea
      *
      * @param fontS
      */
-    public void setFont(String fontS)
-    {
+    public void setFont(String fontS) {
         TrueTypeFont newFont = FontServer.getFont(fontS);
         this.font = newFont;
     }
 
     /**
-     * Set the image
+     * Set the button image to the one given
      *
      * @param resLoc
      */
-    public void setImageLoc(String resLoc)
-    {
-        // Load new image
-        Image newImg = null;
-        try
-        {
-            newImg = new Image(resLoc);
-        }
-        catch (SlickException e)
-        {
+    public void setImageLoc(String resLoc) {
+
+        try {
+
+            // Load new image
+            Image newImg = new Image(resLoc);
+
+            // Adjust new image
+            int oldW = img.getWidth();
+            int oldH = img.getHeight();
+            newImg = newImg.getScaledCopy(oldW, oldH);
+
+            // Save over old image
+            img = newImg;
+
+            // Update image
+            updateImage();
+
+        } catch (SlickException e) {
             System.err.println("Image loading failed");
         }
 
-        // Adjust new image
-        int oldW = img.getWidth();
-        int oldH = img.getHeight();
-        newImg = newImg.getScaledCopy(oldW, oldH);
-
-        // Replace old image
-        img = newImg;
-
-        // Update image
-        updateImage();
-
     }
 
-    private void updateImage()
-    {
+    /**
+     * Update button image
+     */
+    private void updateImage() {
         setNormalImage(img);
         setMouseOverImage(img);
         setMouseDownImage(img);
@@ -258,25 +255,20 @@ public class Button extends MouseOverArea
      *
      * @param g
      */
-    private void drawAlert(Graphics g)
-    {
+    private void drawAlert(Graphics g) {
+
         // Only continue if alert is on
-        if (!alertOn)
-        {
+        if (!alertOn) {
             return;
         }
 
         // Load image if not already done so
-        if (Globals.alertMark == null)
-        {
-            try
-            {
+        if (Globals.alertMark == null) {
+            try {
                 Globals.alertMark = new Image(Globals.alertRes);
                 int newSide = (int) shape.getHeight() / 2;
                 Globals.alertMark = Globals.alertMark.getScaledCopy(newSide, newSide);
-            }
-            catch (SlickException e)
-            {
+            } catch (SlickException e) {
             }
         }
 
@@ -286,8 +278,7 @@ public class Button extends MouseOverArea
         float imgY = shape.getY() + shape.getHeight() + 5;
 
         // Add jiggle factor
-        if (Math.random() < 0.15)
-        {
+        if (Math.random() < 0.15) {
             //imgX += Math.random()*5;
             imgY += Math.random() * 9;
         }
@@ -299,8 +290,7 @@ public class Button extends MouseOverArea
     /**
      * Switch on the alert
      */
-    public void activateAlert()
-    {
+    public void activateAlert() {
         alertOn = true;
     }
 

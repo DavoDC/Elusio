@@ -12,28 +12,37 @@ import entity.base.EntityStore;
 /**
  * Handles obstacles
  *
- * @author David 
+ * @author David
  */
-public class ObstacleStore extends EntityStore
-{
+public class ObstacleStore extends EntityStore {
 
-    // Crystals placed
+    // Count of crystals placed
     private int crystalsPlaced = 0;
 
+    /**
+     * Get the entities of the Obstacle Store
+     *
+     * @return
+     */
     @Override
-    public ArrayList<Entity> getEntities()
-    {
+    public ArrayList<Entity> getEntities() {
+
+        // Initialize list
         ArrayList<Entity> obstacles = new ArrayList<>();
 
         // Trees = Initial Area
+        //  Add Trees locked by TreeZone
         obstacles.add(new Obstacle("Trees", "TreeZone", 32, 9, 5, 5, true));
+        //  Add TreeZone locked by Cryocapacitor
         obstacles.add(new ObstacleZone("TreeZone", "Cryocap", 29, 7, 6, 6));
 
         // Limestone = Initial Area
+        //  Add LimeStone locked by LimeZone
         obstacles.add(new Obstacle("LimeStone", "LimeZone", 1, 37, 5, 2, true));
+        //  Add LimeZone locked by Acid
         obstacles.add(new ObstacleZone("LimeZone", "Acid", 2, 34, 2, 3));
 
-        // Crystal placement to open gate
+        // Add four crystals that lock gate
         obstacles.add(new Obstacle("HiGate", "HiSpot", 82, 9, 1, 1, false));
         obstacles.add(new Obstacle("HiCrystal", "HiSpot", 82, 14, 1, 1, false));
         obstacles.add(new ObstacleZone("HiSpot", "Crystal12", 82, 14, 1, 1));
@@ -50,17 +59,15 @@ public class ObstacleStore extends EntityStore
         obstacles.add(new Obstacle("RightCrystal", "RightSpot", 83, 15, 1, 1, false));
         obstacles.add(new ObstacleZone("RightSpot", "Crystal9", 83, 15, 1, 1));
 
-        // Sail Ship
+        // Add sail Ship
         obstacles.add(new Obstacle("Water", "ShipSide", 13, 73, 6, 7, true));
         obstacles.add(new Obstacle("Ship", "ShipSide", 10, 74, 3, 6, true));
         obstacles.add(new ObstacleZone("ShipSide", "Magistruct", 19, 73, 5, 8));
 
-        // Alien ship
-        obstacles.add(new ObstacleZone("AlienShip", "ShipGold", 4, 2, 9, 7)
-        {
+        // Add alien ship
+        obstacles.add(new ObstacleZone("AlienShip", "ShipGold", 4, 2, 9, 7) {
             @Override
-            public void afterAction()
-            {
+            public void afterAction() {
                 Globals.hud.loadPopup(getEndPopup());
             }
         }
@@ -69,8 +76,13 @@ public class ObstacleStore extends EntityStore
         return obstacles;
     }
 
-    private Popup getEndPopup()
-    {
+    /**
+     * Return the final popup
+     *
+     * @return
+     */
+    private Popup getEndPopup() {
+
         // Features
         ArrayList<Object> feats = new ArrayList<>();
         feats.add(8);  // Tile grid row
@@ -92,11 +104,9 @@ public class ObstacleStore extends EntityStore
         textLines.add("Le Fin");
 
         // Create
-        Popup finish = new Popup(feats, textLines)
-        {
+        Popup finish = new Popup(feats, textLines) {
             @Override
-            public void action()
-            {
+            public void postAction() {
                 int exitID = Globals.STATES.get("EXIT");
                 Globals.SBG.enterState(exitID, Globals.getLeave(), Globals.getEnter());
             }
@@ -106,15 +116,23 @@ public class ObstacleStore extends EntityStore
         return finish;
     }
 
+    /**
+     * Set the name of the layer where the entities are
+     *
+     * @return
+     */
     @Override
-    public String getEntLS()
-    {
+    public String getEntLS() {
         return "Obstacles";
     }
 
+    /**
+     * Set the name of the layer to hide the entity
+     *
+     * @return
+     */
     @Override
-    public String getHideLS()
-    {
+    public String getHideLS() {
         return "ObHide";
     }
 
@@ -122,42 +140,52 @@ public class ObstacleStore extends EntityStore
      * Get obstacle zone under player
      *
      * @param alien
-     * @return OZ, or null if nothing/non-item
+     * @return Obstacle Zone, or null if nothing found
      */
-    public ObstacleZone getZoneUnder(Player alien)
-    {
+    public ObstacleZone getZoneUnder(Player alien) {
+
         // For all entities
-        for (Entity curEnt : getEntityList())
-        {
-            // If under player AND if an obstacle zone
-            if (isEntityUnder(alien, curEnt) && (curEnt instanceof ObstacleZone))
-            {
+        for (Entity curEnt : getEntityList()) {
+
+            // If the entity is obstacle zone under the player
+            if (isEntityUnder(alien, curEnt) && (curEnt instanceof ObstacleZone)) {
+
+                // Return obstacle zone
                 return (ObstacleZone) curEnt;
             }
         }
 
-        // Return default
+        // Return null as nothing found
         return null;
     }
 
-    public ArrayList<Obstacle> getMatchingObstacles(ObstacleZone obZone)
-    {
+    /**
+     * Get all obstacles linked to a given obstacle zone
+     *
+     * @param obZone
+     * @return
+     */
+    public ArrayList<Obstacle> getLinkedObstacles(ObstacleZone obZone) {
+
+        // Get zone name
         String obZoneName = obZone.getName();
+
+        // Initialize list
         ArrayList<Obstacle> matches = new ArrayList<>();
 
-        // For all obstacles
-        for (Entity curEnt : super.getEntityList())
-        {
-            // If is an obstacle, not zone
-            if (curEnt instanceof Obstacle)
-            {
-                // Get the name of the zone in the obstacle
+        // For all entities
+        for (Entity curEnt : super.getEntityList()) {
+
+            // If entity is an obstacle
+            if (curEnt instanceof Obstacle) {
+
+                // Get the obstacle zone of the current obstacle
                 String curObstaclesZone = ((Obstacle) curEnt).getOZName();
 
-                // Compare current zone to current obstacle's zone
-                if (curObstaclesZone.contains(obZoneName))
-                {
-                    // Add if a match
+                // If the obstacle possesses the obZone given
+                if (curObstaclesZone.contains(obZoneName)) {
+
+                    // Add to the list of obstacles
                     matches.add(((Obstacle) curEnt));
                 }
             }
@@ -167,36 +195,47 @@ public class ObstacleStore extends EntityStore
     }
 
     /**
-     * Unblock gate when 4 crystals placed
+     * Unblock magic gate when 4 crystals placed
      */
-    public void crystalPlaced()
-    {
+    public void crystalPlaced() {
+
+        // Increase crystal count
         crystalsPlaced++;
 
-        if (crystalsPlaced == 4)
-        {
+        // If all crystals have been placed
+        if (crystalsPlaced == 4) {
+           
+            // Get all obstacles
             ArrayList<Entity> entities = super.getEntityList();
-            for (Entity curEnt : entities)
-            {
-                // If is entity is an obstacle AND has Gate in name
-                if ((curEnt instanceof Obstacle) && (curEnt.getName().contains("Gate")))
-                {
+
+            // For all obstacles
+            for (Entity curEnt : entities) {
+
+                // If the entity is an obstacle AND has Gate in its name
+                if ((curEnt instanceof Obstacle) && (curEnt.getName().contains("Gate"))) {
+
+                    // Unblock one of the FOUR magic gate parts
                     Globals.map.unblockEntity(curEnt);
+
+                    // Show magic gate popup
                     Globals.hud.loadPopup(getGatePopup());
                 }
             }
         }
     }
 
-    private Popup getGatePopup()
-    {
-        // Calculate 
+    /**
+     * Get popup for when magic gate unlocks
+     *
+     * @return
+     */
+    private Popup getGatePopup() {
+
+        // Calculate actual position
         int camRadj = 3;
         int camCadj = 2;
         int camYadj = camRadj * Globals.tileSize;
         int camXadj = camCadj * Globals.tileSize;
-
-        // Calculate actual position
         int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
         int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
 

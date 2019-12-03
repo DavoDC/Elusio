@@ -7,32 +7,35 @@ import main.Globals;
 import org.newdawn.slick.Graphics;
 
 /**
- * Displays information in-game using interactive text boxes
+ * Handles the displaying of popups
  *
- * @author David 
+ * @author David
  */
-public class PopupDisplayer
-{
+public class PopupStore {
 
-    // Special popup
+    // Special popup variables
     private Popup curPopup;
-    private boolean showPopup;
+    private boolean shouldShowPopup;
 
     /**
      * Create a popup displayer
      */
-    public PopupDisplayer()
-    {
-        // Load intro popup
+    public PopupStore() {
+
+        // Initialize with intro popup
         curPopup = getIntroPopup();
-        showPopup = true;
+
+        // Show popup
+        shouldShowPopup = true;
     }
 
     /**
-     * Returns the intro popup
+     * Get the the intro popup
+     *
+     * @return
      */
-    private Popup getIntroPopup()
-    {
+    private Popup getIntroPopup() {
+
         // Features
         ArrayList<Object> feats = new ArrayList<>();
         feats.add(8);  // Tile grid row
@@ -45,7 +48,7 @@ public class PopupDisplayer
         // Text
         ArrayList<String> textLines = new ArrayList<>();
         textLines.add("You: Argh ... my head ... Where am I?");
-        textLines.add("Ehecatl: We appear to have materialised in Ellusio. There was...");
+        textLines.add("Ehecatl: We appear to have materialised in Elusio. There was...");
         textLines.add("You: Ehecatl! You surprised me! I am so glad you are still alive!");
         textLines.add("Ehecatl: I do not dissipate that easily, my friend");
         textLines.add("You: What happened to you?");
@@ -55,20 +58,32 @@ public class PopupDisplayer
         textLines.add("Ehecatl: I will help you navigate it. Listen closely to my messages");
 
         // Return
-        return new Popup(feats, textLines);
+        return (new Popup(feats, textLines));
     }
 
     /**
      * Manage loaded popups
      */
-    public void updatePD()
-    {
-        // Show special popup, if loaded
-        if (showPopup)
-        {
-            Globals.inputIgnored = true; // Disable input
-            curPopup.setVisible(true); // Make popup visible
-            showPopup = false; // Record the fact it was shown
+    public void updatePD() {
+
+        // If not in IDE
+        if (Globals.inIDE) {
+
+            // Never show popups for faster testing
+            shouldShowPopup = false;
+        }
+
+        // If a popup should be shown
+        if (shouldShowPopup) {
+
+            // Disable input
+            Globals.inputIgnored = true;
+
+            // Make current popup visible
+            curPopup.setVisible(true);
+
+            // A popup should not be shown
+            shouldShowPopup = false;
         }
     }
 
@@ -77,9 +92,9 @@ public class PopupDisplayer
      *
      * @param g
      */
-    public void renderPopups(Graphics g)
-    {
-        // Render special popup
+    public void renderPopups(Graphics g) {
+
+        // Render current popup
         curPopup.show(g);
     }
 
@@ -88,10 +103,11 @@ public class PopupDisplayer
      *
      * @param newPopup
      */
-    public void loadPopup(Popup newPopup)
-    {
+    public void loadPopup(Popup newPopup) {
+
+        // Save popup and activate the showing of it
         curPopup = newPopup;
-        showPopup = true;
+        shouldShowPopup = true;
     }
 
 }
