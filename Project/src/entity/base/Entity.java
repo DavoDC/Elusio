@@ -5,55 +5,60 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 /**
- * Models entities
+ * Models entities on the map
  *
  * @author David
  */
-public abstract class Entity
-{
+public abstract class Entity {
 
-    // Info
-    private String name;
+    // The name
+    private final String name;
 
-    // Grid Positions
-    private String[][] gridPos;
+    // A grid of strings that hold tile position information
+    private final String[][] gridPosS;
 
     // Tiles of entity
     // private Image[][] entImages;
-
-    // Tiles of ground underneath
-    private Image[][] undImages;
+    // \n
+    // Tiles of ground underneath entity
+    private final Image[][] undImages;
 
     /**
-     * Create an item
+     * Create an entity
      *
-     * @param name
-     * @param tlc top left tile mapCol
-     * @param tlr top left tile mapRow
-     * @param w tiles across
-     * @param h tiles down
+     * @param name The entity's name
+     * @param tlc Top left tile mapCol
+     * @param tlr Top left tile mapRow
+     * @param w Tiles across
+     * @param h Tiles down
      */
-    public Entity(String name, int tlc, int tlr, int w, int h)
-    {
+    public Entity(String name, int tlc, int tlr, int w, int h) {
+
         // Save variables
         this.name = name;
 
         // Initialise arrays
         // entImages = new Image[h][w];
         undImages = new Image[h][w];
-        gridPos = new String[h][w];
+        gridPosS = new String[h][w];
 
-        // Populate grid positions
-        for (int r = 0; r < gridPos.length; r++)
-        {
+        // Populate grid position strings
+        // For all rows
+        for (int r = 0; r < gridPosS.length; r++) {
+
+            // Calculate actual row
             int actualRow = r + tlr;
-            for (int c = 0; c < gridPos[r].length; c++)
-            {
+
+            // For all columns
+            for (int c = 0; c < gridPosS[r].length; c++) {
+
+                // Calculate actual column
                 int actualCol = c + tlc;
-                gridPos[r][c] = actualCol + "-" + actualRow + "-" + c + "-" + r;
+
+                // Save string with absolute and relative position info
+                gridPosS[r][c] = actualCol + "-" + actualRow + "-" + c + "-" + r;
             }
         }
-
     }
 
     /**
@@ -62,16 +67,17 @@ public abstract class Entity
      * @param entLS
      * @param undLS
      */
-    public void initTileImages(String entLS, String undLS)
-    {
+    public void initTileImages(String entLS, String undLS) {
+
+        // Get index of layers
         // int entLayerIndex = Globals.map.getLayerIndex(entLS);
         int undLayerIndex = Globals.map.getLayerIndex(undLS);
 
-        for (String[] gridRow : gridPos)
-        {
-            for (String locString : gridRow)
-            {
-                // Extract position
+        // For all tiles 
+        for (String[] gridRow : gridPosS) {
+            for (String locString : gridRow) {
+
+                // Extract position info
                 String[] locPair = locString.split("-");
                 int mapCol = Integer.parseInt(locPair[0]);
                 int mapRow = Integer.parseInt(locPair[1]);
@@ -81,7 +87,6 @@ public abstract class Entity
 //                // Get and save entity image
 //                Image entImage = Globals.map.getTileImage(mapCol, mapRow, entLayerIndex); 
 //                entImages[arrRow][arrCol] = entImage;
-
                 // Get and save ground image
                 Image undImage = Globals.map.getTileImage(mapCol, mapRow, undLayerIndex);
                 undImages[arrRow][arrCol] = undImage;
@@ -94,31 +99,28 @@ public abstract class Entity
      *
      * @return
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
     /**
-     * Get grid position pair Uses array values
+     * Get grid position string parts using array indexing
      *
      * @param c
      * @param r
      * @return
      */
-    public String[] getGridPosPair(int c, int r)
-    {
-        return ((gridPos[r][c]).split("-"));
+    public String[] getGridPosNums(int c, int r) {
+        return ((gridPosS[r][c]).split("-"));
     }
 
     /**
-     * Get array of positions
+     * Get array of position info strings
      *
      * @return
      */
-    public String[][] getGridPosArray()
-    {
-        return gridPos;
+    public String[][] getGridPosArray() {
+        return gridPosS;
     }
 
     /**
@@ -126,12 +128,12 @@ public abstract class Entity
      *
      * @param g
      */
-    public void hideEntity(Graphics g)
-    {
-        for (String[] gridRow : gridPos)
-        {
-            for (String locString : gridRow)
-            {
+    public void hideEntity(Graphics g) {
+
+        // For all tiles
+        for (String[] gridRow : gridPosS) {
+            for (String locString : gridRow) {
+
                 // Extract position
                 String[] locPair = locString.split("-");
                 int mapCol = Integer.parseInt(locPair[0]);
@@ -141,12 +143,11 @@ public abstract class Entity
                 int arrCol = Integer.parseInt(locPair[2]);
                 int arrRow = Integer.parseInt(locPair[3]);
 
-                // Get ground image
+                // Get image underneath
                 Image undImage = undImages[arrRow][arrCol];
 
                 // If not null, draw it
-                if (undImage != null)
-                {
+                if (undImage != null) {
                     g.drawImage(undImage, xPos, yPos);
                 }
             }
@@ -154,18 +155,16 @@ public abstract class Entity
     }
 
     /**
-     * Action that occurs before item grab
+     * Do the action that occurs before item grab
      */
-    public void beforeAction()
-    {
+    public void beforeAction() {
         // To be overidden
     }
 
     /**
-     * Action that occurs after item grab
+     * Do the action that occurs after item grab
      */
-    public void afterAction()
-    {
+    public void afterAction() {
         // To be overidden
     }
 

@@ -16,8 +16,7 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author David
  */
-public class CannonDodge extends BasicGameState
-{
+public class CannonDodge extends BasicGameState {
 
     // The cannon balls
     private ArrayList<Circle> balls;
@@ -28,45 +27,40 @@ public class CannonDodge extends BasicGameState
     // The time elapsed
     private int timeElapsed;
 
-    // Represents
+    // Represents how much the player has progressed
     private String progress;
 
     // The higher this value, the harder the game
     private int hardness;
 
     /**
-     * Used to identify states and switch to them
+     * Return ID used to identify state
      *
-     * @return id
+     * @return ID
      */
     @Override
-    public int getID()
-    {
+    public int getID() {
         return 200;
     }
 
     /**
-     * This is only called when the game starts Used to load resources Used to
-     * initialise the game state.
+     * Called when the game starts to initialize the state
      *
      * @param container
      * @param game
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void init(GameContainer container, StateBasedGame game) throws SlickException
-    {
+    public void init(GameContainer container, StateBasedGame game) throws SlickException {
+
         balls = new ArrayList<>();
         person = new Circle(400, 500, 15);
         timeElapsed = 0;
         hardness = 2;
-
     }
 
     /**
-     * The method is called each game loop to cause your game to update it's
-     * logic. This is where you should make objects move. This is also where you
-     * should check input and change the state of the game.
+     * Updates logic and internal variables every game loop
      *
      * @param container
      * @param game
@@ -74,15 +68,13 @@ public class CannonDodge extends BasicGameState
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
-    {
+    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 
         // Increase time passed
         timeElapsed += 20;
 
         // Increase hardness periodically
-        if (timeElapsed % 26000 == 0)
-        {
+        if (timeElapsed % 26000 == 0) {
             hardness += 2;
         }
 
@@ -91,8 +83,7 @@ public class CannonDodge extends BasicGameState
         progress = (int) progressVal + " %";
 
         // Check if passed
-        if (progress.contains("100"))
-        {
+        if (progress.contains("100")) {
             game.enterState(2);
         }
 
@@ -104,48 +95,47 @@ public class CannonDodge extends BasicGameState
         // Spawn random balls
         int rand = (int) (Math.random() * 10);
 
-        if (rand > (10 - hardness))
-        {
+        if (rand > (10 - hardness)) {
             int ranX = (int) (800 * Math.random());
             balls.add(new Circle(ranX, -10, 20));
         }
 
         // Move balls
-        for (Circle c : balls)
-        {
-            //Speed depends on time
+        // For all balls
+        for (Circle c : balls) {
+
+            // Calculate speed using time
             int speed = (int) (delta / 4f);
+
+            // Move the ball
             c.setCenterY(c.getCenterY() + speed);
         }
 
         // Remove balls when they exit
         // Must recurse backwards!
-        for (int i = balls.size() - 1; i >= 0; i--)
-        {
+        for (int i = balls.size() - 1; i >= 0; i--) {
             Circle c = balls.get(i);
-            if (c.getCenterY() > 605)
-            {
+            if (c.getCenterY() > 605) {
                 balls.remove(i);
             }
         }
 
         // End game if you collide
-        for (Circle c : balls)
-        {
-            if (person.intersects(c))
-            {
-                //MainGame.mgProgress = progress;
-                game.enterState(5);
+        // For all balls
+        for (Circle ball : balls) {
 
+            // If person is touchin ball
+            if (person.intersects(ball)) {
+
+                // Enter game over state
+                game.enterState(5);
             }
         }
 
     }
 
     /**
-     * This method should be used to draw to the screen. All of your game's
-     * rendering should take place in this method (or via calls) It is called
-     * constantly. Items are constantly redrawn
+     * Renders the graphics every game loop
      *
      * @param container
      * @param game
@@ -153,14 +143,15 @@ public class CannonDodge extends BasicGameState
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
-    {
+    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
         // Draw background
         //Image bg = deck image
         //bg = bg.getScaledCopy(800, 600);
         //g.drawImage(bg, 0, 0);
-        // Draw "person"
+        //
+        // 
+        // Draw "person" outline and fill
         g.setColor(Color.green);
         g.draw(person);
         g.setColor(Color.green);
@@ -168,8 +159,7 @@ public class CannonDodge extends BasicGameState
 
         // Draw balls
         g.setColor(Color.black);
-        for (Circle c : balls)
-        {
+        for (Circle c : balls) {
             g.draw(c);
             g.setColor(Color.black);
             g.fill(c);

@@ -14,12 +14,11 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * Shown just before the game exits
+ * Provides game exit screen
  *
  * @author David
  */
-public class Exit extends InterfaceScreen
-{
+public class Exit extends InterfaceScreen {
 
     // The absolute time of closing
     private final long exitConstant = 3369 / 2;
@@ -36,21 +35,31 @@ public class Exit extends InterfaceScreen
     private TrueTypeFont closeFont;
     private final int closeX = (int) InfoScreen.lineX + 400;
 
+    /**
+     * Return ID used to identify state
+     *
+     * @return ID
+     */
     @Override
-    public int getID()
-    {
+    public int getID() {
         return Globals.STATES.get("EXIT");
     }
 
+    /**
+     * Do custom post initialization
+     */
     @Override
-    public void customPostInit()
-    {
+    public void customPostInit() {
         closeFont = FontServer.getFont(closeFontS);
     }
 
+    /**
+     * Set button features
+     *
+     * @return
+     */
     @Override
-    public ArrayList<Object> getButtonFeatures()
-    {
+    public ArrayList<Object> getButtonFeatures() {
         // Create AL
         ArrayList<Object> feats = new ArrayList<>();
 
@@ -69,9 +78,13 @@ public class Exit extends InterfaceScreen
         return feats;
     }
 
+    /**
+     * Set button labels
+     *
+     * @return
+     */
     @Override
-    public ArrayList<String> getButtonLabels()
-    {
+    public ArrayList<String> getButtonLabels() {
         //Create AL
         ArrayList<String> text = new ArrayList<>();
 
@@ -83,13 +96,18 @@ public class Exit extends InterfaceScreen
         return text;
     }
 
+    /**
+     * Update variables
+     *
+     * @param gc
+     * @param sbg
+     * @param delta
+     */
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta)
-    {
-        // Initialise time of closing
-        // Must be initialised here
-        if (exitTime == 0) // Only do once
-        {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) {
+
+        // Initialise time of closing, if not already
+        if (exitTime == 0) {
             exitTime = Globals.agc.getTime() + exitConstant;
         }
 
@@ -105,16 +123,19 @@ public class Exit extends InterfaceScreen
         percentage = 100 - (int) perF;
 
         // Exit after some time has elapsed
-        if (percentage >= 100)
-        {
+        if (percentage >= 100) {
             Globals.agc.exit();
         }
 
     }
 
+    /**
+     * Do custom rendering
+     *
+     * @param g
+     */
     @Override
-    public void customPostRender(Graphics g)
-    {
+    public void customPostRender(Graphics g) {
         // Calculate position of text
         int x = closeX;
         int y = Globals.screenH - 75;
@@ -129,9 +150,13 @@ public class Exit extends InterfaceScreen
         closeFont.drawString(x, y + 25, close2);
     }
 
+    /**
+     * Set darkened option
+     *
+     * @return
+     */
     @Override
-    public boolean isDarkened()
-    {
+    public boolean isDarkened() {
         return true;
     }
 

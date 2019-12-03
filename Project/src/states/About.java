@@ -5,34 +5,32 @@ import java.util.ArrayList;
 import main.Globals;
 import components.screentemps.InfoScreen;
 
-
 /**
  * A screen that provides information about the game
  *
  * @author David
  */
-public class About extends InfoScreen
-{
+public class About extends InfoScreen {
 
     /**
-     * Used to identify state
+     * Return ID used to identify state
      *
      * @return ID
      */
     @Override
-    public int getID()
-    {
+    public int getID() {
         return Globals.STATES.get("ABOUT");
     }
 
     /**
      * Used to get text of screen
-     * @return 
+     *
+     * @return
      */
     @Override
-    public ArrayList<String> getButtonLabels()
-    {
-        //Create AL
+    public ArrayList<String> getButtonLabels() {
+
+        // Create AL
         ArrayList<String> text = new ArrayList<>();
 
         // Add to text

@@ -11,31 +11,40 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
 
 /**
- * Shown when a mini-game is failed
+ * Provides a screen for game-over situations
  *
  * @author David
  */
-public class GameOver extends InfoScreen
-{
+public class GameOver extends InfoScreen {
 
     // Font 
     private TrueTypeFont lineFont;
 
+    /**
+     * Return ID used to identify state
+     *
+     * @return ID
+     */
     @Override
-    public int getID()
-    {
+    public int getID() {
         return Globals.STATES.get("GAMEOVER");
     }
 
+    /**
+     * Do custom post initialization
+     */
     @Override
-    public void customPostInit()
-    {
+    public void customPostInit() {
         lineFont = FontServer.getFont(getLineFontString());
     }
 
+    /**
+     * Set button labels
+     *
+     * @return
+     */
     @Override
-    public ArrayList<String> getButtonLabels()
-    {
+    public ArrayList<String> getButtonLabels() {
         //Create AL
         ArrayList<String> text = new ArrayList<>();
 
@@ -45,9 +54,14 @@ public class GameOver extends InfoScreen
         return text;
     }
 
+    /**
+     * Do custom post rendering
+     *
+     * @param g
+     */
     @Override
-    public void customPostRender(Graphics g)
-    {
+    public void customPostRender(Graphics g) {
+
         // Show status
         g.setColor(Color.white);
         lineFont.drawString(
@@ -57,9 +71,13 @@ public class GameOver extends InfoScreen
         );
     }
 
+    /**
+     * Set darkened option
+     *
+     * @return
+     */
     @Override
-    public boolean isDarkened()
-    {
+    public boolean isDarkened() {
         return true;
     }
 

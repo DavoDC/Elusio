@@ -5,40 +5,55 @@ import entity.base.Entity;
 /**
  * Represents an obstructed area
  *
- * @author David 
+ * @author David
  */
-public class Obstacle extends Entity
-{
+public class Obstacle extends Entity {
 
-    // Matching zone
-    private String obZoneName;
+    // Matching zone name
+    private final String obZoneName;
 
     // Records whether to unblock when zone unlocked
-    private boolean unblockOn;
+    private final boolean unblockOn;
 
-    public Obstacle(
-            String name,
-            String obZoneName,
-            int tlc,
-            int tlr,
-            int w,
-            int h,
-            boolean unblockOn)
-    {
+    /**
+     * Create obstacle
+     *
+     * @param name
+     * @param obZoneName
+     * @param tlc
+     * @param tlr
+     * @param w
+     * @param h
+     * @param unblockOn
+     */
+    public Obstacle(String name, String obZoneName, int tlc, int tlr,
+            int w, int h, boolean unblockOn) {
+
+        // Call entity constructor
         super(name, tlc, tlr, w, h);
 
+        // Save obstacle zone name
         this.obZoneName = obZoneName;
 
+        // Save unblocking status
         this.unblockOn = unblockOn;
     }
 
-    public String getOZName()
-    {
+    /**
+     * Get obstacle zone name
+     *
+     * @return
+     */
+    public String getOZName() {
         return obZoneName;
     }
 
-    public boolean isUnblockOn()
-    {
+    /**
+     * Return whether obstacle is unblocked after unlocking
+     *
+     * @return
+     */
+    public boolean isUnblockOn() {
         return unblockOn;
     }
 

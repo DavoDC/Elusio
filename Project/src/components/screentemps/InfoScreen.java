@@ -5,30 +5,39 @@ import java.util.ArrayList;
 import main.Globals;
 
 /**
- * Models a screen containing info
+ * Models a screen that provides information
  *
- * @author David 
+ * @author David
  */
-public abstract class InfoScreen extends InterfaceScreen
-{
+public abstract class InfoScreen extends InterfaceScreen {
 
     // Line constants
     public static final float lineX = (Globals.screenW / 4) - 300;
     public static final float lineY = 210;
 
-    // Header constants
+    // Header constant
     public static final float headerX = (Globals.screenW / 2) - 175;
 
+    /**
+     * Return ID used to identify state
+     *
+     * @return ID
+     */
     @Override
     public abstract int getID();
 
+    /**
+     * Set features of buttons
+     *
+     * @return
+     */
     @Override
-    public ArrayList<Object> getButtonFeatures()
-    {
-        // Create AL
+    public ArrayList<Object> getButtonFeatures() {
+
+        // Initialize list
         ArrayList<Object> feats = new ArrayList<>();
 
-        // Add to AL
+        // Add featues to list
         feats.add(getButtonLabels().size()); // Number of buttons
         feats.add(Globals.emptyImgRes); // Image Location
         feats.add(getStartXPos()); // startXpos
@@ -40,45 +49,79 @@ public abstract class InfoScreen extends InterfaceScreen
         feats.add(getColumnNo()); // NumberofColumns
         feats.add(getLineFontString()); // FontString
 
+        // Return list
         return feats;
     }
 
-    public int getStartXPos()
-    {
+    /**
+     * Can be overridden to change start X pos
+     *
+     * @return start X pos
+     */
+    public int getStartXPos() {
         return (int) lineX;
     }
 
-    public int getStartYPos()
-    {
+    /**
+     * Can be overridden to change start Y pos
+     *
+     * @return start Y pos
+     */
+    public int getStartYPos() {
         return (int) lineY;
     }
 
-    public int getXSpacing()
-    {
+    /**
+     * Can be overridden to change X spacing
+     *
+     * @return X spacing
+     */
+    public int getXSpacing() {
         return 20;
     }
 
-    public int getColumnNo()
-    {
+    /**
+     * Can be overridden to change column amount
+     *
+     * @return column amount
+     */
+    public int getColumnNo() {
         return 1;
     }
 
-    public int getYSpacing()
-    {
+    /**
+     * Can be overridden to change Y spacing
+     *
+     * @return Y spacing
+     */
+    public int getYSpacing() {
         return 5;
     }
 
-    public String getLineFontString()
-    {
+    /**
+     * Can be overridden to change line font
+     *
+     * @return line font string
+     */
+    public String getLineFontString() {
         return "Segoe UI-Plain-30";
     }
 
+    /**
+     * Must be implemented to provide button labels
+     *
+     * @return list of label strings
+     */
     @Override
     public abstract ArrayList<String> getButtonLabels();
 
+    /**
+     * Can be overridden to change darkened status
+     *
+     * @return darkened status
+     */
     @Override
-    public boolean isDarkened()
-    {
+    public boolean isDarkened() {
         return true;
     }
 

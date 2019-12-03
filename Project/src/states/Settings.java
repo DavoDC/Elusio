@@ -8,25 +8,27 @@ import components.screentemps.InterfaceScreen;
 import org.newdawn.slick.gui.AbstractComponent;
 
 /**
- * Provides an interface for making setting adjustments
+ * Provides screen for modifying game settings
  *
  * @author David
  */
-public class Settings extends InterfaceScreen
-{
+public class Settings extends InterfaceScreen {
 
     // Font
     private final String settingsFont = "OCR A Extended-plain-35";
 
+    /**
+     * Return ID used to identify state
+     *
+     * @return ID
+     */
     @Override
-    public int getID()
-    {
+    public int getID() {
         return Globals.STATES.get("SETTINGS");
     }
 
     @Override
-    public ArrayList<Object> getButtonFeatures()
-    {
+    public ArrayList<Object> getButtonFeatures() {
         // Create AL
         ArrayList<Object> feats = new ArrayList<>();
 
@@ -56,8 +58,8 @@ public class Settings extends InterfaceScreen
     }
 
     @Override
-    public ArrayList<String> getButtonLabels()
-    {
+    public ArrayList<String> getButtonLabels() {
+
         // Create setting strings
         boolean status = Globals.showDevData;
         String stats = processSwitchString("DEV DATA: X", status);
@@ -72,12 +74,15 @@ public class Settings extends InterfaceScreen
         return labels;
     }
 
+    /**
+     * Do custom initialization
+     */
     @Override
-    public void customPostInit()
-    {
+    public void customPostInit() {
+
         // Add action to stats button
-        super.getButtonGrid().getButtonByPos(1).addListener((AbstractComponent source) ->
-        {
+        super.getButtonGrid().getButtonByPos(1).addListener((AbstractComponent source)
+                -> {
             Globals.showDevData = !Globals.showDevData;
             switchLabel(Globals.showDevData);
         });
@@ -92,8 +97,8 @@ public class Settings extends InterfaceScreen
      * @param state boolean status
      * @return
      */
-    private void switchLabel(boolean state)
-    {
+    private void switchLabel(boolean state) {
+
         // Get previous string
         String prev = super.getButtonGrid().getButtonByPos(1).getLabel();
 
@@ -105,8 +110,15 @@ public class Settings extends InterfaceScreen
 
     }
 
-    private String processSwitchString(String prev, boolean state)
-    {
+    /**
+     * Return a setting label string that reflects a given boolean
+     *
+     * @param prev
+     * @param state
+     * @return
+     */
+    private String processSwitchString(String prev, boolean state) {
+
         // Initialise new label with first part
         String newS = prev.split(":")[0];
 
@@ -114,12 +126,9 @@ public class Settings extends InterfaceScreen
         newS += ": ";
 
         // Add true if ON, and OFF if false
-        if (state)
-        {
+        if (state) {
             newS += "ON";
-        }
-        else
-        {
+        } else {
             newS += "OFF";
         }
 
@@ -127,9 +136,13 @@ public class Settings extends InterfaceScreen
         return newS;
     }
 
+    /**
+     * Set darkened to true
+     *
+     * @return
+     */
     @Override
-    public boolean isDarkened()
-    {
+    public boolean isDarkened() {
         return true;
     }
 

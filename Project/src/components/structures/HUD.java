@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import main.Globals;
 import components.buttons.ButtonGrid;
 import components.popups.Popup;
-import components.popups.PopupDisplayer;
+import components.popups.PopupStore;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -13,12 +13,11 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.gui.AbstractComponent;
 
 /**
- * Helps to draw HUD elements
+ * Provides a HUD (Heads Up Display) with always-accessible buttons
  *
- * @author David C
+ * @author David
  */
-public class HUD
-{
+public class HUD {
 
     // Resource folder path
     private final String folder = Globals.root + "ui/";
@@ -42,7 +41,7 @@ public class HUD
     // Font for lives
     // private TrueTypeFont lifeFont;
     // Popup Displayer
-    private final PopupDisplayer popupDisp;
+    private final PopupStore popupDisp;
 
     /**
      * Initialise the HUD
@@ -50,8 +49,8 @@ public class HUD
      * @param cam
      * @param player
      */
-    public HUD(Camera cam, Player player)
-    {
+    public HUD(Camera cam, Player player) {
+
         // Create button features
         ArrayList<Object> feats = new ArrayList<>();
         feats.add(BUTTON_NO); // Number of buttons
@@ -68,8 +67,7 @@ public class HUD
         // Create (empty) button labels
         ArrayList<String> labels = new ArrayList<>();
         int buttonNo = (int) feats.get(0);
-        for (int i = 0; i <= buttonNo; i++)
-        {
+        for (int i = 0; i <= buttonNo; i++) {
             labels.add(" ");
         }
 
@@ -82,20 +80,25 @@ public class HUD
         buttonG.getButtonByPos(2).setImageLoc(folder + "hint.png");
 //        buttonG.getButtonByPos(X).setImageLoc(folder + "lives.png");
 
-        // Add actions
-        //  MainMenu button
+        // Add MainMenu button action
         buttonG.getButtonByPos(0).addListener(
-                (AbstractComponent source) ->
-        {
+                (AbstractComponent source)
+                -> {
+
+            // Pause game 
             Globals.hasBeenPaused = true;
+
+            // Enter Main Menu state
+            // Note: No transitions because map goes weird
             Globals.SBG.enterState(Globals.STATES.get("MAINMENU"));
-            // No transitions because map goes weird
         });
 
-        //  Inventory button
+        // Add inventory button action
         buttonG.getButtonByPos(1).addListener(
-                (AbstractComponent source) ->
-        {
+                (AbstractComponent source)
+                -> {
+
+            // Pause game and enter inventory state
             Globals.hasBeenPaused = true;
             Globals.SBG.enterState(Globals.STATES.get("INVENTORY"));
         });
@@ -111,7 +114,7 @@ public class HUD
         // Initialise font
         // lifeFont = FontServer.getFont("Cambria-Bold-25");
         // Initialise PD
-        popupDisp = new PopupDisplayer();
+        popupDisp = new PopupStore();
 
     }
 
@@ -122,8 +125,8 @@ public class HUD
      * @param player
      * @param delta
      */
-    public void update(Camera cam, Player player, int delta)
-    {
+    public void update(Camera cam, Player player, int delta) {
+
         // Update button shift
         shiftX = cam.getX() - camX;
         shiftY = cam.getY() - camY;
@@ -146,8 +149,8 @@ public class HUD
      *
      * @param g
      */
-    public void drawHUD(Graphics g)
-    {
+    public void drawHUD(Graphics g) {
+
         // Draw buttons   
         buttonG.drawButtonsShifted(g, shiftX, shiftY);
 
@@ -160,15 +163,16 @@ public class HUD
     }
 
     /**
-     * Show runtime game values on top right
+     * Draw internal game variable data on top right of screen
      *
      * @param g
      */
-    private void drawStatsText(Graphics g)
-    {
-        // Only draw if stats are on
-        if (!(Globals.showDevData))
-        {
+    private void drawStatsText(Graphics g) {
+
+        // If devData setting is not wanted
+        if (!(Globals.showDevData)) {
+
+            // Do not continue
             return;
         }
 
@@ -221,7 +225,7 @@ public class HUD
         g.drawString(mouse, drawX, drawY + 6 * yGap);
         int mCol = Map.convertXtoCol(mX);
         int mRow = Map.convertYtoRow(mY);
-        String mouseTile = "pC: " + mCol + " , pR: " + mRow;
+        String mouseTile = "mC: " + mCol + " , mR: " + mRow;
         g.drawString(mouseTile, drawX, drawY + 7 * yGap);
     }
 
@@ -246,8 +250,7 @@ public class HUD
      *
      * @param itemInfo
      */
-    public void loadPopup(Popup itemInfo)
-    {
+    public void loadPopup(Popup itemInfo) {
         popupDisp.loadPopup(itemInfo);
     }
 

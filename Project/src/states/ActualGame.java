@@ -24,12 +24,11 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * Handles actual gameplay
+ * Provides actual gameplay state
  *
  * @author David
  */
-public class ActualGame extends BasicGameState
-{
+public class ActualGame extends BasicGameState {
 
     // Entity Stores
     private ItemStore itemStore;
@@ -37,28 +36,26 @@ public class ActualGame extends BasicGameState
     private ObstacleStore obStore;
 
     /**
-     * Used to identify STATES and switch to them
+     * Return ID used to identify state
      *
-     * @return id
+     * @return ID
      */
     @Override
-    public int getID()
-    {
+    public int getID() {
         return Globals.STATES.get("PLAY");
     }
 
     /**
-     * This is only called when the game starts Used to load resources Used to
-     * initialise the game state.
+     * Do initialization tasks
      *
      * @param gc
      * @param game
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void init(GameContainer gc, StateBasedGame game) throws SlickException
-    {
+    public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 
+        // Initialize entity stores
         itemStore = new ItemStore();
         enemyStore = new EnemyStore();
         obStore = new ObstacleStore();
@@ -66,9 +63,7 @@ public class ActualGame extends BasicGameState
     }
 
     /**
-     * The method is called each game loop to cause your game to update it's
-     * logic. This is where you should make objects move. This is also where you
-     * should check input and change the state of the game.
+     * Handles logic and input every game loop
      *
      * @param gc Holds the game
      * @param sbg
@@ -76,36 +71,42 @@ public class ActualGame extends BasicGameState
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
-    {
-        // Make animation use game time
-        Globals.alien.updateAnimation(delta);
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 
-        // Relative speed
-        int relSpeed = (int) (Math.round(delta * Globals.alien.getMovSpeed()));
+        // Make animation use game time
+        Globals.player.updateAnimation(delta);
+
+        // Calculative relative speed
+        int relSpeed = (int) (Math.round(delta * Globals.player.getMovSpeed()));
 
         // Handle input
         handleInput(gc.getInput(), sbg, relSpeed);
 
         // Update camera
-        Globals.cam.centerOn(Globals.alien.getX(), Globals.alien.getY());
+        Globals.cam.centerOn(Globals.player.getX(), Globals.player.getY());
 
-        // Update Globals.hud
-        Globals.hud.update(Globals.cam, Globals.alien, delta);
+        // Update HUD
+        Globals.hud.update(Globals.cam, Globals.player, delta);
     }
 
     /**
      * Acts based on user input
+     *
+     * @param input
+     * @param sbg
+     * @param rSpd
+     * @throws SlickException
      */
-    private void handleInput(Input input, StateBasedGame sbg, int rSpd) throws SlickException
-    {
-        // Only process keys if input is not been ignored
-        if (Globals.inputIgnored)
-        {
+    private void handleInput(Input input, StateBasedGame sbg, int rSpd) throws SlickException {
+
+        // If input is being ignored
+        if (Globals.inputIgnored) {
+
+            // Do not process further
             return;
         }
 
-        // Get key down
+        // Check which keys are down
         boolean upArrowDown = input.isKeyDown(Input.KEY_UP);
         boolean downArrowDown = input.isKeyDown(Input.KEY_DOWN);
         boolean leftArrowDown = input.isKeyDown(Input.KEY_LEFT);
@@ -118,91 +119,105 @@ public class ActualGame extends BasicGameState
         boolean qKeyDown = input.isKeyDown(Input.KEY_Q);
         boolean eKeyDown = input.isKeyDown(Input.KEY_E);
 
-        // Check and act
-        if (upArrowDown)
-        {
-            // Change animation
-            Globals.alien.startAnim("up");
+        // Act on each key
+        if (upArrowDown) {
 
-            // Move but dont collide
-            if (Globals.map.isUpAllowed(Globals.alien.getX(), Globals.alien.getY(), rSpd))
-            {
-                Globals.alien.adjustY(-rSpd);
-            }
-        }
-        else if (downArrowDown)
-        {
             // Change animation
-            Globals.alien.startAnim("down");
+            Globals.player.startAnim("up");
 
-            // Move if conditions are satisfied
-            if (Globals.map.isDownAllowed(Globals.alien.getX(), Globals.alien.getY(), rSpd))
-            {
-                Globals.alien.adjustY(rSpd);
+            // If no collision
+            if (Globals.map.isUpAllowed(Globals.player.getX(), Globals.player.getY(), rSpd)) {
+
+                // Move up
+                Globals.player.adjustY(-rSpd);
             }
-        }
-        else if (leftArrowDown)
-        {
+
+        } else if (downArrowDown) {
+
             // Change animation
-            Globals.alien.startAnim("left");
+            Globals.player.startAnim("down");
 
-            // Move if conditions are satisfied
-            if (Globals.map.isLeftAllowed(Globals.alien.getX(), Globals.alien.getY(), rSpd))
-            {
-                Globals.alien.adjustX(-rSpd);
+            // If no collision
+            if (Globals.map.isDownAllowed(Globals.player.getX(), Globals.player.getY(), rSpd)) {
+
+                // Move down
+                Globals.player.adjustY(rSpd);
             }
-        }
-        else if (rightArrowDown)
-        {
+        } else if (leftArrowDown) {
+
             // Change animation
-            Globals.alien.startAnim("right");
+            Globals.player.startAnim("left");
 
-            // Move if conditions are satisfied
-            if (Globals.map.isRightAllowed(Globals.alien.getX(), Globals.alien.getY(), rSpd))
-            {
-                Globals.alien.adjustX(rSpd);
+            // If no collision
+            if (Globals.map.isLeftAllowed(Globals.player.getX(), Globals.player.getY(), rSpd)) {
+
+                // Move left
+                Globals.player.adjustX(-rSpd);
             }
-        }
-        else if (escapeDown || altDown) // Paused when alt-tabbed too
-        {
+        } else if (rightArrowDown) {
+
+            // Change animation
+            Globals.player.startAnim("right");
+
+            // If no collision
+            if (Globals.map.isRightAllowed(Globals.player.getX(), Globals.player.getY(), rSpd)) {
+
+                // Move right
+                Globals.player.adjustX(rSpd);
+            }
+
+        } else if (escapeDown || altDown) {
+
+            // When Escape or Alt-Tab pressed,
+            // enter Main Menu and pause
             sbg.enterState(Globals.STATES.get("MAINMENU"));
-            // No transitions because map goes weird
             Globals.hasBeenPaused = true;
-        }
-        else if (fKeyDown) // Fullscreen toggle
-        {
+
+        } else if (fKeyDown) {
+
+            // If F is pressed, toggle fullscreen
             boolean newStatus = !Globals.agc.isFullscreen();
             Globals.agc.setFullscreen(newStatus);
-        }
-        else if (qKeyDown) // Grab item key 
-        {
+
+        } else if (qKeyDown) {
+
+            // If Q is pressed, try to grab item
             processItemGrab();
-        }
-        else if (eKeyDown) // Use items key
-        {
+
+        } else if (eKeyDown) {
+
+            // If E is pressed, try to use item
             processItemUse();
-        }
-        else // When nothing is being pressed
-        {
-            Globals.alien.stopAnim();
+
+        } else {
+
+            // Stop player when nothing is pressed
+            Globals.player.stopAnim();
         }
     }
 
-    private void processItemGrab()
-    {
-        // Get item under player, or null if no item
-        Item itemFound = (Item) itemStore.getItemUnder(Globals.alien);
+    /**
+     * Attempt to grab an item
+     */
+    private void processItemGrab() {
+
+        // Attempt to retrieve item under player
+        Item itemFound = (Item) itemStore.getItemUnder(Globals.player);
 
         // If an item was found, and hasn't been found before
-        if (itemFound != null && !itemFound.isFound())
-        {
-            // Process item
-            itemFound.setFound(true); // Set the item as found
-            itemStore.addEncounter(itemFound); // Hide item
-            Globals.alien.addItem(itemFound); // Add to player inventory
+        if (itemFound != null && !itemFound.isFound()) {
+
+            // Set the item as found
+            itemFound.setFound(true);
+
+            // Hide item
+            itemStore.addEncounter(itemFound);
+
+            // Add item to inventory
+            Globals.player.addItem(itemFound);
 
             // Check for protector items and process
-            processProtector(itemFound);
+            processProtectedItem(itemFound);
 
             // Check for instant items and process
             processInstant(itemFound);
@@ -213,32 +228,52 @@ public class ActualGame extends BasicGameState
         }
     }
 
-    private void processProtector(Item item)
-    {
-        // Check if protected
-        if (!(item instanceof ProtectedItem))
-        {
+    /**
+     * Process an item being grabbed near its protector (enemy)
+     *
+     * @param item
+     */
+    private void processProtectedItem(Item item) {
+
+        // If not a protected item
+        if (!(item instanceof ProtectedItem)) {
+
+            // Do not process further
             return;
         }
 
         // Get protector name
         String protectorName = ((ProtectedItem) item).getProtector();
-        Enemy enemy = enemyStore.getEnemy(protectorName); // Get enemy/protector
+
+        // Get enemy/protector 
+        Enemy enemy = enemyStore.getEnemy(protectorName);
+
+        // Make enemy act
         enemy.doAction();
-        enemyStore.addEncounter(enemy); // Hide enemy
-        Globals.map.unblockEntity(enemy); // Unblock enemy 
+
+        // Hide encountered enemy
+        enemyStore.addEncounter(enemy);
+
+        // Unblock enemy
+        Globals.map.unblockEntity(enemy);
     }
 
-    private void processInstant(Item item)
-    {
-        // Check if is an 
-        if (!(item instanceof InstantItem))
-        {
+    /**
+     * Process instant items
+     *
+     * @param item
+     */
+    private void processInstant(Item item) {
+
+        // If not an instant item
+        if (!(item instanceof InstantItem)) {
+
+            // Do not process further
             return;
         }
 
-        // Activate
-        ((InstantItem) item).activateEffect(Globals.alien);
+        // Activate item effect
+        ((InstantItem) item).activateEffect(Globals.player);
     }
 
     /**
@@ -246,8 +281,8 @@ public class ActualGame extends BasicGameState
      *
      * @param item
      */
-    private void showItemPopup(Item item)
-    {
+    private void showItemPopup(Item item) {
+
         // Calculate adjustment from camera
         int camRadj = 3;
         int camCadj = 2;
@@ -258,62 +293,60 @@ public class ActualGame extends BasicGameState
         int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
         int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
 
-        // Special cases = teleportation
+        // Account for special teleportation cases
         String name = item.getName().toLowerCase();
-        if (name.contains("clock"))
-        {
+        if (name.contains("clock")) {
             r = Map.convertYtoRow(Globals.cam.getY() + camYadj - 34 * 64);
             c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
-        }
-        else if (name.contains("shipgold"))
-        {
+        } else if (name.contains("shipgold")) {
             r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
             c = Map.convertXtoCol(Globals.cam.getX() + camXadj + 6 * 64);
             item.afterAction();
         }
 
-        Popup itemInfo = itemStore.getInfoPopup(item, r, c); // Generate info
-        Globals.hud.loadPopup(itemInfo); // Show it
+        // Generate and show popup
+        Popup itemInfo = itemStore.getInfoPopup(item, r, c);
+        Globals.hud.loadPopup(itemInfo);
     }
 
-    private void processItemUse()
-    {
+    /**
+     * Attempt to use all items
+     */
+    private void processItemUse() {
+
         // Get the obstacle zone the player is currently inside, if any
-        ObstacleZone obZone = obStore.getZoneUnder(Globals.alien);
+        ObstacleZone obZone = obStore.getZoneUnder(Globals.player);
 
         // If (locked obstacle found) && (player has key item of zone)
-        if (((obZone != null) && (obZone.isLocked())) && (Globals.alien.hasItem(obZone.getKeyItem())))
-        {
-            // Special
-            if (obZone.getKeyItem().equals("ShipGold"))
-            {
+        if (((obZone != null) && (obZone.isLocked()))
+                && (Globals.player.hasItem(obZone.getKeyItem()))) {
+
+            // Move player if they have picked up ShipGold item
+            if (obZone.getKeyItem().equals("ShipGold")) {
                 obZone.afterAction();
                 return;
             }
 
-            // Set as unlocked
+            // Set obstacle zone as unlocked
             obZone.setLocked(false);
 
             // Get the zone's matching obstacle(s)
-            ArrayList<Obstacle> obstacles = obStore.getMatchingObstacles(obZone);
+            ArrayList<Obstacle> obstacles = obStore.getLinkedObstacles(obZone);
 
             // For every matching obstacle
-            for (Obstacle obst : obstacles)
-            {
+            for (Obstacle obst : obstacles) {
+
                 // Hide the obstacle
                 obStore.addEncounter(obst);
 
-                // Special processing of crystals
+                // Get obstacle name
                 String obN = obst.getName();
-                if (obN.contains("Gate"))
-                {
+
+                // Increase crystal count for magic gate
+                if (obN.contains("Gate")) {
                     obStore.crystalPlaced();
                 }
 
-                // Usables
-                boolean cryo = obN.contains("Tree");
-                boolean gun = obN.contains("Lime");
-                boolean orb = obN.contains("Water");
                 // Calculate adjustment from camera
                 int camRadj = 3;
                 int camCadj = 2;
@@ -323,25 +356,14 @@ public class ActualGame extends BasicGameState
                 // Calculate actual position
                 int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
                 int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
-                if (cryo)
-                {
-                    UsableItem item = Globals.alien.getItemByName("Cryo");
-                    Globals.hud.loadPopup(itemStore.getUsablePopup(item, r, c));
-                }
-                else if (gun)
-                {
-                    UsableItem item = Globals.alien.getItemByName("Acid");
-                    Globals.hud.loadPopup(itemStore.getUsablePopup(item, r, c));
-                }
-                else if (orb)
-                {
-                    UsableItem item = Globals.alien.getItemByName("Orb");
-                    Globals.hud.loadPopup(itemStore.getUsablePopup(item, r, c));
-                }
+
+                // Show popups after item use
+                showUsablePopup(obN, "Tree", "Cryo", r, c);
+                showUsablePopup(obN, "Lime", "Acid", r, c);
+                showUsablePopup(obN, "Water", "Orb", r, c);
 
                 // Unblock the obstacle
-                if (obst.isUnblockOn())
-                {
+                if (obst.isUnblockOn()) {
                     Globals.map.unblockEntity(obst);
                 }
             }
@@ -350,9 +372,30 @@ public class ActualGame extends BasicGameState
     }
 
     /**
-     * This method should be used to draw to the screen. All of your game's
-     * rendering should take place in this method (or via calls) It is called
-     * constantly. Items are constantly redrawn
+     * Show usable item popup after it is grabbed
+     *
+     * @param obN The obstacle's full name
+     * @param obQ Part of the obstacle's name
+     * @param itemName Item name subset
+     * @param r Row position of popup
+     * @param c Column position of popup
+     */
+    private void showUsablePopup(String obN, String obQ, String itemName, int r, int c) {
+
+        // If obstacle name contains query
+        if (obN.contains(obQ)) {
+
+            // Get item
+            UsableItem item = (UsableItem) Globals.player.getItemByName(itemName);
+
+            // Load popup for item
+            Globals.hud.loadPopup(itemStore.getUsablePopup(item, r, c));
+
+        }
+    }
+
+    /**
+     * Render map, alien (player) and HUD
      *
      * @param gc
      * @param sbg
@@ -360,20 +403,21 @@ public class ActualGame extends BasicGameState
      * @throws org.newdawn.slick.SlickException
      */
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
-    {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
+            throws SlickException {
+
         // Draw camera's view of map
         // Note: Drawing by layers individually is not done due to severe lag
         Globals.cam.drawMap();
         Globals.cam.translateGraphics();
 
-        // Account for grabbed items
-        itemStore.updateMap(g, Globals.alien);
-        enemyStore.updateMap(g, Globals.alien);
-        obStore.updateMap(g, Globals.alien);
+        // Account for entity interactions
+        itemStore.updateMap(g);
+        enemyStore.updateMap(g);
+        obStore.updateMap(g);
 
         // Draw player
-        Globals.alien.drawPlayer(Globals.alien.getX(), Globals.alien.getY());
+        Globals.player.drawPlayer(Globals.player.getX(), Globals.player.getY());
 
         // Draw HUD
         Globals.hud.drawHUD(g);

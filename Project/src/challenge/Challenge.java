@@ -8,31 +8,27 @@ import java.util.ArrayList;
 /**
  * Base class for challenge states
  *
- * @author David 
+ * @author David
  */
-public class Challenge extends InfoScreen
-{
+public class Challenge extends InfoScreen {
 
-    //
-    // In update = Increase time using "timeElapsed += delta;"
-    //    
-    // For timing events:    
-    //    private boolean atTime(int time)
-    //    {
-    //        boolean before = (time - 40) < timeElapsed;
-    //        boolean after = (time + 40) > timeElapsed;
-    //        
-    //        return (before && after);
-    //    }
+    /**
+     * Return ID used to identify state
+     *
+     * @return ID
+     */
     @Override
-    public int getID()
-    {
+    public int getID() {
         return Globals.STATES.get("CHALLENGE");
     }
 
+    /**
+     * Set button labels
+     *
+     * @return
+     */
     @Override
-    public ArrayList<String> getButtonLabels()
-    {
+    public ArrayList<String> getButtonLabels() {
         ArrayList<String> lines = new ArrayList<>();
 
         lines.add("CHALLENGE");

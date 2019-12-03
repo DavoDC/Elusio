@@ -14,12 +14,11 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.gui.ComponentListener;
 
 /**
- * Helps controlling large numbers of buttons
+ * Helps to manipulate to a group of buttons
  *
- * @author David 
+ * @author David
  */
-public class ButtonGrid
-{
+public class ButtonGrid {
 
     // Holds buttons
     private ArrayList<Button> buttons;
@@ -27,47 +26,42 @@ public class ButtonGrid
     /**
      * Create a ButtonGrid Input the values common to most buttons
      *
-     * @param common 0 - NumberOfButtons, 1 - ImageLocationString, 2 -
-     * startXpos, 3 - startYpos, 4 - width, 5 - height, 6 - XSpacing, 7 -
-     * YSpacing, 8 - NumberofColumns, 9 - FontString
+     * @param common 0: NumberOfButtons, 1: ImageLocationString, 2: startXpos,
+     * 3: startYpos, 4: width, 5: height, 6: XSpacing, 7: YSpacing, 8:
+     * NumberofColumns, 9: FontString
      *
      * @param labels
      */
-    public ButtonGrid(ArrayList<Object> common, ArrayList<String> labels)
-    {
+    public ButtonGrid(ArrayList<Object> common, ArrayList<String> labels) {
+
+        // Initialize list
         buttons = new ArrayList<>();
 
-        // Create info for generic buttons
-        // Extract image
-        Image img = null;
-        try
-        {
-            img = new Image((String) common.get(1));
-        }
-        catch (SlickException ex)
-        {
-            System.err.println("BGMan : image error");
-        }
-
-        // Get bounds
+        // Extract variables from common
+        String imgRes = (String) common.get(1);
         int x = (int) common.get(2);
         int y = (int) common.get(3);
         int w = (int) common.get(4);
         int h = (int) common.get(5);
 
-        // Change image
-        img = img.getScaledCopy(w, h);
+        // Get image and adjust
+        Image img = null;
+        try {
+            img = new Image(imgRes).getScaledCopy(w, h);
+        } catch (SlickException ex) {
+            System.err.println("Image error in ButtonGrid constructor");
+        }
 
         // Extract font
         TrueTypeFont font = FontServer.getFont((String) common.get(9));
 
         // Create and add generic buttons
         int buttonNo = (int) common.get(0);
-        for (int i = 0; i < buttonNo; i++)
-        {
+        for (int i = 0; i < buttonNo; i++) {
             buttons.add(new Button(img, new Rectangle(x, y, w, h), font));
         }
 
+        // Do re-positioning of buttons
         // Extract required information
         int xpos = (int) common.get(2);
         int ypos = (int) common.get(3);
@@ -81,81 +75,87 @@ public class ButtonGrid
         int curxpos = xpos;
         int curypos = ypos;
 
-        // Add button rectangles and modify them
-        for (int i = 0; i < buttons.size(); i++)
-        {
+        // For all buttons
+        for (int i = 0; i < buttons.size(); i++) {
+
             // Get label
             String curLabel = labels.get(i);
 
-            if (curLabel.contains("header")) // Special header case
-            {
-                // Replace button
+            // If label is a header
+            if (curLabel.contains("header")) {
+
+                // Replace button with header
                 replaceButton(i, getHeader(curLabel));
-            }
-            else
-            {
+
+            } else {
+                // Else if we have a regular button
+
                 // Apply current position to current button
                 buttons.get(i).setBounds(curxpos, curypos, bW, bH);
 
                 // Apply label
                 buttons.get(i).setLabel(curLabel);
 
-                // Shift curX by width + spacing
+                // Shift current X by width + spacing
                 curxpos += (bW + xspacing);
 
                 // If current position is a multiple of columnNo
-                if (((i % columns) == 0) && (columns != buttonNo))
-                {
-                    curxpos = xpos;  // Reset X
-                    curypos += (bH + yspacing); // Increase Y
+                if (((i % columns) == 0) && (columns != buttonNo)) {
+
+                    // Reset X (go back to left)
+                    curxpos = xpos;
+
+                    // Increase Y (move downwards)
+                    curypos += (bH + yspacing);
                 }
             }
         }
     }
 
-    private Button getHeader(String rawLabel)
-    {
+    /**
+     * Create a header with a given label
+     *
+     * @param rawLabel
+     * @return
+     */
+    private Button getHeader(String rawLabel) {
+
         // Process raw label
         String[] parts = rawLabel.split("_");
         String actualLabel = parts[1];
         String headerFont = parts[2];
 
-        // Make new button 
-        //  Make header image
-        Image img = null;
-        try
-        {
-            img = new Image(Globals.generalPanelRes);
-        }
-        catch (SlickException ex)
-        {
-        }
-
-        //  Make Header rect
-        //  startXpos, startYpos, width, height
+        // Make Header rect (startXpos, startYpos, width, height)
         Rectangle rect = new Rectangle(headerX, 100, 450, 60);
 
-        //  Get Header font 
+        // Get Header font 
         TrueTypeFont font = FontServer.getFont(headerFont);
 
-        //  Adjust image
-        img = img.getScaledCopy((int) rect.getWidth(), (int) rect.getHeight());
+        // Get image and adjust
+        Image img = null;
+        try {
+            img = new Image(Globals.generalPanelRes);
+            img = img.getScaledCopy((int) rect.getWidth(), (int) rect.getHeight());
+        } catch (SlickException ex) {
+            System.err.println("Image error in ButtonGrid");
+        }
 
-        //  Make header button
+        // Make header button
         Button header = new Button(img, rect, font);
 
-        //  Set label
+        // Set label
         header.setLabel(actualLabel);
 
+        // Return header
         return header;
     }
 
     /**
      * Get the number of buttons in the grid
-     * @return 
+     *
+     * @return size of button list
      */
-    public int getSize()
-    {
+    public int getSize() {
         return buttons.size();
     }
 
@@ -164,10 +164,12 @@ public class ButtonGrid
      *
      * @param g
      */
-    public void drawButtons(Graphics g)
-    {
-        for (Button curB : buttons)
-        {
+    public void drawButtons(Graphics g) {
+
+        // For all buttons
+        for (Button curB : buttons) {
+
+            // Draw in full
             curB.drawFull(g);
         }
     }
@@ -179,10 +181,12 @@ public class ButtonGrid
      * @param sX
      * @param sY
      */
-    public void drawButtonsShifted(Graphics g, int sX, int sY)
-    {
-        for (Button curB : buttons)
-        {
+    public void drawButtonsShifted(Graphics g, int sX, int sY) {
+
+        // For all buttons
+        for (Button curB : buttons) {
+
+            // Draw shifted
             curB.drawShifted(g, sX, sY);
         }
     }
@@ -191,38 +195,40 @@ public class ButtonGrid
      * Get a button using its position
      *
      * @param pos
-     * @return
+     * @return Button
      */
-    public Button getButtonByPos(int pos)
-    {
+    public Button getButtonByPos(int pos) {
         return (buttons.get(pos));
     }
 
     /**
-     * Get a button using its part of its label
+     * Get a button using a label substring
      *
      * @param labelPart
-     * @return
+     * @return Button
      */
-    public Button getButtonByLabel(String labelPart)
-    {
-        // Find the position of the button
-        // Position 
-        int pos = 0;
-        // For every button
-        for (int i = 0; i < buttons.size(); i++)
-        {
-            // If current button contains label
-            if (getButtonByPos(i).getLabel().contains(labelPart))
-            {
-                // Save position
-                pos = i;
-                break;
+    public Button getButtonByLabel(String labelPart) {
+
+        // For all buttons
+        for (int i = 0; i < buttons.size(); i++) {
+
+            // Retrieve current button
+            Button curBut = getButtonByPos(i);
+
+            // If current button contains label part
+            if (curBut.getLabel().contains(labelPart)) {
+
+                // Return current button
+                return curBut;
             }
         }
 
-        // Return by position
-        return getButtonByPos(pos);
+        // Print error message
+        String errS = "Error: '" + labelPart + "' button label substring not found";
+        System.err.println(errS);
+
+        // Return null as nothing was found
+        return null;
     }
 
     /**
@@ -231,56 +237,66 @@ public class ButtonGrid
      * @param oldLabel
      * @param newLabel
      */
-    public void replaceButtonLabel(String oldLabel, String newLabel)
-    {
-        // Get the button using the old label
-        // Change its label to the new label
+    public void replaceButtonLabel(String oldLabel, String newLabel) {
+
+        // Retrieve the button using the old label,
+        // and replace its label with the one given
         getButtonByLabel(oldLabel).setLabel(newLabel);
     }
 
     /**
      * Replace a button
      *
-     * @param pos Position of old button
-     * @param newB The new button
+     * @param pos Old button position
+     * @param newB New button
      */
-    public final void replaceButton(int pos, Button newB)
-    {
+    public final void replaceButton(int pos, Button newB) {
+
+        // Replace the button at 'pos' with 'newB'
         buttons.set(pos, newB);
     }
 
     /**
-     * Add actions to all buttons
-     * @param cl
+     * Add an action to all buttons
+     *
+     * @param compList
      */
-    public void applyActions(ComponentListener cl)
-    {
-        for (Button b : buttons)
-        {
-            b.addListener(cl);
+    public void applyActions(ComponentListener compList) {
+
+        // For all buttons
+        for (Button b : buttons) {
+
+            // Add action
+            b.addListener(compList);
         }
     }
 
     /**
      * Apply a font to all buttons
+     *
      * @param fontS
      */
-    public void applyFont(String fontS)
-    {
-        for (Button b : buttons)
-        {
+    public void applyFont(String fontS) {
+
+        // For all buttons
+        for (Button b : buttons) {
+
+            // Change font
             b.setFont(fontS);
         }
     }
 
     /**
      * Apply a label to all buttons
+     *
      * @param newS
      */
-    public void applyLabel(String newS)
-    {
-        for (Button b : buttons)
-        {
+    public void applyLabel(String newS) {
+
+        // For all buttons
+        for (Button b : buttons) {
+
+            // Change label
             b.setLabel(newS);
         }
     }

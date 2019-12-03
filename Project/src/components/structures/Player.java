@@ -1,7 +1,6 @@
 package components.structures;
 
 import entity.item.Item;
-import entity.item.UsableItem;
 import main.Globals;
 
 import java.util.ArrayList;
@@ -15,8 +14,7 @@ import org.newdawn.slick.SpriteSheet;
  *
  * @author David
  */
-public class Player
-{
+public class Player {
 
     // Player location
     private int xPos;
@@ -27,116 +25,149 @@ public class Player
     private final int START_Y = 300;
 
     // Dimensions of player
-    private double scale; // Size factor
+    private double scale;
     private int width;
     private int height;
 
     // Movement speed of player
     private float movSpeed;
 
-    // Animation of player moving
+    // Variables for player movement animation
     private int animSpeed;
-    private Animation anim;
+    private final Animation anim;
 
     // Amount of animSpeed per movSpeed
     private final int speedRatio = 90;
 
     // Inventory
-    private ArrayList<Item> inv;
+    private final ArrayList<Item> inv;
 
     /**
-     * Create a player with preset values
+     * Create a player
      */
-    public Player()
-    {
+    public Player() {
+
         // Initialise fields
         xPos = START_X;
         yPos = START_Y;
-
         scale = 1.5;
         width = 33;
         height = 48;
-
-        movSpeed = 0.20f; // Default = 0.20
-
-        SpriteSheet sprites = null;
-        try
-        {
-        sprites = new SpriteSheet(Globals.playerSprRes, width, height);
-        }
-        catch (SlickException e)
-        {
-        }
-
-        harmonizeSpeeds();
-        anim = new Animation(sprites, animSpeed);
-
         inv = new ArrayList<>();
 
-        // Adjust animation
-        anim.stop();  // Prevents animation from starting on its own
-        anim.setCurrentFrame(1); // Puts animation on "standing still" frame
+        // Set normal default speed
+        movSpeed = 0.20f;
 
+        // If in IDE
+        if (Globals.inIDE) {
+
+            // Increase speed for faster test runs
+            movSpeed += 0.50f;
+        }
+
+        // Initalize sprites of player animation
+        SpriteSheet sprites = null;
+        try {
+            sprites = new SpriteSheet(Globals.playerSprRes, width, height);
+        } catch (SlickException e) {
+        }
+
+        // Sync animation speed with movement speed
+        syncAnimSpeed();
+
+        // Initialize animation 
+        anim = new Animation(sprites, animSpeed);
+
+        // Preven animation from starting on its own
+        anim.stop();
+
+        // Set animation on "standing still" frame
+        anim.setCurrentFrame(1);
     }
 
-    private void harmonizeSpeeds()
-    {
+    /**
+     * Put animation speed in sync with movement speed
+     */
+    private void syncAnimSpeed() {
         animSpeed = (int) ((1 / movSpeed) * speedRatio);
     }
 
-    public int getX()
-    {
+    /**
+     * Get X position of player
+     *
+     * @return
+     */
+    public int getX() {
         return xPos;
     }
 
-    public int getY()
-    {
+    /**
+     * Get Y position of player
+     *
+     * @return
+     */
+    public int getY() {
         return yPos;
     }
 
-    public void adjustX(int change)
-    {
-        // Adjust X
-        xPos += change;
+    /**
+     * Change X position of player, preventing
+     *
+     * @param change
+     */
+    public void adjustX(int change) {
 
-        // Prevent negative values
-        if (xPos < 0)
-        {
-            xPos -= change;
+        // If change does not result in negative vaue
+        if (!(xPos + change < 0)) {
+
+            // Apply change
+            xPos += change;
         }
     }
 
-    public void adjustY(int change)
-    {
-        // Adjust Y
-        yPos += change;
+    public void adjustY(int change) {
 
-        // Prevent negative values
-        if (yPos < 0)
-        {
-            yPos -= change;
+        // If change does not result in negative vaue
+        if (!(yPos + change < 0)) {
+
+            // Apply change
+            yPos += change;
         }
     }
 
-    public void resetLocation()
-    {
+    /**
+     * Reset player location back to start
+     */
+    public void resetLocation() {
         xPos = START_X;
         yPos = START_Y;
     }
 
-    public float getMovSpeed()
-    {
+    /**
+     * Get movement speed
+     *
+     * @return
+     */
+    public float getMovSpeed() {
         return movSpeed;
     }
 
-    public void changeMovSpeed(float change)
-    {
+    /**
+     * Change movement speed and re-sync animation speed
+     *
+     * @param change
+     */
+    public void changeMovSpeed(float change) {
         movSpeed += change;
-        harmonizeSpeeds();
+        syncAnimSpeed();
     }
 
-    public void updateAnimation(int delta)
-    {
+    /**
+     * Update player movement animation
+     *
+     * @param delta
+     */
+    public void updateAnimation(int delta) {
         anim.update(delta);
     }
 
@@ -145,15 +176,14 @@ public class Player
      *
      * @param dir Direction of motion
      */
-    public void startAnim(String dir)
-    {
+    public void startAnim(String dir) {
+
         // Start animation
         anim.start();
 
         // Determine frames needed
         String frameConfig;
-        switch (dir)
-        {
+        switch (dir) {
             case "up":
                 frameConfig = "n9n10n11"; // Back frames
                 break;
@@ -176,128 +206,123 @@ public class Player
     }
 
     /**
-     * Adjusts an animation to only use the referenced frames Frame numbers are
-     * prefixed by "n" Example: "n0n1n2" (for first three frames)
+     * Adjusts an animation to only use given frames. Frame configuration string
+     * would be "n0n1n2" for first three frames.
      *
-     * @param configS
+     * @param frConfS
      */
-    public void configureFrames(String configS)
-    {
+    public void configureFrames(String frConfS) {
+
         // Get frame count 
         int frameCount = anim.getFrameCount();
 
-        //Turn string into ArrayList
-        ArrayList<Integer> config = new ArrayList<>();
-        for (String curNo : configS.split("n"))
-        {
-            if (curNo.length() != 0)
-            {
-                config.add(Integer.parseInt(curNo));
+        // Initalize list of numbers
+        ArrayList<Integer> frNumsWanted = new ArrayList<>();
+
+        // For every number string 
+        for (String curNo : frConfS.split("n")) {
+
+            // If not an empty string
+            if (curNo.length() != 0) {
+
+                // Add number derived from string
+                frNumsWanted.add(Integer.parseInt(curNo));
             }
         }
 
-        // Process config
-        for (int i = 0; i < frameCount; i++)
-        {
+        // For every frame 
+        for (int i = 0; i < frameCount; i++) {
 
-            //If inputted, activate frame
-            if (config.contains(i))
-            {
+            // If frame is in list of wanted frames
+            if (frNumsWanted.contains(i)) {
+
+                // Give it a normal duration
                 anim.setDuration(i, animSpeed);
-            }
-            else //If not, deactivate
-            {
+
+            } else {
+
+                // Else if it is not a wanted frame,
+                // set its duration to zero
                 anim.setDuration(i, 0);
             }
         }
     }
 
     /**
-     * Stop the player's animation
+     * Stop the player animation
      */
-    public void stopAnim()
-    {
+    public void stopAnim() {
         anim.stop();
     }
 
     /**
-     * Draw the player at the coordinates Enlarges the player sprite beforehand
+     * Draw the correctly sized player at the coordinates
      *
      * @param pX
      * @param pY
      */
-    public void drawPlayer(int pX, int pY)
-    {
+    public void drawPlayer(int pX, int pY) {
+
+        // Get width and height
         int largerW = (int) (width * scale);
         int largerH = (int) (height * scale);
 
-        anim.draw((int) pX, (int) pY, largerW, largerH);
+        // Draw at given location
+        anim.draw(pX, pY, largerW, largerH);
     }
 
     /**
-     * Add to player's inventory
+     * Add the given item to the player inventory
      *
      * @param item
      */
-    public void addItem(Item item)
-    {
+    public void addItem(Item item) {
         inv.add(item);
     }
 
     /**
-     * Check if the player has a given item Uses "contains"
+     * Attempt to retrieve an item with a given name substring from the player
+     *
+     * @param itemName
+     * @return the Item or null if not found
+     */
+    public Item getItemByName(String itemName) {
+
+        // For all items 
+        for (Item curItem : inv) {
+
+            // Get current item's name
+            String curItemS = curItem.getName();
+
+            // If current item matches inputted item
+            if (curItemS.contains(itemName)) {
+
+                // Return item
+                return curItem;
+            }
+        }
+
+        // If no item found, return null
+        return null;
+    }
+
+    /**
+     * Return true if player has an item with the given name substring
      *
      * @param itemName
      * @return
      */
-    public boolean hasItem(String itemName)
-    {
-        // Check for item name
-        for (Item curItem : inv)
-        {
-            // Get current item's name
-            String curItemS = curItem.getName();
-
-            // Return true and stop searching, if matches input
-            if (curItemS.contains(itemName))
-            {
-                return true;
-            }
-        }
-
-        // Default
-        return false;
+    public boolean hasItem(String itemName) {
+        // Return true if found item is not null
+        return (getItemByName(itemName) != null);
     }
 
     /**
-     * Get all items
+     * Retrieve player inventory
      *
      * @return
      */
-    public ArrayList<Item> getInv()
-    {
+    public ArrayList<Item> getInv() {
         return inv;
     }
-
-    /**
-     * Retrieve an item by its name. Otherwise returns null
-     *
-     * @param nameQ
-     * @return
-     */
-    public UsableItem getItemByName(String nameQ)
-    {
-        if (hasItem(nameQ))
-        {
-            for (Item i : inv)
-            {
-                if (i.getName().contains(nameQ))
-                {
-                    return (UsableItem) i;
-                }
-            }
-        }
-        return null;
-    }
-
 }

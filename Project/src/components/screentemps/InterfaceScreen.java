@@ -19,11 +19,11 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
+ * Models a game state which is a user interface screen
  *
- * @author David 
+ * @author David
  */
-public abstract class InterfaceScreen extends BasicGameState
-{
+public abstract class InterfaceScreen extends BasicGameState {
 
     // Resource folder
     private final String folder = Globals.root + "backgrounds/";
@@ -31,31 +31,44 @@ public abstract class InterfaceScreen extends BasicGameState
     // Background
     private BigImage bg;
 
-    // Button Manager
+    // Handles button group
     private ButtonGrid buttonGrid;
 
     // Font
     private TrueTypeFont font;
 
-    // States where you can't go back
+    // A list of states where you cannot go back
     private ArrayList<Integer> specialStates;
 
+    /**
+     * Return ID used to identify state
+     *
+     * @return ID
+     */
     @Override
     public abstract int getID();
 
+    /**
+     * Initialize state
+     *
+     * @param gc
+     * @param sbg
+     * @throws SlickException
+     */
     @Override
-    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException
-    {
+    public void init(GameContainer gc, StateBasedGame sbg)
+            throws SlickException {
+
         // If backgrounds have not been loaded, load them
-        if (Globals.backgrounds.size() != Globals.BG_COUNT)
-        {
+        if (Globals.backgrounds.size() != Globals.BG_COUNT) {
+
             // Add every background to the array        
-            for (int i = 1; i <= Globals.BG_COUNT; i++)
-            {
+            for (int i = 1; i <= Globals.BG_COUNT; i++) {
 
                 String imgPath = folder + "bg" + i + ".png";
                 BigImage curBG = new BigImage(imgPath);
-                curBG = (BigImage) curBG.getScaledCopy(Globals.screenW, Globals.screenH);
+                curBG = (BigImage) curBG.getScaledCopy(
+                        Globals.screenW, Globals.screenH);
                 Globals.backgrounds.add(curBG);
             }
         }
@@ -68,12 +81,13 @@ public abstract class InterfaceScreen extends BasicGameState
         // Initialise buttons
         buttonGrid = new ButtonGrid(getButtonFeatures(), getButtonLabels());
 
-        // Initialise image and replace cursor
-        if (Globals.cursor == null) // Only do once
-        {
+        // Initialise and adjust cursor image if not done already
+        if (Globals.cursor == null) {
             Globals.cursor = new Image(Globals.cursorRes);
             Globals.cursor = Globals.cursor.getScaledCopy(0.75f);
         }
+
+        // Apply cursor image
         gc.setMouseCursor(Globals.cursor, 0, 0);
 
         // Initialise font
@@ -85,6 +99,7 @@ public abstract class InterfaceScreen extends BasicGameState
         specialStates.add(Globals.STATES.get("EXIT"));
         specialStates.add(Globals.STATES.get("GAMEOVER"));
 
+        // Custom initialization
         customPostInit();
     }
 
@@ -102,30 +117,41 @@ public abstract class InterfaceScreen extends BasicGameState
      */
     public abstract ArrayList<String> getButtonLabels();
 
+    /**
+     * Update internal variables
+     *
+     * @param gc
+     * @param sbg
+     * @param delta
+     */
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta)
-    {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) {
+
+        // Do custom pre update
         customPreUpdate();
 
-        // Don't proceed to back button processing if is a special state
-        int curStateID = sbg.getCurrentStateID();
-        if (specialStates.contains(curStateID))
-        {
+        // If you cannot go back on current state
+        if (specialStates.contains(sbg.getCurrentStateID())) {
+
+            // Do not process back button presses
             return;
         }
 
         // Act on back button presses
+        // If ESC pressed or RIGHT MOUSE clicked
         Input input = gc.getInput();
-        boolean escClicked = input.isKeyDown(Input.KEY_ESCAPE);
-        boolean middleClicked = input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON);
-        if (escClicked || middleClicked)
-        {
-            // Unless there, go to main menu
+        boolean escPress = input.isKeyDown(Input.KEY_ESCAPE);
+        boolean riClick = input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON);
+        if (escPress || riClick) {
+
+            // Get current state ID and main menu ID
             int curID = sbg.getCurrentStateID();
             int menuID = Globals.STATES.get("MAINMENU");
-            if (curID != menuID)
-            {
-                // Transition to that state
+
+            // If not currently in main menu
+            if (curID != menuID) {
+
+                // Transition to main menu
                 sbg.enterState(
                         menuID,
                         Globals.getLeave(),
@@ -136,16 +162,22 @@ public abstract class InterfaceScreen extends BasicGameState
         }
     }
 
+    /**
+     * Handle graphics rendering
+     *
+     * @param container
+     * @param game
+     * @param g
+     * @throws SlickException
+     */
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
-    {
-        // Draw background darkened
-        if (isDarkened())
-        {
+    public void render(GameContainer container, StateBasedGame game, Graphics g)
+            throws SlickException {
+
+        // Draw background (darkened or not)
+        if (isDarkened()) {
             g.drawImage(bg, 0, 0, Color.darkGray);
-        }
-        else
-        {
+        } else {
             g.drawImage(bg, 0, 0);
         }
 
@@ -154,41 +186,43 @@ public abstract class InterfaceScreen extends BasicGameState
 
         // If not a special state, reveal back button 
         int curStateID = game.getCurrentStateID();
-        if (!specialStates.contains(curStateID))
-        {
+        if (!specialStates.contains(curStateID)) {
             g.setColor(Color.white);
-            font.drawString(10, Globals.screenH - 40, "Press ESC or Right Click to go back");
+            font.drawString(10, Globals.screenH - 40,
+                    "Press ESC or Right Click to go back");
         }
 
+        // Do custom post rendering
         customPostRender(g);
     }
 
     /**
      * Add additional initialization tasks here
      */
-    public void customPostInit()
-    {
+    public void customPostInit() {
         // For overriding
     }
 
     /**
      * Do custom pre updating here
      */
-    public void customPreUpdate()
-    {
+    public void customPreUpdate() {
         // For overriding
     }
 
     /**
      * Do custom post rendering here
+     *
+     * @param g
      */
-    public void customPostRender(Graphics g)
-    {
+    public void customPostRender(Graphics g) {
         // For overriding
     }
 
     /**
      * True = Background will be darkened
+     *
+     * @return
      */
     public abstract boolean isDarkened();
 
@@ -197,8 +231,7 @@ public abstract class InterfaceScreen extends BasicGameState
      *
      * @return
      */
-    public ButtonGrid getButtonGrid()
-    {
+    public ButtonGrid getButtonGrid() {
         return buttonGrid;
     }
 

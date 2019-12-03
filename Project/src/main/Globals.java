@@ -19,18 +19,20 @@ import org.newdawn.slick.state.transition.Transition;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-
 /**
  * Global scope objects and constants
  *
  * @author David
  */
-public class Globals
-{
+public class Globals {
 
     // Game information
     public static final String gameTitle = "Elusio";
-    public static final String VERSION = "0.1.2";
+    public static final String VERSION = "1.6";
+
+    // Game execution environment
+    public static boolean inIDE = false;
+    public static boolean inExe = false;
 
     // Game framework
     public static AppGameContainer agc = null;
@@ -42,18 +44,18 @@ public class Globals
     // Main structures
     public static Map map;
     public static Camera cam;
-    public static Player alien;
+    public static Player player;
     public static HUD hud;
 
     // Music
     public static Music ambientMusic;
 
-    // Game font
+    // Font variables
     public static TrueTypeFont gameFont = null;
+    public static final String headerFont = "Gamefont-Plain-60";
 
     // Resource filepath strings
     public static final String root = "res/";
-    public static final String headerFont = "Gamefont-Plain-60";
     public static final String gameFontRes = root + "misc/3dventure.ttf";
     public static final String alertRes = root + "ui/alert.png";
     public static final String generalPanelRes = root + "ui/general.png";
@@ -87,13 +89,11 @@ public class Globals
     public static boolean hasBeenPaused = false; // True = Game was paused once
 
     // Transitions
-    public static Transition getLeave()
-    {
+    public static Transition getLeave() {
         return new FadeOutTransition(Color.black, 639);
     }
 
-    public static Transition getEnter()
-    {
+    public static Transition getEnter() {
         return new FadeInTransition(Color.black, 639);
     }
 

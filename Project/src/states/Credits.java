@@ -6,30 +6,29 @@ import main.Globals;
 import components.screentemps.InfoScreen;
 
 /**
- * A screen that provides information about the game's contributors
+ * Provides credits screen
  *
- * @author David 
+ * @author David
  */
-public class Credits extends InfoScreen
-{
+public class Credits extends InfoScreen {
 
     /**
-     * Used to identify the state
-     * @return 
+     * Return ID used to identify state
+     *
+     * @return ID
      */
     @Override
-    public int getID()
-    {
+    public int getID() {
         return Globals.STATES.get("CREDITS");
     }
 
     /**
-     * Provides the text for the screen
-     * @return 
+     * Set button labels
+     *
+     * @return
      */
     @Override
-    public ArrayList<String> getButtonLabels()
-    {
+    public ArrayList<String> getButtonLabels() {
         // Create AL
         ArrayList<String> text = new ArrayList<>();
 
@@ -55,52 +54,52 @@ public class Credits extends InfoScreen
     }
 
     /**
-     * Provides the X position
-     * @return 
+     * Set custom X position
+     *
+     * @return
      */
     @Override
-    public int getStartXPos()
-    {
+    public int getStartXPos() {
         return (int) (InfoScreen.lineX - 200);
     }
 
     /**
-     * Provides the X Spacing
-     * @return 
+     * Set custom X spacing
+     *
+     * @return
      */
     @Override
-    public int getXSpacing()
-    {
-        return -900;
+    public int getXSpacing() {
+        return -800;
     }
-    
+
     /**
-     * Provides the Y Spacing
-     * @return 
+     * Set custom Y spacing
+     *
+     * @return
      */
     @Override
-    public int getYSpacing()
-    {
+    public int getYSpacing() {
         return 0;
     }
 
     /**
-     * Provides the number of columns
-     * @return 
+     * Set the number of columns
+     *
+     * @return
      */
     @Override
-    public int getColumnNo()
-    {
+    public int getColumnNo() {
         return 2;
     }
 
     /**
-     * Provides the font for the text
-     * @return 
+     * Set the font for the text
+     *
+     * @return
      */
     @Override
-    public String getLineFontString()
-    {
+    public String getLineFontString() {
         return "Segoe UI-Plain-22";
     }
 

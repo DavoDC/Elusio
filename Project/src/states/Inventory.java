@@ -2,7 +2,9 @@ package states;
 
 import components.helpers.FontServer;
 import components.screentemps.InterfaceScreen;
+import entity.base.Entity;
 import entity.item.Item;
+import entity.item.ItemStore;
 import main.Globals;
 
 import java.util.ArrayList;
@@ -10,28 +12,34 @@ import org.newdawn.slick.Color;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.geom.Rectangle;
 
 /**
- * Displays the player's current inventory
+ * Provides a screen for the player's current inventory
  *
  * @author David
  */
-public class Inventory extends InterfaceScreen
-{
+public class Inventory extends InterfaceScreen {
 
     // Normal font
     private TrueTypeFont normFont = null;
 
+    /**
+     * Return ID used to identify state
+     *
+     * @return ID
+     */
     @Override
-    public int getID()
-    {
+    public int getID() {
         return Globals.STATES.get("INVENTORY");
     }
 
+    /**
+     * Set button features
+     *
+     * @return
+     */
     @Override
-    public ArrayList<Object> getButtonFeatures()
-    {
+    public ArrayList<Object> getButtonFeatures() {
         // Create AL
         ArrayList<Object> feats = new ArrayList<>();
 
@@ -50,9 +58,13 @@ public class Inventory extends InterfaceScreen
         return feats;
     }
 
+    /**
+     * Set button labels
+     *
+     * @return
+     */
     @Override
-    public ArrayList<String> getButtonLabels()
-    {
+    public ArrayList<String> getButtonLabels() {
         // Create AL
         ArrayList<String> text = new ArrayList<>();
 
@@ -62,45 +74,56 @@ public class Inventory extends InterfaceScreen
         return text;
     }
 
+    /**
+     * Set darkened option
+     *
+     * @return
+     */
     @Override
-    public boolean isDarkened()
-    {
+    public boolean isDarkened() {
         return true;
     }
 
     /**
-     * Add additional initialization tasks here
+     * Do custom initialization
      */
-    public void customPostInit()
-    {
+    @Override
+    public void customPostInit() {
+
+        // Initialize font
         normFont = FontServer.getFont("Segoe UI-Plain-18");
-        
-        // TESTING
-        Globals.alien.addItem(new Item("Apple", "Desc", 0, 0));
-        Globals.alien.addItem(new Item("Orange", "Desc", 0, 0));
+
+        // Add all items for faster IDE testing
+        if (Globals.inIDE) {
+            ItemStore is = new ItemStore();
+            ArrayList<Entity> list = is.getEntities();
+            list.forEach((cur) -> {
+                Globals.player.addItem((Item) cur);
+            });
+        }
     }
 
     /**
      * Do custom post rendering here
      */
-    public void customPostRender(Graphics g)
-    {
+    @Override
+    public void customPostRender(Graphics g) {
+
         // Retrieve inventory
-        ArrayList<Item> inv = Globals.alien.getInv();
+        ArrayList<Item> inv = Globals.player.getInv();
 
-//        // Say empty when empty
-//        if (inv.isEmpty())
-//        {
-//            normFont.drawString(100, 100, "The inventory is empty");
-//        }
+        // Say empty when empty
+        if (inv.isEmpty()) {
+            normFont.drawString(100, 100, "The inventory is empty");
+        }
 
-
-        // Draw every item
+        // Position variables
         float curX = 100;
         float curY = 100;
-        Rectangle box = null;
-        for (Item curItem : inv)
-        {
+
+        // For every item
+        for (Item curItem : inv) {
+
             // Draw box
             g.setColor(Color.darkGray);
             g.fillRect(curX - 10, curY - 10, Globals.screenW - 400, 40);
@@ -109,6 +132,7 @@ public class Inventory extends InterfaceScreen
             g.setColor(Color.white);
             normFont.drawString(curX, curY, curItem.getName());
 
+            // Increase Y pos
             curY += 60;
         }
 

@@ -9,16 +9,20 @@ import entity.base.Entity;
 import entity.base.EntityStore;
 
 /**
- * Handles items
+ * Handles multiple items
  *
  * @author David
  */
-public class ItemStore extends EntityStore
-{
+public class ItemStore extends EntityStore {
 
+    /**
+     * Create list of all game items
+     *
+     * @return
+     */
     @Override
-    public ArrayList<Entity> getEntities()
-    {
+    public ArrayList<Entity> getEntities() {
+
         // Create list
         ArrayList<Entity> itemList = new ArrayList<>();
 
@@ -50,27 +54,24 @@ public class ItemStore extends EntityStore
 
         // Add crystals
         addCrystals(itemList);
-        
+
         // Add ship gold
         itemList.add(new ProtectedItem(
                 "ShipGold",
                 "We have all the electrovelox substitute we could ever need!",
                 "Now we can finally repair me! Come back to me",
                 "Ship",
-                10, 74, 3, 6)
-        {
+                10, 74, 3, 6) {
             @Override
-            public void afterAction()
-            {
-                Globals.alien.adjustX(Globals.tileSize * 6);
+            public void afterAction() {
+                Globals.player.adjustX(Globals.tileSize * 6);
             }
         });
 
         // Add gold coin
         itemList.add(new Item(
                 "GoldCoins",
-                new String[]
-                {
+                new String[]{
                     "Hmmm .. a pile of metal discs .. ",
                     "Hold the phone! This is a substitute for electrovelox!",
                     "If you find more of it, we could repair me and go home!"
@@ -79,22 +80,18 @@ public class ItemStore extends EntityStore
 
         // Add speed modifiers
         addSpeedItems(itemList);
-        
 
-        // Add clock at 0 = teleport back to starting loc
+        // Add clock for teleporting back to starting location
         itemList.add(new InstantItem(
                 "DigitalClock",
-                new String[]
-                {
+                new String[]{
                     "A digital time-keeper .. ",
                     "Thats strange ... It has no Higgs boson field",
                     "Wow! It teleported you !"
                 },
-                12, 54)
-        {
+                12, 54) {
             @Override
-            public void activateEffect(Player player)
-            {
+            public void activateEffect(Player player) {
                 player.adjustY(-34 * 64);
 
             }
@@ -104,30 +101,34 @@ public class ItemStore extends EntityStore
         return itemList;
 
     }
-    
+
     /**
      * Add crystals
-     * @param itemList 
+     *
+     * @param itemList
      */
-    private void addCrystals(ArrayList<Entity> itemList)
-    {
-       itemList.add(new Item(
+    private void addCrystals(ArrayList<Entity> itemList) {
+
+        itemList.add(new Item(
                 "Crystal12",
                 "This crystal has a high, specific EMR frequency .. 1122Hz",
                 "Somehow it seems that .. it is longing for something... ",
                 65, 6));
+
         itemList.add(new ProtectedItem(
                 "Crystal3",
                 "This crystal has an EMR signature of 333Hz",
                 "It .. misses the presence of something... ",
                 "Viridash",
                 30, 33));
+
         itemList.add(new ProtectedItem(
                 "Crystal6",
                 "The crystal emanates a particular EMR frequency .. 666Hz",
                 "It is longing for something... ",
                 "Trevil",
                 89, 41));
+
         itemList.add(new ProtectedItem(
                 "Crystal9",
                 "A particular EMR frequency is being emitted by this crystal.. 999Hz",
@@ -136,133 +137,131 @@ public class ItemStore extends EntityStore
                 71, 81));
 
     }
-    
+
     /**
-     * Add speed altering items 
-     * @param itemList 
+     * Add speed altering items
+     *
+     * @param itemList
      */
-    private void addSpeedItems(ArrayList<Entity> itemList)
-    {
-                // Add ipod = small speed increase
+    private void addSpeedItems(ArrayList<Entity> itemList) {
+
+        // Add MP3 player that gives small speed increase
         itemList.add(new InstantItem(
-                "iPod",
+                "MP3Player",
                 "Using ESP, I can perceive sound waves emanating!",
                 "The arrangement of them makes me feel energized! Try it!",
-                34, 1)
-        {
+                34, 1) {
             @Override
-            public void activateEffect(Player player)
-            {
+            public void activateEffect(Player player) {
                 player.changeMovSpeed(0.07f);
             }
         });
-        
-        // Add watch = small speed increase
+
+        // Add wrist watch that gives small speed increase
         itemList.add(new InstantItem(
                 "Wristwatch",
                 "This looks like it came from a dimension where time goes faster...",
                 "Wearing it will bring some of that aspect nearby",
-                37, 87)
-        {
+                37, 87) {
             @Override
-            public void activateEffect(Player player)
-            {
+            public void activateEffect(Player player) {
                 player.changeMovSpeed(0.08f);
             }
         });
 
-        // Add ring = small speed increase
+        // Add ring that gives small speed increase
         itemList.add(new InstantItem(
                 "Alacrity Ring",
                 "This ring is enchanted with alacrity essence",
                 "I recommend wearing it!",
-                59, 50)
-        {
+                59, 50) {
             @Override
-            public void activateEffect(Player player)
-            {
+            public void activateEffect(Player player) {
                 player.changeMovSpeed(0.08f);
             }
         });
 
-        // Add Syringe = huge speed increase
+        // Add syringe that gives huge speed increase
         itemList.add(new InstantItem(
-                "Syringe",
-                new String[]
-                {
-                    "A common stimulant from Izukia, named STH06",
+                "STH06Syringe",
+                new String[]{
+                    "A common stimulant named SanicTH06",
                     "Its highly potent. Be careful... I'm receiving something ",
                     "I just heard " + quote("BigDaz") + " say " + quote("You skitz druggo") + "!",
-                    "That was really strange ...",
-                },
-                3, 44)
-        {
+                    "That was really strange ...",},
+                3, 44) {
             @Override
-            public void activateEffect(Player player)
-            {
+            public void activateEffect(Player player) {
                 player.changeMovSpeed(player.getMovSpeed());
             }
         });
 
-        // Add Ciggarette = huge slow down
+        // Add cigarette that slows down player greatly
         itemList.add(new InstantItem(
                 "Cigarette",
                 "Psionically embued with the name: Two Number 9s",
                 "Not sure what this might do ... ",
-                79, 37)
-        {
+                79, 37) {
             @Override
-            public void activateEffect(Player player)
-            {
+            public void activateEffect(Player player) {
                 player.changeMovSpeed(-player.getMovSpeed() / 2);
             }
         });
     }
 
-    private String quote(String in)
-    {
+    /**
+     * Return the given string in quotes
+     *
+     * @param in
+     * @return
+     */
+    private String quote(String in) {
         return ('"' + in + '"');
     }
 
+    /**
+     * Get the layer which holds the entities/items
+     *
+     * @return
+     */
     @Override
-    public String getEntLS()
-    {
+    public String getEntLS() {
         return "Items";
     }
 
     /**
-     * Get item under player
+     * Get the item under the player, or null otherwise
      *
      * @param alien
-     * @return Item, or null if nothing/non-item
+     * @return The item or null
      */
-    public Item getItemUnder(Player alien)
-    {
+    public Item getItemUnder(Player alien) {
+
         // Get entity
         Entity entityFound = super.getEntityUnder(alien);
 
-        Item item = null;
-        if (entityFound instanceof Item)
-        {
-            // Return item if an item
-            item = (Item) entityFound;
+        // If entity is an item
+        if (entityFound instanceof Item) {
+
+            // Return it
+            return ((Item) entityFound);
         }
 
-        // Return null if not an item
-        return item;
+        // Return null is nothing or not an item
+        return null;
     }
 
     /**
-     * Get a popup with item information
+     * Get a popup that describes a given item
      *
      * @param item
      * @param r
      * @param c
      * @return
      */
-    public Popup getInfoPopup(Item item, int r, int c)
-    {
-        // Set features of popip
+    public Popup getInfoPopup(Item item, int r, int c) {
+
+        // Set features of popup
         ArrayList<Object> feats = new ArrayList<>();
         feats.add(r);  // Tile grid row
         feats.add(c);  // Tile grid column 
@@ -275,8 +274,7 @@ public class ItemStore extends EntityStore
         ArrayList<String> itemLines = item.getInfoLines();
         ArrayList<String> newLines = new ArrayList<>();
         String start = "(Ehecatl, telepathically): ";
-        for (String curItemLine : itemLines)
-        {
+        for (String curItemLine : itemLines) {
             newLines.add(start + curItemLine);
         }
         newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
@@ -286,16 +284,16 @@ public class ItemStore extends EntityStore
     }
 
     /**
-     * Get a popup with item information
+     * Get a popup describing what a usable item just did
      *
      * @param item
      * @param r
      * @param c
      * @return
      */
-    public Popup getUsablePopup(Item item, int r, int c)
-    {
-        // Set features of popip
+    public Popup getUsablePopup(Item item, int r, int c) {
+
+        // Set features of popup
         ArrayList<Object> feats = new ArrayList<>();
         feats.add(r);  // Tile grid row
         feats.add(c);  // Tile grid column 
