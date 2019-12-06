@@ -3,7 +3,7 @@ package states;
 import java.util.ArrayList;
 
 import main.Globals;
-import components.screentemps.InterfaceScreen;
+import states.screens.InterfaceScreen;
 import components.helpers.DelayWriter;
 import components.buttons.Button;
 import components.helpers.FontServer;
@@ -56,7 +56,7 @@ public class MainMenu extends InterfaceScreen {
     public void customPostInit() {
 
         // Create delay writer
-        dw = new DelayWriter(80);
+        dw = new DelayWriter(80, Color.white);
         dw.setText(titleS);
 
         // Update last reset (of delay writer)

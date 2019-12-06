@@ -3,7 +3,7 @@ package states;
 import java.util.ArrayList;
 
 import main.Globals;
-import components.screentemps.InterfaceScreen;
+import states.screens.InterfaceScreen;
 
 import org.newdawn.slick.gui.AbstractComponent;
 
@@ -36,7 +36,7 @@ public class Settings extends InterfaceScreen {
         // Number of buttons
         feats.add(getButtonLabels().size());
         // Image Location
-        feats.add(Globals.generalPanelRes);
+        feats.add(Globals.buttonPanelRes);
         // startXpos
         feats.add(300);
         // startYpos
@@ -60,17 +60,16 @@ public class Settings extends InterfaceScreen {
     @Override
     public ArrayList<String> getButtonLabels() {
 
-        // Create setting strings
-        boolean status = Globals.showDevData;
-        String stats = processSwitchString("DEV DATA: X", status);
-
-        // Create AL
+        // Initialize list
         ArrayList<String> labels = new ArrayList<>();
-
-        // Add to AL
         labels.add("header_SETTINGS_" + Globals.headerFont);
-        labels.add(stats);
 
+        // Add music toggle
+        boolean musicB = Globals.agc.isMusicOn();
+        String musicS = processSwitchString("MUSIC: X", musicB);
+        labels.add(musicS);
+
+        // Return lists
         return labels;
     }
 
@@ -80,34 +79,33 @@ public class Settings extends InterfaceScreen {
     @Override
     public void customPostInit() {
 
-        // Add action to stats button
+        // Add action to Music toggle
         super.getButtonGrid().getButtonByPos(1).addListener((AbstractComponent source)
                 -> {
-            Globals.showDevData = !Globals.showDevData;
-            switchLabel(Globals.showDevData);
+
+            Globals.agc.setMusicOn(!Globals.agc.isMusicOn());
+            switchLabel(1, Globals.agc.isMusicOn());
         });
 
     }
 
     /**
-     * Alter a label after it is clicked
+     * Alter a certain button's label to reflect a new boolean state
      *
      * @param prev previous label
      * @param pos in button list
      * @param state boolean status
-     * @return
      */
-    private void switchLabel(boolean state) {
+    private void switchLabel(int pos, boolean state) {
 
         // Get previous string
-        String prev = super.getButtonGrid().getButtonByPos(1).getLabel();
+        String prev = super.getButtonGrid().getButtonByPos(pos).getLabel();
 
         // Generate new string
         String newS = processSwitchString(prev, state);
 
         // Replace old label with new
         super.getButtonGrid().replaceButtonLabel(prev, newS);
-
     }
 
     /**

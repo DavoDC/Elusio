@@ -204,7 +204,7 @@ public class ObstacleStore extends EntityStore {
 
         // If all crystals have been placed
         if (crystalsPlaced == 4) {
-           
+
             // Get all obstacles
             ArrayList<Entity> entities = super.getEntityList();
 

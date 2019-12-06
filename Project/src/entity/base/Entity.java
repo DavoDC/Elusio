@@ -18,8 +18,8 @@ public abstract class Entity {
     private final String[][] gridPosS;
 
     // Tiles of entity
-    // private Image[][] entImages;
-    // \n
+    private final Image[][] entImages;
+
     // Tiles of ground underneath entity
     private final Image[][] undImages;
 
@@ -38,7 +38,7 @@ public abstract class Entity {
         this.name = name;
 
         // Initialise arrays
-        // entImages = new Image[h][w];
+        entImages = new Image[h][w];
         undImages = new Image[h][w];
         gridPosS = new String[h][w];
 
@@ -70,7 +70,7 @@ public abstract class Entity {
     public void initTileImages(String entLS, String undLS) {
 
         // Get index of layers
-        // int entLayerIndex = Globals.map.getLayerIndex(entLS);
+        int entLayerIndex = Globals.map.getLayerIndex(entLS);
         int undLayerIndex = Globals.map.getLayerIndex(undLS);
 
         // For all tiles 
@@ -84,9 +84,10 @@ public abstract class Entity {
                 int arrCol = Integer.parseInt(locPair[2]);
                 int arrRow = Integer.parseInt(locPair[3]);
 
-//                // Get and save entity image
-//                Image entImage = Globals.map.getTileImage(mapCol, mapRow, entLayerIndex); 
-//                entImages[arrRow][arrCol] = entImage;
+                // Get and save entity image
+                Image entImage = Globals.map.getTileImage(mapCol, mapRow, entLayerIndex);
+                entImages[arrRow][arrCol] = entImage;
+
                 // Get and save ground image
                 Image undImage = Globals.map.getTileImage(mapCol, mapRow, undLayerIndex);
                 undImages[arrRow][arrCol] = undImage;
@@ -124,11 +125,44 @@ public abstract class Entity {
     }
 
     /**
-     * Hide an entity
+     * Get entity image(s)
+     *
+     * @param r Row of array
+     * @param c Column of array
+     * @return
+     */
+    public Image getImage(int r, int c) {
+        return entImages[r][c];
+    }
+
+    /**
+     * Draw an entity
      *
      * @param g
      */
     public void hideEntity(Graphics g) {
+
+        // Draw ground images
+        drawImageArray(undImages, g);
+    }
+
+    /**
+     * Draw an entity
+     *
+     * @param g
+     */
+    public void drawEntity(Graphics g) {
+
+        // Draw entity images
+        drawImageArray(entImages, g);
+    }
+
+    /**
+     * Draw an entity image array
+     *
+     * @param imgArr
+     */
+    private void drawImageArray(Image[][] imgArr, Graphics g) {
 
         // For all tiles
         for (String[] gridRow : gridPosS) {
@@ -144,11 +178,11 @@ public abstract class Entity {
                 int arrRow = Integer.parseInt(locPair[3]);
 
                 // Get image underneath
-                Image undImage = undImages[arrRow][arrCol];
+                Image image = imgArr[arrRow][arrCol];
 
                 // If not null, draw it
-                if (undImage != null) {
-                    g.drawImage(undImage, xPos, yPos);
+                if (image != null) {
+                    g.drawImage(image, xPos, yPos);
                 }
             }
         }

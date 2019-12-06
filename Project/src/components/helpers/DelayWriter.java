@@ -1,5 +1,6 @@
 package components.helpers;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
 /**
@@ -11,6 +12,9 @@ public class DelayWriter {
 
     // Text
     private String text;
+    
+    // Text color
+    private Color col;
 
     // End index of string 
     private int endIndex;
@@ -26,7 +30,7 @@ public class DelayWriter {
      *
      * @param interval Time between characters
      */
-    public DelayWriter(int interval) {
+    public DelayWriter(int interval, Color col) {
 
         // If interval is divisible by ten
         if (interval % 10 == 0) {
@@ -39,6 +43,9 @@ public class DelayWriter {
             // Otherwise, throw exception
             throw new IllegalArgumentException("TW Interval must be mult of 10");
         }
+        
+        // Save color
+        this.col = col;
 
         // Initialize to default values
         reset();
@@ -107,7 +114,7 @@ public class DelayWriter {
     public void drawText(TrueTypeFont font, int x, int y) {
 
         // Draw the current string segments
-        font.drawString(x, y, getText());
+        font.drawString(x, y, getText(), col);
     }
 
     /**

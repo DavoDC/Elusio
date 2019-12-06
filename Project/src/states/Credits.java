@@ -3,7 +3,7 @@ package states;
 import java.util.ArrayList;
 
 import main.Globals;
-import components.screentemps.InfoScreen;
+import states.screens.InfoScreen;
 
 /**
  * Provides credits screen

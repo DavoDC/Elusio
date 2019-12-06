@@ -1,3 +1,60 @@
+  /**
+     * Align the text in a list of labels
+     *
+     * @param list
+     * @param sep
+     * @return
+     */
+    private void alignLabels(ArrayList<String> list, char sep) {
+
+        // Find longest length (before separator)
+        int maxLen = 0;
+        // For all labels
+        for (int i = 1; i < list.size(); i++) {
+
+            // Split line
+            String[] parts = list.get(i).split("" + sep + "");
+
+            // Get length of first part
+            int curLen = parts[0].trim().length();
+
+            // If first line OR max len is less than current
+            if (i == 1 || maxLen < curLen) {
+                // Update maxLen
+                maxLen = curLen;
+            }
+        }
+
+        // For all labels
+        for (int i = 1; i < list.size(); i++) {
+
+            // Split line
+            String[] parts = list.get(i).split("" + sep + "");
+
+            // Make new string
+            // Initialize with first part and sep
+            String newLine = parts[0].trim() + sep;
+
+            // Add spaces
+            int diff = maxLen - parts[0].length();
+            for (int d = 0; d < diff; d++) {
+                newLine += " ";
+            }
+
+            // Add last part
+            newLine += parts[1].trim();
+
+            // Replace string in list
+            list.set(i, newLine);
+        }
+
+        // TEST
+        System.out.println("### Lines");
+        for (String s : list) {
+            System.out.println(s);
+        }
+        System.out.println(" ");
+    }
 // <<<<<<<<<<<<<<<<<<<<< MAP IMPLEMENTATION 1 !!!!!!!!!!!!!!!!!   
 //// This will keep a list of Tiles that are blocked
 //private boolean blocked[][]

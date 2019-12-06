@@ -1,12 +1,16 @@
 package states;
 
 import main.Globals;
-import challenge.Challenge;
+import states.challenges.Challenge;
 import components.helpers.FontServer;
+import components.helpers.InputHandler;
 import components.structures.Camera;
 import components.structures.HUD;
 import components.structures.Map;
 import components.structures.Player;
+import entity.enemy.EnemyStore;
+import entity.item.ItemStore;
+import entity.obstacle.ObstacleStore;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -34,8 +38,10 @@ public class Loading extends BasicGameState {
     private TrueTypeFont font;
 
     // Time variables
-    private final long startRef = Globals.agc.getTime(); // Starting time
-    private final long introTime = 3669; // Duration of loading
+    // Starting time
+    private long startRef = Globals.agc.getTime();
+    // Duration of loading
+    private long introTime = 3669;
 
     // State loading status
     private boolean statesLoaded = false;
@@ -72,19 +78,32 @@ public class Loading extends BasicGameState {
             Globals.SBG = sbg;
             Globals.agc.setDefaultFont(FontServer.getFont("Segoe UI-Plain-16"));
 
-            // Create main structures
-            Globals.map = new Map(Globals.mapRes);
-            Globals.player = new Player();
-            Globals.cam = new Camera(gc, Globals.map);
-            Globals.cam.centerOn(Globals.player.getX(), Globals.player.getX());
-            Globals.hud = new HUD(Globals.cam, Globals.player);
-
             // Initialise and start music
             Globals.agc.setMusicOn(true);
             Globals.agc.setSoundOn(true);
             Globals.agc.setMusicVolume(0.69f);
             Globals.ambientMusic = new Music(Globals.ambMusRes);
             Globals.ambientMusic.loop();
+
+            // When in IDE, turn off music and quickload
+            if (Globals.inIDE) {
+                Globals.agc.setMusicOn(false);
+                startRef = 0;
+                introTime = 0;
+            }
+
+            // Initialize main structures
+            Globals.map = new Map(Globals.mapRes);
+            Globals.player = new Player();
+            Globals.cam = new Camera(gc, Globals.map);
+            Globals.cam.centerOn(Globals.player.getX(), Globals.player.getX());
+            Globals.hud = new HUD(Globals.cam, Globals.player);
+            Globals.inputHan = new InputHandler();
+
+            // Initialize entity stores
+            Globals.itemStore = new ItemStore();
+            Globals.enemyStore = new EnemyStore();
+            Globals.obStore = new ObstacleStore();
 
         } catch (SlickException ex) {
             System.err.println("Error in 'init' of Loading");
@@ -119,9 +138,6 @@ public class Loading extends BasicGameState {
 
             Globals.STATES.put("EXIT", Globals.STATES.size() + 1);
             sbg.addState(new Exit());
-
-            Globals.STATES.put("GAMEOVER", Globals.STATES.size() + 1);
-            sbg.addState(new GameOver());
 
             Globals.STATES.put("MAINMENU", Globals.STATES.size() + 1);
             sbg.addState(new MainMenu());

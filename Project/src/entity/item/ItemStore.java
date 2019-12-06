@@ -4,9 +4,14 @@ import java.util.ArrayList;
 
 import main.Globals;
 import components.popups.Popup;
+import components.structures.Map;
 import components.structures.Player;
 import entity.base.Entity;
 import entity.base.EntityStore;
+import entity.enemy.Enemy;
+import entity.obstacle.Obstacle;
+import entity.obstacle.ObstacleZone;
+import org.newdawn.slick.Color;
 
 /**
  * Handles multiple items
@@ -230,6 +235,59 @@ public class ItemStore extends EntityStore {
     }
 
     /**
+     * Attempt to grab an item
+     */
+    public void processItemGrab() {
+
+        // Attempt to retrieve item under player
+        Item itemFound = (Item) getItemUnder(Globals.player);
+
+        // If an item was found, and hasn't been found before
+        if (itemFound != null && !itemFound.isFound()) {
+
+            // Set the item as found
+            itemFound.setFound(true);
+
+            // Hide item
+            addEncounter(itemFound);
+
+            // Add item to inventory
+            Globals.player.addItem(itemFound);
+
+            // Do extra processing for protected items
+            if (itemFound instanceof ProtectedItem) {
+
+                // Get protector name
+                String protectorName = ((ProtectedItem) itemFound).
+                        getProtector();
+
+                // Get enemy/protector 
+                Enemy enemy = Globals.enemyStore.getEnemy(protectorName);
+
+                // Make enemy act
+                enemy.doAction();
+
+                // Hide encountered enemy
+                Globals.enemyStore.addEncounter(enemy);
+
+                // Unblock enemy
+                Globals.map.unblockEntity(enemy);
+
+            }
+
+            // Do extra processing of instant items
+            if (itemFound instanceof InstantItem) {
+
+                // Activate item effect
+                ((InstantItem) itemFound).activateEffect(Globals.player);
+            }
+
+            // Show item popup
+            showItemPopup(itemFound);
+        }
+    }
+
+    /**
      * Get the item under the player, or null otherwise
      *
      * @param alien
@@ -252,6 +310,39 @@ public class ItemStore extends EntityStore {
     }
 
     /**
+     * Show information about an item as a popup
+     *
+     * @param item
+     */
+    private void showItemPopup(Item item) {
+
+        // Calculate adjustment from camera
+        int camRadj = 3;
+        int camCadj = 2;
+        int camYadj = camRadj * Globals.tileSize;
+        int camXadj = camCadj * Globals.tileSize;
+
+        // Calculate actual position
+        int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
+        int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
+
+        // Account for special teleportation cases
+        String name = item.getName().toLowerCase();
+        if (name.contains("clock")) {
+            r = Map.convertYtoRow(Globals.cam.getY() + camYadj - 34 * 64);
+            c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
+        } else if (name.contains("shipgold")) {
+            r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
+            c = Map.convertXtoCol(Globals.cam.getX() + camXadj + 6 * 64);
+            item.afterAction();
+        }
+
+        // Generate and show popup
+        Popup itemInfo = getItemPopup(item, r, c);
+        Globals.hud.loadPopup(itemInfo);
+    }
+
+    /**
      * Get a popup that describes a given item
      *
      * @param item
@@ -259,7 +350,7 @@ public class ItemStore extends EntityStore {
      * @param c
      * @return
      */
-    public Popup getInfoPopup(Item item, int r, int c) {
+    public Popup getItemPopup(Item item, int r, int c) {
 
         // Set features of popup
         ArrayList<Object> feats = new ArrayList<>();
@@ -269,6 +360,7 @@ public class ItemStore extends EntityStore {
         feats.add(2);  // Height as number of tiles 
         feats.add(20); // Interval for delay writer
         feats.add("default"); // FontS or "default"
+        feats.add(Color.black); // Text color
 
         // Create popup lines 
         ArrayList<String> itemLines = item.getInfoLines();
@@ -284,6 +376,92 @@ public class ItemStore extends EntityStore {
     }
 
     /**
+     * Attempt to use all items
+     */
+    private void processItemUse() {
+
+        // Get the obstacle zone the player is currently inside, if any
+        ObstacleZone obZone = Globals.obStore.getZoneUnder(Globals.player);
+
+        // If (locked obstacle found) && (player has key item of zone)
+        if (((obZone != null) && (obZone.isLocked()))
+                && (Globals.player.hasItem(obZone.getKeyItem()))) {
+
+            // Move player if they have picked up ShipGold item
+            if (obZone.getKeyItem().equals("ShipGold")) {
+                obZone.afterAction();
+                return;
+            }
+
+            // Set obstacle zone as unlocked
+            obZone.setLocked(false);
+
+            // Get the zone's matching obstacle(s)
+            ArrayList<Obstacle> obstacles = Globals.obStore.getLinkedObstacles(obZone);
+
+            // For every matching obstacle
+            for (Obstacle obst : obstacles) {
+
+                // Hide the obstacle
+                Globals.obStore.addEncounter(obst);
+
+                // Get obstacle name
+                String obN = obst.getName();
+
+                // Increase crystal count for magic gate
+                if (obN.contains("Gate")) {
+                    Globals.obStore.crystalPlaced();
+                }
+
+                // Calculate adjustment from camera
+                int camRadj = 3;
+                int camCadj = 2;
+                int camYadj = camRadj * Globals.tileSize;
+                int camXadj = camCadj * Globals.tileSize;
+
+                // Calculate actual position
+                int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
+                int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
+
+                // Show popups after item use
+                System.out.println("#### TEST:  " + obst.getName() + 
+                        " , " + obst.getOZName());
+                showUsagePopup(obN, "Tree", "Cryo", r, c);
+                showUsagePopup(obN, "Lime", "Acid", r, c);
+                showUsagePopup(obN, "Water", "Orb", r, c);
+
+                // Unblock the obstacle
+                if (obst.isUnblockOn()) {
+                    Globals.map.unblockEntity(obst);
+                }
+            }
+
+        }
+    }
+
+    /**
+     * Show usable item popup after it is grabbed
+     *
+     * @param obN The obstacle's full name
+     * @param obQ Part of the obstacle's name
+     * @param itemName Item name subset
+     * @param r Row position of popup
+     * @param c Column position of popup
+     */
+    private void showUsagePopup(String obN, String obQ, String itemName, int r, int c) {
+
+        // If obstacle name contains query
+        if (obN.contains(obQ)) {
+
+            // Get item
+            UsableItem item = (UsableItem) Globals.player.getItemByName(itemName);
+
+            // Load popup for item
+            Globals.hud.loadPopup(getUsagePopup(item, r, c));
+        }
+    }
+
+    /**
      * Get a popup describing what a usable item just did
      *
      * @param item
@@ -291,7 +469,7 @@ public class ItemStore extends EntityStore {
      * @param c
      * @return
      */
-    public Popup getUsablePopup(Item item, int r, int c) {
+    public Popup getUsagePopup(Item item, int r, int c) {
 
         // Set features of popup
         ArrayList<Object> feats = new ArrayList<>();
@@ -301,6 +479,7 @@ public class ItemStore extends EntityStore {
         feats.add(2);  // Height as number of tiles 
         feats.add(20); // Interval for delay writer
         feats.add("default"); // FontS or "default"
+        feats.add(Color.black); // Text color
 
         // Create popup lines 
         ArrayList<String> newLines = new ArrayList<>();

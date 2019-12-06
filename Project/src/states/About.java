@@ -3,7 +3,7 @@ package states;
 import java.util.ArrayList;
 
 import main.Globals;
-import components.screentemps.InfoScreen;
+import states.screens.InfoScreen;
 
 /**
  * A screen that provides information about the game
@@ -36,12 +36,12 @@ public class About extends InfoScreen {
         // Add to text
         text.add("header_ABOUT_" + Globals.headerFont);
         text.add("Main Creator: David C");
-        text.add("First Created: January 2019");
+        text.add("First Created: Dec 2018");
         text.add("Language: Java");
         text.add("IDE: NetBeans");
         text.add("Engine: Slick2D");
-        text.add("    ");
 
+        // Return list
         return text;
     }
 

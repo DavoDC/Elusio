@@ -53,7 +53,7 @@ public abstract class EntityStore {
     }
 
     /**
-     * Get entity objects
+     * Get entity objects (tile images not initialized yet)
      *
      * @return
      */

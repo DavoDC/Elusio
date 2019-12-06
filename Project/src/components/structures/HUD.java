@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import main.Globals;
 import components.buttons.ButtonGrid;
 import components.popups.Popup;
-import components.popups.PopupStore;
+import components.popups.PopupDisplayer;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -24,7 +24,7 @@ public class HUD {
 
     // Buttons
     private final ButtonGrid buttonG;
-    private final int BUTTON_NO = 3;
+    private final int BUTTON_NO = 2;
     private final int SIDE_SIZE = 64;
     private final int SPACING = 16;
     private int shiftX;
@@ -38,10 +38,8 @@ public class HUD {
     private int playerX;
     private int playerY;
 
-    // Font for lives
-    // private TrueTypeFont lifeFont;
     // Popup Displayer
-    private final PopupStore popupDisp;
+    private final PopupDisplayer popupDisp;
 
     /**
      * Initialise the HUD
@@ -66,8 +64,7 @@ public class HUD {
 
         // Create (empty) button labels
         ArrayList<String> labels = new ArrayList<>();
-        int buttonNo = (int) feats.get(0);
-        for (int i = 0; i <= buttonNo; i++) {
+        for (int i = 0; i < BUTTON_NO; i++) {
             labels.add(" ");
         }
 
@@ -77,8 +74,6 @@ public class HUD {
         // Change images
         buttonG.getButtonByPos(0).setImageLoc(folder + "menu.png");
         buttonG.getButtonByPos(1).setImageLoc(folder + "inv.png");
-        buttonG.getButtonByPos(2).setImageLoc(folder + "hint.png");
-//        buttonG.getButtonByPos(X).setImageLoc(folder + "lives.png");
 
         // Add MainMenu button action
         buttonG.getButtonByPos(0).addListener(
@@ -111,11 +106,18 @@ public class HUD {
         shiftX = 0;
         shiftY = 0;
 
-        // Initialise font
-        // lifeFont = FontServer.getFont("Cambria-Bold-25");
         // Initialise PD
-        popupDisp = new PopupStore();
+        popupDisp = new PopupDisplayer();
 
+    }
+
+    /**
+     * Load a popup into the displayer
+     *
+     * @param itemInfo
+     */
+    public void loadPopup(Popup itemInfo) {
+        popupDisp.loadPopup(itemInfo);
     }
 
     /**
@@ -169,8 +171,8 @@ public class HUD {
      */
     private void drawStatsText(Graphics g) {
 
-        // If devData setting is not wanted
-        if (!(Globals.showDevData)) {
+        // If not in IDE
+        if (!(Globals.inIDE)) {
 
             // Do not continue
             return;
@@ -227,31 +229,6 @@ public class HUD {
         int mRow = Map.convertYtoRow(mY);
         String mouseTile = "mC: " + mCol + " , mR: " + mRow;
         g.drawString(mouseTile, drawX, drawY + 7 * yGap);
-    }
-
-//    /**
-//     * Draws the number of lives in the bottom right
-//     *
-//     * @param g
-//     */
-//    private void drawLivesText(Graphics g)
-//    {
-//        // Calculate position
-//        Button ref = buttonG.getButtonByPos(3);
-//        int drawX = ref.getX() + SIDE_SIZE / 3 + 2;
-//        int drawY = ref.getY() + SIDE_SIZE / 4 + 2;
-//
-//        // Draw number of lives
-//         String livesS = "" + Globals.playerLives + "";
-//         lifeFont.drawString(drawX, drawY, livesS, Color.black);
-//    }
-    /**
-     * Load a popup into the displayer
-     *
-     * @param itemInfo
-     */
-    public void loadPopup(Popup itemInfo) {
-        popupDisp.loadPopup(itemInfo);
     }
 
 }
