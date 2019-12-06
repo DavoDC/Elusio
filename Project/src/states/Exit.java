@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import main.Globals;
 import components.helpers.FontServer;
-import components.screentemps.InfoScreen;
-import components.screentemps.InterfaceScreen;
+import states.screens.InfoScreen;
+import states.screens.InterfaceScreen;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -122,8 +122,8 @@ public class Exit extends InterfaceScreen {
         perF = Math.round(perF * 100);
         percentage = 100 - (int) perF;
 
-        // Exit after some time has elapsed
-        if (percentage >= 100) {
+        // Exit after time has elapsed or Exit immediately in IDE
+        if (percentage >= 100 || Globals.inIDE) {
             Globals.agc.exit();
         }
 

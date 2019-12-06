@@ -3,7 +3,7 @@ package states;
 import java.util.ArrayList;
 
 import main.Globals;
-import components.screentemps.InfoScreen;
+import states.screens.InfoScreen;
 
 /**
  * Provides information about the game's controls
@@ -36,9 +36,8 @@ public class Controls extends InfoScreen {
         // Add text
         text.add("header_CONTROLS_" + Globals.headerFont);
         text.add(getControlPair("Back/Mainmenu", "Esc"));
-        text.add(getControlPair("Grab Item", "Q"));
-        text.add(getControlPair("Use Grabbed Item(s)", "E"));
-        text.add(getControlPair("Movement", "Arrow Keys"));
+        text.add(getControlPair("Movement", "Arrow Keys or WASD"));
+        text.add(getControlPair("Grab Item", "Q or Enter"));
         text.add(getControlPair("Show Inventory", "I"));
 
         return text;

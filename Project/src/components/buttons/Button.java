@@ -9,7 +9,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.MouseOverArea;
 
 /**
@@ -28,9 +27,6 @@ public class Button extends MouseOverArea {
     // Text position
     private float textXoffset;
     private float textYoffset;
-
-    // Alert status
-    private boolean alertOn;
 
     /**
      * Create a button
@@ -55,17 +51,6 @@ public class Button extends MouseOverArea {
         // Calculate and save offsets
         textXoffset = shape.getWidth() / 5;
         textYoffset = -(shape.getHeight() / 20);
-
-        // Initialize with alert off
-        alertOn = false;
-
-        // Turn off alert after clicks
-        super.addListener(
-                (AbstractComponent source)
-                -> {
-            alertOn = false;
-        }
-        );
     }
 
     /**
@@ -161,7 +146,6 @@ public class Button extends MouseOverArea {
     public void drawFull(Graphics g) {
         drawImage(g);
         drawText(g);
-        drawAlert(g);
     }
 
     /**
@@ -224,21 +208,36 @@ public class Button extends MouseOverArea {
             // Load new image
             Image newImg = new Image(resLoc);
 
-            // Adjust new image
-            int oldW = img.getWidth();
-            int oldH = img.getHeight();
-            newImg = newImg.getScaledCopy(oldW, oldH);
-
-            // Save over old image
-            img = newImg;
-
-            // Update image
-            updateImage();
+            // Set new image
+            setImage(newImg, true);
 
         } catch (SlickException e) {
             System.err.println("Image loading failed");
         }
 
+    }
+
+    /**
+     * Set the image of the button, resizing if wanted
+     *
+     * @param newImg The new image
+     * @param resize True means resize
+     */
+    public void setImage(Image newImg, boolean resize) {
+
+        // If resize wanted
+        if (resize) {
+            // Resize image
+            int oldW = img.getWidth();
+            int oldH = img.getHeight();
+            newImg = newImg.getScaledCopy(oldW, oldH);
+        }
+
+        // Save over old image
+        img = newImg;
+
+        // Update image
+        updateImage();
     }
 
     /**
@@ -248,50 +247,6 @@ public class Button extends MouseOverArea {
         setNormalImage(img);
         setMouseOverImage(img);
         setMouseDownImage(img);
-    }
-
-    /**
-     * Draw a red exclamation mark near the button
-     *
-     * @param g
-     */
-    private void drawAlert(Graphics g) {
-
-        // Only continue if alert is on
-        if (!alertOn) {
-            return;
-        }
-
-        // Load image if not already done so
-        if (Globals.alertMark == null) {
-            try {
-                Globals.alertMark = new Image(Globals.alertRes);
-                int newSide = (int) shape.getHeight() / 2;
-                Globals.alertMark = Globals.alertMark.getScaledCopy(newSide, newSide);
-            } catch (SlickException e) {
-            }
-        }
-
-        // Calculate position of alert
-        int imageW = Globals.alertMark.getWidth();
-        float imgX = shape.getX() + imageW - imageW / 2 + 5;
-        float imgY = shape.getY() + shape.getHeight() + 5;
-
-        // Add jiggle factor
-        if (Math.random() < 0.15) {
-            //imgX += Math.random()*5;
-            imgY += Math.random() * 9;
-        }
-
-        // Draw alert
-        g.drawImage(Globals.alertMark, imgX, imgY);
-    }
-
-    /**
-     * Switch on the alert
-     */
-    public void activateAlert() {
-        alertOn = true;
     }
 
 }

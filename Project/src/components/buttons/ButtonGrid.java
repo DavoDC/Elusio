@@ -3,7 +3,7 @@ package components.buttons;
 import java.util.ArrayList;
 
 import components.helpers.FontServer;
-import static components.screentemps.InfoScreen.headerX;
+import static states.screens.InfoScreen.headerX;
 import main.Globals;
 
 import org.newdawn.slick.Graphics;
@@ -34,8 +34,15 @@ public class ButtonGrid {
      */
     public ButtonGrid(ArrayList<Object> common, ArrayList<String> labels) {
 
-        // Initialize list
-        buttons = new ArrayList<>();
+        // Check arguments
+        int buttonNo = (int) common.get(0);
+        boolean con1 = common.size() != 10;
+        boolean con2 = buttonNo != labels.size();
+        boolean con3 = labels.isEmpty();
+        if (con1 || con2 || con3) {
+            throw new IllegalArgumentException("ButtonGrid init error: "
+                    + con1 + con2 + con3);
+        }
 
         // Extract variables from common
         String imgRes = (String) common.get(1);
@@ -46,6 +53,7 @@ public class ButtonGrid {
 
         // Get image and adjust
         Image img = null;
+
         try {
             img = new Image(imgRes).getScaledCopy(w, h);
         } catch (SlickException ex) {
@@ -55,8 +63,8 @@ public class ButtonGrid {
         // Extract font
         TrueTypeFont font = FontServer.getFont((String) common.get(9));
 
-        // Create and add generic buttons
-        int buttonNo = (int) common.get(0);
+        // Initialize list and add generic buttons
+        buttons = new ArrayList<>();
         for (int i = 0; i < buttonNo; i++) {
             buttons.add(new Button(img, new Rectangle(x, y, w, h), font));
         }
@@ -99,7 +107,7 @@ public class ButtonGrid {
                 // Shift current X by width + spacing
                 curxpos += (bW + xspacing);
 
-                // If current position is a multiple of columnNo
+                // If current position is a HEADER or a multiple of columnNo
                 if (((i % columns) == 0) && (columns != buttonNo)) {
 
                     // Reset X (go back to left)
@@ -134,7 +142,7 @@ public class ButtonGrid {
         // Get image and adjust
         Image img = null;
         try {
-            img = new Image(Globals.generalPanelRes);
+            img = new Image(Globals.buttonPanelRes);
             img = img.getScaledCopy((int) rect.getWidth(), (int) rect.getHeight());
         } catch (SlickException ex) {
             System.err.println("Image error in ButtonGrid");
@@ -300,5 +308,4 @@ public class ButtonGrid {
             b.setLabel(newS);
         }
     }
-
 }
