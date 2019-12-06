@@ -6,6 +6,7 @@ import components.buttons.Button;
 import components.helpers.DelayWriter;
 import components.helpers.FontServer;
 import main.Globals;
+import org.newdawn.slick.Color;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -46,10 +47,16 @@ public class Popup {
      * Create a popup
      *
      * @param feats Tile grid row, Tile grid column, Width in tiles, Height in
-     * tiles, Interval for DW, FontS or "default"
+     * tiles, Interval for DW, FontS or "default", Text color
      * @param textLines Text in lines
      */
     public Popup(ArrayList<Object> feats, ArrayList<String> textLines) {
+        
+        // Check arguments
+        if(feats.size() != 7 || textLines.isEmpty())
+        {
+            throw new IllegalArgumentException("Popup Constr: Argument Issue");
+        }
 
         // Extract info
         int r = (int) feats.get(0);
@@ -58,6 +65,7 @@ public class Popup {
         int tileH = (int) feats.get(3);
         int interval = (int) feats.get(4);
         String fontS = (String) feats.get(5);
+        Color col = (Color) feats.get(6);
 
         // Process font string
         if ("default".equals(fontS)) {
@@ -75,7 +83,7 @@ public class Popup {
         initialiseButton(r, c, tileW, tileH);
 
         // Initialise text DW
-        textDW = new DelayWriter(interval);
+        textDW = new DelayWriter(interval, col);
         textDW.setText(textLines.get(curLineNo));
         textX = button.getX() + 24;
         textY = button.getY() + 24;
@@ -83,7 +91,7 @@ public class Popup {
         curLineNo = 0;
 
         // Initialise instruction DW
-        instDW = new DelayWriter(interval + 10);
+        instDW = new DelayWriter(interval + 10, col);
         instDW.setText(instS);
         instX = button.getX() + button.getWidth() / 2 - 100;
         instY = button.getY() + button.getHeight() - 48;

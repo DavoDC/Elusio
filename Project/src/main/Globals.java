@@ -1,5 +1,6 @@
 package main;
 
+import components.helpers.InputHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,6 +8,9 @@ import components.structures.Camera;
 import components.structures.HUD;
 import components.structures.Map;
 import components.structures.Player;
+import entity.enemy.EnemyStore;
+import entity.item.ItemStore;
+import entity.obstacle.ObstacleStore;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BigImage;
@@ -41,31 +45,37 @@ public class Globals {
     // Game state directory
     public static HashMap<String, Integer> STATES = new HashMap<>();
 
+    // Font variables
+    public static TrueTypeFont gameFont = null;
+    public static final String headerFont = "Gamefont-Plain-60";
+
     // Main structures
     public static Map map;
     public static Camera cam;
     public static Player player;
     public static HUD hud;
+    public static InputHandler inputHan;
+
+    // Entity stores
+    public static ItemStore itemStore;
+    public static EnemyStore enemyStore;
+    public static ObstacleStore obStore;
 
     // Music
     public static Music ambientMusic;
 
-    // Font variables
-    public static TrueTypeFont gameFont = null;
-    public static final String headerFont = "Gamefont-Plain-60";
-
     // Resource filepath strings
     public static final String root = "res/";
-    public static final String gameFontRes = root + "misc/3dventure.ttf";
-    public static final String alertRes = root + "ui/alert.png";
-    public static final String generalPanelRes = root + "ui/general.png";
-    public static final String emptyImgRes = root + "misc/nothing.png";
-    public static final String popupPanelRes = root + "ui/popup.png";
-    public static final String playerSprRes = root + "player/frames.png";
     public static final String SFXres = root + "audio/effects/";
+    public static final String ambMusRes = root + "audio/music/ambmus.ogg";
     public static final String mapRes = root + "map/map.tmx";
     public static final String cursorRes = root + "misc/cursor.png";
-    public static final String ambMusRes = root + "audio/music/ambmus.ogg";
+    public static final String gameFontRes = root + "misc/3dventure.ttf";
+    public static final String emptyImgRes = root + "misc/nothing.png";
+    public static final String playerSprRes = root + "player/frames.png";
+    public static final String buttonPanelRes = root + "ui/general.png";
+    public static final String popupPanelRes = root + "ui/popup.png";
+    public static final String itemPanelRes = root + "ui/iteminfo.png";
 
     // Constants
     public static int screenW = 0; // Screen width
@@ -80,13 +90,11 @@ public class Globals {
     public static Image alertMark; // Image of exclamation mark
     public static ArrayList<BigImage> backgrounds = new ArrayList<>(); // Backgrounds
 
-    // Booleans
-    //  Settings
-    public static boolean showDevData = false; // Show stats? 
-    public static boolean fastText = false; // Increase popup write speed? 
-    //  Internal      
-    public static boolean inputIgnored = false; // True = input disabled for PLAY state
-    public static boolean hasBeenPaused = false; // True = Game was paused once
+    // Statuses
+    // True means input was disabled for ActualGame state
+    public static boolean inputIgnored = false;
+    // True means game was paused at least once
+    public static boolean hasBeenPaused = false;
 
     // Transitions
     public static Transition getLeave() {
