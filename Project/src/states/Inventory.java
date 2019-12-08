@@ -5,6 +5,7 @@ import components.helpers.FontServer;
 import states.screens.InterfaceScreen;
 import entity.base.Entity;
 import entity.item.Item;
+import entity.item.ItemProcessor;
 import main.Globals;
 
 import java.util.ArrayList;
@@ -14,8 +15,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.geom.Rectangle;
-import static states.screens.InfoScreen.headerX;
+import org.newdawn.slick.gui.AbstractComponent;
 
 /**
  * Provides a screen for the player's current inventory
@@ -27,14 +27,27 @@ public class Inventory extends InterfaceScreen {
     // Normal font
     private TrueTypeFont normFont = null;
 
-    // Item image map
-    private HashMap<String, Image> itemImages;
+    // Button features list
+    private ArrayList<Object> common;
+
+    // Map items to buttons
+    private HashMap<Item, Button> itemMap;
 
     // Max number of items
     private final int MAX_ITEMS = Globals.itemStore.getEntityList().size();
 
+    // Copy of the player's inventory
+    private ArrayList<Item> inv;
+
     // Item info panel
     private Image itemInfoPanel;
+
+    // Header location
+    private int headX;
+    private int headY;
+
+    // Subheading text
+    private String subHeading;
 
     /**
      * Return ID used to identify state
@@ -79,6 +92,9 @@ public class Inventory extends InterfaceScreen {
         feats.add(7); // NumberofColumns
         feats.add("Segoe UI-Plain-18"); // FontString
 
+        // Save feats
+        common = feats;
+
         // Return list
         return feats;
     }
@@ -113,73 +129,40 @@ public class Inventory extends InterfaceScreen {
      * Do custom initialization
      */
     @Override
-    public void customPostInit() {
+    public void customInit() {
 
-        // Initialize font
-        normFont = FontServer.getFont("Segoe UI-Italic-20");
-
-        // Generate map from item names to images
-        // Get all items
-        ArrayList<Entity> itemList = Globals.itemStore.getEntityList();
-        // Initialize map
-        itemImages = new HashMap<>();
-        // For every item
-        for (Entity curEnt : itemList) {
-
-            // Get item
-            Item curItem = (Item) curEnt;
-
-            // Get image array position
-            int row = 0;
-            int col = 0;
-
-            // Adjust ShipGold image
-            if (curItem.getName().contains("ShipGold")) {
-                col++;
-            }
-
-            // Add item name and item image pair
-            itemImages.put(curItem.getName(), curItem.getImage(row, col));
-        }
-
-        // Initialize item info panel
-        try {
-            itemInfoPanel = new Image(Globals.itemPanelRes);
-            //img = img.getScaledCopy((int) rect.getWidth(), (int) rect.getHeight());
-        } catch (SlickException ex) {
-            System.err.println("Image error in ButtonGrid");
-        }
-    }
-
-    /**
-     * Do custom post rendering here
-     */
-    @Override
-    public void customPostRender(Graphics g) {
-
-        // Create header button
+        // Adjust header
         Button header = super.getButtonGrid().getButtonByPos(0);
         header.setFont("Segoe UI-Bold-30");
         header.changeTextOffset(-3, 0);
         header.setLabel("Your Inventory");
 
-        // Retrieve inventory
-        ArrayList<Item> inv = Globals.player.getInv();
+        // Save header location
+        headX = header.getX();
+        headY = header.getY();
 
-        // Create subheading
-        String subHeader = "Hover over an item to see its description, Click an item to use it";
-        if (inv.isEmpty()) {
-            subHeader = "The inventory is empty";
+        // Initialize font for item names and panel     
+        normFont = FontServer.getFont("Segoe UI-Plain-20");
+
+        // Initialize item info panel
+        try {
+            itemInfoPanel = new Image(Globals.itemPanelRes);
+        } catch (SlickException ex) {
+            System.err.println("Image error in ButtonGrid");
         }
-        normFont.drawString(header.getX(), header.getY() + 40, subHeader);
 
-        // For all items in inventory
-        for (int i = 0; i < inv.size(); i++) {
+        // Get item list
+        ArrayList<Entity> itemList = Globals.itemStore.getEntityList();
 
-            // Get item information
-            Item curItem = inv.get(i);
-            String itemName = curItem.getName();
-            Image itemImg = itemImages.get(itemName);
+        // Initialize map
+        itemMap = new HashMap<>();
+
+        // For every item
+        for (int i = 0; i < MAX_ITEMS; i++) {
+
+            // Get item and its image
+            Item curItem = (Item) itemList.get(i);
+            Image itemImg = curItem.getImage();
 
             // Load item information into button
             Button curB = super.getButtonGrid().getButtonByPos(i + 1);
@@ -187,19 +170,138 @@ public class Inventory extends InterfaceScreen {
             curB.setImage(itemImg, true);
             curB.changeTextOffset(0, -25);
 
-            // Show item information during hover
-            Globals.agc.getInput().setOffset(0, 0);
-            if (curB.isMouseOver()) {
-                drawItemInfo(g, curItem);
-            }
+            // Add item use action to button
+            curB.addListener((AbstractComponent source) -> {
 
-            // When button is clicked, use item
-//            curB.addListener((ac) -> { }
-//        });
-            // Add mouse over for info
-            // Add right click to use item 
+                // Initiate item use
+                ItemProcessor.loadUsedItem(curItem);
+            });
+
+            // Save item and button pair into map
+            itemMap.put(curItem, curB);
         }
 
+    }
+
+    /**
+     * Update the inventory to match the player's inventory
+     */
+    public void updateInv() {
+
+        // Update copy of inventory
+        inv = Globals.player.getInv();
+
+        // Update subheading text
+        if (inv.isEmpty()) {
+            subHeading = "The inventory is empty";
+        } else {
+            subHeading = "Hover over an item to see its description";
+            subHeading += ", Click an item to use it";
+        }
+
+        // Update the enabled status of each button
+        // For all buttons
+        for (int i = 0; i < MAX_ITEMS; i++) {
+
+            // Get button
+            Button curB = super.getButtonGrid().getButtonByPos(i + 1);
+
+            // Check if matching item is in inventory
+            boolean inInv = Globals.player.hasItem(curB.getLabel());
+
+            // If item is in inventory, enable button
+            // If item is NOT in inventory, disable button
+            curB.setEnabled(inInv);
+        }
+
+        // Adjust item positions
+        adjustItemButtons();
+
+        // Update HUD button
+        // Items have just been inspected so inspection is not needed
+        Globals.hud.updateInvButton(false);
+    }
+
+    /**
+     * Adjust item button positions. Please see ButtonGrid's 'adjustButtons' for
+     * true source code
+     */
+    private void adjustItemButtons() {
+
+        // Extract required information
+        int buttonNo = (int) common.get(0);
+        int xpos = (int) common.get(2);
+        int ypos = (int) common.get(3);
+        int bW = (int) common.get(4);
+        int bH = (int) common.get(5);
+        int xspacing = (Integer) common.get(6);
+        int yspacing = (Integer) common.get(7);
+        int columns = (Integer) common.get(8);
+
+        // Loop variables
+        int buttonsDone = 0;
+        int curxpos = xpos;
+        int curypos = ypos;
+
+        // For all items
+        for (int i = 0; i < MAX_ITEMS; i++) {
+
+            // Get button
+            Button curB = super.getButtonGrid().getButtonByPos(i);
+
+            // If button is enabled
+            if (curB.isEnabled()) {
+
+                // Skip header
+                if (!curB.getLabel().contains("Inv")) {
+                    curB.setBounds(curxpos, curypos, bW, bH);
+                }
+
+                // Shift current X by width + spacing
+                curxpos += (bW + xspacing);
+
+                // If current position is a HEADER or a multiple of columnNo
+                if (((buttonsDone % columns) == 0) && (columns != buttonNo)) {
+
+                    // Reset X (go back to left)
+                    curxpos = xpos;
+
+                    // Increase Y (move downwards)
+                    curypos += (bH + yspacing);
+                }
+
+                // Increase buttons done
+                buttonsDone++;
+            }
+        }
+    }
+
+    /**
+     * Do custom post rendering here
+     */
+    @Override
+    public void customRender(Graphics g) {
+
+        // Draw subheading relative to header
+        normFont.drawString(headX, headY + 40, subHeading);
+
+        // Show item information during hover
+        // Fix mouse location
+        Globals.agc.getInput().setOffset(0, 0);
+
+        // For all items in inventory
+        for (Item curItem : inv) {
+
+            // Get button
+            Button curB = itemMap.get(curItem);
+
+            // If mouse is over button
+            if (curB.isMouseOver()) {
+
+                // Draw item panel 
+                drawItemInfo(g, curItem);
+            }
+        }
     }
 
     /**
@@ -219,13 +321,13 @@ public class Inventory extends InterfaceScreen {
 
         // Scale and draw item info panel
         int newW = itemInfoPanel.getWidth();
-        int newH = desc.size() * 25;
+        int newH = desc.size() * 40;
         itemInfoPanel = itemInfoPanel.getScaledCopy(newW, newH);
         g.drawImage(itemInfoPanel, mX, mY);
 
         // Get and write text
-        int lX = mX + 40;
-        int lY = mY + 20;
+        int lX = mX + 60;
+        int lY = mY + 10;
         for (String line : desc) {
             normFont.drawString(lX, lY, line);
             lY += 20;

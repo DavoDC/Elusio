@@ -9,8 +9,11 @@ import components.popups.PopupDisplayer;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.AbstractComponent;
+import states.Inventory;
 
 /**
  * Provides a HUD (Heads Up Display) with always-accessible buttons
@@ -25,7 +28,7 @@ public class HUD {
     // Buttons
     private final ButtonGrid buttonG;
     private final int BUTTON_NO = 2;
-    private final int SIDE_SIZE = 64;
+    private final int SIDE_SIZE = (int) (64 * 1.69);
     private final int SPACING = 16;
     private int shiftX;
     private int shiftY;
@@ -40,6 +43,10 @@ public class HUD {
 
     // Popup Displayer
     private final PopupDisplayer popupDisp;
+
+    // Inventory images
+    private Image invImg;
+    private Image invImgNew;
 
     /**
      * Initialise the HUD
@@ -71,9 +78,17 @@ public class HUD {
         // Initialize BG
         buttonG = new ButtonGrid(feats, labels);
 
+        // Load inventory images
+        try {
+            invImg = new Image(folder + "inv.png");
+            invImgNew = new Image(folder + "invNew.png");
+        } catch (SlickException e) {
+            System.err.println("Image loading failed");
+        }
+
         // Change images
         buttonG.getButtonByPos(0).setImageLoc(folder + "menu.png");
-        buttonG.getButtonByPos(1).setImageLoc(folder + "inv.png");
+        buttonG.getButtonByPos(1).setImage(invImg, true);
 
         // Add MainMenu button action
         buttonG.getButtonByPos(0).addListener(
@@ -93,9 +108,17 @@ public class HUD {
                 (AbstractComponent source)
                 -> {
 
-            // Pause game and enter inventory state
+            // Pause game
             Globals.hasBeenPaused = true;
-            Globals.SBG.enterState(Globals.STATES.get("INVENTORY"));
+
+            // Get inventory state ID
+            int invID = Globals.STATES.get("INVENTORY");
+
+            // Update inventory state
+            ((Inventory) Globals.SBG.getState(invID)).updateInv();
+
+            // Enter inventory state
+            Globals.SBG.enterState(invID);
         });
 
         // Initialise co-ordinates
@@ -147,21 +170,40 @@ public class HUD {
     }
 
     /**
+     * Update inventory button to reflect inventory inspection status
+     *
+     * @param status True when inventory needs inspection
+     */
+    public void updateInvButton(boolean status) {
+
+        // If inventory needs inspection
+        if (status) {
+
+            // Set special image
+            buttonG.getButtonByPos(1).setImage(invImgNew, true);
+        } else {
+
+            // Else set normal image
+            buttonG.getButtonByPos(1).setImage(invImg, true);
+        }
+
+    }
+
+    /**
      * Draw the HUD
      *
      * @param g
      */
     public void drawHUD(Graphics g) {
 
-        // Draw buttons   
+        // Draw buttons in top left   
         buttonG.drawButtonsShifted(g, shiftX, shiftY);
-
-        // Draw info overlays
-        drawStatsText(g);
-        // drawLivesText(g);
 
         // Draw popups
         popupDisp.renderPopups(g);
+
+        // Draw info overlays
+        // drawStatsText(g);
     }
 
     /**

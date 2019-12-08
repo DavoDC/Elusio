@@ -5,7 +5,7 @@ package entity.item;
  *
  * @author David
  */
-public class UsableItem extends Item {
+public class KeyItem extends Item {
 
     // Text shown when item is used
     private final String useLine;
@@ -20,7 +20,7 @@ public class UsableItem extends Item {
      * @param c
      * @param r
      */
-    public UsableItem(String name, String info1, String info2, String useLine, int c, int r) {
+    public KeyItem(String name, String info1, String info2, String useLine, int c, int r) {
 
         // Call entity constructor
         super(name, info1, info2, c, r);

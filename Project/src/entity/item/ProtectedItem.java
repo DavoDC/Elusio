@@ -1,7 +1,7 @@
 package entity.item;
 
 /**
- * Models items protected by enemies
+ * Models an item protected by an enemy
  *
  * @author David
  */
@@ -70,7 +70,7 @@ public class ProtectedItem extends Item {
      *
      * @return
      */
-    public String getProtector() {
+    public String getProtName() {
         return protectorName;
     }
 }

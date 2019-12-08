@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import entity.base.Entity;
+import org.newdawn.slick.Image;
 
 /**
  * Models in-game items
@@ -14,9 +15,6 @@ public class Item extends Entity {
 
     // Description lines
     private final ArrayList<String> info;
-
-    // Discovery status
-    private boolean isFound;
 
     /**
      * Create a single tile, single info-line item
@@ -34,9 +32,6 @@ public class Item extends Entity {
         // Initialize list
         info = new ArrayList<>();
         info.add(infoLine);
-
-        // Initialize as 'not found'
-        isFound = false;
     }
 
     /**
@@ -57,9 +52,6 @@ public class Item extends Entity {
         info = new ArrayList<>();
         info.add(info1);
         info.add(info2);
-
-        // Initialize as 'not found'
-        isFound = false;
     }
 
     /**
@@ -78,9 +70,6 @@ public class Item extends Entity {
         // Initialize list
         info = new ArrayList<>();
         info.addAll(Arrays.asList(infoArr));
-
-        // Initialize as 'not found'
-        isFound = false;
     }
 
     /**
@@ -104,9 +93,6 @@ public class Item extends Entity {
         info = new ArrayList<>();
         info.add(info1);
         info.add(info2);
-
-        // Initialize as 'not found'
-        isFound = false;
     }
 
     /**
@@ -119,21 +105,34 @@ public class Item extends Entity {
     }
 
     /**
-     * Get discovery status
+     * Get image of item
      *
-     * @return
+     * @return Image
      */
-    public boolean isFound() {
-        return isFound;
+    public Image getImage() {
+
+        // Array location
+        int row = 0;
+        int col = 0;
+
+        // Adjust for ShipGold case
+        if (getName().contains("Treasure")) {
+            col++;
+        }
+
+        // Return image
+        return super.getImage(row, col);
     }
 
     /**
-     * Set discovery status
+     * Do the action that occurs after use
      *
-     * @param newStatus
+     * @return Success status
      */
-    public void setFound(boolean newStatus) {
-        isFound = newStatus;
+    public boolean doAction() {
+
+        // To be overidden
+        return false;
     }
 
 }

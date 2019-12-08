@@ -1,6 +1,6 @@
 package main;
 
-import components.helpers.InputHandler;
+import components.helpers.ControlServer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,14 +30,6 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
  */
 public class Globals {
 
-    // Game information
-    public static final String gameTitle = "Elusio";
-    public static final String VERSION = "1.6";
-
-    // Game execution environment
-    public static boolean inIDE = false;
-    public static boolean inExe = false;
-
     // Game framework
     public static AppGameContainer agc = null;
     public static StateBasedGame SBG = null;
@@ -54,7 +46,7 @@ public class Globals {
     public static Camera cam;
     public static Player player;
     public static HUD hud;
-    public static InputHandler inputHan;
+    public static ControlServer conServer;
 
     // Entity stores
     public static ItemStore itemStore;
@@ -63,6 +55,10 @@ public class Globals {
 
     // Music
     public static Music ambientMusic;
+
+    // Game information
+    public static final String gameTitle = "Elusio";
+    public static final String VERSION = "2.0";
 
     // Resource filepath strings
     public static final String root = "res/";
@@ -91,11 +87,15 @@ public class Globals {
     public static ArrayList<BigImage> backgrounds = new ArrayList<>(); // Backgrounds
 
     // Statuses
+    // Game execution environment
+    public static boolean inIDE = false;
+    public static boolean inExe = false;
     // True means input was disabled for ActualGame state
     public static boolean inputIgnored = false;
     // True means game was paused at least once
     public static boolean hasBeenPaused = false;
 
+    // True means an item
     // Transitions
     public static Transition getLeave() {
         return new FadeOutTransition(Color.black, 639);

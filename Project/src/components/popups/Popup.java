@@ -51,10 +51,9 @@ public class Popup {
      * @param textLines Text in lines
      */
     public Popup(ArrayList<Object> feats, ArrayList<String> textLines) {
-        
+
         // Check arguments
-        if(feats.size() != 7 || textLines.isEmpty())
-        {
+        if (feats.size() != 7 || textLines.isEmpty()) {
             throw new IllegalArgumentException("Popup Constr: Argument Issue");
         }
 

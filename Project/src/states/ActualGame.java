@@ -1,5 +1,6 @@
 package states;
 
+import entity.item.ItemProcessor;
 import main.Globals;
 
 import org.newdawn.slick.GameContainer;
@@ -59,13 +60,16 @@ public class ActualGame extends BasicGameState {
         Globals.player.updateAnimation(delta);
 
         // Handle input
-        Globals.inputHan.handlePlayInput(gc.getInput(), delta);
+        Globals.conServer.handlePlayInput(delta);
 
         // Update camera
         Globals.cam.centerOn(Globals.player.getX(), Globals.player.getY());
 
         // Update HUD
         Globals.hud.update(Globals.cam, Globals.player, delta);
+
+        // Process item use
+        ItemProcessor.processItemUse();
     }
 
     /**
@@ -86,9 +90,10 @@ public class ActualGame extends BasicGameState {
         Globals.cam.translateGraphics();
 
         // Account for entity interactions
-        Globals.itemStore.updateMap(g);
         Globals.enemyStore.updateMap(g);
         Globals.obStore.updateMap(g);
+        Globals.itemStore.updateMap(g);
+        ItemProcessor.renderItemUse(g);
 
         // Draw player
         Globals.player.drawPlayer(Globals.player.getX(), Globals.player.getY());

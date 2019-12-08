@@ -53,7 +53,7 @@ public class MainMenu extends InterfaceScreen {
      * Do custom initialization
      */
     @Override
-    public void customPostInit() {
+    public void customInit() {
 
         // Create delay writer
         dw = new DelayWriter(80, Color.white);
@@ -133,7 +133,7 @@ public class MainMenu extends InterfaceScreen {
      * Do custom pre updating
      */
     @Override
-    public void customPreUpdate() {
+    public void customUpdate() {
 
         // Reset input offset
         Globals.agc.getInput().setOffset(0, 0);
@@ -178,7 +178,7 @@ public class MainMenu extends InterfaceScreen {
      * @param g
      */
     @Override
-    public void customPostRender(Graphics g) {
+    public void customRender(Graphics g) {
 
         // Draw title through delay writer
         g.setColor(Color.white);

@@ -34,13 +34,13 @@ public class ObstacleStore extends EntityStore {
         //  Add Trees locked by TreeZone
         obstacles.add(new Obstacle("Trees", "TreeZone", 32, 9, 5, 5, true));
         //  Add TreeZone locked by Cryocapacitor
-        obstacles.add(new ObstacleZone("TreeZone", "Cryocap", 29, 7, 6, 6));
+        obstacles.add(new ObstacleZone("TreeZone", "Cryocapacitor", 29, 7, 6, 6));
 
         // Limestone = Initial Area
         //  Add LimeStone locked by LimeZone
         obstacles.add(new Obstacle("LimeStone", "LimeZone", 1, 37, 5, 2, true));
         //  Add LimeZone locked by Acid
-        obstacles.add(new ObstacleZone("LimeZone", "Acid", 2, 34, 2, 3));
+        obstacles.add(new ObstacleZone("LimeZone", "AcidGun", 2, 34, 2, 3));
 
         // Add four crystals that lock gate
         obstacles.add(new Obstacle("HiGate", "HiSpot", 82, 9, 1, 1, false));
@@ -62,16 +62,10 @@ public class ObstacleStore extends EntityStore {
         // Add sail Ship
         obstacles.add(new Obstacle("Water", "ShipSide", 13, 73, 6, 7, true));
         obstacles.add(new Obstacle("Ship", "ShipSide", 10, 74, 3, 6, true));
-        obstacles.add(new ObstacleZone("ShipSide", "Magistruct", 19, 73, 5, 8));
+        obstacles.add(new ObstacleZone("ShipSide", "Magistructor Orb", 19, 73, 5, 8));
 
         // Add alien ship
-        obstacles.add(new ObstacleZone("AlienShip", "ShipGold", 4, 2, 9, 7) {
-            @Override
-            public void afterAction() {
-                Globals.hud.loadPopup(getEndPopup());
-            }
-        }
-        );
+        obstacles.add(new ObstacleZone("AlienShip", "Treasure", 4, 2, 9, 7));
 
         return obstacles;
     }

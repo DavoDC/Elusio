@@ -28,6 +28,9 @@ public class Button extends MouseOverArea {
     private float textXoffset;
     private float textYoffset;
 
+    // Enabled status
+    private boolean enabled;
+
     /**
      * Create a button
      *
@@ -51,6 +54,33 @@ public class Button extends MouseOverArea {
         // Calculate and save offsets
         textXoffset = shape.getWidth() / 5;
         textYoffset = -(shape.getHeight() / 20);
+
+        // Initialize as enabled
+        enabled = true;
+    }
+
+    /**
+     * Set enabled status of button
+     *
+     * @param newStatus
+     */
+    public void setEnabled(boolean newStatus) {
+
+        // Update status
+        enabled = newStatus;
+
+        // If enabled, accept input
+        // If disable, reject input
+        super.setAcceptingInput(enabled);
+    }
+
+    /**
+     * Get enabled status of button
+     *
+     * @return
+     */
+    public boolean isEnabled() {
+        return enabled;
     }
 
     /**
@@ -59,7 +89,7 @@ public class Button extends MouseOverArea {
      * @param x coordinate
      * @param y coordinate
      */
-    private void setPosition(float x, float y) {
+    public void setPosition(float x, float y) {
 
         // Change MouseOverArea location
         super.setLocation(x, y);
@@ -144,8 +174,14 @@ public class Button extends MouseOverArea {
      * @param g
      */
     public void drawFull(Graphics g) {
-        drawImage(g);
-        drawText(g);
+
+        // If enabled
+        if (enabled) {
+
+            // Draw image and text
+            drawImage(g);
+            drawText(g);
+        }
     }
 
     /**
@@ -205,11 +241,8 @@ public class Button extends MouseOverArea {
 
         try {
 
-            // Load new image
-            Image newImg = new Image(resLoc);
-
-            // Set new image
-            setImage(newImg, true);
+            // Load and set new image
+            setImage(new Image(resLoc), true);
 
         } catch (SlickException e) {
             System.err.println("Image loading failed");

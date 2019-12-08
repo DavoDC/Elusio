@@ -3,15 +3,9 @@ package entity.item;
 import java.util.ArrayList;
 
 import main.Globals;
-import components.popups.Popup;
-import components.structures.Map;
 import components.structures.Player;
 import entity.base.Entity;
 import entity.base.EntityStore;
-import entity.enemy.Enemy;
-import entity.obstacle.Obstacle;
-import entity.obstacle.ObstacleZone;
-import org.newdawn.slick.Color;
 
 /**
  * Handles multiple items
@@ -32,13 +26,13 @@ public class ItemStore extends EntityStore {
         ArrayList<Entity> itemList = new ArrayList<>();
 
         // Add magic items
-        itemList.add(new UsableItem(
+        itemList.add(new KeyItem(
                 "Cryocapacitor Set",
                 "Its storing microamounts of nearby energy as antimatter",
                 "It could annihilate some weak, dry matter once activated",
                 "The cryocapacitors annihilated the dead trees!",
                 23, 25));
-        itemList.add(new UsableItem(
+        itemList.add(new KeyItem(
                 "Magistructor Orb",
                 "Inside, it beats rhythmically with creative vigor",
                 "Upon activation, it could manifest more of an existing substance",
@@ -50,7 +44,7 @@ public class ItemStore extends EntityStore {
                 "LimestoneSample",
                 "Hmmm .. Looks like high calcium limestone",
                 2, 28));
-        itemList.add(new UsableItem(
+        itemList.add(new KeyItem(
                 "AcidGun",
                 "A rifle that uses some sort of acerbic fluid",
                 "The fluid could corrode certain materials",
@@ -62,14 +56,16 @@ public class ItemStore extends EntityStore {
 
         // Add ship gold
         itemList.add(new ProtectedItem(
-                "ShipGold",
+                "Treasure",
                 "We have all the electrovelox substitute we could ever need!",
                 "Now we can finally repair me! Come back to me",
                 "Ship",
                 10, 74, 3, 6) {
             @Override
-            public void afterAction() {
+            public boolean doAction() {
+                //Globals.hud.loadPopup(getEndPopup());
                 Globals.player.adjustX(Globals.tileSize * 6);
+                return true;
             }
         });
 
@@ -96,7 +92,7 @@ public class ItemStore extends EntityStore {
                 },
                 12, 54) {
             @Override
-            public void activateEffect(Player player) {
+            public void applyEffect(Player player) {
                 player.adjustY(-34 * 64);
 
             }
@@ -157,7 +153,7 @@ public class ItemStore extends EntityStore {
                 "The arrangement of them makes me feel energized! Try it!",
                 34, 1) {
             @Override
-            public void activateEffect(Player player) {
+            public void applyEffect(Player player) {
                 player.changeMovSpeed(0.07f);
             }
         });
@@ -169,7 +165,7 @@ public class ItemStore extends EntityStore {
                 "Wearing it will bring some of that aspect nearby",
                 37, 87) {
             @Override
-            public void activateEffect(Player player) {
+            public void applyEffect(Player player) {
                 player.changeMovSpeed(0.08f);
             }
         });
@@ -181,7 +177,7 @@ public class ItemStore extends EntityStore {
                 "I recommend wearing it!",
                 59, 50) {
             @Override
-            public void activateEffect(Player player) {
+            public void applyEffect(Player player) {
                 player.changeMovSpeed(0.08f);
             }
         });
@@ -196,8 +192,10 @@ public class ItemStore extends EntityStore {
                     "That was really strange ...",},
                 3, 44) {
             @Override
-            public void activateEffect(Player player) {
-                player.changeMovSpeed(player.getMovSpeed());
+            public void applyEffect(Player player) {
+
+                // Increase speed by 50%
+                player.changeMovSpeed(player.getMovSpeed() / 2);
             }
         });
 
@@ -208,9 +206,12 @@ public class ItemStore extends EntityStore {
                 "Not sure what this might do ... ",
                 79, 37) {
             @Override
-            public void activateEffect(Player player) {
+            public void applyEffect(Player player) {
+
+                // Decrease speed by 50%
                 player.changeMovSpeed(-player.getMovSpeed() / 2);
             }
+
         });
     }
 
@@ -233,262 +234,4 @@ public class ItemStore extends EntityStore {
     public String getEntLS() {
         return "Items";
     }
-
-    /**
-     * Attempt to grab an item
-     */
-    public void processItemGrab() {
-
-        // Attempt to retrieve item under player
-        Item itemFound = (Item) getItemUnder(Globals.player);
-
-        // If an item was found, and hasn't been found before
-        if (itemFound != null && !itemFound.isFound()) {
-
-            // Set the item as found
-            itemFound.setFound(true);
-
-            // Hide item
-            addEncounter(itemFound);
-
-            // Add item to inventory
-            Globals.player.addItem(itemFound);
-
-            // Do extra processing for protected items
-            if (itemFound instanceof ProtectedItem) {
-
-                // Get protector name
-                String protectorName = ((ProtectedItem) itemFound).
-                        getProtector();
-
-                // Get enemy/protector 
-                Enemy enemy = Globals.enemyStore.getEnemy(protectorName);
-
-                // Make enemy act
-                enemy.doAction();
-
-                // Hide encountered enemy
-                Globals.enemyStore.addEncounter(enemy);
-
-                // Unblock enemy
-                Globals.map.unblockEntity(enemy);
-
-            }
-
-            // Do extra processing of instant items
-            if (itemFound instanceof InstantItem) {
-
-                // Activate item effect
-                ((InstantItem) itemFound).activateEffect(Globals.player);
-            }
-
-            // Show item popup
-            showItemPopup(itemFound);
-        }
-    }
-
-    /**
-     * Get the item under the player, or null otherwise
-     *
-     * @param alien
-     * @return The item or null
-     */
-    public Item getItemUnder(Player alien) {
-
-        // Get entity
-        Entity entityFound = super.getEntityUnder(alien);
-
-        // If entity is an item
-        if (entityFound instanceof Item) {
-
-            // Return it
-            return ((Item) entityFound);
-        }
-
-        // Return null is nothing or not an item
-        return null;
-    }
-
-    /**
-     * Show information about an item as a popup
-     *
-     * @param item
-     */
-    private void showItemPopup(Item item) {
-
-        // Calculate adjustment from camera
-        int camRadj = 3;
-        int camCadj = 2;
-        int camYadj = camRadj * Globals.tileSize;
-        int camXadj = camCadj * Globals.tileSize;
-
-        // Calculate actual position
-        int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
-        int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
-
-        // Account for special teleportation cases
-        String name = item.getName().toLowerCase();
-        if (name.contains("clock")) {
-            r = Map.convertYtoRow(Globals.cam.getY() + camYadj - 34 * 64);
-            c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
-        } else if (name.contains("shipgold")) {
-            r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
-            c = Map.convertXtoCol(Globals.cam.getX() + camXadj + 6 * 64);
-            item.afterAction();
-        }
-
-        // Generate and show popup
-        Popup itemInfo = getItemPopup(item, r, c);
-        Globals.hud.loadPopup(itemInfo);
-    }
-
-    /**
-     * Get a popup that describes a given item
-     *
-     * @param item
-     * @param r
-     * @param c
-     * @return
-     */
-    public Popup getItemPopup(Item item, int r, int c) {
-
-        // Set features of popup
-        ArrayList<Object> feats = new ArrayList<>();
-        feats.add(r);  // Tile grid row
-        feats.add(c);  // Tile grid column 
-        feats.add(18); // Width as number of tiles 
-        feats.add(2);  // Height as number of tiles 
-        feats.add(20); // Interval for delay writer
-        feats.add("default"); // FontS or "default"
-        feats.add(Color.black); // Text color
-
-        // Create popup lines 
-        ArrayList<String> itemLines = item.getInfoLines();
-        ArrayList<String> newLines = new ArrayList<>();
-        String start = "(Ehecatl, telepathically): ";
-        for (String curItemLine : itemLines) {
-            newLines.add(start + curItemLine);
-        }
-        newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
-
-        // Return
-        return (new Popup(feats, newLines));
-    }
-
-    /**
-     * Attempt to use all items
-     */
-    private void processItemUse() {
-
-        // Get the obstacle zone the player is currently inside, if any
-        ObstacleZone obZone = Globals.obStore.getZoneUnder(Globals.player);
-
-        // If (locked obstacle found) && (player has key item of zone)
-        if (((obZone != null) && (obZone.isLocked()))
-                && (Globals.player.hasItem(obZone.getKeyItem()))) {
-
-            // Move player if they have picked up ShipGold item
-            if (obZone.getKeyItem().equals("ShipGold")) {
-                obZone.afterAction();
-                return;
-            }
-
-            // Set obstacle zone as unlocked
-            obZone.setLocked(false);
-
-            // Get the zone's matching obstacle(s)
-            ArrayList<Obstacle> obstacles = Globals.obStore.getLinkedObstacles(obZone);
-
-            // For every matching obstacle
-            for (Obstacle obst : obstacles) {
-
-                // Hide the obstacle
-                Globals.obStore.addEncounter(obst);
-
-                // Get obstacle name
-                String obN = obst.getName();
-
-                // Increase crystal count for magic gate
-                if (obN.contains("Gate")) {
-                    Globals.obStore.crystalPlaced();
-                }
-
-                // Calculate adjustment from camera
-                int camRadj = 3;
-                int camCadj = 2;
-                int camYadj = camRadj * Globals.tileSize;
-                int camXadj = camCadj * Globals.tileSize;
-
-                // Calculate actual position
-                int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
-                int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
-
-                // Show popups after item use
-                System.out.println("#### TEST:  " + obst.getName() + 
-                        " , " + obst.getOZName());
-                showUsagePopup(obN, "Tree", "Cryo", r, c);
-                showUsagePopup(obN, "Lime", "Acid", r, c);
-                showUsagePopup(obN, "Water", "Orb", r, c);
-
-                // Unblock the obstacle
-                if (obst.isUnblockOn()) {
-                    Globals.map.unblockEntity(obst);
-                }
-            }
-
-        }
-    }
-
-    /**
-     * Show usable item popup after it is grabbed
-     *
-     * @param obN The obstacle's full name
-     * @param obQ Part of the obstacle's name
-     * @param itemName Item name subset
-     * @param r Row position of popup
-     * @param c Column position of popup
-     */
-    private void showUsagePopup(String obN, String obQ, String itemName, int r, int c) {
-
-        // If obstacle name contains query
-        if (obN.contains(obQ)) {
-
-            // Get item
-            UsableItem item = (UsableItem) Globals.player.getItemByName(itemName);
-
-            // Load popup for item
-            Globals.hud.loadPopup(getUsagePopup(item, r, c));
-        }
-    }
-
-    /**
-     * Get a popup describing what a usable item just did
-     *
-     * @param item
-     * @param r
-     * @param c
-     * @return
-     */
-    public Popup getUsagePopup(Item item, int r, int c) {
-
-        // Set features of popup
-        ArrayList<Object> feats = new ArrayList<>();
-        feats.add(r);  // Tile grid row
-        feats.add(c);  // Tile grid column 
-        feats.add(18); // Width as number of tiles 
-        feats.add(2);  // Height as number of tiles 
-        feats.add(20); // Interval for delay writer
-        feats.add("default"); // FontS or "default"
-        feats.add(Color.black); // Text color
-
-        // Create popup lines 
-        ArrayList<String> newLines = new ArrayList<>();
-        String start = "(Ehecatl, telepathically): ";
-        newLines.add(start + ((UsableItem) item).getUseLine());
-        newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
-
-        // Return
-        return (new Popup(feats, newLines));
-    }
-
 }
