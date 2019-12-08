@@ -5,6 +5,7 @@ import java.util.Random;
 
 import main.Globals;
 import components.buttons.ButtonGrid;
+import components.helpers.ControlServer.Control;
 import components.helpers.FontServer;
 
 import org.newdawn.slick.BigImage;
@@ -12,11 +13,11 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import states.Controls;
 
 /**
  * Models a game state which is a user interface screen
@@ -34,11 +35,9 @@ public abstract class InterfaceScreen extends BasicGameState {
     // Handles button group
     private ButtonGrid buttonGrid;
 
-    // Font
-    private TrueTypeFont font;
-
-    // A list of states where you cannot go back
-    private ArrayList<Integer> specialStates;
+    // Back control line
+    private String backContLine;
+    private TrueTypeFont backInstFont;
 
     /**
      * Return ID used to identify state
@@ -47,6 +46,15 @@ public abstract class InterfaceScreen extends BasicGameState {
      */
     @Override
     public abstract int getID();
+
+    /**
+     * Access underlying ButtonGrid
+     *
+     * @return
+     */
+    public ButtonGrid getButtonGrid() {
+        return buttonGrid;
+    }
 
     /**
      * Initialize state
@@ -78,9 +86,6 @@ public abstract class InterfaceScreen extends BasicGameState {
         int ranIndex = rng.nextInt(Globals.BG_COUNT);
         bg = Globals.backgrounds.get(ranIndex);
 
-        // Initialise buttons
-        buttonGrid = new ButtonGrid(getButtonFeatures(), getButtonLabels());
-
         // Initialise and adjust cursor image if not done already
         if (Globals.cursor == null) {
             Globals.cursor = new Image(Globals.cursorRes);
@@ -91,16 +96,23 @@ public abstract class InterfaceScreen extends BasicGameState {
         gc.setMouseCursor(Globals.cursor, 0, 0);
 
         // Initialise font
-        font = FontServer.getFont("Segoe UI-Italic-22");
+        backInstFont = FontServer.getFont("Segoe UI-Italic-18");
 
-        // States where you can't go back
-        specialStates = new ArrayList<>();
-        specialStates.add(Globals.STATES.get("MAINMENU"));
-        specialStates.add(Globals.STATES.get("EXIT"));
-        specialStates.add(Globals.STATES.get("GAMEOVER"));
+        // Initialise buttons
+        buttonGrid = new ButtonGrid(getButtonFeatures(), getButtonLabels());
+
+        // Get back control line
+        backContLine = "";
+        ArrayList<Control> contL = Globals.conServer.getControlList();
+        for (Control cont : contL) {
+            if (cont.getDesc().contains("Back")) {
+                String[] keys = cont.getKeyList();
+                backContLine = Controls.getControlLine("", keys);
+            }
+        }
 
         // Custom initialization
-        customPostInit();
+        customInit();
     }
 
     /**
@@ -118,6 +130,13 @@ public abstract class InterfaceScreen extends BasicGameState {
     public abstract ArrayList<String> getButtonLabels();
 
     /**
+     * Add additional post initialization tasks here
+     */
+    public void customInit() {
+        // For overriding
+    }
+
+    /**
      * Update internal variables
      *
      * @param gc
@@ -128,38 +147,17 @@ public abstract class InterfaceScreen extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
         // Do custom pre update
-        customPreUpdate();
+        customUpdate();
 
-        // If you cannot go back on current state
-        if (specialStates.contains(sbg.getCurrentStateID())) {
+        // Handle screen input
+        Globals.conServer.handleScreenInput();
+    }
 
-            // Do not process back button presses
-            return;
-        }
-
-        // Act on back button presses
-        // If ESC pressed or RIGHT MOUSE clicked
-        Input input = gc.getInput();
-        boolean escPress = input.isKeyDown(Input.KEY_ESCAPE);
-        boolean riClick = input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON);
-        if (escPress || riClick) {
-
-            // Get current state ID and back state ID
-            int curID = sbg.getCurrentStateID();
-            int backID = Globals.STATES.get(getBackState());
-
-            // If not currently in back state
-            if (curID != backID) {
-
-                // Transition to back state
-                sbg.enterState(
-                        backID,
-                        Globals.getLeave(),
-                        Globals.getEnter()
-                );
-            }
-
-        }
+    /**
+     * Do custom pre updating here
+     */
+    public void customUpdate() {
+        // For overriding
     }
 
     /**
@@ -193,55 +191,31 @@ public abstract class InterfaceScreen extends BasicGameState {
         // Draw buttons
         buttonGrid.drawButtons(g);
 
-        // If not a special state, reveal back button 
-        int curStateID = game.getCurrentStateID();
-        if (!specialStates.contains(curStateID)) {
+        // If not in main menu, write back instruction
+        if (game.getCurrentStateID() != Globals.STATES.get("MAINMENU")) {
             g.setColor(Color.white);
-            font.drawString(10, Globals.screenH - 40,
-                    "Press ESC or Right Click to go back");
+            backInstFont.drawString(10, Globals.screenH - 40,
+                    "To go back, press: " + backContLine);
         }
 
         // Do custom post rendering
-        customPostRender(g);
+        customRender(g);
     }
 
     /**
-     * Add additional initialization tasks here
-     */
-    public void customPostInit() {
-        // For overriding
-    }
-
-    /**
-     * Do custom pre updating here
-     */
-    public void customPreUpdate() {
-        // For overriding
-    }
-
-    /**
-     * Do custom post rendering here
-     *
-     * @param g
-     */
-    public void customPostRender(Graphics g) {
-        // For overriding
-    }
-
-    /**
-     * True = Background will be darkened
+     * Set whether the background will be darkened
      *
      * @return
      */
     public abstract boolean isDarkened();
 
     /**
-     * Access Button Grid
+     * Do custom post rendering here
      *
-     * @return
+     * @param g
      */
-    public ButtonGrid getButtonGrid() {
-        return buttonGrid;
+    public void customRender(Graphics g) {
+        // For overriding
     }
 
 }

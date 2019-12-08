@@ -1,11 +1,11 @@
 package states;
 
+import components.buttons.Button;
 import java.util.ArrayList;
 
 import main.Globals;
-import states.screens.InterfaceScreen;
-
 import org.newdawn.slick.gui.AbstractComponent;
+import states.screens.InterfaceScreen;
 
 /**
  * Provides screen for modifying game settings
@@ -17,6 +17,79 @@ public class Settings extends InterfaceScreen {
     // Font
     private final String settingsFont = "OCR A Extended-plain-35";
 
+    // The total number of settings
+    private final int NUM_SETTINGS = 2;
+
+    // The number of settings made
+    private int numSettMade = 0;
+
+    /**
+     * Models a setting
+     */
+    private abstract class Setting {
+
+        /**
+         * Initialize setting object
+         *
+         * @param labelStart
+         * @param bPos
+         */
+        public Setting(String rawName) {
+
+            // Make name uppercase
+            String name = rawName.toUpperCase();
+
+            // Increase number of settings made
+            numSettMade++;
+
+            // Get button
+            Button b = Settings.super.
+                    getButtonGrid().getButtonByPos(numSettMade);
+
+            // Initialize full text
+            updateLabel(name, b);
+
+            // Attach action to button
+            b.addListener((AbstractComponent source) -> {
+                setStatus(!getStatus());
+                updateLabel(name, b);
+            });
+        }
+
+        /**
+         * Get value of boolean status
+         *
+         * @return boolean status
+         */
+        public abstract boolean getStatus();
+
+        /**
+         * Set value of boolean status
+         */
+        public abstract void setStatus(boolean newStatus);
+
+        /**
+         * Update the setting button to reflect it status
+         *
+         * @param curLabel
+         */
+        private void updateLabel(String name, Button b) {
+
+            // Initialize first part
+            String newLabel = name + ": ";
+
+            // Add status as a string
+            if (getStatus()) {
+                newLabel += "ON";
+            } else {
+                newLabel += "OFF";
+            }
+
+            // Apply to button
+            b.setLabel(newLabel);
+        }
+    }
+
     /**
      * Return ID used to identify state
      *
@@ -27,32 +100,23 @@ public class Settings extends InterfaceScreen {
         return Globals.STATES.get("SETTINGS");
     }
 
+    /**
+     * Set button features
+     */
     @Override
     public ArrayList<Object> getButtonFeatures() {
-        // Create AL
-        ArrayList<Object> feats = new ArrayList<>();
 
-        // Add to AL
-        // Number of buttons
-        feats.add(getButtonLabels().size());
-        // Image Location
-        feats.add(Globals.buttonPanelRes);
-        // startXpos
-        feats.add(300);
-        // startYpos
-        feats.add(200);
-        // width
-        feats.add(550);
-        // height
-        feats.add(40);
-        // XSpacing
-        feats.add(0);
-        // YSpacing
-        feats.add(50);
-        // NumberofColumns
-        feats.add(1);
-        // FontString
-        feats.add(settingsFont);
+        ArrayList<Object> feats = new ArrayList<>();
+        feats.add(NUM_SETTINGS + 1); // Button ammount
+        feats.add(Globals.buttonPanelRes); // Image loc
+        feats.add(300); // StartXpos    
+        feats.add(200); // StartYpos 
+        feats.add(550); // Width   
+        feats.add(40);  // Height    
+        feats.add(0);   // XSpacing      
+        feats.add(50);  // YSpacing   
+        feats.add(1);   // NumberofColumns
+        feats.add(settingsFont); // FontString
 
         return feats;
     }
@@ -64,74 +128,46 @@ public class Settings extends InterfaceScreen {
         ArrayList<String> labels = new ArrayList<>();
         labels.add("header_SETTINGS_" + Globals.headerFont);
 
-        // Add music toggle
-        boolean musicB = Globals.agc.isMusicOn();
-        String musicS = processSwitchString("MUSIC: X", musicB);
-        labels.add(musicS);
+        // Add dummy labels
+        for (int i = 0; i < NUM_SETTINGS; i++) {
+            labels.add(" ");
+        }
 
-        // Return lists
+        // Return list
         return labels;
     }
 
     /**
-     * Do custom initialization
+     * Do custom post initialization
      */
     @Override
-    public void customPostInit() {
+    public void customInit() {
 
-        // Add action to Music toggle
-        super.getButtonGrid().getButtonByPos(1).addListener((AbstractComponent source)
-                -> {
+        // Make music setting
+        new Setting("Music") {
+            @Override
+            public boolean getStatus() {
+                return Globals.agc.isMusicOn();
+            }
 
-            Globals.agc.setMusicOn(!Globals.agc.isMusicOn());
-            switchLabel(1, Globals.agc.isMusicOn());
-        });
+            @Override
+            public void setStatus(boolean newStatus) {
+                Globals.agc.setMusicOn(newStatus);
+            }
+        };
 
-    }
+        // Make sound setting
+        new Setting("Sound") {
+            @Override
+            public boolean getStatus() {
+                return Globals.agc.isSoundOn();
+            }
 
-    /**
-     * Alter a certain button's label to reflect a new boolean state
-     *
-     * @param prev previous label
-     * @param pos in button list
-     * @param state boolean status
-     */
-    private void switchLabel(int pos, boolean state) {
-
-        // Get previous string
-        String prev = super.getButtonGrid().getButtonByPos(pos).getLabel();
-
-        // Generate new string
-        String newS = processSwitchString(prev, state);
-
-        // Replace old label with new
-        super.getButtonGrid().replaceButtonLabel(prev, newS);
-    }
-
-    /**
-     * Return a setting label string that reflects a given boolean
-     *
-     * @param prev
-     * @param state
-     * @return
-     */
-    private String processSwitchString(String prev, boolean state) {
-
-        // Initialise new label with first part
-        String newS = prev.split(":")[0];
-
-        // Add semicolon and space
-        newS += ": ";
-
-        // Add true if ON, and OFF if false
-        if (state) {
-            newS += "ON";
-        } else {
-            newS += "OFF";
-        }
-
-        // Return new string
-        return newS;
+            @Override
+            public void setStatus(boolean newStatus) {
+                Globals.agc.setSoundOn(newStatus);
+            }
+        };
     }
 
     /**

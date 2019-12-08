@@ -68,30 +68,57 @@ public class Map extends TiledMap {
     }
 
     /**
+     * Converts X/Y coordinates to column/row values
+     */
+    private static int convertCoordToGrid(float coord) {
+        return ((int) coord / Globals.tileSize);
+    }
+
+    /**
      * Converts an X coordinate to tile column form
      *
      * @param xPos
-     * @return
+     * @return Column
      */
     public static int convertXtoCol(float xPos) {
-        return getGridFromCoord(xPos);
+        return convertCoordToGrid(xPos);
     }
 
     /**
      * Convert a Y coordinate to tile row form
      *
      * @param yPos
-     * @return Column
+     * @return Row
      */
     public static int convertYtoRow(float yPos) {
-        return getGridFromCoord(yPos);
+        return convertCoordToGrid(yPos);
     }
 
     /**
-     * Helps to convert X/Y coordinates to row/column values
+     * Converts column/row values to X/Y coordinates
      */
-    private static int getGridFromCoord(float coord) {
-        return ((int) coord / Globals.tileSize);
+    private static int convertGridtoCoord(int grid) {
+        return (grid * Globals.tileSize);
+    }
+
+    /**
+     * Convert a tile column to a X coordinate
+     *
+     * @param col
+     * @return X coordinate
+     */
+    public static int convertColtoX(int col) {
+        return convertGridtoCoord(col);
+    }
+
+    /**
+     * Convert a tile row to a Y coordinate
+     *
+     * @param row
+     * @return Y coordinate
+     */
+    public static int convertRowtoY(int row) {
+        return convertGridtoCoord(row);
     }
 
     /**

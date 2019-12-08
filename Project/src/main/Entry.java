@@ -56,10 +56,6 @@ public class Entry extends StateBasedGame {
             // If being run in IDE
             if (Globals.inIDE) {
 
-                // Print out version info for IDE testing
-                String verInfo = Globals.gameTitle + " V" + Globals.VERSION + " Testing ";
-                System.out.println("\n" + verInfo + "\n");
-
                 // Load OpenAL DLL to prevent IDE giving 
                 // related error and prevent it being muted
                 System.loadLibrary("OpenAL64");
@@ -77,6 +73,7 @@ public class Entry extends StateBasedGame {
             Globals.agc.setTargetFrameRate(60);
             Globals.agc.setAlwaysRender(true);
             Globals.agc.setSmoothDeltas(true);
+            Globals.agc.setVSync(true);
             Globals.agc.setShowFPS(false);
 
             // Start AGC

@@ -3,7 +3,7 @@ package states;
 import main.Globals;
 import states.challenges.Challenge;
 import components.helpers.FontServer;
-import components.helpers.InputHandler;
+import components.helpers.ControlServer;
 import components.structures.Camera;
 import components.structures.HUD;
 import components.structures.Map;
@@ -98,7 +98,8 @@ public class Loading extends BasicGameState {
             Globals.cam = new Camera(gc, Globals.map);
             Globals.cam.centerOn(Globals.player.getX(), Globals.player.getX());
             Globals.hud = new HUD(Globals.cam, Globals.player);
-            Globals.inputHan = new InputHandler();
+            Globals.conServer = new ControlServer();
+            //Globals.soundServer = new SoundServer();
 
             // Initialize entity stores
             Globals.itemStore = new ItemStore();

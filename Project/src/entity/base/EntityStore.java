@@ -116,6 +116,12 @@ public abstract class EntityStore {
      */
     public boolean isEntityUnder(Player player, Entity ent) {
 
+        // If entity has already been encountered
+        if (encEntities.contains(ent)) {
+            // Return false
+            return false;
+        }
+
         // Get player position and adjust
         int xPlayer = player.getX() + Globals.playerXadj;
         int yPlayer = player.getY() + Globals.playerYadj;

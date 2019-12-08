@@ -187,19 +187,4 @@ public abstract class Entity {
             }
         }
     }
-
-    /**
-     * Do the action that occurs before item grab
-     */
-    public void beforeAction() {
-        // To be overidden
-    }
-
-    /**
-     * Do the action that occurs after item grab
-     */
-    public void afterAction() {
-        // To be overidden
-    }
-
 }

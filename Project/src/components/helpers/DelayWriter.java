@@ -12,7 +12,7 @@ public class DelayWriter {
 
     // Text
     private String text;
-    
+
     // Text color
     private Color col;
 
@@ -29,6 +29,7 @@ public class DelayWriter {
      * Create a Delay Writer
      *
      * @param interval Time between characters
+     * @param col
      */
     public DelayWriter(int interval, Color col) {
 
@@ -43,7 +44,7 @@ public class DelayWriter {
             // Otherwise, throw exception
             throw new IllegalArgumentException("TW Interval must be mult of 10");
         }
-        
+
         // Save color
         this.col = col;
 

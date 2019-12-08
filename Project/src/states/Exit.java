@@ -49,7 +49,7 @@ public class Exit extends InterfaceScreen {
      * Do custom post initialization
      */
     @Override
-    public void customPostInit() {
+    public void customInit() {
         closeFont = FontServer.getFont(closeFontS);
     }
 
@@ -135,7 +135,7 @@ public class Exit extends InterfaceScreen {
      * @param g
      */
     @Override
-    public void customPostRender(Graphics g) {
+    public void customRender(Graphics g) {
         // Calculate position of text
         int x = closeX;
         int y = Globals.screenH - 75;

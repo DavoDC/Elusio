@@ -23,6 +23,10 @@ public class ButtonGrid {
     // Holds buttons
     private ArrayList<Button> buttons;
 
+    // Initialization lists
+    private ArrayList<Object> common;
+    private ArrayList<String> labels;
+
     /**
      * Create a ButtonGrid Input the values common to most buttons
      *
@@ -40,9 +44,24 @@ public class ButtonGrid {
         boolean con2 = buttonNo != labels.size();
         boolean con3 = labels.isEmpty();
         if (con1 || con2 || con3) {
-            throw new IllegalArgumentException("ButtonGrid init error: "
-                    + con1 + con2 + con3);
+            String errS = "ButtonGrid init error \n ISSUE: ";
+            if (con1) {
+                errS += "Missing feature in 'common' AL";
+            } else if (con2) {
+                errS += "Common size != Label size";
+            } else if (con3) {
+                errS += "No labels";
+            }
+            errS += "\n" + "Header: ";
+            if (!labels.isEmpty()) {
+                errS += labels.get(0) + "\n";
+            }
+            throw new IllegalArgumentException(errS);
         }
+
+        // Save lists
+        this.common = common;
+        this.labels = labels;
 
         // Extract variables from common
         String imgRes = (String) common.get(1);
@@ -69,8 +88,19 @@ public class ButtonGrid {
             buttons.add(new Button(img, new Rectangle(x, y, w, h), font));
         }
 
+        // Adjust buttons
+        adjustButtons();
+    }
+
+    /**
+     * Refine a list of buttons
+     *
+     */
+    public final void adjustButtons() {
+
         // Do re-positioning of buttons
         // Extract required information
+        int buttonNo = (int) common.get(0);
         int xpos = (int) common.get(2);
         int ypos = (int) common.get(3);
         int bW = (int) common.get(4);

@@ -112,4 +112,138 @@ public class PopupDisplayer {
         shouldShowPopup = true;
     }
 
+    //                // Calculate adjustment from camera
+//                int camRadj = 3;
+//                int camCadj = 2;
+//                int camYadj = camRadj * Globals.tileSize;
+//                int camXadj = camCadj * Globals.tileSize;
+//
+//                // Calculate actual position
+//                int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
+//                int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
+//
+//                // Show popups after item use
+//                System.out.println("#### TEST:  " + obst.getName()
+//                        + " , " + obst.getOZName());
+//                showUsagePopup(obN, "Tree", "Cryo", r, c);
+//                showUsagePopup(obN, "Lime", "Acid", r, c);
+//                showUsagePopup(obN, "Water", "Orb", r, c);
+//    /**
+//     * Show information about an item as a popup
+//     *
+//     * @param item
+//     */
+//    private void showItemPopup(Item item) {
+//
+//        // Calculate adjustment from camera
+//        int camRadj = 3;
+//        int camCadj = 2;
+//        int camYadj = camRadj * Globals.tileSize;
+//        int camXadj = camCadj * Globals.tileSize;
+//
+//        // Calculate actual position
+//        int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
+//        int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
+//
+//        // Account for special teleportation cases
+//        String name = item.getName().toLowerCase();
+//        if (name.contains("clock")) {
+//            r = Map.convertYtoRow(Globals.cam.getY() + camYadj - 34 * 64);
+//            c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
+//        } else if (name.contains("treasure")) {
+//            r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
+//            c = Map.convertXtoCol(Globals.cam.getX() + camXadj + 6 * 64);
+//            item.afterAction();
+//        }
+//
+//        // Generate and show popup
+//        Popup itemInfo = getItemPopup(item, r, c);
+//        Globals.hud.loadPopup(itemInfo);
+//    }
+//
+//    /**
+//     * Get a popup that describes a given item
+//     *
+//     * @param item
+//     * @param r
+//     * @param c
+//     * @return
+//     */
+//    public Popup getItemPopup(Item item, int r, int c) {
+//
+//        // Set features of popup
+//        ArrayList<Object> feats = new ArrayList<>();
+//        feats.add(r);  // Tile grid row
+//        feats.add(c);  // Tile grid column 
+//        feats.add(18); // Width as number of tiles 
+//        feats.add(2);  // Height as number of tiles 
+//        feats.add(20); // Interval for delay writer
+//        feats.add("default"); // FontS or "default"
+//        feats.add(Color.black); // Text color
+//
+//        // Create popup lines 
+//        ArrayList<String> itemLines = item.getInfoLines();
+//        ArrayList<String> newLines = new ArrayList<>();
+//        String start = "(Ehecatl, telepathically): ";
+//        for (String curItemLine : itemLines) {
+//            newLines.add(start + curItemLine);
+//        }
+//        newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
+//
+//        // Return
+//        return (new Popup(feats, newLines));
+//    }
+//
+//
+//    /**
+//     * Show usable item popup after it is grabbed
+//     *
+//     * @param obN The obstacle's full name
+//     * @param obQ Part of the obstacle's name
+//     * @param itemName Item name subset
+//     * @param r Row position of popup
+//     * @param c Column position of popup
+//     */
+//    private void showUsagePopup(String obN, String obQ, String itemName, int r, int c) {
+//
+//        // If obstacle name contains query
+//        if (obN.contains(obQ)) {
+//
+//            // Get item
+//            UsableItem item = (UsableItem) Globals.player.getItemByName(itemName);
+//
+//            // Load popup for item
+//            Globals.hud.loadPopup(getUsagePopup(item, r, c));
+//        }
+//    }
+//
+//    /**
+//     * Get a popup describing what a usable item just did
+//     *
+//     * @param item
+//     * @param r
+//     * @param c
+//     * @return
+//     */
+//    public Popup getUsagePopup(Item item, int r, int c) {
+//
+//        // Set features of popup
+//        ArrayList<Object> feats = new ArrayList<>();
+//        feats.add(r);  // Tile grid row
+//        feats.add(c);  // Tile grid column 
+//        feats.add(18); // Width as number of tiles 
+//        feats.add(2);  // Height as number of tiles 
+//        feats.add(20); // Interval for delay writer
+//        feats.add("default"); // FontS or "default"
+//        feats.add(Color.black); // Text color
+//
+//        // Create popup lines 
+//        ArrayList<String> newLines = new ArrayList<>();
+//        String start = "(Ehecatl, telepathically): ";
+//        newLines.add(start + ((UsableItem) item).getUseLine());
+//        newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
+//
+//        // Return
+//        return (new Popup(feats, newLines));
+//    }
 }

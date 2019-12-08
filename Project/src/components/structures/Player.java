@@ -4,6 +4,7 @@ import entity.item.Item;
 import main.Globals;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
@@ -32,9 +33,13 @@ public class Player {
     // Movement speed of player
     private float movSpeed;
 
+    // Last direction of movement
+    private String lastDirection;
+
     // Variables for player movement animation
     private int animSpeed;
     private final Animation anim;
+    private final HashMap<String, String> animConfig;
 
     // Amount of animSpeed per movSpeed
     private final int speedRatio = 90;
@@ -78,11 +83,21 @@ public class Player {
         // Initialize animation 
         anim = new Animation(sprites, animSpeed);
 
-        // Preven animation from starting on its own
+        // Initialize animation configuration
+        animConfig = new HashMap<>();
+        animConfig.put("up", "n9n10n11");
+        animConfig.put("down", "n0n1n2");
+        animConfig.put("left", "n3n4n5");
+        animConfig.put("right", "n6n7n8");
+
+        // Prevent animation from starting on its own
         anim.stop();
 
         // Set animation on "standing still" frame
         anim.setCurrentFrame(1);
+
+        // Set last direction
+        lastDirection = "up";
     }
 
     /**
@@ -90,6 +105,15 @@ public class Player {
      */
     private void syncAnimSpeed() {
         animSpeed = (int) ((1 / movSpeed) * speedRatio);
+    }
+
+    /**
+     * Get last movement direction
+     *
+     * @return
+     */
+    public String getLastDir() {
+        return lastDirection;
     }
 
     /**
@@ -108,6 +132,54 @@ public class Player {
      */
     public int getY() {
         return yPos;
+    }
+
+    /**
+     * Move the player in a given direction
+     *
+     * @param dir Direction of motion
+     * @param delta
+     * @param action
+     */
+    public void move(String dir, int delta) {
+
+        // Alter string
+        dir = dir.toLowerCase();
+
+        // Save direction
+        lastDirection = dir;
+
+        // Start animation and limit frames
+        anim.start();
+        configureFrames(animConfig.get(dir));
+
+        // Calculate true speed
+        int trueSpeed = (int) (Math.round(delta * movSpeed));
+
+        // Change position if no collision
+        switch (dir) {
+            case "up":
+                if (Globals.map.isUpAllowed(xPos, yPos, trueSpeed)) {
+                    adjustY(-trueSpeed);
+                }
+                break;
+            case "down":
+                if (Globals.map.isDownAllowed(xPos, yPos, trueSpeed)) {
+                    adjustY(trueSpeed);
+                }
+                break;
+            case "left":
+                if (Globals.map.isLeftAllowed(xPos, yPos, trueSpeed)) {
+                    adjustX(-trueSpeed);
+                }
+                break;
+            case "right":
+                if (Globals.map.isRightAllowed(xPos, yPos, trueSpeed)) {
+                    adjustX(trueSpeed);
+                }
+                break;
+        }
+
     }
 
     /**
@@ -136,14 +208,6 @@ public class Player {
     }
 
     /**
-     * Reset player location back to start
-     */
-    public void resetLocation() {
-        xPos = START_X;
-        yPos = START_Y;
-    }
-
-    /**
      * Get movement speed
      *
      * @return
@@ -169,40 +233,6 @@ public class Player {
      */
     public void updateAnimation(int delta) {
         anim.update(delta);
-    }
-
-    /**
-     * Starts the walking animation in a given direction
-     *
-     * @param dir Direction of motion
-     */
-    public void startAnim(String dir) {
-
-        // Start animation
-        anim.start();
-
-        // Determine frames needed
-        String frameConfig;
-        switch (dir) {
-            case "up":
-                frameConfig = "n9n10n11"; // Back frames
-                break;
-            case "down":
-                frameConfig = "n0n1n2"; // Front frames
-                break;
-            case "left":
-                frameConfig = "n3n4n5"; // Left frames
-                break;
-            case "right":
-                frameConfig = "n6n7n8"; // Right frames
-                break;
-            default:
-                frameConfig = "n0n1n2"; // Front frames
-                break;
-        }
-
-        // Limit frames to those needed
-        configureFrames(frameConfig);
     }
 
     /**
@@ -272,6 +302,15 @@ public class Player {
     }
 
     /**
+     * Retrieve player inventory
+     *
+     * @return
+     */
+    public ArrayList<Item> getInv() {
+        return inv;
+    }
+
+    /**
      * Add the given item to the player inventory
      *
      * @param item
@@ -318,11 +357,10 @@ public class Player {
     }
 
     /**
-     * Retrieve player inventory
-     *
-     * @return
+     * Reset player location back to start
      */
-    public ArrayList<Item> getInv() {
-        return inv;
+    public void resetLocation() {
+        xPos = START_X;
+        yPos = START_Y;
     }
 }
