@@ -1,11 +1,9 @@
 ## Elusio
+# Welcome to the Official Elusio Site! 👽
 
-This is a GitHub repo for a game called _Elusio_
-
-Please see the [Game's Official Wiki](https://github.com/DavoDC/SlickGame/wiki) for more information.
-
-Gameplay Screenshot:
-![Alt text](https://github.com/DavoDC/SlickGame/blob/master/Documents/Screenshot.png?raw=true "Gameplay Screenshot")
+## [About](https://github.com/DavoDC/Elusio/wiki/About)
+## [Screenshots](https://github.com/DavoDC/Elusio/wiki/Screenshots)
+## [How To Play](https://github.com/DavoDC/Elusio/wiki/How-To-Play)
 
 
 _Copyright © 2019 David. All Rights Reserved._
