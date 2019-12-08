@@ -1,9 +1,5 @@
-## Elusio
-# Welcome to the Official Elusio Site! 👽
+# Welcome to Elusio! 👽
 
-## [About](https://github.com/DavoDC/Elusio/wiki/About)
-## [Screenshots](https://github.com/DavoDC/Elusio/wiki/Screenshots)
-## [How To Play](https://github.com/DavoDC/Elusio/wiki/How-To-Play)
-
+## [Visit the Wiki to Play and more!](https://github.com/DavoDC/Elusio/wiki)
 
 _Copyright © 2019 David. All Rights Reserved._
