@@ -5,8 +5,8 @@ import java.util.Random;
 
 import main.Globals;
 import components.buttons.ButtonGrid;
-import components.helpers.ControlServer.Control;
-import components.helpers.FontServer;
+import components.servers.ControlServer.Control;
+import components.servers.FontServer;
 
 import org.newdawn.slick.BigImage;
 import org.newdawn.slick.Color;

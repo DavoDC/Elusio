@@ -1,11 +1,14 @@
 package entity.item;
 
+import entity.item.types.InstantItem;
+import entity.item.types.KeyItem;
 import java.util.ArrayList;
 
-import main.Globals;
 import components.structures.Player;
 import entity.base.Entity;
 import entity.base.EntityStore;
+import entity.item.types.CrystalItem;
+import entity.item.types.SpeedItem;
 
 /**
  * Handles multiple items
@@ -25,71 +28,101 @@ public class ItemStore extends EntityStore {
         // Create list
         ArrayList<Entity> itemList = new ArrayList<>();
 
-        // Add magic items
+        // STARTING AREA KEYS
         itemList.add(new KeyItem(
                 "Cryocapacitor Set",
-                "Its storing microamounts of nearby energy as antimatter",
-                "It could annihilate some weak, dry matter once activated",
-                "The cryocapacitors annihilated the dead trees!",
+                new String[]{"Stores microamounts of nearby energy as antimatter.",
+                    "Could annihilate some weak, dry matter once activated.",
+                    "Usage: The cryocapacitor annihilated the dead trees!"},
+                "SOUNDNAME",
+                "None",
                 23, 25));
         itemList.add(new KeyItem(
                 "Magistructor Orb",
-                "Inside, it beats rhythmically with creative vigor",
-                "Upon activation, it could manifest more of an existing substance",
-                "The orb created a magistruct replica of the nearby wood!",
+                new String[]{"Beats rhythmically with creative vigor,",
+                    "able to manifest more of an existing substance.",
+                    "Usage: The orb created a magistruct replica of the wood nearby!"},
+                "SOUNDNAME",
+                "None",
                 82, 5));
 
-        // Add limestone items
+        // LIMESTONE ITEMS
         itemList.add(new Item(
-                "LimestoneSample",
-                "Hmmm .. Looks like high calcium limestone",
+                "Limestone Rocks",
+                new String[]{"Limestone (calcium carbonate) fragments"},
                 2, 28));
+
         itemList.add(new KeyItem(
-                "AcidGun",
-                "A rifle that uses some sort of acerbic fluid",
-                "The fluid could corrode certain materials",
-                "The rifle's acid reacted with the carbonate!",
+                "Gastric Gun",
+                new String[]{"A rifle filled with some sort of unpleasant acerbic fluid,",
+                    "that likely has corrosive properties.",
+                    "Usage: Good thinking! Acid + Metal Carbonate = Salt + Water + CO2!"},
+                "SOUNDNAME",
+                "None",
                 21, 3));
 
-        // Add crystals
-        addCrystals(itemList);
+        // CRYSTALS
+        itemList.add(new CrystalItem(
+                "Destiny", 1122,
+                "Focus your attention positively, on solutions.",
+                "None", 65, 6));
+        itemList.add(new CrystalItem(
+                "Protection", 333,
+                "Light protects you every step of the way.",
+                "Pyrotessera", 30, 33));
+        itemList.add(new CrystalItem(
+                "Alignment", 666,
+                "Thoughts -> Words -> Actions -> Habits.",
+                "Trevil", 89, 41));
+        itemList.add(new CrystalItem(
+                "Growth", 999,
+                "Your truest self is a shining light.",
+                "Mycovolence", 71, 81));
 
-        // Add ship gold
-        itemList.add(new ProtectedItem(
+        // GOLD
+        itemList.add(new KeyItem(
                 "Treasure",
-                "We have all the electrovelox substitute we could ever need!",
-                "Now we can finally repair me! Come back to me",
-                "Ship",
-                10, 74, 3, 6) {
-            @Override
-            public boolean doAction() {
-                //Globals.hud.loadPopup(getEndPopup());
-                Globals.player.adjustX(Globals.tileSize * 6);
-                return true;
-            }
-        });
-
-        // Add gold coin
+                new String[]{"A perfect electrovelox substitute,",
+                    "as it is highly conductive!",
+                    "Usage: This is just what I needed for my repairs!"},
+                "SOUNDNAME",
+                "SailingShip",
+                10, 74, 3, 6));
         itemList.add(new Item(
-                "GoldCoins",
-                new String[]{
-                    "Hmmm .. a pile of metal discs .. ",
-                    "Hold the phone! This is a substitute for electrovelox!",
-                    "If you find more of it, we could repair me and go home!"
-                },
+                "Metal Discs",
+                new String[]{"Appears to be similar to electrovelox!"},
                 50, 79));
 
-        // Add speed modifiers
-        addSpeedItems(itemList);
+        // SPEED ITEMS
+        itemList.add(new SpeedItem(
+                "MP3 Player",
+                "Sound waves are emanating in an energizing manner!",
+                34, 1, 0.08f));
+        itemList.add(new SpeedItem(
+                "Doc Brown's Wristwatch",
+                "Embued with energy that brings one closer to the future",
+                37, 87, 0.08f));
+        itemList.add(new SpeedItem(
+                "Alacrity Ring",
+                "Enchanted with alacrity essence",
+                59, 50, 0.08f));
+        itemList.add(new SpeedItem(
+                "Syringe of STH06",
+                "A highly potent stimulant",
+                3, 44, 0.20f));
+        itemList.add(new SpeedItem(
+                "Big Smoke",
+                "Psionically embued with the phrase: Two Number 9s",
+                79, 37, -0.16f));
 
-        // Add clock for teleporting back to starting location
+        //  TELEPORTING CLOCK
         itemList.add(new InstantItem(
-                "DigitalClock",
+                "Mobius Clock",
                 new String[]{
-                    "A digital time-keeper .. ",
-                    "Thats strange ... It has no Higgs boson field",
-                    "Wow! It teleported you !"
+                    "A digital time-keeper with no Higgs boson field",
+                    "Usage: You were teleported!"
                 },
+                "SOUNDNAME",
                 12, 54) {
             @Override
             public void applyEffect(Player player) {
@@ -104,128 +137,6 @@ public class ItemStore extends EntityStore {
     }
 
     /**
-     * Add crystals
-     *
-     * @param itemList
-     */
-    private void addCrystals(ArrayList<Entity> itemList) {
-
-        itemList.add(new Item(
-                "Crystal12",
-                "This crystal has a high, specific EMR frequency .. 1122Hz",
-                "Somehow it seems that .. it is longing for something... ",
-                65, 6));
-
-        itemList.add(new ProtectedItem(
-                "Crystal3",
-                "This crystal has an EMR signature of 333Hz",
-                "It .. misses the presence of something... ",
-                "Viridash",
-                30, 33));
-
-        itemList.add(new ProtectedItem(
-                "Crystal6",
-                "The crystal emanates a particular EMR frequency .. 666Hz",
-                "It is longing for something... ",
-                "Trevil",
-                89, 41));
-
-        itemList.add(new ProtectedItem(
-                "Crystal9",
-                "A particular EMR frequency is being emitted by this crystal.. 999Hz",
-                "This crystal yearns to join something ... ",
-                "Mycovolence",
-                71, 81));
-
-    }
-
-    /**
-     * Add speed altering items
-     *
-     * @param itemList
-     */
-    private void addSpeedItems(ArrayList<Entity> itemList) {
-
-        // Add MP3 player that gives small speed increase
-        itemList.add(new InstantItem(
-                "MP3Player",
-                "Using ESP, I can perceive sound waves emanating!",
-                "The arrangement of them makes me feel energized! Try it!",
-                34, 1) {
-            @Override
-            public void applyEffect(Player player) {
-                player.changeMovSpeed(0.07f);
-            }
-        });
-
-        // Add wrist watch that gives small speed increase
-        itemList.add(new InstantItem(
-                "Wristwatch",
-                "This looks like it came from a dimension where time goes faster...",
-                "Wearing it will bring some of that aspect nearby",
-                37, 87) {
-            @Override
-            public void applyEffect(Player player) {
-                player.changeMovSpeed(0.08f);
-            }
-        });
-
-        // Add ring that gives small speed increase
-        itemList.add(new InstantItem(
-                "Alacrity Ring",
-                "This ring is enchanted with alacrity essence",
-                "I recommend wearing it!",
-                59, 50) {
-            @Override
-            public void applyEffect(Player player) {
-                player.changeMovSpeed(0.08f);
-            }
-        });
-
-        // Add syringe that gives huge speed increase
-        itemList.add(new InstantItem(
-                "STH06Syringe",
-                new String[]{
-                    "A common stimulant named SanicTH06",
-                    "Its highly potent. Be careful... I'm receiving something ",
-                    "I just heard " + quote("BigDaz") + " say " + quote("You skitz druggo") + "!",
-                    "That was really strange ...",},
-                3, 44) {
-            @Override
-            public void applyEffect(Player player) {
-
-                // Increase speed by 50%
-                player.changeMovSpeed(player.getMovSpeed() / 2);
-            }
-        });
-
-        // Add cigarette that slows down player greatly
-        itemList.add(new InstantItem(
-                "Cigarette",
-                "Psionically embued with the name: Two Number 9s",
-                "Not sure what this might do ... ",
-                79, 37) {
-            @Override
-            public void applyEffect(Player player) {
-
-                // Decrease speed by 50%
-                player.changeMovSpeed(-player.getMovSpeed() / 2);
-            }
-
-        });
-    }
-
-    /**
-     * Return the given string in quotes
-     *
-     * @param in
-     * @return
-     */
-    private String quote(String in) {
-        return ('"' + in + '"');
-    }
-
-    /**
      * Get the layer which holds the entities/items
      *
      * @return
@@ -234,4 +145,5 @@ public class ItemStore extends EntityStore {
     public String getEntLS() {
         return "Items";
     }
+
 }

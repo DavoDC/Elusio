@@ -1,7 +1,7 @@
 package states;
 
 import components.buttons.Button;
-import components.helpers.FontServer;
+import components.servers.FontServer;
 import states.screens.InterfaceScreen;
 import entity.base.Entity;
 import entity.item.Item;
@@ -174,7 +174,7 @@ public class Inventory extends InterfaceScreen {
             curB.addListener((AbstractComponent source) -> {
 
                 // Initiate item use
-                ItemProcessor.loadUsedItem(curItem);
+                Globals.itemProc.loadUsedItem(curItem);
             });
 
             // Save item and button pair into map
@@ -188,15 +188,19 @@ public class Inventory extends InterfaceScreen {
      */
     public void updateInv() {
 
+        // Inspection is just about to occur,
+        // so turn off 'need inspection' image of HUD inventory button
+        Globals.hud.updateInvButton(false);
+
         // Update copy of inventory
         inv = Globals.player.getInv();
 
         // Update subheading text
         if (inv.isEmpty()) {
-            subHeading = "The inventory is empty";
+            subHeading = "Your inventory is empty. Try finding some items to grab!";
         } else {
             subHeading = "Hover over an item to see its description";
-            subHeading += ", Click an item to use it";
+            subHeading += ". Click an item to use it";
         }
 
         // Update the enabled status of each button
@@ -216,10 +220,6 @@ public class Inventory extends InterfaceScreen {
 
         // Adjust item positions
         adjustItemButtons();
-
-        // Update HUD button
-        // Items have just been inspected so inspection is not needed
-        Globals.hud.updateInvButton(false);
     }
 
     /**
@@ -329,6 +329,13 @@ public class Inventory extends InterfaceScreen {
         int lX = mX + 60;
         int lY = mY + 10;
         for (String line : desc) {
+
+            // Stop if usage line encountered
+            if (line.contains("Usage")) {
+                break;
+            }
+
+            // Draw line and progress down
             normFont.drawString(lX, lY, line);
             lY += 20;
         }

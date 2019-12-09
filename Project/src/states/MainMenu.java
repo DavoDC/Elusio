@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import main.Globals;
 import states.screens.InterfaceScreen;
-import components.helpers.DelayWriter;
+import components.structures.DelayWriter;
 import components.buttons.Button;
-import components.helpers.FontServer;
+import components.servers.FontServer;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;

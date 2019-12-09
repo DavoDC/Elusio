@@ -69,7 +69,7 @@ public class ActualGame extends BasicGameState {
         Globals.hud.update(Globals.cam, Globals.player, delta);
 
         // Process item use
-        ItemProcessor.processItemUse();
+        Globals.itemProc.processItemUse();
     }
 
     /**
@@ -93,7 +93,7 @@ public class ActualGame extends BasicGameState {
         Globals.enemyStore.updateMap(g);
         Globals.obStore.updateMap(g);
         Globals.itemStore.updateMap(g);
-        ItemProcessor.renderItemUse(g);
+        Globals.itemProc.renderItemUse(g);
 
         // Draw player
         Globals.player.drawPlayer(Globals.player.getX(), Globals.player.getY());

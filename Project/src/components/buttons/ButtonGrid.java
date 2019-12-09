@@ -2,7 +2,7 @@ package components.buttons;
 
 import java.util.ArrayList;
 
-import components.helpers.FontServer;
+import components.servers.FontServer;
 import static states.screens.InfoScreen.headerX;
 import main.Globals;
 

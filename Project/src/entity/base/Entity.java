@@ -147,17 +147,6 @@ public abstract class Entity {
     }
 
     /**
-     * Draw an entity
-     *
-     * @param g
-     */
-    public void drawEntity(Graphics g) {
-
-        // Draw entity images
-        drawImageArray(entImages, g);
-    }
-
-    /**
      * Draw an entity image array
      *
      * @param imgArr
