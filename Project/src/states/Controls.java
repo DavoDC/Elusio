@@ -1,6 +1,6 @@
 package states;
 
-import components.helpers.ControlServer.Control;
+import components.servers.ControlServer.Control;
 import java.util.ArrayList;
 import java.util.Arrays;
 

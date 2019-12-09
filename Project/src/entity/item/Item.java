@@ -17,50 +17,12 @@ public class Item extends Entity {
     private final ArrayList<String> info;
 
     /**
-     * Create a single tile, single info-line item
+     * Create a single tile item
      *
      * @param name Item name
-     * @param infoLine
-     * @param col Column on tile grid
-     * @param row Row on tile grid
-     */
-    public Item(String name, String infoLine, int col, int row) {
-
-        // Call entity constructor
-        super(name, col, row, 1, 1);
-
-        // Initialize list
-        info = new ArrayList<>();
-        info.add(infoLine);
-    }
-
-    /**
-     * Create a single tile, double info-line item
-     *
-     * @param name Item name
-     * @param info1 First info line
-     * @param info2 Second info line
-     * @param col Column on tile grid
-     * @param row Row on tile grid
-     */
-    public Item(String name, String info1, String info2, int col, int row) {
-
-        // Call entity constructor
-        super(name, col, row, 1, 1);
-
-        // Initialize list
-        info = new ArrayList<>();
-        info.add(info1);
-        info.add(info2);
-    }
-
-    /**
-     * Create a single-tile item with many description lines
-     *
-     * @param name Item name
-     * @param infoArr Item information
-     * @param col Column on tile grid
-     * @param row Row on tile grid
+     * @param infoArr Description lines
+     * @param col Column on map
+     * @param row Row on map
      */
     public Item(String name, String[] infoArr, int col, int row) {
 
@@ -73,17 +35,16 @@ public class Item extends Entity {
     }
 
     /**
-     * Constructor for multi tile, double info-line items
+     * Create a multi tile item
      *
-     * @param name
-     * @param info1
-     * @param info2
-     * @param tlc
-     * @param tlr
-     * @param w
-     * @param h
+     * @param name Item name
+     * @param infoArr Description lines
+     * @param tlc Top left column
+     * @param tlr Top left row
+     * @param w Width
+     * @param h Height
      */
-    public Item(String name, String info1, String info2,
+    public Item(String name, String[] infoArr,
             int tlc, int tlr, int w, int h) {
 
         // Call entity constructor
@@ -91,8 +52,7 @@ public class Item extends Entity {
 
         // Initialize list
         info = new ArrayList<>();
-        info.add(info1);
-        info.add(info2);
+        info.addAll(Arrays.asList(infoArr));
     }
 
     /**
@@ -122,17 +82,6 @@ public class Item extends Entity {
 
         // Return image
         return super.getImage(row, col);
-    }
-
-    /**
-     * Do the action that occurs after use
-     *
-     * @return Success status
-     */
-    public boolean doAction() {
-
-        // To be overidden
-        return false;
     }
 
 }

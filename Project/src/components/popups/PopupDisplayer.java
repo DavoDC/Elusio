@@ -246,4 +246,76 @@ public class PopupDisplayer {
 //        // Return
 //        return (new Popup(feats, newLines));
 //    }
+//      /**
+//     * Return the final popup
+//     *
+//     * @return
+//     */
+//    private Popup getEndPopup() {
+//
+//        // Features
+//        ArrayList<Object> feats = new ArrayList<>();
+//        feats.add(8);  // Tile grid row
+//        feats.add(2);  // Tile grid column 
+//        feats.add(17); // Width as number of tiles 
+//        feats.add(2);  // Height as number of tiles 
+//        feats.add(20); // Interval for delay writer
+//        feats.add("default"); // FontS or "default"
+//
+//        // Text
+//        ArrayList<String> textLines = new ArrayList<>();
+//        textLines.add("You: I've got the elecrovelox!");
+////        textLines.add("Ehecatl: Thats great! I'll begin repairs");
+////        textLines.add("You: You wouldn't believe what I went through to get it!");
+////        textLines.add("You: I even encountered a dragon!");
+////        textLines.add("Ehecatl: No way!");
+////        textLines.add("Narrator: And thats how Ehecatl and Nagual got home");
+////        textLines.add("Narrator: But this was a memory they'd never forget");
+////        textLines.add("Le Fin");
+//
+//        // Create
+//        Popup finish = new Popup(feats, textLines) {
+//            @Override
+//            public void postAction() {
+//                int exitID = Globals.STATES.get("EXIT");
+//                Globals.SBG.enterState(exitID, Globals.getLeave(), Globals.getEnter());
+//            }
+//        };
+//
+//        // Return
+//        return finish;
+//    }
+    /**
+     * // * Get popup for when magic gate unlocks // * // * @return //
+     */
+//    private Popup getGatePopup() {
+//
+//        // Calculate actual position
+//        int camRadj = 3;
+//        int camCadj = 2;
+//        int camYadj = camRadj * Globals.tileSize;
+//        int camXadj = camCadj * Globals.tileSize;
+//        int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
+//        int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
+//
+//        // Set features of popup
+//        ArrayList<Object> feats = new ArrayList<>();
+//        feats.add(r);  // Tile grid row
+//        feats.add(c);  // Tile grid column 
+//        feats.add(18); // Width as number of tiles 
+//        feats.add(2);  // Height as number of tiles 
+//        feats.add(20); // Interval for delay writer
+//        feats.add("default"); // FontS or "default"
+//
+//        // Create popup lines 
+//        ArrayList<String> newLines = new ArrayList<>();
+//        String start = "(Ehecatl, telepathically): ";
+//        newLines.add(start + "I've just detected psionic activity near that gate!");
+//        newLines.add(start + "Felt like an etherealise spell");
+//        newLines.add(start + "You should investigate it!");
+//        newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
+//
+//        // Return
+//        return (new Popup(feats, newLines));
+//    }
 }

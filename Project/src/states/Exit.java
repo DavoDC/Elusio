@@ -3,7 +3,7 @@ package states;
 import java.util.ArrayList;
 
 import main.Globals;
-import components.helpers.FontServer;
+import components.servers.FontServer;
 import states.screens.InfoScreen;
 import states.screens.InterfaceScreen;
 
@@ -20,8 +20,8 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class Exit extends InterfaceScreen {
 
-    // The absolute time of closing
-    private final long exitConstant = 3369 / 2;
+    // The absolute time it takes to exit
+    private final long exitConstant = 3369;
 
     // The actual time of closing
     private long exitTime = 0;
@@ -30,8 +30,8 @@ public class Exit extends InterfaceScreen {
     private int percentage = 0;
 
     // Text
-    private final String mainFontS = "Castellar-Bold-60";
-    private final String closeFontS = "Tahoma-Italic-16";
+    private final String mainFontS = "Cambria-Bold-60";
+    private final String closeFontS = "Calibri-Plain-20";
     private TrueTypeFont closeFont;
     private final int closeX = (int) InfoScreen.lineX + 400;
 
@@ -123,7 +123,7 @@ public class Exit extends InterfaceScreen {
         percentage = 100 - (int) perF;
 
         // Exit after time has elapsed or Exit immediately in IDE
-        if (percentage >= 100 || Globals.inIDE) {
+        if (percentage >= 100) {//|| Globals.inIDE) {
             Globals.agc.exit();
         }
 
@@ -136,9 +136,10 @@ public class Exit extends InterfaceScreen {
      */
     @Override
     public void customRender(Graphics g) {
+
         // Calculate position of text
         int x = closeX;
-        int y = Globals.screenH - 75;
+        int y = Globals.screenH - 350;
 
         // Make closing strings
         String close1 = "The game will close shortly";

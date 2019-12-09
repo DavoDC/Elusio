@@ -1,4 +1,4 @@
-package components.helpers;
+package components.structures;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;

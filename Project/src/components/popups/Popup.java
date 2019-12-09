@@ -3,8 +3,8 @@ package components.popups;
 import java.util.ArrayList;
 
 import components.buttons.Button;
-import components.helpers.DelayWriter;
-import components.helpers.FontServer;
+import components.structures.DelayWriter;
+import components.servers.FontServer;
 import main.Globals;
 import org.newdawn.slick.Color;
 

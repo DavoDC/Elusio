@@ -1,14 +1,16 @@
 package states;
 
+import components.servers.AudioServer;
 import main.Globals;
 import states.challenges.Challenge;
-import components.helpers.FontServer;
-import components.helpers.ControlServer;
+import components.servers.FontServer;
+import components.servers.ControlServer;
 import components.structures.Camera;
 import components.structures.HUD;
 import components.structures.Map;
 import components.structures.Player;
 import entity.enemy.EnemyStore;
+import entity.item.ItemProcessor;
 import entity.item.ItemStore;
 import entity.obstacle.ObstacleStore;
 
@@ -99,7 +101,8 @@ public class Loading extends BasicGameState {
             Globals.cam.centerOn(Globals.player.getX(), Globals.player.getX());
             Globals.hud = new HUD(Globals.cam, Globals.player);
             Globals.conServer = new ControlServer();
-            //Globals.soundServer = new SoundServer();
+            Globals.audioServer = new AudioServer();
+            Globals.itemProc = new ItemProcessor();
 
             // Initialize entity stores
             Globals.itemStore = new ItemStore();

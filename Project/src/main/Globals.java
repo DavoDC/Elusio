@@ -1,6 +1,5 @@
 package main;
 
-import components.helpers.ControlServer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,7 +7,10 @@ import components.structures.Camera;
 import components.structures.HUD;
 import components.structures.Map;
 import components.structures.Player;
+import components.servers.AudioServer;
+import components.servers.ControlServer;
 import entity.enemy.EnemyStore;
+import entity.item.ItemProcessor;
 import entity.item.ItemStore;
 import entity.obstacle.ObstacleStore;
 
@@ -47,6 +49,8 @@ public class Globals {
     public static Player player;
     public static HUD hud;
     public static ControlServer conServer;
+    public static AudioServer audioServer;
+    public static ItemProcessor itemProc;
 
     // Entity stores
     public static ItemStore itemStore;
@@ -95,7 +99,9 @@ public class Globals {
     // True means game was paused at least once
     public static boolean hasBeenPaused = false;
 
-    // True means an item
+    // Miscellaneous 
+    public static int crystalsPlaced = 0;
+
     // Transitions
     public static Transition getLeave() {
         return new FadeOutTransition(Color.black, 639);

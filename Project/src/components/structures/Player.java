@@ -5,6 +5,7 @@ import main.Globals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
@@ -139,7 +140,6 @@ public class Player {
      *
      * @param dir Direction of motion
      * @param delta
-     * @param action
      */
     public void move(String dir, int delta) {
 
@@ -352,8 +352,37 @@ public class Player {
      * @return
      */
     public boolean hasItem(String itemName) {
+
         // Return true if found item is not null
         return (getItemByName(itemName) != null);
+    }
+
+    /**
+     * Remove item by name
+     *
+     * @param itemName
+     */
+    public void removeItemByName(String itemName) {
+
+        // Create iterator
+        Iterator<Item> it = inv.iterator();
+
+        // While there is a next item
+        while (it.hasNext()) {
+
+            // If the current item matches
+            if (it.next().getName().equalsIgnoreCase(itemName)) {
+
+                // Remove it
+                it.remove();
+
+                // Stop
+                return;
+            }
+        }
+
+        // Throw exception if unable to remove item
+        throw new IllegalArgumentException("removeItemByName: Invalid name");
     }
 
     /**

@@ -1,4 +1,4 @@
-package components.helpers;
+package components.servers;
 
 import entity.item.ItemProcessor;
 import main.Globals;
@@ -183,15 +183,32 @@ public class ControlServer {
             @Override
             public void doAction() {
 
-                // If going back from actual game
-                if (Globals.SBG.getCurrentStateID()
-                        == Globals.STATES.get("PLAY")) {
-                    // Game has been paused
-                    Globals.hasBeenPaused = true;
-                }
+                // Get stateIDs
+                int curState = Globals.SBG.getCurrentStateID();
+                int playState = Globals.STATES.get("PLAY");
+                int invState = Globals.STATES.get("INVENTORY");
 
-                // Go to main menu
-                Globals.SBG.enterState(Globals.STATES.get("MAINMENU"));
+                // Act based on where back is requested
+                // If back requested in inventory
+                if (curState == invState) {
+
+                    // Go back to play state
+                    Globals.SBG.enterState(playState,
+                            Globals.getLeave(),
+                            Globals.getEnter());
+
+                } else {
+
+                    // If back requested in play state
+                    if (curState == playState) {
+
+                        // Game has been paused
+                        Globals.hasBeenPaused = true;
+                    }
+
+                    // By default, go to main menu
+                    Globals.SBG.enterState(Globals.STATES.get("MAINMENU"));
+                }
 
             }
         });
@@ -204,8 +221,9 @@ public class ControlServer {
         controlList.add(new Control("Grab Item", "Z-ENTER") {
             @Override
             public void doAction() {
+
                 // If Z or Enter is pressed, try to grab item
-                ItemProcessor.processItemGrab();
+                Globals.itemProc.processItemGrab();
             }
         });
         controlList.add(new Control("Take Screenshot", "F12") {

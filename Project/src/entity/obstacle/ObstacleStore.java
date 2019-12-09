@@ -2,9 +2,6 @@ package entity.obstacle;
 
 import java.util.ArrayList;
 
-import main.Globals;
-import components.popups.Popup;
-import components.structures.Map;
 import components.structures.Player;
 import entity.base.Entity;
 import entity.base.EntityStore;
@@ -15,9 +12,6 @@ import entity.base.EntityStore;
  * @author David
  */
 public class ObstacleStore extends EntityStore {
-
-    // Count of crystals placed
-    private int crystalsPlaced = 0;
 
     /**
      * Get the entities of the Obstacle Store
@@ -30,84 +24,40 @@ public class ObstacleStore extends EntityStore {
         // Initialize list
         ArrayList<Entity> obstacles = new ArrayList<>();
 
-        // Trees = Initial Area
-        //  Add Trees locked by TreeZone
+        // Starting Area Trees
         obstacles.add(new Obstacle("Trees", "TreeZone", 32, 9, 5, 5, true));
-        //  Add TreeZone locked by Cryocapacitor
         obstacles.add(new ObstacleZone("TreeZone", "Cryocapacitor", 29, 7, 6, 6));
 
-        // Limestone = Initial Area
-        //  Add LimeStone locked by LimeZone
+        // Starting Area Limestone
         obstacles.add(new Obstacle("LimeStone", "LimeZone", 1, 37, 5, 2, true));
-        //  Add LimeZone locked by Acid
-        obstacles.add(new ObstacleZone("LimeZone", "AcidGun", 2, 34, 2, 3));
+        obstacles.add(new ObstacleZone("LimeZone", "Gastric", 2, 34, 2, 3));
 
-        // Add four crystals that lock gate
+        // Magic Gate
         obstacles.add(new Obstacle("HiGate", "HiSpot", 82, 9, 1, 1, false));
         obstacles.add(new Obstacle("HiCrystal", "HiSpot", 82, 14, 1, 1, false));
-        obstacles.add(new ObstacleZone("HiSpot", "Crystal12", 82, 14, 1, 1));
+        obstacles.add(new ObstacleZone("HiSpot", "Destiny", 82, 14, 1, 1));
 
         obstacles.add(new Obstacle("LoGate", "LoSpot", 82, 10, 1, 1, false));
         obstacles.add(new Obstacle("LoCrystal", "LoSpot", 82, 16, 1, 1, false));
-        obstacles.add(new ObstacleZone("LoSpot", "Crystal3", 82, 16, 1, 1));
+        obstacles.add(new ObstacleZone("LoSpot", "Protection", 82, 16, 1, 1));
 
         obstacles.add(new Obstacle("LeftGate", "LeftSpot", 81, 9, 1, 2, false));
         obstacles.add(new Obstacle("LeftCrystal", "LeftSpot", 81, 15, 1, 1, false));
-        obstacles.add(new ObstacleZone("LeftSpot", "Crystal6", 81, 15, 1, 1));
+        obstacles.add(new ObstacleZone("LeftSpot", "Alignment", 81, 15, 1, 1));
 
         obstacles.add(new Obstacle("RightGate", "RightSpot", 83, 9, 1, 2, false));
         obstacles.add(new Obstacle("RightCrystal", "RightSpot", 83, 15, 1, 1, false));
-        obstacles.add(new ObstacleZone("RightSpot", "Crystal9", 83, 15, 1, 1));
+        obstacles.add(new ObstacleZone("RightSpot", "Growth", 83, 15, 1, 1));
 
-        // Add sail Ship
+        // Sailing Ship
         obstacles.add(new Obstacle("Water", "ShipSide", 13, 73, 6, 7, true));
         obstacles.add(new Obstacle("Ship", "ShipSide", 10, 74, 3, 6, true));
-        obstacles.add(new ObstacleZone("ShipSide", "Magistructor Orb", 19, 73, 5, 8));
+        obstacles.add(new ObstacleZone("ShipSide", "Magistructor", 19, 73, 5, 8));
 
-        // Add alien ship
+        // Alien Ship
         obstacles.add(new ObstacleZone("AlienShip", "Treasure", 4, 2, 9, 7));
 
         return obstacles;
-    }
-
-    /**
-     * Return the final popup
-     *
-     * @return
-     */
-    private Popup getEndPopup() {
-
-        // Features
-        ArrayList<Object> feats = new ArrayList<>();
-        feats.add(8);  // Tile grid row
-        feats.add(2);  // Tile grid column 
-        feats.add(17); // Width as number of tiles 
-        feats.add(2);  // Height as number of tiles 
-        feats.add(20); // Interval for delay writer
-        feats.add("default"); // FontS or "default"
-
-        // Text
-        ArrayList<String> textLines = new ArrayList<>();
-        textLines.add("You: I've got the elecrovelox!");
-        textLines.add("Ehecatl: Thats great! I'll begin repairs");
-        textLines.add("You: You wouldn't believe what I went through to get it!");
-        textLines.add("You: I even encountered a dragon!");
-        textLines.add("Ehecatl: No way!");
-        textLines.add("Narrator: And thats how Ehecatl and Nagual got home");
-        textLines.add("Narrator: But this was a memory they'd never forget");
-        textLines.add("Le Fin");
-
-        // Create
-        Popup finish = new Popup(feats, textLines) {
-            @Override
-            public void postAction() {
-                int exitID = Globals.STATES.get("EXIT");
-                Globals.SBG.enterState(exitID, Globals.getLeave(), Globals.getEnter());
-            }
-        };
-
-        // Return
-        return finish;
     }
 
     /**
@@ -187,71 +137,4 @@ public class ObstacleStore extends EntityStore {
 
         return matches;
     }
-
-    /**
-     * Unblock magic gate when 4 crystals placed
-     */
-    public void crystalPlaced() {
-
-        // Increase crystal count
-        crystalsPlaced++;
-
-        // If all crystals have been placed
-        if (crystalsPlaced == 4) {
-
-            // Get all obstacles
-            ArrayList<Entity> entities = super.getEntityList();
-
-            // For all obstacles
-            for (Entity curEnt : entities) {
-
-                // If the entity is an obstacle AND has Gate in its name
-                if ((curEnt instanceof Obstacle) && (curEnt.getName().contains("Gate"))) {
-
-                    // Unblock one of the FOUR magic gate parts
-                    Globals.map.unblockEntity(curEnt);
-
-                    // Show magic gate popup
-                    Globals.hud.loadPopup(getGatePopup());
-                }
-            }
-        }
-    }
-
-    /**
-     * Get popup for when magic gate unlocks
-     *
-     * @return
-     */
-    private Popup getGatePopup() {
-
-        // Calculate actual position
-        int camRadj = 3;
-        int camCadj = 2;
-        int camYadj = camRadj * Globals.tileSize;
-        int camXadj = camCadj * Globals.tileSize;
-        int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
-        int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
-
-        // Set features of popup
-        ArrayList<Object> feats = new ArrayList<>();
-        feats.add(r);  // Tile grid row
-        feats.add(c);  // Tile grid column 
-        feats.add(18); // Width as number of tiles 
-        feats.add(2);  // Height as number of tiles 
-        feats.add(20); // Interval for delay writer
-        feats.add("default"); // FontS or "default"
-
-        // Create popup lines 
-        ArrayList<String> newLines = new ArrayList<>();
-        String start = "(Ehecatl, telepathically): ";
-        newLines.add(start + "I've just detected psionic activity near that gate!");
-        newLines.add(start + "Felt like an etherealise spell");
-        newLines.add(start + "You should investigate it!");
-        newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
-
-        // Return
-        return (new Popup(feats, newLines));
-    }
-
 }

@@ -1,7 +1,7 @@
 package components.buttons;
 
 import main.Globals;
-import components.helpers.FontServer;
+import components.servers.FontServer;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
