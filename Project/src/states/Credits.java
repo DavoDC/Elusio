@@ -44,8 +44,9 @@ public class Credits extends InfoScreen {
         text.add("Aaron D. Chand (Special pixelated font)");
         text.add("Tuomo Untinen (Sailing Ship Sprites)");
         text.add("Jorge Avila (HUD icons)");
-        text.add("phoenix1291 (Sound effects)");
-        text.add("Dural from icons8.com (Background music)");
+        text.add("phoenix1291 (Power up SFX)");
+        text.add("Iwan 'qubodup' Gabovitch (Ice SFX)");
+        text.add("El Kirpitch from https://icons8.com (Ambient music)");
         text.add("J.W. Bjerk (Magic item sprites)");
         text.add("Avery (Enemy sprites)");
         text.add("and thankyou to you!");

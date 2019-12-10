@@ -22,9 +22,6 @@ public class ItemProcessor {
     // The item just used
     private Item usedItem;
 
-    // The item's type
-    private String itemType;
-
     // Whether item processing is need
     private boolean procNeeded;
 
@@ -95,6 +92,13 @@ public class ItemProcessor {
             }
         }
 
+        // If usable item
+        if (itemF instanceof UsableItem) {
+
+            // Play grab sound
+            ((UsableItem) itemF).playGrabSound();
+        }
+
         // Hide item
         Globals.itemStore.addEncounter(itemF);
 
@@ -129,6 +133,22 @@ public class ItemProcessor {
 
         // Request processing
         procNeeded = true;
+
+        // If item is usable
+        if (usedItem instanceof UsableItem) {
+
+            // Get drawing config
+            drawConfig = ((UsableItem) usedItem).getDrawConfig();
+
+            // If front requested, move item in front
+            if (drawConfig.contains("Front")) {
+                shiftPosition(50);
+            }
+
+            // Transition to actual game and ignore input
+            Globals.SBG.enterState(Globals.STATES.get("PLAY"));
+            Globals.inputIgnored = true;
+        }
     }
 
     /**
@@ -147,18 +167,6 @@ public class ItemProcessor {
         // If item is usable
         if (usedItem instanceof UsableItem) {
 
-            // Transition to actual game and ignore input
-            Globals.SBG.enterState(Globals.STATES.get("PLAY"));
-            Globals.inputIgnored = true;
-
-            // Get drawing config
-            drawConfig = ((UsableItem) usedItem).getDrawConfig();
-
-            // If front requested, move item in front
-            if (drawConfig.contains("Front")) {
-                shiftPosition(50);
-            }
-
             // Show item for a few seconds
             showItem = true;
 
@@ -172,24 +180,28 @@ public class ItemProcessor {
                 if (((UsableItem) usedItem).doAction()) {
 
                     // If was successful, play successful sound
-                    ((UsableItem) usedItem).playSuccessSound();
+                    ((UsableItem) usedItem).playUseSound();
 
                 } else {
 
                     // Else, play falter sound
                     Globals.audioServer.playItemFalter();
                 }
+
+                // Finish processing and accept input again
+                procNeeded = false;
+                Globals.inputIgnored = false;
             }
         } else {
 
             // Else if item is not usable,
             // play 'incorrect' sound
             Globals.audioServer.playItemFalter();
-        }
 
-        // Finish processing and accept input again
-        procNeeded = false;
-        Globals.inputIgnored = false;
+            // Finish processing and accept input again
+            procNeeded = false;
+            Globals.inputIgnored = false;
+        }
     }
 
     /**

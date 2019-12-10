@@ -17,11 +17,11 @@ public class Map extends TiledMap {
 
     // Determines X collision tightness
     private final int Xfactor = 25;
-    private final int Xadjuster = 50;
+    private final int Xadjuster = 30;
 
     // Determines Y collision tightnesss
     private final int Yfactor = 60;
-    private final int Yadjuster = 50;
+    private final int Yadjuster = 50;  
 
     /**
      * Initialize tile collision array, where "True" means blocked

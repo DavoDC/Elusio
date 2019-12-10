@@ -6,9 +6,6 @@
 package components.servers;
 
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
 /**
@@ -25,24 +22,55 @@ public class AudioServer {
      * Initialize AudioServer
      */
     public AudioServer() {
+        // Initialize music
+        // reconfiguration
+        // system-downtime
+        // new-rave
+        // rise-of-the-synthwave
+        
 
-        try {
-            // Initialize music
-
-            // Initialize sound map
-            Sound sound = new Sound("path");
-
-        } catch (SlickException ex) {
-            Logger.getLogger(AudioServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         // Initialize sound map
+        // try {
+        
+       
+        //Sound sound = new Sound("path");
+//        } catch (SlickException ex) {
+//            Logger.getLogger(AudioServer.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+    }
+    
+    private void addSound(String name)
+    {
+       // GLobals.soundLoc
+       // ‘Add sound’ method = Adds to hashmap <name, Global.soundloc + name>s
     }
 
+    /**
+     * 
+     * @param name 
+     */
     public void playSound(String name) {
+        
+        System.out.print(" played custom sound!");
+
+        // play full volume
+        playSound(name, 1f);
+    }
+    
+    /**
+     * 
+     * @param name
+     * @param volume 
+     */
+     public void playSound(String name, float volume) {
+        
+        System.out.print(" played custom sound!");
 
     }
 
     public void playItemFalter() {
 
+         System.out.print(" played item falter sound!");
     }
 
 }

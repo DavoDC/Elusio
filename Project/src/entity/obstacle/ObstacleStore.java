@@ -26,11 +26,11 @@ public class ObstacleStore extends EntityStore {
 
         // Starting Area Trees
         obstacles.add(new Obstacle("Trees", "TreeZone", 32, 9, 5, 5, true));
-        obstacles.add(new ObstacleZone("TreeZone", "Cryocapacitor", 29, 7, 6, 6));
+        obstacles.add(new ObstacleZone("TreeZone", "Cryocapacitor", 31, 8, 7, 7));
 
         // Starting Area Limestone
         obstacles.add(new Obstacle("LimeStone", "LimeZone", 1, 37, 5, 2, true));
-        obstacles.add(new ObstacleZone("LimeZone", "Gastric", 2, 34, 2, 3));
+        obstacles.add(new ObstacleZone("LimeZone", "Gastric", 1, 36, 6, 4));
 
         // Magic Gate
         obstacles.add(new Obstacle("HiGate", "HiSpot", 82, 9, 1, 1, false));

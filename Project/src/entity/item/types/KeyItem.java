@@ -135,4 +135,14 @@ public class KeyItem extends UsableItem {
         // To be overridden
     }
 
+    /**
+     * Set number of usage times
+     *
+     * @return
+     */
+    @Override
+    public String getUsageTimes() {
+        return "Inf";
+    }
+
 }

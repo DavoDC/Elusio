@@ -10,7 +10,7 @@ import main.Globals;
  */
 public abstract class UsableItem extends Item {
 
-    // The name of sound made when used successfully
+    // The name of sound that characterizes the item
     private final String soundName;
 
     /**
@@ -61,6 +61,13 @@ public abstract class UsableItem extends Item {
     public abstract String getDrawConfig();
 
     /**
+     * Play sound that represents this item being grabbed
+     */
+    public void playGrabSound() {
+        Globals.audioServer.playSound(soundName, 0.5f);
+    }
+
+    /**
      * Do the action that occurs when the item is used
      *
      * @return Success status
@@ -68,9 +75,18 @@ public abstract class UsableItem extends Item {
     public abstract boolean doAction();
 
     /**
-     * Play sound that represents successful use of this item
+     * Play sound that represents this item being used
      */
-    public void playSuccessSound() {
-        Globals.audioServer.playSound(soundName);
+    public void playUseSound() {
+        Globals.audioServer.playSound(soundName, 1f);
+    }
+
+    /**
+     * Get number of times the item can be used
+     *
+     * @return
+     */
+    public String getUsageTimes() {
+        return "1";
     }
 }
