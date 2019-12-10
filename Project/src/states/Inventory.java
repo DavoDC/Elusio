@@ -6,6 +6,7 @@ import states.screens.InterfaceScreen;
 import entity.base.Entity;
 import entity.item.Item;
 import entity.item.ItemProcessor;
+import entity.item.types.UsableItem;
 import main.Globals;
 
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class Inventory extends InterfaceScreen {
         feats.add(MAX_ITEMS + 1); // Button amount
         feats.add(Globals.emptyImgRes); // Image Location
         feats.add(100); // StartXpos
-        feats.add(40); // StartYpos 
+        feats.add(60); // StartYpos 
         feats.add(64); // Width
         feats.add(64); // Height
         feats.add(Globals.screenW / 14); // XSpacing
@@ -295,6 +296,15 @@ public class Inventory extends InterfaceScreen {
             // Get button
             Button curB = itemMap.get(curItem);
 
+            // Draw amount of usage times for usable items
+            if (curItem instanceof UsableItem) {
+                int uX = curB.getX() + curB.getWidth() - 15;
+                int uY = curB.getY() + curB.getHeight() - 15;
+                g.drawString(
+                        ((UsableItem) curItem).getUsageTimes(),
+                        uX, uY);
+            }
+
             // If mouse is over button
             if (curB.isMouseOver()) {
 
@@ -321,7 +331,7 @@ public class Inventory extends InterfaceScreen {
 
         // Scale and draw item info panel
         int newW = itemInfoPanel.getWidth();
-        int newH = desc.size() * 40;
+        int newH = desc.size() * 50;
         itemInfoPanel = itemInfoPanel.getScaledCopy(newW, newH);
         g.drawImage(itemInfoPanel, mX, mY);
 
@@ -337,7 +347,7 @@ public class Inventory extends InterfaceScreen {
 
             // Draw line and progress down
             normFont.drawString(lX, lY, line);
-            lY += 20;
+            lY += 40;
         }
 
     }

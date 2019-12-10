@@ -28,7 +28,7 @@ public class SpeedItem extends InstantItem {
         // Call entity constructor
         super(name,
                 new String[]{desc},
-                "SOUND",
+                "powerup",
                 col,
                 row);
 
@@ -46,5 +46,4 @@ public class SpeedItem extends InstantItem {
     public void applyEffect(Player player) {
         Globals.player.changeMovSpeed(speedMod);
     }
-
 }

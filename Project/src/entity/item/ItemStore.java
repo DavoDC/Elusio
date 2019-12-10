@@ -35,7 +35,7 @@ public class ItemStore extends EntityStore {
                     "Could annihilate some weak, dry matter once activated.",
                     "Usage: The cryocapacitor annihilated the dead trees!"},
                 "SOUNDNAME",
-                "None",
+                null,
                 23, 25));
         itemList.add(new KeyItem(
                 "Magistructor Orb",
@@ -43,7 +43,7 @@ public class ItemStore extends EntityStore {
                     "able to manifest more of an existing substance.",
                     "Usage: The orb created a magistruct replica of the wood nearby!"},
                 "SOUNDNAME",
-                "None",
+                null,
                 82, 5));
 
         // LIMESTONE ITEMS
@@ -58,14 +58,14 @@ public class ItemStore extends EntityStore {
                     "that likely has corrosive properties.",
                     "Usage: Good thinking! Acid + Metal Carbonate = Salt + Water + CO2!"},
                 "SOUNDNAME",
-                "None",
+                null,
                 21, 3));
 
         // CRYSTALS
         itemList.add(new CrystalItem(
                 "Destiny", 1122,
                 "Focus your attention positively, on solutions.",
-                "None", 65, 6));
+                 null, 65, 6));
         itemList.add(new CrystalItem(
                 "Protection", 333,
                 "Light protects you every step of the way.",

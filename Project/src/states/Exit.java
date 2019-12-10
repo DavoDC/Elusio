@@ -21,7 +21,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Exit extends InterfaceScreen {
 
     // The absolute time it takes to exit
-    private final long exitConstant = 3369;
+    private final long exitConstant = 3369 / 2;
 
     // The actual time of closing
     private long exitTime = 0;
@@ -123,7 +123,7 @@ public class Exit extends InterfaceScreen {
         percentage = 100 - (int) perF;
 
         // Exit after time has elapsed or Exit immediately in IDE
-        if (percentage >= 100) {//|| Globals.inIDE) {
+        if (percentage >= 100 || Globals.inIDE) {
             Globals.agc.exit();
         }
 
