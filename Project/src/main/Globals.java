@@ -13,6 +13,13 @@ import entity.enemy.EnemyStore;
 import entity.item.ItemProcessor;
 import entity.item.ItemStore;
 import entity.obstacle.ObstacleStore;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BigImage;
@@ -65,18 +72,8 @@ public class Globals {
     public static final String VERSION = "2.0";
 
     // Resource filepath strings
-    public static final String root = "res/";
-    public static final String SFXres = root + "audio/effects/";
-    public static final String ambMusRes = root + "audio/music/ambmus.ogg";
-    public static final String mapRes = root + "map/map.tmx";
-    public static final String cursorRes = root + "misc/cursor.png";
-    public static final String gameFontRes = root + "misc/3dventure.ttf";
-    public static final String emptyImgRes = root + "misc/nothing.png";
-    public static final String playerSprRes = root + "player/frames.png";
-    public static final String buttonPanelRes = root + "ui/general.png";
-    public static final String popupPanelRes = root + "ui/popup.png";
-    public static final String itemPanelRes = root + "ui/iteminfo.png";
-
+    private static ArrayList<String> fileList;
+    
     // Constants
     public static int screenW = 0; // Screen width
     public static int screenH = 0; // Screen height
@@ -101,6 +98,57 @@ public class Globals {
 
     // Miscellaneous 
     public static int crystalsPlaced = 0;
+
+    /**
+     * Return a full file path using a substring of it
+     * 
+     * @param subFP
+     * @return 
+     */
+    public static String getFP(String subFP) {
+
+        // If file map is not initialized
+        if (fileList == null) {
+
+            // Initialize file map
+            fileList = new ArrayList<>();
+
+            // Get file path
+            Object[] rawFileList = null;
+            try {
+                rawFileList = Files.walk(Paths.get(".\\components\\res\\"))
+                        .filter(Files::isRegularFile).toArray();
+            } catch (IOException ex) {
+                Logger.getLogger(Globals.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            // For each file path
+            for (Object fp : rawFileList) {
+                // Get current path string
+                String path = ((Path) fp).toString();
+
+                // Trim start to make path begin with "res/"
+                path = path.replace(".\\components\\", "");
+
+                // Add to list
+                fileList.add(path);
+            }
+        }
+
+        // For all file paths in list
+        for (String fileP : fileList) {
+
+            // If file path contains substring 
+            if (fileP.contains(subFP)) {
+
+                // Return file path
+                return fileP;
+            }
+        }
+
+        // If nothing found, throw exception
+        throw new IllegalArgumentException("getFP: bad param = " + subFP);
+    }
 
     // Transitions
     public static Transition getLeave() {

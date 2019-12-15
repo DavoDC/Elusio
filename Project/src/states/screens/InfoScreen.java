@@ -39,7 +39,7 @@ public abstract class InfoScreen extends InterfaceScreen {
 
         // Add featues to list
         feats.add(getButtonLabels().size()); // Number of buttons
-        feats.add(Globals.emptyImgRes); // Image Location
+        feats.add(Globals.getFP("nothing")); // Image Location
         feats.add(getStartXPos()); // startXpos
         feats.add(getStartYPos()); // startYpos
         feats.add((int) Globals.screenW); // Width

@@ -13,6 +13,8 @@ import entity.enemy.EnemyStore;
 import entity.item.ItemProcessor;
 import entity.item.ItemStore;
 import entity.obstacle.ObstacleStore;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -39,11 +41,8 @@ public class Loading extends BasicGameState {
     // Text font
     private TrueTypeFont font;
 
-    // Time variables
-    // Starting time
-    private long startRef = Globals.agc.getTime();
     // Duration of loading
-    private long introTime = 3669;
+    private long introTime = 3369;
 
     // State loading status
     private boolean statesLoaded = false;
@@ -70,7 +69,7 @@ public class Loading extends BasicGameState {
         try {
 
             // Initialise and adjust background
-            introLogo = new Image("res/misc/intro.png");
+            introLogo = new Image(Globals.getFP("intro.png"));
             introLogo = introLogo.getScaledCopy(Globals.screenW, Globals.screenH);
 
             // Initialise font
@@ -84,18 +83,17 @@ public class Loading extends BasicGameState {
             Globals.agc.setMusicOn(true);
             Globals.agc.setSoundOn(true);
             Globals.agc.setMusicVolume(0.69f);
-            Globals.ambientMusic = new Music(Globals.ambMusRes);
+            Globals.ambientMusic = new Music(Globals.getFP("new-rave"));
             Globals.ambientMusic.loop();
 
             // When in IDE, turn off music and quickload
             if (Globals.inIDE) {
                 Globals.agc.setMusicOn(false);
-                startRef = 0;
-                introTime = 0;
+                introTime = 5;
             }
 
             // Initialize main structures
-            Globals.map = new Map(Globals.mapRes);
+            Globals.map = new Map(Globals.getFP("map.tmx"));
             Globals.player = new Player();
             Globals.cam = new Camera(gc, Globals.map);
             Globals.cam.centerOn(Globals.player.getX(), Globals.player.getX());
@@ -108,6 +106,22 @@ public class Loading extends BasicGameState {
             Globals.itemStore = new ItemStore();
             Globals.enemyStore = new EnemyStore();
             Globals.obStore = new ObstacleStore();
+
+            // Create timer and schedule state change after certain time
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+
+                    // Enter main menu
+                    sbg.enterState(Globals.STATES.get("MAINMENU"),
+                            // Leave
+                            new FadeOutTransition(Color.black, 2000),
+                            // Enter
+                            new FadeInTransition(Color.black, 10)
+                    );
+                }
+            }, introTime);
 
         } catch (SlickException ex) {
             System.err.println("Error in 'init' of Loading");
@@ -164,17 +178,6 @@ public class Loading extends BasicGameState {
 
         // Initialize SBG
         sbg.init(gc);
-
-        // Wait a bit, to allow loading screen to be shown
-        if (Globals.agc.getTime() > startRef + introTime) {
-
-            // Enter main menu
-            sbg.enterState(Globals.STATES.get("MAINMENU"),
-                    new FadeOutTransition(Color.black, 2000), // Leave
-                    new FadeInTransition(Color.black, 10) // Enter
-            );
-        }
-
     }
 
     /**

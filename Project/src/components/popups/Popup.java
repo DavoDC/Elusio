@@ -117,7 +117,7 @@ public class Popup {
         // Initialize image
         Image img = null;
         try {
-            img = new Image(Globals.popupPanelRes);
+            img = new Image(Globals.getFP("popup"));
             img = img.getScaledCopy(w, h);
         } catch (SlickException e) {
         }

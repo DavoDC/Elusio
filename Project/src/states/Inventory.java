@@ -5,7 +5,6 @@ import components.servers.FontServer;
 import states.screens.InterfaceScreen;
 import entity.base.Entity;
 import entity.item.Item;
-import entity.item.ItemProcessor;
 import entity.item.types.UsableItem;
 import main.Globals;
 
@@ -83,7 +82,7 @@ public class Inventory extends InterfaceScreen {
 
         // Add features
         feats.add(MAX_ITEMS + 1); // Button amount
-        feats.add(Globals.emptyImgRes); // Image Location
+        feats.add(Globals.getFP("nothing")); // Image Location
         feats.add(100); // StartXpos
         feats.add(60); // StartYpos 
         feats.add(64); // Width
@@ -147,7 +146,7 @@ public class Inventory extends InterfaceScreen {
 
         // Initialize item info panel
         try {
-            itemInfoPanel = new Image(Globals.itemPanelRes);
+            itemInfoPanel = new Image(Globals.getFP("iteminfo"));
         } catch (SlickException ex) {
             System.err.println("Image error in ButtonGrid");
         }

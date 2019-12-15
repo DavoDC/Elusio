@@ -22,9 +22,6 @@ import states.Inventory;
  */
 public class HUD {
 
-    // Resource folder path
-    private final String folder = Globals.root + "ui/";
-
     // Buttons
     private final ButtonGrid buttonG;
     private final int BUTTON_NO = 2;
@@ -59,7 +56,7 @@ public class HUD {
         // Create button features
         ArrayList<Object> feats = new ArrayList<>();
         feats.add(BUTTON_NO); // Number of buttons
-        feats.add(Globals.emptyImgRes); // Image Location
+        feats.add(Globals.getFP("nothing")); // Image Location
         feats.add(SPACING); // startXpos
         feats.add(SPACING); // startYpos 
         feats.add(SIDE_SIZE); // width
@@ -80,14 +77,14 @@ public class HUD {
 
         // Load inventory images
         try {
-            invImg = new Image(folder + "inv.png");
-            invImgNew = new Image(folder + "invNew.png");
+            invImg = new Image(Globals.getFP("inv.png"));
+            invImgNew = new Image(Globals.getFP("invNew.png"));
         } catch (SlickException e) {
             System.err.println("Image loading failed");
         }
 
         // Change images
-        buttonG.getButtonByPos(0).setImageLoc(folder + "menu.png");
+        buttonG.getButtonByPos(0).setImageLoc(Globals.getFP("menu.png"));
         buttonG.getButtonByPos(1).setImage(invImg, true);
 
         // Add MainMenu button action

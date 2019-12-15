@@ -172,7 +172,7 @@ public class ButtonGrid {
         // Get image and adjust
         Image img = null;
         try {
-            img = new Image(Globals.buttonPanelRes);
+            img = new Image(Globals.getFP("button"));
             img = img.getScaledCopy((int) rect.getWidth(), (int) rect.getHeight());
         } catch (SlickException ex) {
             System.err.println("Image error in ButtonGrid");

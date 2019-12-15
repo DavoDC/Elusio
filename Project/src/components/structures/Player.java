@@ -74,7 +74,7 @@ public class Player {
         // Initalize sprites of player animation
         SpriteSheet sprites = null;
         try {
-            sprites = new SpriteSheet(Globals.playerSprRes, width, height);
+            sprites = new SpriteSheet(Globals.getFP("playerSS"), width, height);
         } catch (SlickException e) {
         }
 
