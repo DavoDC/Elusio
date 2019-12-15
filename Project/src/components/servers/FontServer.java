@@ -34,7 +34,7 @@ public class FontServer {
 
                 // Load up font file
                 InputStream inStream = ResourceLoader.
-                        getResourceAsStream(Globals.gameFontRes);
+                        getResourceAsStream(Globals.getFP("3dventure"));
 
                 // Create and save font
                 rawGameFont = Font.createFont(Font.TRUETYPE_FONT, inStream);

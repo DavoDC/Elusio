@@ -26,9 +26,6 @@ import states.Controls;
  */
 public abstract class InterfaceScreen extends BasicGameState {
 
-    // Resource folder
-    private final String folder = Globals.root + "backgrounds/";
-
     // Background
     private BigImage bg;
 
@@ -73,7 +70,7 @@ public abstract class InterfaceScreen extends BasicGameState {
             // Add every background to the array        
             for (int i = 1; i <= Globals.BG_COUNT; i++) {
 
-                String imgPath = folder + "bg" + i + ".png";
+                String imgPath = Globals.getFP("bg" + i + ".png");
                 BigImage curBG = new BigImage(imgPath);
                 curBG = (BigImage) curBG.getScaledCopy(
                         Globals.screenW, Globals.screenH);
@@ -88,7 +85,7 @@ public abstract class InterfaceScreen extends BasicGameState {
 
         // Initialise and adjust cursor image if not done already
         if (Globals.cursor == null) {
-            Globals.cursor = new Image(Globals.cursorRes);
+            Globals.cursor = new Image(Globals.getFP("cursor.png"));
             Globals.cursor = Globals.cursor.getScaledCopy(0.75f);
         }
 

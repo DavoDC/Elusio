@@ -98,7 +98,7 @@ public class MainMenu extends InterfaceScreen {
 
         // Add to AL
         feats.add(getButtonLabels().size()); // Number of buttons
-        feats.add("res/ui/general.png"); // Image Location
+        feats.add(Globals.getFP("button")); // Image Location
         feats.add(300); // StartXpos
         feats.add(150); // StartYpos 
         feats.add(350); // Width

@@ -41,6 +41,13 @@ public class Settings extends InterfaceScreen {
 
             // Increase number of settings made
             numSettMade++;
+            
+            // If number of settings somehow exceeds max
+            if(numSettMade > NUM_SETTINGS)
+            {
+                // Stop processing
+                return;
+            }
 
             // Get button
             Button b = Settings.super.
@@ -108,7 +115,7 @@ public class Settings extends InterfaceScreen {
 
         ArrayList<Object> feats = new ArrayList<>();
         feats.add(NUM_SETTINGS + 1); // Button ammount
-        feats.add(Globals.buttonPanelRes); // Image loc
+        feats.add(Globals.getFP("button")); // Image loc
         feats.add(300); // StartXpos    
         feats.add(200); // StartYpos 
         feats.add(550); // Width   
