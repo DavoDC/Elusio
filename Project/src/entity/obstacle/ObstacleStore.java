@@ -2,7 +2,7 @@ package entity.obstacle;
 
 import java.util.ArrayList;
 
-import components.structures.Player;
+import components.modules.Player;
 import entity.base.Entity;
 import entity.base.EntityStore;
 
@@ -23,6 +23,10 @@ public class ObstacleStore extends EntityStore {
 
         // Initialize list
         ArrayList<Entity> obstacles = new ArrayList<>();
+
+        // Alien Ship
+        obstacles.add(new Obstacle("StartAlienShip", "", 5, 2, 4, 4, true));
+        obstacles.add(new ObstacleZone("EndAlienShip", "Treasure", 4, 2, 9, 7));
 
         // Starting Area Trees
         obstacles.add(new Obstacle("Trees", "TreeZone", 32, 9, 5, 5, true));
@@ -53,9 +57,6 @@ public class ObstacleStore extends EntityStore {
         obstacles.add(new Obstacle("Water", "ShipSide", 13, 73, 6, 7, true));
         obstacles.add(new Obstacle("Ship", "ShipSide", 10, 74, 3, 6, true));
         obstacles.add(new ObstacleZone("ShipSide", "Magistructor", 19, 73, 5, 8));
-
-        // Alien Ship
-        obstacles.add(new ObstacleZone("AlienShip", "Treasure", 4, 2, 9, 7));
 
         return obstacles;
     }

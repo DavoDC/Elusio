@@ -1,7 +1,6 @@
 package states.challenges;
 
-import states.screens.InfoScreen;
-import main.Globals;
+import states.base.InfoScreen;
 
 import java.util.ArrayList;
 
@@ -11,16 +10,6 @@ import java.util.ArrayList;
  * @author David
  */
 public class Challenge extends InfoScreen {
-
-    /**
-     * Return ID used to identify state
-     *
-     * @return ID
-     */
-    @Override
-    public int getID() {
-        return Globals.STATES.get("CHALLENGE");
-    }
 
     /**
      * Set button labels
@@ -36,7 +25,7 @@ public class Challenge extends InfoScreen {
         lines.add("Would be quite complex though...");
         lines.add("May come in next version! ");
         lines.add(" ");
-        lines.add("To resume play: Press ESC to go to the MainMenu,");
+        lines.add("To resume play: Press ESC to go to the Menu,");
         lines.add("and click on CONTINUE");
 
         return lines;

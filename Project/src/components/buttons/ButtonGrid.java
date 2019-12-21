@@ -3,7 +3,7 @@ package components.buttons;
 import java.util.ArrayList;
 
 import components.servers.FontServer;
-import static states.screens.InfoScreen.headerX;
+import static states.base.InfoScreen.headerX;
 import main.Globals;
 
 import org.newdawn.slick.Graphics;

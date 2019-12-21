@@ -73,6 +73,14 @@ public abstract class Entity {
         int entLayerIndex = Globals.map.getLayerIndex(entLS);
         int undLayerIndex = Globals.map.getLayerIndex(undLS);
 
+        // If entity indices are invalid
+        if (entLayerIndex == -1 || undLayerIndex == -1) {
+
+            // Throw error
+            throw new IllegalArgumentException(
+                    "LayerNameIssue: " + entLS + " ," + undLS);
+        }
+
         // For all tiles 
         for (String[] gridRow : gridPosS) {
             for (String locString : gridRow) {

@@ -1,9 +1,7 @@
 package components.popups;
 
-import java.util.ArrayList;
-
 import components.buttons.Button;
-import components.structures.DelayWriter;
+import components.modules.Map;
 import components.servers.FontServer;
 import main.Globals;
 import org.newdawn.slick.Color;
@@ -19,155 +17,184 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author David
  */
-public class Popup {
+public abstract class Popup {
+
+    // The popup's name
+    private String name;
 
     // Underlying button
-    private Button button;
+    private final Button underB;
 
-    // Status
+    // Text lines
+    private final ListWriter textLW;
+
+    // Instruction line
+    private final StringWriter instSW;
+
+    // Speaker information 
+    private final Button spInfo;
+
+    // True means popup can be seen
     private boolean visible;
+
+    // True means popup has been shown
     private boolean shown;
 
-    // Popup text (delayed)
-    private final DelayWriter textDW;
-    private final int textX;
-    private final int textY;
-    private final TrueTypeFont textFont;
-    private final ArrayList<String> textLines;
-    private int curLineNo;
-
-    // Instructions (delayed)
-    private final DelayWriter instDW;
-    private final int instX;
-    private final int instY;
-    private final TrueTypeFont instFont;
-    private final String instS = "Click here to continue!";
+    // True means it blocks input
+    private boolean inputBlocker;
 
     /**
      * Create a popup
      *
-     * @param feats Tile grid row, Tile grid column, Width in tiles, Height in
-     * tiles, Interval for DW, FontS or "default", Text color
-     * @param textLines Text in lines
+     * @param name The popup's name
+     * @param rawLines Lines for popup
      */
-    public Popup(ArrayList<Object> feats, ArrayList<String> textLines) {
+    public Popup(String name, String[] rawLines) {
 
-        // Check arguments
-        if (feats.size() != 7 || textLines.isEmpty()) {
-            throw new IllegalArgumentException("Popup Constr: Argument Issue");
+        // Save name
+        this.name = name;
+
+        // Initialize button image
+        Image undImg = null;
+        try {
+            undImg = new Image(Globals.getFP("popup"));
+        } catch (SlickException e) {
+            System.err.print("Image load error in Popup constructor");
         }
 
-        // Extract info
-        int r = (int) feats.get(0);
-        int c = (int) feats.get(1);
-        int tileW = (int) feats.get(2);
-        int tileH = (int) feats.get(3);
-        int interval = (int) feats.get(4);
-        String fontS = (String) feats.get(5);
-        Color col = (Color) feats.get(6);
+        // Initialize underlying button 
+        int camYadj = 3 * Globals.tileSize;
+        int camXadj = 2 * Globals.tileSize;
+        int undRow = Map.convYtoRow(Globals.cam.getY() + camYadj);
+        int undCol = Map.convertXtoCol(Globals.cam.getX() + camXadj);
+        int undX = Map.convColtoX(undCol) + 20;
+        int undY = Map.convRowtoY(undRow) - 40;
+        int undW = (int) (Globals.screenW / 80 * Globals.tileSize);
+        int undH = 2 * Globals.tileSize;
+        Rectangle undRect = new Rectangle(undX, undY, undW, undH);
+        TrueTypeFont undFont = FontServer.getFont("Candara-Bold-26");
+        underB = new Button(undImg, undRect, undFont);
+        underB.setLabel("");
 
-        // Process font string
-        if ("default".equals(fontS)) {
-            fontS = "Candara-Bold-26";
-        }
+        // Initialise text writer
+        textLW = new ListWriter(rawLines, Color.black,
+                "Candara-Bold-26",
+                undX + 185, undY + 36, 20) {
+            @Override
+            public void doFinalAction() {
 
-        // Initialise status
+                // Popup has been shown
+                shown = true;
+
+                // Popup doesn't need to be visible
+                visible = false;
+
+                // If popup blocks input
+                if (inputBlocker) {
+
+                    // Re-enable input as popup has been shown
+                    Globals.isInputBlocked = false;
+                }
+
+                // Do custom action
+                doPostShowAction();
+            }
+        };
+
+        // Initialise instruction DW
+        int instX = undX + underB.getWidth() / 2 - 100;
+        int instY = undY + underB.getHeight() - 48;
+        instSW = new StringWriter("Click here to continue!",
+                Color.black, "Corbel-Italic-22", true, instX, instY, 30);
+
+        // Initialise speaker info
+        Rectangle spRect = new Rectangle(undX + 55, undY + 28, 69, 69);
+        TrueTypeFont spFont = FontServer.getFont("Candara-Bold-20");
+        spInfo = new Button(getCurSpImg(), spRect, spFont);
+        spInfo.setLabel(textLW.getCurSpeaker());
+        spInfo.setTextOffsets(5f, spInfo.getHeight());
+        spInfo.setTextColor(Color.black);
+
+        // Add action when popup button is clicked
+        underB.addListener((source) -> {
+
+            // When popup is clicked:
+            // Load next line
+            textLW.requestNextLine();
+
+            // Update speaker info
+            spInfo.setLabel(textLW.getCurSpeaker());
+            spInfo.setImage(getCurSpImg(), true);
+        });
+
+        // Popup is not visible or shown yet
         visible = false;
         shown = false;
 
-        // Initialise font (must be before button init)
-        textFont = FontServer.getFont(fontS);
-
-        // Initialise button (must before text pos init)
-        initialiseButton(r, c, tileW, tileH);
-
-        // Initialise text DW
-        textDW = new DelayWriter(interval, col);
-        textDW.setText(textLines.get(curLineNo));
-        textX = button.getX() + 24;
-        textY = button.getY() + 24;
-        this.textLines = textLines;
-        curLineNo = 0;
-
-        // Initialise instruction DW
-        instDW = new DelayWriter(interval + 10, col);
-        instDW.setText(instS);
-        instX = button.getX() + button.getWidth() / 2 - 100;
-        instY = button.getY() + button.getHeight() - 48;
-        instFont = FontServer.getFont("Corbel-italic-22");
+        // Popup blocks input by default
+        inputBlocker = true;
     }
 
     /**
-     * Initialize the underlying button
+     * Render the popup on the screen
      *
-     * @param r row
-     * @param c column
-     * @param tileW tile width
-     * @param tileH tile height
+     * @param g
      */
-    private void initialiseButton(int r, int c, int tileW, int tileH) {
+    public void render(Graphics g) {
 
-        // Calculate bounds
-        int tileSide = Globals.tileSize;
-        int x = c * tileSide;
-        int y = r * tileSide;
-        int w = tileW * tileSide;
-        int h = tileH * tileSide;
+        // If not visible
+        if (!visible) {
 
-        // Initialize image
-        Image img = null;
-        try {
-            img = new Image(Globals.getFP("popup"));
-            img = img.getScaledCopy(w, h);
-        } catch (SlickException e) {
+            // Do not render
+            return;
         }
 
-        // Initialize rectangle
-        Rectangle rect = new Rectangle(x, y, w, h);
+        // Draw button
+        underB.drawFull(g);
 
-        // Create button
-        button = new Button(img, rect, textFont);
+        // Draw popup text
+        textLW.drawText();
 
-        // Remove label
-        button.setLabel("");
+        // Draw instruction text
+        instSW.drawText();
 
-        // Add action when popup is clicked
-        button.addListener((source)
-                -> {
-
-            // If on last line
-            if (textLines.size() - 1 == curLineNo) // If on last line
-            {
-                // If text has finished writing once
-                if (textDW.hasWrittenOnce()) // Has finished writing out
-                {
-                    // Update status
-                    visible = false;
-                    shown = true;
-
-                    // Re-enable keys
-                    Globals.inputIgnored = false;
-
-                    // Do custom action
-                    postAction();
-                }
-
-            } else if (textDW.hasWrittenOnce()) {
-
-                // If line has been shown,
-                // increase line position and load new line
-                curLineNo++;
-                textDW.setText(textLines.get(curLineNo));
-            }
-        }
-        );
+        // Draw speaker info
+        spInfo.drawFull(g);
     }
 
     /**
-     * Can be overridden to give popups a custom post action
+     * Get current speaker's image
+     *
+     * @return
      */
-    public void postAction() {
-        // For over-riding
+    private Image getCurSpImg() {
+
+        // Make holder
+        Image spImg = null;
+
+        // Get image name and path
+        String spImgName = textLW.getCurSpeaker() + "Pic";
+        String spImgPath = Globals.getFP(spImgName);
+
+        // Get image
+        try {
+            spImg = new Image(spImgPath);
+
+        } catch (SlickException e) {
+            System.err.print("Speaker image load error");
+        }
+
+        // Return
+        return spImg;
+    }
+
+    /**
+     * Retrieve the name of this popup
+     *
+     * @return
+     */
+    public String getName() {
+        return name;
     }
 
     /**
@@ -180,38 +207,12 @@ public class Popup {
     }
 
     /**
-     * Show the popup on the screen
+     * Change whether the popup blocks input or not
      *
-     * @param g
+     * @param newValue
      */
-    public void show(Graphics g) {
-
-        // If not visible
-        if (!visible) {
-
-            // Do not continue with rendering
-            return;
-        }
-
-        // Draw button
-        button.drawFull(g);
-
-        // Update delay writers
-        textDW.update();
-        instDW.update();
-
-        // Draw delayed popup text
-        textDW.drawText(textFont, textX, textY);
-
-        // Show instruction repeatedly
-        // If instruction has finished writing
-        if (instDW.hasWrittenOnce()) {
-            // Reset instruction
-            instDW.setText(instS);
-        }
-
-        // Draw delayed instruction text
-        instDW.drawText(instFont, instX, instY);
+    public void setInputBlocking(boolean newValue) {
+        inputBlocker = newValue;
     }
 
     /**
@@ -223,4 +224,17 @@ public class Popup {
         return shown;
     }
 
+    /**
+     * Return true if the popup blocks input while being shown
+     *
+     * @return
+     */
+    public boolean isInputBlocker() {
+        return inputBlocker;
+    }
+
+    /**
+     * Do the action that occurs once the popup has shown
+     */
+    public abstract void doPostShowAction();
 }

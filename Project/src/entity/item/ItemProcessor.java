@@ -4,6 +4,8 @@ import entity.base.Entity;
 import entity.enemy.Enemy;
 import entity.item.types.KeyItem;
 import entity.item.types.UsableItem;
+import java.util.Timer;
+import java.util.TimerTask;
 import main.Globals;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -146,8 +148,36 @@ public class ItemProcessor {
             }
 
             // Transition to actual game and ignore input
-            Globals.SBG.enterState(Globals.STATES.get("PLAY"));
-            Globals.inputIgnored = true;
+            Globals.SBG.enterState(Globals.states.get("PLAY"));
+            Globals.isInputBlocked = true;
+
+            // Schedule further processing after some time
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+
+                    // Stop showing item
+                    showItem = false;
+
+                    // Activate item and act based on successful usage
+                    if (((UsableItem) usedItem).doAction()) {
+
+                        // If was successful, play successful sound
+                        ((UsableItem) usedItem).playUseSound();
+
+                    } else {
+
+                        // Else, play falter sound
+                        // Globals.audioServer.playSound(Itemfalter);
+                    }
+
+                    // Finish processing
+                    procNeeded = false;
+
+                    // Accept input again
+                    Globals.isInputBlocked = false;
+                }
+            }, 2036);
         }
     }
 
@@ -170,37 +200,16 @@ public class ItemProcessor {
             // Show item for a few seconds
             showItem = true;
 
-            // If a few seconds have passed
-            if (Globals.agc.getTime() >= useTime + 2369) {
-
-                // Stop showing item
-                showItem = false;
-
-                // Activate item and act based on successful usage
-                if (((UsableItem) usedItem).doAction()) {
-
-                    // If was successful, play successful sound
-                    ((UsableItem) usedItem).playUseSound();
-
-                } else {
-
-                    // Else, play falter sound
-                    Globals.audioServer.playItemFalter();
-                }
-
-                // Finish processing and accept input again
-                procNeeded = false;
-                Globals.inputIgnored = false;
-            }
         } else {
 
             // Else if item is not usable,
             // play 'incorrect' sound
-            Globals.audioServer.playItemFalter();
-
-            // Finish processing and accept input again
+            // Globals.audioServer.playSound(Itemfalter);
+            // Finish processing
             procNeeded = false;
-            Globals.inputIgnored = false;
+
+            // Accept input again
+            Globals.isInputBlocked = false;
         }
     }
 
