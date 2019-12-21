@@ -10,13 +10,14 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import states.base.AutoState;
 
 /**
  * A mini-game where you dodge cannon balls
  *
  * @author David
  */
-public class CannonDodge extends BasicGameState {
+public class CannonDodge extends AutoState {
 
     // The cannon balls
     private ArrayList<Circle> balls;
@@ -32,16 +33,6 @@ public class CannonDodge extends BasicGameState {
 
     // The higher this value, the harder the game
     private int hardness;
-
-    /**
-     * Return ID used to identify state
-     *
-     * @return ID
-     */
-    @Override
-    public int getID() {
-        return 200;
-    }
 
     /**
      * Called when the game starts to initialize the state

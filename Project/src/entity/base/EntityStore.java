@@ -1,10 +1,12 @@
 package entity.base;
 
-import components.structures.Map;
-import components.structures.Player;
+import components.modules.Map;
+import components.modules.Player;
+import entity.item.Item;
 import main.Globals;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.newdawn.slick.Graphics;
 
@@ -85,6 +87,29 @@ public abstract class EntityStore {
     }
 
     /**
+     * Retrieve entity from full list by a substring name
+     *
+     * @param namePart
+     * @return
+     */
+    private Entity getEntityByName(String namePart) {
+
+        // For all entities
+        for (Entity curEnt : entityList) {
+
+            // If current entity name contains given substring
+            if (curEnt.getName().contains(namePart)) {
+
+                // Return entity
+                return curEnt;
+            }
+        }
+
+        // If nothing found, return null
+        return null;
+    }
+
+    /**
      * Get first entity under player
      *
      * @param player
@@ -126,7 +151,7 @@ public abstract class EntityStore {
         int xPlayer = player.getX() + Globals.playerXadj;
         int yPlayer = player.getY() + Globals.playerYadj;
         int playerCol = Map.convertXtoCol(xPlayer);
-        int playerRow = Map.convertYtoRow(yPlayer);
+        int playerRow = Map.convYtoRow(yPlayer);
 
         // Get information of entity tiles
         String[][] gridPos = ent.getGridPosArray();
@@ -171,7 +196,7 @@ public abstract class EntityStore {
     }
 
     /**
-     * Add an entity to the list of encountered entities
+     * Add a given entity to the list of encountered entities
      *
      * @param ent
      */
@@ -181,4 +206,41 @@ public abstract class EntityStore {
         encEntities.add(ent);
     }
 
+    /**
+     * Add an entity to the list of encountered entities, using a substring of
+     * its name
+     *
+     * @param namePart
+     */
+    public void addEncounterByName(String namePart) {
+
+        // Find and add to list
+        encEntities.add(getEntityByName(namePart));
+    }
+
+    /**
+     * Remove an entity from the list of encountered entities, using a substring
+     * of its name
+     *
+     * @param namePart
+     */
+    public void removeEncounterByName(String namePart) {
+
+        // Create iterator
+        Iterator<Entity> it = encEntities.iterator();
+
+        // While there is a next item
+        while (it.hasNext()) {
+
+            // If the current item matches
+            if (it.next().getName().contains(namePart)) {
+
+                // Remove it
+                it.remove();
+
+                // Stop
+                break;
+            }
+        }
+    }
 }

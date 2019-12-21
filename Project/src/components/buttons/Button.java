@@ -2,13 +2,13 @@ package components.buttons;
 
 import main.Globals;
 import components.servers.FontServer;
+import org.newdawn.slick.Color;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.gui.MouseOverArea;
 
 /**
@@ -18,15 +18,16 @@ import org.newdawn.slick.gui.MouseOverArea;
  */
 public class Button extends MouseOverArea {
 
-    // Basic components
+    // Foundation
     private Image img;
-    private final Rectangle shape;
+    private final Rectangle rect;
+
+    // Text variables
     private String label;
     private TrueTypeFont font;
-
-    // Text position
     private float textXoffset;
     private float textYoffset;
+    private Color textCol;
 
     // Enabled status
     private boolean enabled;
@@ -35,25 +36,36 @@ public class Button extends MouseOverArea {
      * Create a button
      *
      * @param image
-     * @param shape
+     * @param rect
      * @param font of button label
      */
-    public Button(Image image, Shape shape, TrueTypeFont font) {
+    public Button(Image image, Rectangle rect, TrueTypeFont font) {
 
         // Call MouseOverArea constructor
-        super(Globals.agc, image, shape);
+        super(Globals.agc,
+                image.getScaledCopy((int) rect.getWidth(),
+                        (int) rect.getHeight()),
+                rect);
 
-        // Save image, shape and font
-        this.img = image;
-        this.shape = (Rectangle) shape;
-        this.font = font;
+        // Save resized image
+        img = image.getScaledCopy((int) rect.getWidth(),
+                (int) rect.getHeight());
+
+        // Save rectangle
+        this.rect = rect;
 
         // Set label to default value
         label = "label";
 
+        // Save font
+        this.font = font;
+
         // Calculate and save offsets
-        textXoffset = shape.getWidth() / 5;
-        textYoffset = -(shape.getHeight() / 20);
+        textXoffset = rect.getWidth() / 5;
+        textYoffset = -(rect.getHeight() / 20);
+
+        // Set color to default value
+        textCol = Color.white;
 
         // Initialize as enabled
         enabled = true;
@@ -95,7 +107,7 @@ public class Button extends MouseOverArea {
         super.setLocation(x, y);
 
         // Change shape location
-        shape.setLocation(x, y);
+        rect.setLocation(x, y);
     }
 
     /**
@@ -110,7 +122,7 @@ public class Button extends MouseOverArea {
         img = img.getScaledCopy(w, h);
 
         // Change shape size
-        shape.setSize(w, h);
+        rect.setSize(w, h);
     }
 
     /**
@@ -152,62 +164,12 @@ public class Button extends MouseOverArea {
     }
 
     /**
-     * Draw the button, shifted
+     * Change the color of the label text
      *
-     * @param g
-     * @param sX
-     * @param sY
+     * @param newCol
      */
-    public void drawShifted(Graphics g, int sX, int sY) {
-
-        // Move position
-        setX(getX() + sX);
-        setY(getY() + sY);
-
-        // Draw all of button
-        drawFull(g);
-    }
-
-    /**
-     * Draw the button fully
-     *
-     * @param g
-     */
-    public void drawFull(Graphics g) {
-
-        // If enabled
-        if (enabled) {
-
-            // Draw image and text
-            drawImage(g);
-            drawText(g);
-        }
-    }
-
-    /**
-     * Draw the image only
-     *
-     * @param g
-     */
-    public void drawImage(Graphics g) {
-
-        // Draw image and MouseOverArea
-        super.render(Globals.agc, g);
-    }
-
-    /**
-     * Draw the text only Action listener not included
-     *
-     * @param g
-     */
-    public void drawText(Graphics g) {
-
-        // Calculate text position
-        float textX = shape.getX() + textXoffset;
-        float textY = shape.getY() + textYoffset;
-
-        // Draw label using font
-        font.drawString(textX, textY, label);
+    public void setTextColor(Color newCol) {
+        textCol = newCol;
     }
 
     /**
@@ -217,7 +179,7 @@ public class Button extends MouseOverArea {
      * @param xOff
      * @param yOff
      */
-    public void changeTextOffset(float xOff, float yOff) {
+    public void setTextOffsets(float xOff, float yOff) {
         textXoffset = xOff;
         textYoffset = yOff;
     }
@@ -260,6 +222,7 @@ public class Button extends MouseOverArea {
 
         // If resize wanted
         if (resize) {
+
             // Resize image
             int oldW = img.getWidth();
             int oldH = img.getHeight();
@@ -280,6 +243,65 @@ public class Button extends MouseOverArea {
         setNormalImage(img);
         setMouseOverImage(img);
         setMouseDownImage(img);
+    }
+
+    /**
+     * Draw the image only
+     *
+     * @param g
+     */
+    public void drawImage(Graphics g) {
+
+        // Draw image and MouseOverArea
+        super.render(Globals.agc, g);
+    }
+
+    /**
+     * Draw the text only Action listener not included
+     *
+     * @param g
+     */
+    public void drawText(Graphics g) {
+
+        // Calculate text position
+        float textX = rect.getX() + textXoffset;
+        float textY = rect.getY() + textYoffset;
+
+        // Draw label using font
+        font.drawString(textX, textY, label, textCol);
+    }
+
+    /**
+     * Draw the button fully
+     *
+     * @param g
+     */
+    public void drawFull(Graphics g) {
+
+        // If enabled
+        if (enabled) {
+
+            // Draw image and text
+            drawImage(g);
+            drawText(g);
+        }
+    }
+
+    /**
+     * Draw the button, shifted
+     *
+     * @param g
+     * @param sX
+     * @param sY
+     */
+    public void drawShifted(Graphics g, int sX, int sY) {
+
+        // Move position
+        setX(getX() + sX);
+        setY(getY() + sY);
+
+        // Draw all of button
+        drawFull(g);
     }
 
 }

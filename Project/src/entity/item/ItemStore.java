@@ -4,7 +4,7 @@ import entity.item.types.InstantItem;
 import entity.item.types.KeyItem;
 import java.util.ArrayList;
 
-import components.structures.Player;
+import components.modules.Player;
 import entity.base.Entity;
 import entity.base.EntityStore;
 import entity.item.types.CrystalItem;
@@ -34,7 +34,7 @@ public class ItemStore extends EntityStore {
                 new String[]{"Stores microamounts of nearby energy as antimatter.",
                     "Could annihilate some weak, dry matter once activated.",
                     "Usage: The cryocapacitor annihilated the dead trees!"},
-                "SOUNDNAME",
+                "iwanIce",
                 null,
                 23, 25));
         itemList.add(new KeyItem(
@@ -42,7 +42,7 @@ public class ItemStore extends EntityStore {
                 new String[]{"Beats rhythmically with creative vigor,",
                     "able to manifest more of an existing substance.",
                     "Usage: The orb created a magistruct replica of the wood nearby!"},
-                "SOUNDNAME",
+                "weirdexpansion",
                 null,
                 82, 5));
 
@@ -57,7 +57,7 @@ public class ItemStore extends EntityStore {
                 new String[]{"A rifle filled with some sort of unpleasant acerbic fluid,",
                     "that likely has corrosive properties.",
                     "Usage: Good thinking! Acid + Metal Carbonate = Salt + Water + CO2!"},
-                "SOUNDNAME",
+                "sprayingnoise",
                 null,
                 21, 3));
 
@@ -65,7 +65,7 @@ public class ItemStore extends EntityStore {
         itemList.add(new CrystalItem(
                 "Destiny", 1122,
                 "Focus your attention positively, on solutions.",
-                 null, 65, 6));
+                null, 65, 6));
         itemList.add(new CrystalItem(
                 "Protection", 333,
                 "Light protects you every step of the way.",
@@ -85,7 +85,7 @@ public class ItemStore extends EntityStore {
                 new String[]{"A perfect electrovelox substitute,",
                     "as it is highly conductive!",
                     "Usage: This is just what I needed for my repairs!"},
-                "SOUNDNAME",
+                "Chinknoise",
                 "SailingShip",
                 10, 74, 3, 6));
         itemList.add(new Item(
@@ -122,7 +122,7 @@ public class ItemStore extends EntityStore {
                     "A digital time-keeper with no Higgs boson field",
                     "Usage: You were teleported!"
                 },
-                "SOUNDNAME",
+                "BackInTime",
                 12, 54) {
             @Override
             public void applyEffect(Player player) {

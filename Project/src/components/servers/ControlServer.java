@@ -1,6 +1,5 @@
 package components.servers;
 
-import entity.item.ItemProcessor;
 import main.Globals;
 
 import org.newdawn.slick.Image;
@@ -13,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.newdawn.slick.state.GameState;
+import states.special.Rift;
 
 /**
  * Provide input and control handling
@@ -20,18 +21,6 @@ import java.util.logging.Logger;
  * @author David
  */
 public class ControlServer {
-
-    // Maps key strings to key codes
-    private final HashMap<String, Integer> keyMap;
-
-    // List of controls
-    private final ArrayList<Control> controlList;
-
-    // Play state delta
-    private int delta;
-
-    // A list of states where you cannot go back
-    private ArrayList<Integer> specialStates;
 
     /**
      * Models a control
@@ -129,6 +118,15 @@ public class ControlServer {
         public abstract void doAction();
     }
 
+    // Maps key strings to key codes
+    private final HashMap<String, Integer> keyMap;
+
+    // List of main controls
+    private final ArrayList<Control> mainContList;
+
+    // Delta value
+    private int delta;
+
     /**
      * Initialize input handler
      */
@@ -153,72 +151,77 @@ public class ControlServer {
         keyMap.put("BACKSPACE", Input.KEY_BACK);
 
         // Initialize list of controls
-        controlList = new ArrayList<>();
-        controlList.add(new Control("Up", "UP-W") {
+        mainContList = new ArrayList<>();
+
+        // Add movement controls
+        mainContList.add(new Control("Up", "UP-W") {
             @Override
             public void doAction() {
                 Globals.player.move("Up", delta);
+                checkRiftInput("Up");
             }
         });
-        controlList.add(new Control("Left", "LEFT-A") {
+        mainContList.add(new Control("Left", "LEFT-A") {
             @Override
             public void doAction() {
                 Globals.player.move("Left", delta);
+                checkRiftInput("Left");
             }
         });
-        controlList.add(new Control("Right", "RIGHT-D") {
+        mainContList.add(new Control("Right", "RIGHT-D") {
             @Override
             public void doAction() {
                 Globals.player.move("Right", delta);
+                checkRiftInput("Right");
             }
         });
-        controlList.add(new Control("Down", "DOWN-S") {
+        mainContList.add(new Control("Down", "DOWN-S") {
             @Override
             public void doAction() {
                 Globals.player.move("Down", delta);
+                checkRiftInput("Down");
             }
         });
-        controlList.add(new Control("Back/MainMenu",
+
+        // Add back control
+        mainContList.add(new Control("Back/Menu",
                 "ESCAPE-LALT-RALT-BACKSPACE") {
             @Override
             public void doAction() {
 
-                // Get stateIDs
-                int curState = Globals.SBG.getCurrentStateID();
-                int playState = Globals.STATES.get("PLAY");
-                int invState = Globals.STATES.get("INVENTORY");
-
                 // Act based on where back is requested
                 // If back requested in inventory
-                if (curState == invState) {
+                if (Globals.isGameInState("Inventory")) {
 
                     // Go back to play state
-                    Globals.SBG.enterState(playState,
-                            Globals.getLeave(),
-                            Globals.getEnter());
+                    Globals.changeState("Play", true);
 
                 } else {
 
                     // If back requested in play state
-                    if (curState == playState) {
+                    if (Globals.isGameInState("Play")) {
 
                         // Game has been paused
-                        Globals.hasBeenPaused = true;
+                        Globals.isGameStarted = true;
                     }
 
-                    // By default, go to main menu
-                    Globals.SBG.enterState(Globals.STATES.get("MAINMENU"));
+                    // By default, go to menu
+                    Globals.changeState("Menu", false);
                 }
 
             }
         });
-        controlList.add(new Control("Inventory", "I") {
+
+        // Add inventory control
+        mainContList.add(new Control("Inventory", "I") {
             @Override
             public void doAction() {
-                Globals.SBG.enterState(Globals.STATES.get("INVENTORY"));
+                Globals.SBG.enterState(Globals.states.get("Inventory"));
             }
         });
-        controlList.add(new Control("Grab Item", "Z-ENTER") {
+
+        // Add item grab control
+        mainContList.add(new Control("Grab Item", "Z-ENTER") {
             @Override
             public void doAction() {
 
@@ -226,7 +229,9 @@ public class ControlServer {
                 Globals.itemProc.processItemGrab();
             }
         });
-        controlList.add(new Control("Take Screenshot", "F12") {
+
+        // Add screenshot control
+        mainContList.add(new Control("Take Screenshot", "F12") {
             @Override
             public void doAction() {
                 // Take screenshot when F12 is pressed
@@ -254,7 +259,9 @@ public class ControlServer {
                 }
             }
         });
-        controlList.add(new Control("", "") {
+
+        // Add empty control
+        mainContList.add(new Control("", "") {
             @Override
             public void doAction() {
                 // Stop player when nothing is pressed
@@ -270,61 +277,90 @@ public class ControlServer {
      * @return
      */
     public ArrayList<Control> getControlList() {
-        return controlList;
+        return mainContList;
+    }
+
+    /**
+     * Check for Rift input
+     *
+     * @param dir
+     */
+    public void checkRiftInput(String dir) {
+
+        // If currently in Rift state
+        if (Globals.isGameInState("Rift")) {
+
+            // Get state and call move method
+            GameState state = Globals.SBG.getCurrentState();
+            Rift rift = (Rift) state;
+            rift.moveShip(dir);
+        }
+    }
+
+    /**
+     * Process input for a given list of controls
+     *
+     * @param contList
+     */
+    public void handleInput(String[] contList) {
+
+        // If input is being ignored
+        if (Globals.isInputBlocked) {
+
+            // Do not process further
+            return;
+        }
+
+        // For all official controls
+        for (Control curCont : mainContList) {
+
+            // Get official description
+            String desc = curCont.getDesc();
+
+            // For all inputted controls
+            for (String inputCont : contList) {
+
+                // If official matches given
+                if (desc.contains(inputCont)) {
+
+                    // Do action if activated
+                    if (curCont.doActionIfActivated()) {
+
+                        // If successful, stop processing
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     /**
      * Process user input in play state
      *
      * @param delta The delta of the update method
-     * @throws SlickException
      */
-    public void handlePlayInput(int delta) throws SlickException {
+    public void handlePlayInput(int delta) {
 
         // If input is being ignored
-        if (Globals.inputIgnored) {
+        if (Globals.isInputBlocked) {
 
             // Do not process further
             return;
         }
 
-        // Update input source and delta value
+        // Update delta
         this.delta = delta;
 
         // For all controls
-        for (Control curCont : controlList) {
+        for (Control curCont : mainContList) {
 
             // Do action if activated
             if (curCont.doActionIfActivated()) {
+
                 // If successful, stop processing
                 break;
             }
         }
     }
 
-    /**
-     * Process user input in screens
-     */
-    public void handleScreenInput() {
-
-        // For all controls
-        for (Control curCont : controlList) {
-
-            // Get description
-            String desc = curCont.getDesc();
-
-            // For back and screenshot controls, 
-            // do action if activated
-            if (desc.contains("MainMenu")
-                    || desc.contains("Screenshot")) {
-
-                // Do action if activated
-                if (curCont.doActionIfActivated()) {
-
-                    // If successful, stop processing
-                    break;
-                }
-            }
-        }
-    }
 }

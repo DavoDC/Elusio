@@ -6,6 +6,12 @@
 package components.servers;
 
 import java.util.HashMap;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import main.Globals;
+import org.newdawn.slick.Music;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
 /**
@@ -22,55 +28,93 @@ public class AudioServer {
      * Initialize AudioServer
      */
     public AudioServer() {
-        // Initialize music
-        // reconfiguration
-        // system-downtime
-        // new-rave
-        // rise-of-the-synthwave
-        
 
-         // Initialize sound map
-        // try {
-        
-       
-        //Sound sound = new Sound("path");
-//        } catch (SlickException ex) {
-//            Logger.getLogger(AudioServer.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }
-    
-    private void addSound(String name)
-    {
-       // GLobals.soundLoc
-       // ‘Add sound’ method = Adds to hashmap <name, Global.soundloc + name>s
+        try {
+
+            // Enable audio
+            Globals.agc.setMusicOn(true);
+            Globals.agc.setSoundOn(true);
+            Globals.agc.setMusicVolume(1f);
+            Globals.agc.setSoundVolume(1f);
+
+            // Initialize ambient music and loop
+            // (Track = new rave + reconfiguration 
+            // + rise-of-the-synthwave + system-downtime)
+            new Music(Globals.getFP("ambientMusic")).loop();
+
+            // Initialize sound map
+            soundMap = new HashMap<>();
+
+            // For all file paths
+            for (String curPath : Globals.fileList) {
+
+                // If path is for a sound
+                if (curPath.contains("audio")
+                        && !curPath.contains("ambient")) {
+
+                    // Add path and sound pair
+                    soundMap.put(curPath, new Sound(curPath));
+                }
+            }
+
+        } catch (SlickException ex) {
+            Logger.getLogger(AudioServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
-     * 
-     * @param name 
+     * Play sound at full volume
+     *
+     * @param name
      */
     public void playSound(String name) {
-        
-        System.out.print(" played custom sound!");
-
-        // play full volume
         playSound(name, 1f);
     }
-    
+
     /**
-     * 
+     * Play sound at a certain volume
+     *
      * @param name
-     * @param volume 
+     * @param volume
      */
-     public void playSound(String name, float volume) {
-        
-        System.out.print(" played custom sound!");
+    public void playSound(String name, float volume) {
 
+        // Sound holder
+        Sound soundH = null;
+
+        // Get all sound paths
+        Set<String> soundPaths = soundMap.keySet();
+
+        // For all sound paths 
+        for (String curSP : soundPaths) {
+
+            // If path contains given name
+            if (curSP.contains(name)) {
+
+                // Save sound
+                soundH = soundMap.get(curSP);
+
+                // If name contains wildcard
+                if (name.contains("?")) {
+
+                    // Possibly search for another sound
+                    if (!(Math.random() < 0.55)) {
+
+                        // Stop searching
+                        break;
+                    }
+                }
+            }
+        }
+
+        // If no sound was found
+        if (soundH == null) {
+
+            // Throw exception
+            throw new IllegalArgumentException("SoundNameError: " + name);
+        }
+
+        // Otherwise, play sound found
+        soundH.play();
     }
-
-    public void playItemFalter() {
-
-         System.out.print(" played item falter sound!");
-    }
-
 }

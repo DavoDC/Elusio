@@ -1,6 +1,6 @@
 package entity.item.types;
 
-import components.structures.Player;
+import components.modules.Player;
 import main.Globals;
 
 /**

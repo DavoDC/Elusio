@@ -1,6 +1,6 @@
 package entity.item.types;
 
-import components.structures.Player;
+import components.modules.Player;
 import main.Globals;
 
 /**
@@ -28,7 +28,7 @@ public class SpeedItem extends InstantItem {
         // Call entity constructor
         super(name,
                 new String[]{desc},
-                "powerup",
+                "powerup?",
                 col,
                 row);
 
