@@ -1,9 +1,9 @@
 package components.popups;
 
 import components.buttons.Button;
-import components.modules.Map;
+import components.modules.GameMap;
 import components.servers.FontServer;
-import main.Globals;
+import base.Globals;
 import org.newdawn.slick.Color;
 
 import org.newdawn.slick.Graphics;
@@ -65,15 +65,15 @@ public abstract class Popup {
         // Initialize underlying button 
         int camYadj = 3 * Globals.tileSize;
         int camXadj = 2 * Globals.tileSize;
-        int undRow = Map.convYtoRow(Globals.cam.getY() + camYadj);
-        int undCol = Map.convertXtoCol(Globals.cam.getX() + camXadj);
-        int undX = Map.convColtoX(undCol) + 20;
-        int undY = Map.convRowtoY(undRow) - 40;
+        int undRow = GameMap.convYtoRow(Globals.cam.getY() + camYadj);
+        int undCol = GameMap.convXtoCol(Globals.cam.getX() + camXadj);
+        int undX = GameMap.convColtoX(undCol) + 20;
+        int undY = GameMap.convRowtoY(undRow) - 40;
         int undW = (int) (Globals.screenW / 80 * Globals.tileSize);
         int undH = 2 * Globals.tileSize;
         Rectangle undRect = new Rectangle(undX, undY, undW, undH);
         TrueTypeFont undFont = FontServer.getFont("Candara-Bold-26");
-        underB = new Button(undImg, undRect, undFont);
+        underB = new Button(undImg, undRect, undFont, false);
         underB.setLabel("");
 
         // Initialise text writer
@@ -110,7 +110,7 @@ public abstract class Popup {
         // Initialise speaker info
         Rectangle spRect = new Rectangle(undX + 55, undY + 28, 69, 69);
         TrueTypeFont spFont = FontServer.getFont("Candara-Bold-20");
-        spInfo = new Button(getCurSpImg(), spRect, spFont);
+        spInfo = new Button(getCurSpImg(), spRect, spFont, false);
         spInfo.setLabel(textLW.getCurSpeaker());
         spInfo.setTextOffsets(5f, spInfo.getHeight());
         spInfo.setTextColor(Color.black);
@@ -156,7 +156,7 @@ public abstract class Popup {
         textLW.drawText();
 
         // Draw instruction text
-        instSW.drawText();
+        instSW.updateAndDraw();
 
         // Draw speaker info
         spInfo.drawFull(g);

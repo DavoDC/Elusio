@@ -6,14 +6,14 @@ import states.menu.Menu;
 import states.menu.Exit;
 import states.menu.About;
 import states.menu.Controls;
-import main.Globals;
+import base.Globals;
 import components.servers.FontServer;
-import components.servers.ControlServer;
+import components.servers.controls.ControlServer;
 import components.servers.AudioServer;
 import components.servers.particles.ParticleServer;
 import components.modules.Camera;
 import components.modules.HUD;
-import components.modules.Map;
+import components.modules.GameMap;
 import components.modules.Player;
 import components.popups.PopupStore;
 import entity.enemy.EnemyStore;
@@ -84,13 +84,13 @@ public class Loading extends BasicGameState {
             font = FontServer.getFont("gamefont-plain-75");
 
             // Initialize framework
-            Globals.SBG = sbg;
+            Globals.sbg = sbg;
             Globals.agc.setDefaultFont(FontServer.getFont("Segoe UI-Plain-16"));
 
             // Initialise main structures
-            Globals.map = new Map(Globals.getFP("map.tmx"));
+            Globals.gameMap = new GameMap(Globals.getFP("map.tmx"));
             Globals.player = new Player();
-            Globals.cam = new Camera(gc, Globals.map);
+            Globals.cam = new Camera(gc, Globals.gameMap);
             Globals.cam.centerOn(Globals.player.getX(), Globals.player.getX());
             Globals.hud = new HUD(Globals.cam, Globals.player);
 
@@ -111,9 +111,8 @@ public class Loading extends BasicGameState {
             // Hide alien ship
             Globals.obStore.addEncounterByName("StartAlien");
 
-            // When in IDE, turn off music and quickload
+            // When in IDE, quickload
             if (Globals.inIDE) {
-                Globals.agc.setMusicOn(false);
                 introTime = 5;
             }
 
@@ -164,7 +163,7 @@ public class Loading extends BasicGameState {
                 public void run() {
 
                     // Enter first state
-                    Globals.SBG.enterState(Globals.states.get("Menu"),
+                    Globals.sbg.enterState(Globals.states.get("Menu"),
                             // Leave
                             new FadeOutTransition(Color.black, 1000),
                             // Enter
@@ -195,7 +194,7 @@ public class Loading extends BasicGameState {
         Globals.states.put(name, newID);
 
         // Add state
-        Globals.SBG.addState(newState);
+        Globals.sbg.addState(newState);
     }
 
     /**

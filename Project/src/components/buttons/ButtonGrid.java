@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import components.servers.FontServer;
 import static states.base.InfoScreen.headerX;
-import main.Globals;
+import base.Globals;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -23,10 +23,6 @@ public class ButtonGrid {
     // Holds buttons
     private ArrayList<Button> buttons;
 
-    // Initialization lists
-    private ArrayList<Object> common;
-    private ArrayList<String> labels;
-
     /**
      * Create a ButtonGrid Input the values common to most buttons
      *
@@ -38,13 +34,13 @@ public class ButtonGrid {
      */
     public ButtonGrid(ArrayList<Object> common, ArrayList<String> labels) {
 
-        // Check arguments
+        // Check arguments and notify
         int buttonNo = (int) common.get(0);
-        boolean con1 = common.size() != 10;
+        boolean con1 = common.size() != 11;
         boolean con2 = buttonNo != labels.size();
         boolean con3 = labels.isEmpty();
         if (con1 || con2 || con3) {
-            String errS = "ButtonGrid init error \n ISSUE: ";
+            String errS = "ButtonGrid init error \nISSUE: ";
             if (con1) {
                 errS += "Missing feature in 'common' AL";
             } else if (con2) {
@@ -59,24 +55,20 @@ public class ButtonGrid {
             throw new IllegalArgumentException(errS);
         }
 
-        // Save lists
-        this.common = common;
-        this.labels = labels;
-
         // Extract variables from common
         String imgRes = (String) common.get(1);
         int x = (int) common.get(2);
         int y = (int) common.get(3);
         int w = (int) common.get(4);
         int h = (int) common.get(5);
+        boolean isSoundWanted = (boolean) common.get(10);
 
         // Get image and adjust
         Image img = null;
-
         try {
             img = new Image(imgRes).getScaledCopy(w, h);
         } catch (SlickException ex) {
-            System.err.println("Image error in ButtonGrid constructor");
+            System.err.println("\n ImageError: " + imgRes);
         }
 
         // Extract font
@@ -85,20 +77,22 @@ public class ButtonGrid {
         // Initialize list and add generic buttons
         buttons = new ArrayList<>();
         for (int i = 0; i < buttonNo; i++) {
-            buttons.add(new Button(img, new Rectangle(x, y, w, h), font));
+            buttons.add(new Button(img, new Rectangle(x, y, w, h),
+                    font, isSoundWanted));
         }
 
         // Adjust buttons
-        adjustButtons();
+        adjustButtons(common, labels);
     }
 
     /**
-     * Refine a list of buttons
+     * Adjust a list of buttons to reflect several parameters
      *
+     * @param common
+     * @param labels
      */
-    public final void adjustButtons() {
+    public final void adjustButtons(ArrayList<Object> common, ArrayList<String> labels) {
 
-        // Do re-positioning of buttons
         // Extract required information
         int buttonNo = (int) common.get(0);
         int xpos = (int) common.get(2);
@@ -172,71 +166,20 @@ public class ButtonGrid {
         // Get image and adjust
         Image img = null;
         try {
-            img = new Image(Globals.getFP("button"));
+            img = new Image(Globals.getFP("button.png"));
             img = img.getScaledCopy((int) rect.getWidth(), (int) rect.getHeight());
         } catch (SlickException ex) {
             System.err.println("Image error in ButtonGrid");
         }
 
         // Make header button
-        Button header = new Button(img, rect, font);
+        Button header = new Button(img, rect, font, false);
 
         // Set label
         header.setLabel(actualLabel);
 
         // Return header
         return header;
-    }
-
-    /**
-     * Get the number of buttons in the grid
-     *
-     * @return size of button list
-     */
-    public int getSize() {
-        return buttons.size();
-    }
-
-    /**
-     * Draws all buttons fully
-     *
-     * @param g
-     */
-    public void drawButtons(Graphics g) {
-
-        // For all buttons
-        for (Button curB : buttons) {
-
-            // Draw in full
-            curB.drawFull(g);
-        }
-    }
-
-    /**
-     * Draw all buttons fully, with offset
-     *
-     * @param g
-     * @param sX
-     * @param sY
-     */
-    public void drawButtonsShifted(Graphics g, int sX, int sY) {
-
-        // For all buttons
-        for (Button curB : buttons) {
-
-            // Draw shifted
-            curB.drawShifted(g, sX, sY);
-        }
-    }
-
-    /**
-     * Get a button using its position
-     *
-     * @param pos
-     * @return Button
-     */
-    public Button getButtonByPos(int pos) {
-        return (buttons.get(pos));
     }
 
     /**
@@ -270,28 +213,35 @@ public class ButtonGrid {
     }
 
     /**
-     * Replace the label of a button
+     * Draws all buttons fully
      *
-     * @param oldLabel
-     * @param newLabel
+     * @param g
      */
-    public void replaceButtonLabel(String oldLabel, String newLabel) {
+    public void drawButtons(Graphics g) {
 
-        // Retrieve the button using the old label,
-        // and replace its label with the one given
-        getButtonByLabel(oldLabel).setLabel(newLabel);
+        // For all buttons
+        for (Button curB : buttons) {
+
+            // Draw in full
+            curB.drawFull(g);
+        }
     }
 
     /**
-     * Replace a button
+     * Draw all buttons fully, with offset
      *
-     * @param pos Old button position
-     * @param newB New button
+     * @param g
+     * @param sX
+     * @param sY
      */
-    public final void replaceButton(int pos, Button newB) {
+    public void drawButtonsShifted(Graphics g, int sX, int sY) {
 
-        // Replace the button at 'pos' with 'newB'
-        buttons.set(pos, newB);
+        // For all buttons
+        for (Button curB : buttons) {
+
+            // Draw shifted
+            curB.drawShifted(g, sX, sY);
+        }
     }
 
     /**
@@ -337,5 +287,49 @@ public class ButtonGrid {
             // Change label
             b.setLabel(newS);
         }
+    }
+
+    /**
+     * Replace the label of a button
+     *
+     * @param oldLabel
+     * @param newLabel
+     */
+    public void replaceButtonLabel(String oldLabel, String newLabel) {
+
+        // Retrieve the button using the old label,
+        // and replace its label with the one given
+        getButtonByLabel(oldLabel).setLabel(newLabel);
+    }
+
+    /**
+     * Get a button using its position
+     *
+     * @param pos
+     * @return Button
+     */
+    public Button getButtonByPos(int pos) {
+        return (buttons.get(pos));
+    }
+
+    /**
+     * Replace a button
+     *
+     * @param pos Old button position
+     * @param newB New button
+     */
+    public final void replaceButton(int pos, Button newB) {
+
+        // Replace the button at 'pos' with 'newB'
+        buttons.set(pos, newB);
+    }
+
+    /**
+     * Get the number of buttons in the grid
+     *
+     * @return size of button list
+     */
+    public int getSize() {
+        return buttons.size();
     }
 }

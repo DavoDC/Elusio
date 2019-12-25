@@ -1,6 +1,6 @@
 package states.base;
 
-import main.Globals;
+import base.Globals;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;

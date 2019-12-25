@@ -1,7 +1,7 @@
 package entity.item.types;
 
 import entity.item.Item;
-import main.Globals;
+import base.Globals;
 
 /**
  * Models an item that can be used
@@ -64,7 +64,7 @@ public abstract class UsableItem extends Item {
      * Play sound that represents this item being grabbed
      */
     public void playGrabSound() {
-        Globals.audioServer.playSound(soundName, 0.5f);
+        //Globals.audioServer.playSound(soundName, 0.5f);
     }
 
     /**
@@ -78,7 +78,7 @@ public abstract class UsableItem extends Item {
      * Play sound that represents this item being used
      */
     public void playUseSound() {
-        Globals.audioServer.playSound(soundName, 1f);
+        Globals.audioServer.playDefSound(soundName);
     }
 
     /**

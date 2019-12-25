@@ -1,6 +1,7 @@
 package states.special;
 
-import main.Globals;
+import base.Globals;
+import base.Movable;
 import org.newdawn.slick.Color;
 import states.base.AutoState;
 
@@ -18,10 +19,8 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Rift extends AutoState {
 
     // Ship variables
-    private Image ship;
-    private float shipX;
-    private float shipY;
-    private final float movFactor = 5;
+    private Movable ship;
+    private Image shipImage;
     private final int boundsFactor = 100;
 
     // Control list
@@ -39,11 +38,51 @@ public class Rift extends AutoState {
             throws SlickException {
 
         // Initialize ship image and position
-        ship = new Image(Globals.getFP("alienship.png"));
-        ship = ship.getScaledCopy(0.7f);
-        ship.setRotation(90);
-        shipX = Globals.screenW / 2 - (ship.getWidth() / 4 + 47);
-        shipY = (float) (Globals.screenH * 0.7);
+        shipImage = new Image(Globals.getFP("alienship.png"));
+        shipImage = shipImage.getScaledCopy(0.7f);
+        shipImage.setRotation(90);
+
+        // Initialize movable ship
+        int shipX = Globals.screenW / 2 - (shipImage.getWidth() / 4 + 47);
+        int shipY = (int) (Globals.screenH * 0.7);
+        ship = new Movable(shipX, shipY, 69, 69, 0.8, 1f, true) {
+            @Override
+            public void procPosChange(char sign, char axis,
+                    int trueSpeed) {
+
+                // Get change
+                int change = Integer.parseInt(sign + "" + trueSpeed);
+
+                // Act based on axis
+                if (axis == 'x') {
+
+                    // If on X:
+                    // Apply change to X
+                    adjustX(change);
+
+                    // Wrap around X axis
+                    int curX = super.getX();
+                    int limit = Globals.screenW - boundsFactor;
+                    super.setX(curX % limit);
+                    if (curX < 0) {
+                        super.setX(limit);
+                    }
+                } else {
+
+                    // If on Y:
+                    // Apply change to Y
+                    adjustY(change);
+
+                    // Wrap around Y axis
+                    int curY = super.getY();
+                    int limit = Globals.screenH - boundsFactor;
+                    super.setY(curY % limit);
+                    if (curY < 0) {
+                        super.setY(limit);
+                    }
+                }
+            }
+        };
 
         // Initialize control list
         contList = new String[]{"Up", "Down", "Left", "Right",
@@ -59,6 +98,7 @@ public class Rift extends AutoState {
      * @throws SlickException
      */
     @Override
+
     public void update(GameContainer container, StateBasedGame game,
             int delta) throws SlickException {
 
@@ -82,7 +122,7 @@ public class Rift extends AutoState {
         Globals.partServer.drawRiftParticles();
 
         // Draw spaceship 
-        g.drawImage(ship, shipX, shipY);
+        g.drawImage(shipImage, ship.getX(), ship.getY());
 
         // Draw popup on top
         Globals.popStore.renderCurPopup(g);
@@ -92,38 +132,11 @@ public class Rift extends AutoState {
     }
 
     /**
-     * Move the ship in a given direction
+     * Access the ship
      *
-     * @param dir Direction of motion
+     * @return
      */
-    public void moveShip(String dir) {
-
-        // Adjust direction string
-        dir = dir.toLowerCase();
-
-        // Change position 
-        switch (dir) {
-            case "up":
-                shipY -= movFactor;
-                break;
-            case "down":
-                shipY += movFactor;
-                break;
-            case "left":
-                shipX -= movFactor;
-                break;
-            case "right":
-                shipX += movFactor;
-                break;
-        }
-
-        // Wrap around so the screen boundaries cannot be breached
-        shipX = shipX % (Globals.screenW - boundsFactor);
-        shipY = shipY % (Globals.screenH - boundsFactor);
-        if (shipX < 0) {
-            shipX = Globals.screenW - boundsFactor;
-        } else if (shipY < 0) {
-            shipY = Globals.screenH - boundsFactor;
-        }
+    public Movable getShip() {
+        return ship;
     }
 }

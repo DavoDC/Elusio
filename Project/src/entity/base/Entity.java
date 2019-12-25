@@ -1,6 +1,6 @@
 package entity.base;
 
-import main.Globals;
+import base.Globals;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
@@ -70,8 +70,8 @@ public abstract class Entity {
     public void initTileImages(String entLS, String undLS) {
 
         // Get index of layers
-        int entLayerIndex = Globals.map.getLayerIndex(entLS);
-        int undLayerIndex = Globals.map.getLayerIndex(undLS);
+        int entLayerIndex = Globals.gameMap.getLayerIndex(entLS);
+        int undLayerIndex = Globals.gameMap.getLayerIndex(undLS);
 
         // If entity indices are invalid
         if (entLayerIndex == -1 || undLayerIndex == -1) {
@@ -93,11 +93,11 @@ public abstract class Entity {
                 int arrRow = Integer.parseInt(locPair[3]);
 
                 // Get and save entity image
-                Image entImage = Globals.map.getTileImage(mapCol, mapRow, entLayerIndex);
+                Image entImage = Globals.gameMap.getTileImage(mapCol, mapRow, entLayerIndex);
                 entImages[arrRow][arrCol] = entImage;
 
                 // Get and save ground image
-                Image undImage = Globals.map.getTileImage(mapCol, mapRow, undLayerIndex);
+                Image undImage = Globals.gameMap.getTileImage(mapCol, mapRow, undLayerIndex);
                 undImages[arrRow][arrCol] = undImage;
             }
         }

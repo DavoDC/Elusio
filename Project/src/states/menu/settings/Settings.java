@@ -3,7 +3,7 @@ package states.menu.settings;
 import components.buttons.ButtonGrid;
 import java.util.ArrayList;
 
-import main.Globals;
+import base.Globals;
 import states.base.InterfaceScreen;
 
 /**
@@ -24,7 +24,7 @@ public class Settings extends InterfaceScreen {
 
         ArrayList<Object> feats = new ArrayList<>();
         feats.add(NUM_SETTINGS + 1); // Button ammount
-        feats.add(Globals.getFP("button")); // Image loc
+        feats.add(Globals.getFP("button.png")); // Image loc
         feats.add(300); // StartXpos    
         feats.add(200); // StartYpos 
         feats.add(550); // Width   
@@ -33,6 +33,7 @@ public class Settings extends InterfaceScreen {
         feats.add(36);  // YSpacing   
         feats.add(1);   // NumberofColumns
         feats.add("Lucida Bright-Bold-32"); // FontString
+        feats.add(true); // isSoundWanted
 
         return feats;
     }

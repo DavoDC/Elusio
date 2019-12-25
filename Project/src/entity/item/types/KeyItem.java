@@ -3,7 +3,7 @@ package entity.item.types;
 import entity.obstacle.Obstacle;
 import entity.obstacle.ObstacleZone;
 import java.util.ArrayList;
-import main.Globals;
+import base.Globals;
 
 /**
  * Models items that can be used to unlock obstacle zones, and may be protected
@@ -117,7 +117,7 @@ public class KeyItem extends UsableItem {
 
             // Unblock the obstacle
             if (obst.isUnblockOn()) {
-                Globals.map.unblockEntity(obst);
+                Globals.gameMap.unblockEntity(obst);
             }
         }
 

@@ -1,6 +1,6 @@
 package states.special;
 
-import main.Globals;
+import base.Globals;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -25,13 +25,6 @@ public class Play extends AutoState {
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 
-        // Get all items for faster IDE testing
-        if (Globals.inIDE) {
-//            Globals.itemStore.getEntities().forEach((cur) -> {
-//                Globals.player.addItem((Item) cur);
-//            });
-        }
-
     }
 
     /**
@@ -45,17 +38,11 @@ public class Play extends AutoState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 
-        // Make animation use game time
-        Globals.player.updateAnimation(delta);
+        // Update delta value
+        Globals.curDelta = delta;
 
         // Handle input
-        Globals.conServer.handlePlayInput(delta);
-
-        // Update camera
-        Globals.cam.centerOn(Globals.player.getX(), Globals.player.getY());
-
-        // Update HUD
-        Globals.hud.update(Globals.cam, Globals.player, delta);
+        Globals.conServer.handleInput(new String[]{"All"});
 
         // Process item use
         Globals.itemProc.processItemUse();
@@ -75,7 +62,7 @@ public class Play extends AutoState {
 
         // Draw camera's view of map
         // Note: Drawing by layers individually is not done due to severe lag
-        Globals.cam.drawMap();
+        Globals.cam.drawViewPort();
         Globals.cam.translateGraphics();
 
         // Account for entity interactions
@@ -85,10 +72,13 @@ public class Play extends AutoState {
         Globals.itemProc.renderItemUse(g);
 
         // Draw player
-        Globals.player.drawPlayer(Globals.player.getX(), Globals.player.getY());
+        Globals.player.draw();
 
         // Draw HUD
         Globals.hud.drawHUD(g);
+
+        // Draw popups
+        Globals.popStore.renderCurPopup(g);
     }
 
 }

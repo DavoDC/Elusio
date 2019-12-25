@@ -6,7 +6,7 @@ import states.base.InterfaceScreen;
 import entity.base.Entity;
 import entity.item.Item;
 import entity.item.types.UsableItem;
-import main.Globals;
+import base.Globals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -81,6 +81,7 @@ public class Inventory extends InterfaceScreen {
         feats.add(Globals.screenH / 15); // YSpacing
         feats.add(7); // NumberofColumns
         feats.add("Segoe UI-Plain-18"); // FontString
+        feats.add(false); // isSoundWanted
 
         // Save feats
         common = feats;

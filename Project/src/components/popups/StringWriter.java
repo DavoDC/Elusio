@@ -1,6 +1,8 @@
 package components.popups;
 
 import components.servers.FontServer;
+import java.util.Timer;
+import java.util.TimerTask;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -11,8 +13,9 @@ import org.newdawn.slick.TrueTypeFont;
  */
 public class StringWriter {
 
-    // Actual text
+    // Line 
     private String line;
+    private final int sLen;
     private int curCharPos;
 
     // Text appearance
@@ -32,6 +35,12 @@ public class StringWriter {
     // The time of adding
     private long timeUntilAdd;
 
+    // True when text has been written once
+    private boolean writtenOnce;
+
+    // Timer needed
+    private boolean timerNeeded;
+
     /**
      * Create a Line Writer
      *
@@ -47,8 +56,9 @@ public class StringWriter {
             Color textCol, String fontS, boolean isRepeating,
             int textX, int textY, long interval) {
 
-        // Save line
+        // Save line and length
         this.line = line;
+        this.sLen = line.length();
 
         // Initialize character position to first
         curCharPos = 0;
@@ -79,28 +89,29 @@ public class StringWriter {
 
         // Initialize time until add counters
         timeUntilAdd = 0;
+
+        // No writes initially
+        writtenOnce = false;
+
+        // Timer not needed
+        timerNeeded = true;
     }
 
     /**
      * Draw the sub string
      */
-    public void drawText() {
+    public void updateAndDraw() {
 
-        // If popup is of the repeating type,
-        // and line has been written once
-        if (isRepeating && hasWrittenOnce()) {
-            // Reset with original line
-            setNewLine(line);
-        }
+        // If end has not been reached
+        if (!(curCharPos - 1 == sLen)) {
 
-        // Update internal variables
-        // If the last char hasn't been reached
-        if (curCharPos != line.length()) {
+            // Draw text
+            drawText();
 
             // If it is time to add the next character 
             if (timeUntilAdd == 0) {
 
-                // Add to character count
+                // Progress character count
                 curCharPos++;
 
                 // Reset add time back to full interval
@@ -109,13 +120,38 @@ public class StringWriter {
 
             // Reduce time until next character is added
             timeUntilAdd -= 10;
+
+            // Timer is needed
+            timerNeeded = true;
+        } else {
+
+            // Writing has occurred
+            writtenOnce = true;
+
+            // Else if end has been reached,
+            // if repeating type 
+            if (isRepeating) {
+
+                // If timer is needed
+                if (timerNeeded) {
+
+                    // Reset line after some time
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            setNewLine(line);
+                        }
+                    }, 639);
+
+                    // Timer is not needed
+                    timerNeeded = false;
+                }
+            } else {
+
+                // Draw text
+                drawText();
+            }
         }
-
-        // Get current substring
-        String curSubStr = line.substring(0, curCharPos);
-
-        // Draw substring
-        textFont.drawString(textX, textY, curSubStr, textCol);
     }
 
     /**
@@ -129,18 +165,33 @@ public class StringWriter {
         line = newText;
 
         // Reset counters
-        curCharPos = 0;
         timeUntilAdd = 0;
+
+        // Reset to first
+        curCharPos = 0;
     }
 
     /**
-     * Return true if line has been fully written out
+     * Draw the current substring
+     */
+    private void drawText() {
+
+        // Protect against excessive values
+        if (curCharPos >= sLen) {
+            curCharPos = sLen;
+        }
+
+        // Draw left to right 
+        String sub = line.substring(0, curCharPos);
+        textFont.drawString(textX, textY, sub, textCol);
+    }
+
+    /**
+     * Return true if the line has been written once
      *
-     * @return True if written and false otherwise
+     * @return
      */
     public boolean hasWrittenOnce() {
-
-        // Return true if last character encapsulates full string
-        return (curCharPos >= line.length());
+        return writtenOnce;
     }
 }

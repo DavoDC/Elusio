@@ -3,9 +3,9 @@ package states.base;
 import java.util.ArrayList;
 import java.util.Random;
 
-import main.Globals;
+import base.Globals;
 import components.buttons.ButtonGrid;
-import components.servers.ControlServer.Control;
+
 import components.servers.FontServer;
 
 import org.newdawn.slick.BigImage;
@@ -16,7 +16,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
-import states.menu.Controls;
 
 /**
  * Models a game state which is a user interface screen
@@ -90,14 +89,7 @@ public abstract class InterfaceScreen extends AutoState {
         buttonGrid = new ButtonGrid(getButtonFeatures(), getButtonLabels());
 
         // Get back control line
-        backContLine = "";
-        ArrayList<Control> contL = Globals.conServer.getControlList();
-        for (Control cont : contL) {
-            if (cont.getDesc().contains("Back")) {
-                String[] keys = cont.getKeyList();
-                backContLine = Controls.getControlLine("", keys);
-            }
-        }
+        backContLine = Globals.conServer.getContInfo().get("Back");
 
         // Custom initialization
         customInit();

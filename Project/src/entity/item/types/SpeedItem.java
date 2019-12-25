@@ -1,7 +1,7 @@
 package entity.item.types;
 
 import components.modules.Player;
-import main.Globals;
+import base.Globals;
 
 /**
  * Models an item that changes the player's speed

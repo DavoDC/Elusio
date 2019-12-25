@@ -5,11 +5,10 @@
  */
 package components.servers;
 
-import java.util.HashMap;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.Globals;
+import base.Globals;
+import base.LooseMap;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
@@ -22,7 +21,7 @@ import org.newdawn.slick.Sound;
 public class AudioServer {
 
     // Map sound names to sounds
-    private HashMap<String, Sound> soundMap;
+    private LooseMap<Sound> soundMap;
 
     /**
      * Initialize AudioServer
@@ -32,7 +31,7 @@ public class AudioServer {
         try {
 
             // Enable audio
-            Globals.agc.setMusicOn(true);
+            Globals.agc.setMusicOn(!Globals.inIDE);
             Globals.agc.setSoundOn(true);
             Globals.agc.setMusicVolume(1f);
             Globals.agc.setSoundVolume(1f);
@@ -43,13 +42,14 @@ public class AudioServer {
             new Music(Globals.getFP("ambientMusic")).loop();
 
             // Initialize sound map
-            soundMap = new HashMap<>();
+            soundMap = new LooseMap<>();
 
             // For all file paths
             for (String curPath : Globals.fileList) {
 
                 // If path is for a sound
                 if (curPath.contains("audio")
+                        && curPath.contains(".ogg")
                         && !curPath.contains("ambient")) {
 
                     // Add path and sound pair
@@ -63,58 +63,25 @@ public class AudioServer {
     }
 
     /**
-     * Play sound at full volume
-     *
-     * @param name
-     */
-    public void playSound(String name) {
-        playSound(name, 1f);
-    }
-
-    /**
      * Play sound at a certain volume
      *
      * @param name
-     * @param volume
+     * @param pitch
+     * @param vol
      */
-    public void playSound(String name, float volume) {
+    public void playSound(String name, float pitch, float vol) {
 
-        // Sound holder
-        Sound soundH = null;
+        // Retrieve sound and play it with given values
+        soundMap.get(name).play(pitch, vol);
 
-        // Get all sound paths
-        Set<String> soundPaths = soundMap.keySet();
+    }
 
-        // For all sound paths 
-        for (String curSP : soundPaths) {
-
-            // If path contains given name
-            if (curSP.contains(name)) {
-
-                // Save sound
-                soundH = soundMap.get(curSP);
-
-                // If name contains wildcard
-                if (name.contains("?")) {
-
-                    // Possibly search for another sound
-                    if (!(Math.random() < 0.55)) {
-
-                        // Stop searching
-                        break;
-                    }
-                }
-            }
-        }
-
-        // If no sound was found
-        if (soundH == null) {
-
-            // Throw exception
-            throw new IllegalArgumentException("SoundNameError: " + name);
-        }
-
-        // Otherwise, play sound found
-        soundH.play();
+    /**
+     * Play sound at default volume and pitch
+     *
+     * @param name
+     */
+    public void playDefSound(String name) {
+        playSound(name, 1f, 1f);
     }
 }

@@ -6,7 +6,7 @@ import entity.item.types.KeyItem;
 import entity.item.types.UsableItem;
 import java.util.Timer;
 import java.util.TimerTask;
-import main.Globals;
+import base.Globals;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -90,7 +90,7 @@ public class ItemProcessor {
                 Globals.enemyStore.addEncounter(enemy);
 
                 // Unblock enemy
-                Globals.map.unblockEntity(enemy);
+                Globals.gameMap.unblockEntity(enemy);
             }
         }
 
@@ -148,7 +148,7 @@ public class ItemProcessor {
             }
 
             // Transition to actual game and ignore input
-            Globals.SBG.enterState(Globals.states.get("PLAY"));
+            Globals.sbg.enterState(Globals.states.get("PLAY"));
             Globals.isInputBlocked = true;
 
             // Schedule further processing after some time

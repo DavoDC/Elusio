@@ -3,7 +3,7 @@ package entity.item.types;
 import entity.base.Entity;
 import entity.obstacle.Obstacle;
 import java.util.ArrayList;
-import main.Globals;
+import base.Globals;
 
 /**
  * Models a crystal KeyItem
@@ -59,7 +59,7 @@ public class CrystalItem extends KeyItem {
                 if ((curEnt instanceof Obstacle) && (curEnt.getName().contains("Gate"))) {
 
                     // Unblock all magic gate parts
-                    Globals.map.unblockEntity(curEnt);
+                    Globals.gameMap.unblockEntity(curEnt);
 
                     // Show magic gate popup
                     //Globals.hud.loadPopup(getGatePopup());
