@@ -2,7 +2,7 @@ package states.menu;
 
 import java.util.ArrayList;
 
-import main.Globals;
+import base.Globals;
 import components.servers.FontServer;
 import states.base.InfoScreen;
 import states.base.InterfaceScreen;
@@ -64,6 +64,7 @@ public class Exit extends InterfaceScreen {
         feats.add((int) Globals.screenH / 25); // YSpacing //always fits
         feats.add(1); // NumberofColumns
         feats.add(mainFontS); // FontString
+        feats.add(false); // isSoundWanted
 
         return feats;
     }

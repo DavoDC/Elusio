@@ -3,7 +3,7 @@ package components.servers.particles;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.Globals;
+import base.Globals;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.particles.ParticleEmitter;
 import org.newdawn.slick.particles.ParticleIO;

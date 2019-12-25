@@ -1,6 +1,6 @@
 package components.servers.particles;
 
-import main.Globals;
+import base.Globals;
 import org.newdawn.slick.Color;
 
 /**

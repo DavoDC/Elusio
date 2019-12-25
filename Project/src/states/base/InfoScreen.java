@@ -2,7 +2,7 @@ package states.base;
 
 import java.util.ArrayList;
 
-import main.Globals;
+import base.Globals;
 
 /**
  * Models a screen that provides information
@@ -40,6 +40,7 @@ public abstract class InfoScreen extends InterfaceScreen {
         feats.add(getYSpacing()); // YSpacing
         feats.add(getColumnNo()); // NumberofColumns
         feats.add(getLineFontString()); // FontString
+        feats.add(false); // isSoundWanted
 
         // Return list
         return feats;

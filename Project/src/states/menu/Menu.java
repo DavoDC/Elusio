@@ -2,7 +2,7 @@ package states.menu;
 
 import java.util.ArrayList;
 
-import main.Globals;
+import base.Globals;
 import states.base.InterfaceScreen;
 import components.popups.StringWriter;
 import components.buttons.Button;
@@ -36,7 +36,7 @@ public class Menu extends InterfaceScreen {
         // Create delay writer
         titleWriter = new StringWriter(Globals.gameTitle + " - The Game",
                 Color.white, "gamefont-plain-70", true,
-                200, 50, 80);
+                200, 50, 100);
 
         // Add action to all buttons
         super.getButtonGrid().applyActions((AbstractComponent source) -> {
@@ -77,9 +77,9 @@ public class Menu extends InterfaceScreen {
                 shipMov.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
-                        Rift rift = (Rift) Globals.SBG.
+                        Rift rift = (Rift) Globals.sbg.
                                 getState(Globals.states.get("Rift"));
-                        rift.moveShip("Up");
+                        rift.getShip().move("Up");
                     }
                 }, 1, 40);
 
@@ -139,7 +139,7 @@ public class Menu extends InterfaceScreen {
 
         // Add to AL
         feats.add(getButtonLabels().size()); // Number of buttons
-        feats.add(Globals.getFP("button")); // Image Location
+        feats.add(Globals.getFP("button.png")); // Image Location
         feats.add(300); // StartXpos
         feats.add(150); // StartYpos 
         feats.add(350); // Width
@@ -148,6 +148,7 @@ public class Menu extends InterfaceScreen {
         feats.add((int) Globals.screenH / 25); // YSpacing
         feats.add(1); // Number of Columns
         feats.add("gamefont-plain-50"); // FontString
+        feats.add(true); // isSoundWanted
 
         return feats;
     }
@@ -202,7 +203,7 @@ public class Menu extends InterfaceScreen {
     public void customRender(Graphics g) {
 
         // Draw title line
-        titleWriter.drawText();
+        titleWriter.updateAndDraw();
 
         // Draw version string in bottom left
         g.setColor(Color.white);

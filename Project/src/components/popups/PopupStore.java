@@ -3,7 +3,7 @@ package components.popups;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-import main.Globals;
+import base.Globals;
 
 import org.newdawn.slick.Graphics;
 
@@ -29,8 +29,7 @@ public class PopupStore {
         // Initialize popup map
         popMap = new HashMap<>();
 
-        // Add popups
-        // Add popup for introductory Rift
+        // Add popup for introduction to Rift state
         integratePopup(new Popup(
                 "RiftIntro",
                 new String[]{
@@ -62,7 +61,7 @@ public class PopupStore {
                 // Go to actual play state
                 Globals.changeState("Play", true);
 
-                // Schedule ship coming back
+                // Schedule next event
                 long shipAppear = 3369;
                 new Timer().schedule(new TimerTask() {
                     @Override
@@ -73,7 +72,7 @@ public class PopupStore {
                     }
                 }, shipAppear);
 
-                // Schedule player becoming visible
+                // Schedule next event
                 new Timer().schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -81,70 +80,70 @@ public class PopupStore {
                         // Player becomes visible 
                         Globals.player.setVisible(true);
 
-                    }
-                }, shipAppear + 2000);
-
-                // Schedule player walking down
-                Timer playerMove = new Timer();
-                playerMove.scheduleAtFixedRate(new TimerTask() {
-                    @Override
-                    public void run() {
-
-                        // Player moves down
-                        Globals.player.move("Down", 20);
-                    }
-                }, shipAppear + 3000, 60);
-
-                // Schedule player stopping and popup loading
-                new Timer().schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-
-                        // Player stops moving
-                        playerMove.cancel();
-                        Globals.player.stopAnim();
-
                         // Load next popup
-                        // Globals.popStore.loadPopup("PlayIntro");
+                        Globals.popStore.loadPopup("PlayIntro1");
                     }
-                }, shipAppear + 4100);
+                }, shipAppear + 3000);
             }
         }, false);
 
-//        // Add popup displayed after leaving introductory Rift
-//        popMap.put("PlayIntro", new Popup(
-//                new String[]{
-//                    "Nagual:Resynchronization complete!",
-//                    "Tonal:What strange vibrations this place has. "
-//                    + "Where are we?",
-//                    "Nagual:A diverse dimension with a vast array of "
-//                    + "manifestations for you to experience",
-//                    "Tonal: My form feels... different. "
-//                    + "I need some guidance",
-//                    "Nagual: Of course. "
-//                }) {
-//            @Override
-//            public void doPostShowAction() {
-//
-//                // Save player's direction
-//                String prevDir = Globals.player.getLastDir();
-//
-//                // Enable player to move
-//                Globals.isInputBlocked = false;
-//
-//                new Timer().schedule(new TimerTask() {
-//                    @Override
-//                    public void run() {
-//
-//                        // If player has moved
-//                        if (!prevDir.equals(Globals.player.getLastDir())) {
-//                            // Load next popup
-//                        }
-//                    }
-//                }, 1000, 1000);
-//            }
-//        }
-//        );
+        // Add popup for part 1 of introduction to Play state
+        integratePopup(new Popup(
+                "PlayIntro1",
+                new String[]{
+                    // Quantum entangler
+                    "Nagual:Resynchronization complete!",
+                    "Tonal:What strange vibrations this place has. "
+                    + "Where are we?",
+                    // Earth
+                    "Nagual:A diverse dimension with a vast array of "
+                    + "manifestations for you to experience",
+                    // Soul adjusting to body
+                    "Tonal: My form feels... different. "
+                    + "I need some guidance",
+                    "Nagual: Of course. Try using these for movement: "
+                //Globals.conServer.getContInfo().get
+                }) {
+            @Override
+            public void doPostShowAction() {
+
+                // Save player's direction
+                String prevDir = Globals.player.getLastDir();
+
+                // Enable player to move
+                Globals.isInputBlocked = false;
+
+                // Schedule next event
+                Timer t = new Timer();
+                t.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+
+                        // If player has moved
+                        if (!prevDir.equals(Globals.player.getLastDir())) {
+
+                            // Load next popup
+                            Globals.popStore.loadPopup("PlayIntro2");
+
+                            // Stop timer
+                            t.cancel();
+                        }
+                    }
+                }, 1000, 1000);
+            }
+        }, false);
+
+        // Add popup for part 2 of introduction to Play state
+        integratePopup(new Popup(
+                "PlayIntro2",
+                new String[]{
+                    "Nagual:Well done!"
+                }) {
+            @Override
+            public void doPostShowAction() {
+
+            }
+        }, true);
     }
 
     /**

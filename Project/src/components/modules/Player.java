@@ -1,7 +1,9 @@
 package components.modules;
 
 import entity.item.Item;
-import main.Globals;
+import base.Globals;
+import base.Movable;
+import static components.modules.GameMap.canPass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,68 +18,39 @@ import org.newdawn.slick.SpriteSheet;
  *
  * @author David
  */
-public class Player {
+public class Player extends Movable {
 
-    // Player location
-    private int xPos;
-    private int yPos;
+    // Collision tightness variables
+    private final int Xfactor = 25;
+    private final int Xadj = 30;
+    private final int Yfactor = 60;
+    private final int Yadj = 50;
 
-    // Starting location
-    private final int START_X = 300;
-    private final int START_Y = 300;
-
-    // Dimensions of player
-    private double scale;
-    private int width;
-    private int height;
-
-    // Movement speed of player
-    private float movSpeed;
-
-    // Last direction of movement
-    private String lastDirection;
-
-    // Variables for player movement animation
+    // Movement animation
+    private final int spRatio = 90;
     private int animSpeed;
     private final Animation anim;
     private final HashMap<String, String> animConfig;
 
-    // Amount of animSpeed per movSpeed
-    private final int speedRatio = 90;
-
     // Inventory
     private final ArrayList<Item> inv;
 
-    // Visibility
-    private boolean visible;
-
     /**
-     * Create a player
+     * Create a Player
+     *
      */
     public Player() {
 
-        // Initialise fields
-        xPos = START_X;
-        yPos = START_Y;
-        scale = 1.5;
-        width = 33;
-        height = 48;
-        inv = new ArrayList<>();
-
-        // Set normal default speed
-        movSpeed = 0.20f;
-
-        // If in IDE
-        if (Globals.inIDE) {
-
-            // Increase speed for faster test runs
-            movSpeed += 0.50f;
-        }
+        // Call Movable constructor
+        super(300, 300, 33, 48, 1.5, 0.2f, false);
 
         // Initalize sprites of player animation
         SpriteSheet sprites = null;
         try {
-            sprites = new SpriteSheet(Globals.getFP("playerSS"), width, height);
+            sprites = new SpriteSheet(
+                    Globals.getFP("playerSS"),
+                    super.getWidth(),
+                    super.getHeight());
         } catch (SlickException e) {
         }
 
@@ -100,169 +73,138 @@ public class Player {
         // Set animation on "standing still" frame
         anim.setCurrentFrame(1);
 
-        // Set last direction
-        lastDirection = "up";
+        // Initialise inventory
+        inv = new ArrayList<>();
 
-        // The player is not visible by default
-        visible = false;
-    }
+        // If in IDE
+        if (Globals.inIDE) {
 
-    /**
-     * Put animation speed in sync with movement speed
-     */
-    private void syncAnimSpeed() {
-        animSpeed = (int) ((1 / movSpeed) * speedRatio);
-    }
-
-    /**
-     * Get last movement direction
-     *
-     * @return
-     */
-    public String getLastDir() {
-        return lastDirection;
-    }
-
-    /**
-     * Get X position of player
-     *
-     * @return
-     */
-    public int getX() {
-        return xPos;
-    }
-
-    /**
-     * Get Y position of player
-     *
-     * @return
-     */
-    public int getY() {
-        return yPos;
-    }
-
-    /**
-     * Move the player in a given direction
-     *
-     * @param dir Direction of motion
-     * @param delta
-     */
-    public void move(String dir, int delta) {
-
-        // Alter string
-        dir = dir.toLowerCase();
-
-        // Save direction
-        lastDirection = dir;
-
-        // Start animation and limit frames
-        anim.start();
-        configureFrames(animConfig.get(dir));
-
-        // Calculate true speed
-        int trueSpeed = (int) (Math.round(delta * movSpeed));
-
-        // Change position if no collision
-        switch (dir) {
-            case "up":
-                if (Globals.map.isUpAllowed(xPos, yPos, trueSpeed)) {
-                    adjustY(-trueSpeed);
-                }
-                break;
-            case "down":
-                if (Globals.map.isDownAllowed(xPos, yPos, trueSpeed)) {
-                    adjustY(trueSpeed);
-                }
-                break;
-            case "left":
-                if (Globals.map.isLeftAllowed(xPos, yPos, trueSpeed)) {
-                    adjustX(-trueSpeed);
-                }
-                break;
-            case "right":
-                if (Globals.map.isRightAllowed(xPos, yPos, trueSpeed)) {
-                    adjustX(trueSpeed);
-                }
-                break;
-        }
-
-    }
-
-    /**
-     * Change X position of player, preventing
-     *
-     * @param change
-     */
-    public void adjustX(int change) {
-
-        // If change does not result in negative vaue
-        if (!(xPos + change < 0)) {
-
-            // Apply change
-            xPos += change;
-        }
-    }
-
-    public void adjustY(int change) {
-
-        // If change does not result in negative vaue
-        if (!(yPos + change < 0)) {
-
-            // Apply change
-            yPos += change;
+            // Increase movement speed for faster test runs
+            changeMovSpeed(0.4f);
         }
     }
 
     /**
-     * Get movement speed
+     * Process the player's change in position
      *
-     * @return
+     * @param sign
+     * @param axis
+     * @param trueSpeed
      */
-    public float getMovSpeed() {
-        return movSpeed;
+    @Override
+    public void procPosChange(char sign, char axis, int trueSpeed) {
+
+        // Get player position
+        int xPos = super.getX();
+        int yPos = super.getY();
+
+        // Get movement type booleans
+        // New position variables
+        int newX1 = xPos;
+        int newX2 = xPos;
+        int newY1 = yPos;
+        int newY2 = yPos;
+
+        // Get change
+        String changeS = "" + sign + "" + trueSpeed;
+        int change = Integer.parseInt(changeS);
+
+        // True when player is still within map
+        boolean inMap = true;
+
+        // Get tile size
+        int tSize = Globals.tileSize;
+
+        // Get new position variables
+        // If on X axis
+        if (axis == 'x') {
+
+            // Add change to X (as this may occur)
+            newX1 += change;
+            newX2 += change;
+
+            // Adjust Y (for collision)
+            newY1 += Yfactor;
+            newY2 += Yadj;
+
+            // If moving rightward (+x)
+            if (sign == '+') {
+
+                // Adjust for right (+x) collision 
+                newX1 += Xfactor;
+                newX2 += Xfactor;
+
+                // Check that player is not going off right edge of map
+                int xLimiter = Globals.gameMap.getCoordWidth() - (5 * tSize / 6);
+                inMap = (xPos + trueSpeed) < xLimiter;
+            }
+        } else {
+
+            // Else if on Y axis:
+            // Adjust X (for collision)
+            newX1 += Xfactor;
+            newX2 += Xadj;
+
+            // Add change to Y (as this may occur)
+            newY1 += change;
+            newY2 += change;
+
+            // If moving downward (+y)
+            if (sign == '+') {
+
+                // Adjust Y 
+                newY1 += Yfactor;
+                newY2 += Yfactor;
+
+                // Check that player is not going off bottom of map
+                int yLimiter = Globals.gameMap.getCoordHeight() - tSize;
+                inMap = (yPos + trueSpeed) < yLimiter;
+            }
+        }
+
+        // Use new position to check if the player is colliding
+        boolean noColl1 = canPass(newX1, newY1);
+        boolean noColl2 = canPass(newX2, newY2);
+        boolean noCollision = noColl1 && noColl2;
+
+        // If player is not colliding and is still in map
+        if (noCollision && inMap) {
+
+            // Apply change to correct axis
+            if (axis == 'x') {
+                adjustX(change);
+            } else {
+                adjustY(change);
+            }
+
+            // Start animation and limit frames
+            anim.start();
+            limitFrames(animConfig.get(super.getLastDir()));
+        }
     }
 
     /**
-     * Change movement speed and re-sync animation speed
+     * Limits an animation to only use frames in a frame configuration string.
+     * (Format Example: "n0n1n2" for the first three frames)
      *
-     * @param change
+     * @param config
      */
-    public void changeMovSpeed(float change) {
-        movSpeed += change;
-        syncAnimSpeed();
-    }
-
-    /**
-     * Update player movement animation
-     *
-     * @param delta
-     */
-    public void updateAnimation(int delta) {
-        anim.update(delta);
-    }
-
-    /**
-     * Adjusts an animation to only use given frames. Frame configuration string
-     * would be "n0n1n2" for first three frames.
-     *
-     * @param frConfS
-     */
-    public void configureFrames(String frConfS) {
+    public void limitFrames(String config) {
 
         // Get frame count 
         int frameCount = anim.getFrameCount();
 
         // Initalize list of numbers
-        ArrayList<Integer> frNumsWanted = new ArrayList<>();
+        ArrayList<Integer> frameIndices = new ArrayList<>();
 
         // For every number string 
-        for (String curNo : frConfS.split("n")) {
+        for (String curNo : config.split("n")) {
 
             // If not an empty string
             if (curNo.length() != 0) {
 
                 // Add number derived from string
-                frNumsWanted.add(Integer.parseInt(curNo));
+                frameIndices.add(Integer.parseInt(curNo));
             }
         }
 
@@ -270,7 +212,7 @@ public class Player {
         for (int i = 0; i < frameCount; i++) {
 
             // If frame is in list of wanted frames
-            if (frNumsWanted.contains(i)) {
+            if (frameIndices.contains(i)) {
 
                 // Give it a normal duration
                 anim.setDuration(i, animSpeed);
@@ -282,62 +224,6 @@ public class Player {
                 anim.setDuration(i, 0);
             }
         }
-    }
-
-    /**
-     * Stop the player animation
-     */
-    public void stopAnim() {
-        anim.stop();
-    }
-
-    /**
-     * Set whether the player is visible or not
-     *
-     * @param newStatus
-     */
-    public void setVisible(boolean newStatus) {
-        visible = newStatus;
-    }
-
-    /**
-     * Draw the correctly sized player at the coordinates
-     *
-     * @param pX
-     * @param pY
-     */
-    public void drawPlayer(int pX, int pY) {
-
-        // If not visible
-        if (!visible) {
-            // Do not draw
-            return;
-        }
-
-        // Get width and height
-        int largerW = (int) (width * scale);
-        int largerH = (int) (height * scale);
-
-        // Draw at given location
-        anim.draw(pX, pY, largerW, largerH);
-    }
-
-    /**
-     * Retrieve player inventory
-     *
-     * @return
-     */
-    public ArrayList<Item> getInv() {
-        return inv;
-    }
-
-    /**
-     * Add the given item to the player inventory
-     *
-     * @param item
-     */
-    public void addItem(Item item) {
-        inv.add(item);
     }
 
     /**
@@ -364,18 +250,6 @@ public class Player {
 
         // If no item found, return null
         return null;
-    }
-
-    /**
-     * Return true if player has an item with the given name substring
-     *
-     * @param itemName
-     * @return
-     */
-    public boolean hasItem(String itemName) {
-
-        // Return true if found item is not null
-        return (getItemByName(itemName) != null);
     }
 
     /**
@@ -407,10 +281,81 @@ public class Player {
     }
 
     /**
-     * Reset player location back to start
+     * Draw the player
      */
-    public void resetLocation() {
-        xPos = START_X;
-        yPos = START_Y;
+    public void draw() {
+
+        // If not visible
+        if (!super.isVisible()) {
+
+            // Do not draw
+            return;
+        }
+
+        // Make animation use game time
+        anim.update(Globals.curDelta);
+
+        // Get bounds
+        int drawX = super.getX();
+        int drawY = super.getY();
+        int drawW = super.getScaledWidth();
+        int drawH = super.getScaledHeight();
+
+        // Draw at given location
+        anim.draw(drawX, drawY, drawW, drawH);
+    }
+
+    /**
+     * Change movement speed and re-sync animation speed
+     *
+     * @param change
+     */
+    public void changeMovSpeed(float change) {
+        super.setMovSpeed(super.getMovSpeed() + change);
+        syncAnimSpeed();
+    }
+
+    /**
+     * Sync animation speed with movement speed
+     */
+    private void syncAnimSpeed() {
+        animSpeed = (int) ((1 / super.getMovSpeed()) * spRatio);
+    }
+
+    /**
+     * Return true if player has an item with the given name substring
+     *
+     * @param itemName
+     * @return
+     */
+    public boolean hasItem(String itemName) {
+
+        // Return true if found item is not null
+        return (getItemByName(itemName) != null);
+    }
+
+    /**
+     * Add the given item to the player inventory
+     *
+     * @param item
+     */
+    public void addItem(Item item) {
+        inv.add(item);
+    }
+
+    /**
+     * Retrieve player inventory
+     *
+     * @return
+     */
+    public ArrayList<Item> getInv() {
+        return inv;
+    }
+
+    /**
+     * Stop the player animation
+     */
+    public void stopAnim() {
+        anim.stop();
     }
 }

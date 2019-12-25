@@ -2,7 +2,7 @@ package components.modules;
 
 import java.util.ArrayList;
 
-import main.Globals;
+import base.Globals;
 import components.buttons.ButtonGrid;
 import org.newdawn.slick.Color;
 import states.special.Inventory;
@@ -54,7 +54,8 @@ public class HUD {
         feats.add(SPACING); // Xspacing
         feats.add(0); // Yspacing
         feats.add(BUTTON_NO); // NumberofColumns
-        feats.add("calibri-plain-5"); // FontString
+        feats.add("Calibri-Plain-5"); // FontString
+        feats.add(false); // isSoundWanted
 
         // Create (empty) button labels
         ArrayList<String> labels = new ArrayList<>();
@@ -92,7 +93,7 @@ public class HUD {
 
             // Enter Main Menu state
             // Note: No transitions because map goes weird
-            Globals.SBG.enterState(Globals.states.get("Menu"));
+            Globals.sbg.enterState(Globals.states.get("Menu"));
         });
 
         // Add inventory button action
@@ -112,10 +113,10 @@ public class HUD {
             int invID = Globals.states.get("Inventory");
 
             // Update inventory state
-            ((Inventory) Globals.SBG.getState(invID)).updateInv();
+            ((Inventory) Globals.sbg.getState(invID)).updateInv();
 
             // Enter inventory state
-            Globals.SBG.enterState(invID);
+            Globals.sbg.enterState(invID);
         });
 
         // Initialise co-ordinates
@@ -126,24 +127,28 @@ public class HUD {
     }
 
     /**
-     * Updates internal values and shifts HUD with player
+     * Draw the HUD
      *
-     * @param cam
-     * @param player
-     * @param delta
+     * @param g
      */
-    public void update(Camera cam, Player player, int delta) {
+    public void drawHUD(Graphics g) {
 
         // Update button shift
-        shiftX = cam.getX() - camX;
-        shiftY = cam.getY() - camY;
+        shiftX = Globals.cam.getX() - camX;
+        shiftY = Globals.cam.getY() - camY;
 
         // Update co-ordinates
-        this.camX = cam.getX();
-        this.camY = cam.getY();
+        this.camX = Globals.cam.getX();
+        this.camY = Globals.cam.getY();
 
         // Offset mouse so that buttons work   
         Globals.agc.getInput().setOffset(camX + SPACING, camY);
+
+        // Draw buttons in top left   
+        buttonG.drawButtonsShifted(g, shiftX, shiftY);
+
+        // Draw info
+        Globals.drawRuntimeInfo(camX, camY, Color.black);
     }
 
     /**
@@ -158,26 +163,12 @@ public class HUD {
 
             // Set special image
             buttonG.getButtonByPos(1).setImage(invImgNew, true);
+
         } else {
 
             // Else set normal image
             buttonG.getButtonByPos(1).setImage(invImg, true);
         }
-
-    }
-
-    /**
-     * Draw the HUD
-     *
-     * @param g
-     */
-    public void drawHUD(Graphics g) {
-
-        // Draw buttons in top left   
-        buttonG.drawButtonsShifted(g, shiftX, shiftY);
-
-        // Draw info
-        Globals.drawRuntimeInfo(camX, camY, Color.black);
     }
 
 }

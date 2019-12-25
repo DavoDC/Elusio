@@ -1,7 +1,7 @@
 package entity.item.types;
 
 import components.modules.Player;
-import main.Globals;
+import base.Globals;
 
 /**
  * Models items that, when used, have instant effects, often on the player

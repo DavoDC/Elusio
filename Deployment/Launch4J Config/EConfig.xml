@@ -2,24 +2,24 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\charkeyd\GitHub Repos\Elusio\Project\dist\Elusio.jar</jar>
-  <outfile>C:\Users\charkeyd\GitHub Repos\Elusio\Deployment\Deployable\Elusio.exe</outfile>
+  <jar>C:\Users\David\GitHub Repos\Elusio\Project\dist\Elusio.jar</jar>
+  <outfile>C:\Users\David\GitHub Repos\Elusio\Deployment\Deployable\Elusio.exe</outfile>
   <errTitle></errTitle>
-  <cmdLine>Desktop</cmdLine>
-  <chdir>./required</chdir>
+  <cmdLine>Exe</cmdLine>
+  <chdir>./components/libs</chdir>
   <priority>normal</priority>
   <downloadUrl>http://java.com/download</downloadUrl>
   <supportUrl></supportUrl>
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\Users\charkeyd\GitHub Repos\Elusio\Deployment\Launch4J Config\EIcon.ico</icon>
+  <icon>C:\Users\David\GitHub Repos\Elusio\Deployment\Launch4J Config\EIcon.ico</icon>
   <singleInstance>
     <mutexName>Elusio</mutexName>
     <windowTitle>Elusio</windowTitle>
   </singleInstance>
   <classPath>
-    <mainClass>main.Entry</mainClass>
+    <mainClass>base.Entry</mainClass>
     <cp>*.*</cp>
   </classPath>
   <jre>
@@ -27,8 +27,9 @@
     <bundledJre64Bit>false</bundledJre64Bit>
     <bundledJreAsFallback>false</bundledJreAsFallback>
     <minVersion>1.0</minVersion>
-    <maxVersion>200.0</maxVersion>
+    <maxVersion>999.0</maxVersion>
     <jdkPreference>preferJre</jdkPreference>
     <runtimeBits>64/32</runtimeBits>
+    <opt>-Djava.library.path=../natives -Xms369m</opt>
   </jre>
 </launch4jConfig>

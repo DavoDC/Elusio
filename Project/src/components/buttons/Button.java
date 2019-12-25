@@ -1,6 +1,6 @@
 package components.buttons;
 
-import main.Globals;
+import base.Globals;
 import components.servers.FontServer;
 import org.newdawn.slick.Color;
 
@@ -9,6 +9,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.MouseOverArea;
 
 /**
@@ -35,17 +36,18 @@ public class Button extends MouseOverArea {
     /**
      * Create a button
      *
-     * @param image
-     * @param rect
-     * @param font of button label
+     * @param image The image shown
+     * @param rect The rectangle with dimensions
+     * @param font The button label font
+     * @param soundWanted True if sound wanted upon click
      */
-    public Button(Image image, Rectangle rect, TrueTypeFont font) {
+    public Button(Image image, Rectangle rect,
+            TrueTypeFont font, boolean soundWanted) {
 
         // Call MouseOverArea constructor
-        super(Globals.agc,
-                image.getScaledCopy((int) rect.getWidth(),
-                        (int) rect.getHeight()),
-                rect);
+        super(Globals.agc, image.getScaledCopy(
+                (int) rect.getWidth(),
+                (int) rect.getHeight()), rect);
 
         // Save resized image
         img = image.getScaledCopy((int) rect.getWidth(),
@@ -55,7 +57,7 @@ public class Button extends MouseOverArea {
         this.rect = rect;
 
         // Set label to default value
-        label = "label";
+        label = "DefLabel";
 
         // Save font
         this.font = font;
@@ -69,6 +71,16 @@ public class Button extends MouseOverArea {
 
         // Initialize as enabled
         enabled = true;
+
+        // If sound is wanted
+        if (soundWanted) {
+
+            // Add sound play upon click 
+            super.addListener((AbstractComponent ac) -> {
+                Globals.audioServer.playDefSound("buttonChime");
+
+            });
+        }
     }
 
     /**

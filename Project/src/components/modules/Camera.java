@@ -1,5 +1,6 @@
 package components.modules;
 
+import base.Globals;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
@@ -65,21 +66,32 @@ public class Camera {
     }
 
     /**
-     * Get X value of camera
+     * Draw the camera view with an offset. Should be called before
+     * Camera.translateGraphics()
      *
-     * @return
+     * @param offsetX the x-coordinate (in pixel) where the camera should start
+     * drawing the map at
+     * @param offsetY the y-coordinate (in pixel) where the camera should start
+     * drawing the map at
      */
-    public int getX() {
-        return (int) cameraX;
-    }
+    public void drawMap(int offsetX, int offsetY) {
 
-    /**
-     * Get Y value of camera
-     *
-     * @return
-     */
-    public int getY() {
-        return (int) cameraY;
+        // Calculate the offset to the next tile (needed by TiledMap.render())
+        int tileOffsetX = (int) -(cameraX % tileWidth);
+        int tileOffsetY = (int) -(cameraY % tileHeight);
+
+        // Calculate the index of the leftmost tile that is being displayed
+        int tileIndexX = (int) (cameraX / tileWidth);
+        int tileIndexY = (int) (cameraY / tileHeight);
+
+        // Draw the section of the map on the screen
+        map.render(
+                tileOffsetX + offsetX,
+                tileOffsetY + offsetY,
+                tileIndexX,
+                tileIndexY,
+                (gc.getWidth() - tileOffsetX) / tileWidth + 1,
+                (gc.getHeight() - tileOffsetY) / tileHeight + 1);
     }
 
     /**
@@ -182,37 +194,13 @@ public class Camera {
     /**
      * Draw the current camera view
      */
-    public void drawMap() {
-        this.drawMap(0, 0);
-    }
+    public void drawViewPort() {
 
-    /**
-     * Draw the camera view with an offset. Should be called before
-     * Camera.translateGraphics()
-     *
-     * @param offsetX the x-coordinate (in pixel) where the camera should start
-     * drawing the map at
-     * @param offsetY the y-coordinate (in pixel) where the camera should start
-     * drawing the map at
-     */
-    public void drawMap(int offsetX, int offsetY) {
+        // Update position
+        centerOn(Globals.player.getX(), Globals.player.getY());
 
-        // Calculate the offset to the next tile (needed by TiledMap.render())
-        int tileOffsetX = (int) -(cameraX % tileWidth);
-        int tileOffsetY = (int) -(cameraY % tileHeight);
-
-        // Calculate the index of the leftmost tile that is being displayed
-        int tileIndexX = (int) (cameraX / tileWidth);
-        int tileIndexY = (int) (cameraY / tileHeight);
-
-        // Draw the section of the map on the screen
-        map.render(
-                tileOffsetX + offsetX,
-                tileOffsetY + offsetY,
-                tileIndexX,
-                tileIndexY,
-                (gc.getWidth() - tileOffsetX) / tileWidth + 1,
-                (gc.getHeight() - tileOffsetY) / tileHeight + 1);
+        // Draw map
+        drawMap(0, 0);
     }
 
     /**
@@ -230,4 +218,21 @@ public class Camera {
         gc.getGraphics().translate(cameraX, cameraY);
     }
 
+    /**
+     * Get X value of camera
+     *
+     * @return
+     */
+    public int getX() {
+        return (int) cameraX;
+    }
+
+    /**
+     * Get Y value of camera
+     *
+     * @return
+     */
+    public int getY() {
+        return (int) cameraY;
+    }
 }

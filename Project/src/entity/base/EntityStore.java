@@ -1,9 +1,9 @@
 package entity.base;
 
-import components.modules.Map;
+import components.modules.GameMap;
 import components.modules.Player;
 import entity.item.Item;
-import main.Globals;
+import base.Globals;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -150,8 +150,8 @@ public abstract class EntityStore {
         // Get player position and adjust
         int xPlayer = player.getX() + Globals.playerXadj;
         int yPlayer = player.getY() + Globals.playerYadj;
-        int playerCol = Map.convertXtoCol(xPlayer);
-        int playerRow = Map.convYtoRow(yPlayer);
+        int playerCol = GameMap.convXtoCol(xPlayer);
+        int playerRow = GameMap.convYtoRow(yPlayer);
 
         // Get information of entity tiles
         String[][] gridPos = ent.getGridPosArray();

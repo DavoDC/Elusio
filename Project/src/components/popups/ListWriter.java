@@ -1,6 +1,6 @@
 package components.popups;
 
-import main.Globals;
+import base.Globals;
 import org.newdawn.slick.Color;
 
 /**
@@ -107,7 +107,7 @@ public abstract class ListWriter {
      * Draw the current text line
      */
     public void drawText() {
-        curLineWriter.drawText();
+        curLineWriter.updateAndDraw();
     }
 
     /**

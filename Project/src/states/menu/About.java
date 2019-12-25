@@ -2,7 +2,7 @@ package states.menu;
 
 import java.util.ArrayList;
 
-import main.Globals;
+import base.Globals;
 import states.base.InfoScreen;
 
 /**

@@ -5,7 +5,7 @@ import java.awt.FontFormatException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import main.Globals;
+import base.Globals;
 
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.util.ResourceLoader;
