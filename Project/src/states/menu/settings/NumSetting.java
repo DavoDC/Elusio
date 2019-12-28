@@ -60,7 +60,8 @@ public abstract class NumSetting extends Setting {
         String newLabel = name + ": ";
 
         // Add amplified value 
-        newLabel += (int) ((float) getValue() * 100.0);
+        float perc = (float) getValue() * 100f;
+        newLabel += (int) (Math.round(perc));
 
         // Apply to button with percentage
         b.setLabel(newLabel + "%");

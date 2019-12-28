@@ -24,14 +24,14 @@ public class ItemProcessor {
     // The item just used
     private Item usedItem;
 
-    // Whether item processing is need
+    // Whether item processing is needed
     private boolean procNeeded;
 
     /*
     Item Drawing Variables
      */
-    // The time at which the item was used
-    private long useTime;
+    // Whether to show the item
+    private boolean showItem;
 
     // The item image
     private Animation itemAnim;
@@ -41,11 +41,8 @@ public class ItemProcessor {
     private int pX;
     private int pY;
 
-    // Whether to show the item
-    private boolean showItem;
-
-    // The drawing configuration
-    private String drawConfig;
+    // The image filter
+    private Color filterColor;
 
     /**
      * Attempt to grab an item
@@ -126,9 +123,6 @@ public class ItemProcessor {
         pX = Globals.player.getX();
         pY = Globals.player.getY();
 
-        // Save time
-        useTime = Globals.agc.getTime();
-
         // Setup item animation
         itemAnim = new Animation();
         itemAnim.addFrame(item.getImage(), 100);
@@ -140,13 +134,27 @@ public class ItemProcessor {
         if (usedItem instanceof UsableItem) {
 
             // Get drawing config
-            drawConfig = ((UsableItem) usedItem).getDrawConfig();
+            String drawConfig = ((UsableItem) usedItem).getDrawConfig();
 
             // If front requested, move item in front
             if (drawConfig.contains("Front")) {
                 shiftPosition(50);
             }
 
+            //
+            // TURN INTO SCHEDULED AT FIXED RATE, CANCEL IN FURTHER PROC TIMER
+            // If flash requested, alternate filter
+//            Color col = null;
+//            if (drawConfig.contains("Flash")) {
+//                col = ;
+//            }
+//
+//            // If intake requested, move item toward player
+//            if (drawConfig.contains("Intake")) {
+//                if (Globals.agc.getTime() % 100 == 0) {
+//                    shiftPosition(-1);
+//                }
+//            }
             // Transition to actual game and ignore input
             Globals.sbg.enterState(Globals.states.get("PLAY"));
             Globals.isInputBlocked = true;
@@ -223,23 +231,8 @@ public class ItemProcessor {
         // If item should be shown
         if (showItem) {
 
-            // If flash requested, alternate filter
-            Color col = null;
-            if (drawConfig.contains("Flash")) {
-                if (Globals.agc.getTime() % 11 == 0) {
-                    col = Color.darkGray;
-                }
-            }
-
             // Draw item 
-            itemAnim.draw(pX, pY, col);
-
-            // If intake requested, move item toward player
-            if (drawConfig.contains("Intake")) {
-                if (Globals.agc.getTime() % 100 == 0) {
-                    shiftPosition(-1);
-                }
-            }
+            itemAnim.draw(pX, pY, filterColor);
         }
     }
 

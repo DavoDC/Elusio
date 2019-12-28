@@ -20,19 +20,19 @@ public class ParticleSource extends ParticleSystem {
      *
      * @param imageName The name of the particle image
      * @param maxParticles The number of particles available
-     * @param mask The color used to make the image transparent
+     * @param tranCol The color used to make the image transparent
      * @param glowOn Glow effect status
      * @param configName The name of the config XML
      */
     public ParticleSource(
             String imageName,
             int maxParticles,
-            Color mask,
+            Color tranCol,
             boolean glowOn,
             String configName) {
 
         // Call ParticleSystem constructor
-        super(Globals.getFP(imageName), maxParticles, mask);
+        super(Globals.getFP(imageName), maxParticles, tranCol);
 
         // Adjust ParticleSystem
         if (glowOn) {

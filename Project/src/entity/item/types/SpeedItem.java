@@ -18,19 +18,17 @@ public class SpeedItem extends InstantItem {
      *
      * @param name
      * @param desc
+     * @param soundName
      * @param col
      * @param row
      * @param speedMod
      */
-    public SpeedItem(String name, String desc,
+    public SpeedItem(String name, String desc, String soundName,
             int col, int row, float speedMod) {
 
         // Call entity constructor
-        super(name,
-                new String[]{desc},
-                "powerup?",
-                col,
-                row);
+        super(name, new String[]{desc},
+                soundName, col, row);
 
         // Save speed mod value
         this.speedMod = speedMod;

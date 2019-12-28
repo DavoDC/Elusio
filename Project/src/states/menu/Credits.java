@@ -38,7 +38,7 @@ public class Credits extends InfoScreen {
         text.add("Avery (Enemy sprites)");
         text.add("Jorge Avila (HUD icons)");
         text.add("Aaron D. Chand (Special pixelated font)");
-        text.add("Ogrebane (SFX)");
+        text.add("Ogrebane, MirceaKitsune, Listener (SFX)");
         text.add("phoenix1291 (Power up SFX)");
         text.add("Iwan 'qubodup' Gabovitch (Ice SFX)");
         text.add("El Kirpitch from https://icons8.com (Ambient music)");

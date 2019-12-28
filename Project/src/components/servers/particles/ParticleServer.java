@@ -13,6 +13,9 @@ public class ParticleServer {
     // Rift particles
     private final ParticleArray riftPart;
 
+    // Ship jet particles
+    private final ParticleSource shipJet;
+
     /**
      * Initialize ParticleServer
      */
@@ -28,6 +31,11 @@ public class ParticleServer {
                 "riftPart",
                 Color.black,
                 true, true);
+
+        // Initialize ship jet
+        shipJet = new ParticleSource("shipJetPart",
+                2500, Color.black, true,
+                "shipJetPartConfig");
     }
 
     /**
@@ -35,5 +43,16 @@ public class ParticleServer {
      */
     public void drawRiftParticles() {
         riftPart.render();
+    }
+
+    /**
+     * Draw the ship jet
+     * @param shipX
+     * @param shipY
+     */
+    public void drawShipJet(int shipX, int shipY) {
+        float newX = (float) shipX;
+        float newY = (float) shipY;
+        shipJet.render();
     }
 }
