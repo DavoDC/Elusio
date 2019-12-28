@@ -1,5 +1,7 @@
 package base;
 
+import org.newdawn.slick.Sound;
+
 /**
  * Models a movable object
  *
@@ -25,6 +27,9 @@ public abstract class Movable {
     // Last direction of movement
     private String lastDirection;
 
+    // Movement sound
+    private String movSoundName;
+
     /**
      * Create a movable object
      *
@@ -35,9 +40,11 @@ public abstract class Movable {
      * @param movSpeed
      * @param scale
      * @param defVis Default visibility
+     * @param movSoundName
      */
     public Movable(int startX, int startY, int width, int height,
-            double scale, float movSpeed, boolean defVis) {
+            double scale, float movSpeed,
+            boolean defVis, String movSoundName) {
 
         // Save position
         this.xPos = startX;
@@ -56,6 +63,9 @@ public abstract class Movable {
 
         // Set last direction
         lastDirection = "up";
+
+        // Save movement sound name
+        this.movSoundName = movSoundName;
     }
 
     /**
@@ -80,6 +90,10 @@ public abstract class Movable {
 
         // Save direction
         lastDirection = dir;
+
+        // Play movement sound
+        float vol = Globals.agc.getSoundVolume() / 1.5f;
+        Globals.audioServer.playSound(movSoundName, 1f, vol);
 
         // Calculate true speed
         int trueSpeed = (int) (Math.round(Globals.curDelta * movSpeed));
@@ -161,6 +175,15 @@ public abstract class Movable {
     }
 
     /**
+     * Process a position change of the object
+     *
+     * @param sign
+     * @param axis
+     * @param trueSpeed
+     */
+    public abstract void procPosChange(char sign, char axis, int trueSpeed);
+
+    /**
      * Set movement speed
      *
      * @param newSpeed
@@ -197,6 +220,24 @@ public abstract class Movable {
     }
 
     /**
+     * Get scaled width
+     *
+     * @return
+     */
+    public int getScaledWidth() {
+        return (int) (scale * width);
+    }
+
+    /**
+     * Get scaled height
+     *
+     * @return
+     */
+    public int getScaledHeight() {
+        return (int) (scale * height);
+    }
+
+    /**
      * Get last movement direction
      *
      * @return
@@ -221,24 +262,6 @@ public abstract class Movable {
      */
     public boolean isVisible() {
         return visible;
-    }
-
-    /**
-     * Get scaled width
-     *
-     * @return
-     */
-    public int getScaledWidth() {
-        return (int) (scale * width);
-    }
-
-    /**
-     * Get scaled height
-     *
-     * @return
-     */
-    public int getScaledHeight() {
-        return (int) (scale * height);
     }
 
     /**
@@ -276,14 +299,5 @@ public abstract class Movable {
     public int getY() {
         return yPos;
     }
-
-    /**
-     * Process a position change of the object
-     *
-     * @param sign
-     * @param axis
-     * @param trueSpeed
-     */
-    public abstract void procPosChange(char sign, char axis, int trueSpeed);
 
 }

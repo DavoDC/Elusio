@@ -21,7 +21,6 @@ public class Rift extends AutoState {
     // Ship variables
     private Movable ship;
     private Image shipImage;
-    private final int boundsFactor = 100;
 
     // Control list
     private String[] contList;
@@ -45,7 +44,8 @@ public class Rift extends AutoState {
         // Initialize movable ship
         int shipX = Globals.screenW / 2 - (shipImage.getWidth() / 4 + 47);
         int shipY = (int) (Globals.screenH * 0.7);
-        ship = new Movable(shipX, shipY, 69, 69, 0.8, 1f, true) {
+        ship = new Movable(shipX, shipY, 69, 69, 0.69, 0.5f,
+                true, "shipMove") {
             @Override
             public void procPosChange(char sign, char axis,
                     int trueSpeed) {
@@ -62,9 +62,9 @@ public class Rift extends AutoState {
 
                     // Wrap around X axis
                     int curX = super.getX();
-                    int limit = Globals.screenW - boundsFactor;
+                    int limit = Globals.screenW;
                     super.setX(curX % limit);
-                    if (curX < 0) {
+                    if (curX < 15) {
                         super.setX(limit);
                     }
                 } else {
@@ -75,9 +75,9 @@ public class Rift extends AutoState {
 
                     // Wrap around Y axis
                     int curY = super.getY();
-                    int limit = Globals.screenH - boundsFactor;
+                    int limit = Globals.screenH;
                     super.setY(curY % limit);
-                    if (curY < 0) {
+                    if (curY < 15) {
                         super.setY(limit);
                     }
                 }
@@ -102,6 +102,9 @@ public class Rift extends AutoState {
     public void update(GameContainer container, StateBasedGame game,
             int delta) throws SlickException {
 
+        // Update delta
+        Globals.curDelta = delta;
+
         // Handle input
         Globals.conServer.handleInput(contList);
     }
@@ -123,6 +126,9 @@ public class Rift extends AutoState {
 
         // Draw spaceship 
         g.drawImage(shipImage, ship.getX(), ship.getY());
+        
+        // Draw spaceship particles
+        Globals.partServer.drawShipJet(ship.getX(), ship.getY());
 
         // Draw popup on top
         Globals.popStore.renderCurPopup(g);

@@ -15,7 +15,7 @@ public class StringWriter {
 
     // Line 
     private String line;
-    private final int sLen;
+    private int lineLen;
     private int curCharPos;
 
     // Text appearance
@@ -58,7 +58,7 @@ public class StringWriter {
 
         // Save line and length
         this.line = line;
-        this.sLen = line.length();
+        this.lineLen = line.length();
 
         // Initialize character position to first
         curCharPos = 0;
@@ -103,7 +103,7 @@ public class StringWriter {
     public void updateAndDraw() {
 
         // If end has not been reached
-        if (!(curCharPos - 1 == sLen)) {
+        if (!(curCharPos - 1 == lineLen)) {
 
             // Draw text
             drawText();
@@ -164,6 +164,9 @@ public class StringWriter {
         // Set text
         line = newText;
 
+        // Update length
+        lineLen = line.length();
+
         // Reset counters
         timeUntilAdd = 0;
 
@@ -177,8 +180,8 @@ public class StringWriter {
     private void drawText() {
 
         // Protect against excessive values
-        if (curCharPos >= sLen) {
-            curCharPos = sLen;
+        if (curCharPos >= lineLen) {
+            curCharPos = lineLen;
         }
 
         // Draw left to right 

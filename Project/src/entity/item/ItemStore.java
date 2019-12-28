@@ -34,7 +34,7 @@ public class ItemStore extends EntityStore {
                 new String[]{"Stores microamounts of nearby energy as antimatter.",
                     "Could annihilate some weak, dry matter once activated.",
                     "Usage: The cryocapacitor annihilated the dead trees!"},
-                "iwanIce",
+                "cryoCap",
                 null,
                 23, 25));
         itemList.add(new KeyItem(
@@ -42,7 +42,7 @@ public class ItemStore extends EntityStore {
                 new String[]{"Beats rhythmically with creative vigor,",
                     "able to manifest more of an existing substance.",
                     "Usage: The orb created a magistruct replica of the wood nearby!"},
-                "weirdexpansion",
+                "magiCreation",
                 null,
                 82, 5));
 
@@ -57,7 +57,7 @@ public class ItemStore extends EntityStore {
                 new String[]{"A rifle filled with some sort of unpleasant acerbic fluid,",
                     "that likely has corrosive properties.",
                     "Usage: Good thinking! Acid + Metal Carbonate = Salt + Water + CO2!"},
-                "sprayingnoise",
+                "acidAction",
                 null,
                 21, 3));
 
@@ -85,7 +85,7 @@ public class ItemStore extends EntityStore {
                 new String[]{"A perfect electrovelox substitute,",
                     "as it is highly conductive!",
                     "Usage: This is just what I needed for my repairs!"},
-                "Chinknoise",
+                "coinChink",
                 "SailingShip",
                 10, 74, 3, 6));
         itemList.add(new Item(
@@ -97,22 +97,27 @@ public class ItemStore extends EntityStore {
         itemList.add(new SpeedItem(
                 "MP3 Player",
                 "Sound waves are emanating in an energizing manner!",
+                "powerUpBee",
                 34, 1, 0.08f));
         itemList.add(new SpeedItem(
                 "Doc Brown's Wristwatch",
                 "Embued with energy that brings one closer to the future",
+                "powerUpBub",
                 37, 87, 0.08f));
         itemList.add(new SpeedItem(
                 "Alacrity Ring",
                 "Enchanted with alacrity essence",
+                "powerUpBee",
                 59, 50, 0.08f));
         itemList.add(new SpeedItem(
                 "Syringe of STH06",
                 "A highly potent stimulant",
+                "powerUpTung",
                 3, 44, 0.20f));
         itemList.add(new SpeedItem(
                 "Big Smoke",
                 "Psionically embued with the phrase: Two Number 9s",
+                "alienHurt",
                 79, 37, -0.16f));
 
         //  TELEPORTING CLOCK
@@ -122,7 +127,7 @@ public class ItemStore extends EntityStore {
                     "A digital time-keeper with no Higgs boson field",
                     "Usage: You were teleported!"
                 },
-                "BackInTime",
+                "teleport",
                 12, 54) {
             @Override
             public void applyEffect(Player player) {

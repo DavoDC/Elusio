@@ -87,7 +87,6 @@ public class ParticleArray {
     /**
      * Render the particle array
      */
-    @SuppressWarnings("fallthrough")
     public void render() {
 
         // For all particle sources

@@ -42,7 +42,7 @@ public class Player extends Movable {
     public Player() {
 
         // Call Movable constructor
-        super(300, 300, 33, 48, 1.5, 0.2f, false);
+        super(300, 300, 33, 48, 1.5, 0.2f, false, "alienStep");
 
         // Initalize sprites of player animation
         SpriteSheet sprites = null;

@@ -31,7 +31,7 @@ public class CrystalItem extends KeyItem {
                     "Emits EMR with a frequency of " + freq + "Hz.",
                     "Decoded: " + msg,
                     "Usage: The area's vibrational frequency has increased!"},
-                "SOUNDNAME",
+                "crystalHum",
                 protName,
                 col, row);
 

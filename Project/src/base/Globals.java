@@ -28,9 +28,11 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+import states.special.Rift;
 
 /**
  * Global scope objects and constants
@@ -44,7 +46,7 @@ public class Globals {
     public static StateBasedGame sbg = null;
 
     // Game state directory
-    public static HashMap<String, Integer> states = new HashMap<>();
+    public static LooseMap<Integer> states = new LooseMap<>();
 
     // Current state delta value
     public static int curDelta;
@@ -250,34 +252,44 @@ public class Globals {
         String mem = "Mem. Use: " + memoryUsed + " MB";
         g.drawString(mem, drawX, drawY + 1 * yGap);
 
-        // Draw cam info
-        String camInfo = "cX: " + camX + " , cY: " + camY;
-        g.drawString(camInfo, drawX, drawY + 2 * yGap);
-        int camCol = GameMap.convXtoCol(camX);
-        int camRow = GameMap.convYtoRow(camY);
-        String camTile = "cC: " + camCol + " , cR: " + camRow;
-        g.drawString(camTile, drawX, drawY + 3 * yGap);
-
-        // Draw player info
-        int adjPX = Globals.player.getX() + Globals.playerXadj;
-        int adjPY = Globals.player.getY() + Globals.playerYadj;
-        String playerInfo = "pX: " + adjPX + " , pY: " + adjPY;
-        g.drawString(playerInfo, drawX, drawY + 4 * yGap);
-        int playerCol = GameMap.convXtoCol(adjPX);
-        int playerRow = GameMap.convYtoRow(adjPY);
-        String playerTile = "pC: " + playerCol + " , pR: " + playerRow;
-        g.drawString(playerTile, drawX, drawY + 5 * yGap);
-
         // Draw mouse info
         Input input = Globals.agc.getInput();
         int mX = input.getMouseX();
         int mY = input.getMouseY();
         String mouse = "mX: " + mX + " , mY: " + mY;
-        g.drawString(mouse, drawX, drawY + 6 * yGap);
+        g.drawString(mouse, drawX, drawY + 2 * yGap);
         int mCol = GameMap.convXtoCol(mX);
         int mRow = GameMap.convYtoRow(mY);
         String mouseTile = "mC: " + mCol + " , mR: " + mRow;
-        g.drawString(mouseTile, drawX, drawY + 7 * yGap);
+        g.drawString(mouseTile, drawX, drawY + 3 * yGap);
+
+        // Draw cam info
+        String camInfo = "cX: " + camX + " , cY: " + camY;
+        g.drawString(camInfo, drawX, drawY + 4 * yGap);
+        int camCol = GameMap.convXtoCol(camX);
+        int camRow = GameMap.convYtoRow(camY);
+        String camTile = "cC: " + camCol + " , cR: " + camRow;
+        g.drawString(camTile, drawX, drawY + 5 * yGap);
+
+        // Draw player info
+        int adjPX = Globals.player.getX() + Globals.playerXadj;
+        int adjPY = Globals.player.getY() + Globals.playerYadj;
+        String playerInfo = "pX: " + adjPX + " , pY: " + adjPY;
+        g.drawString(playerInfo, drawX, drawY + 6 * yGap);
+        int playerCol = GameMap.convXtoCol(adjPX);
+        int playerRow = GameMap.convYtoRow(adjPY);
+        String playerTile = "pC: " + playerCol + " , pR: " + playerRow;
+        g.drawString(playerTile, drawX, drawY + 7 * yGap);
+
+        // Draw ship info
+        if (isGameInState("Rift")) {
+            GameState state = Globals.sbg.getCurrentState();
+            Rift rift = (Rift) state;
+            Movable ship = rift.getShip();
+            String shipCoord = "sX: " + ship.getX();
+            shipCoord += " , sY: " + ship.getY();
+            g.drawString(shipCoord, drawX, drawY + 8 * yGap);
+        }
     }
 
 }

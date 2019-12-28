@@ -71,9 +71,15 @@ public class AudioServer {
      */
     public void playSound(String name, float pitch, float vol) {
 
-        // Retrieve sound and play it with given values
-        soundMap.get(name).play(pitch, vol);
+        // Retrieve sound 
+        Sound sound = soundMap.get(name);
 
+        // If sound is not playing
+        if (!sound.playing()) {
+
+            // Play sound
+            sound.play(pitch, vol);
+        }
     }
 
     /**
