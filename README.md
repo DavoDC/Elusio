@@ -1,5 +1,5 @@
 
-## Title
+## [Visit the Game's Wiki to get started!](https://github.com/DavoDC/Elusio/wiki)
 
 <div></div>
 
