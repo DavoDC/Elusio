@@ -1,25 +1,28 @@
 package base;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import components.modules.Camera;
 import components.modules.HUD;
 import components.modules.GameMap;
 import components.modules.Player;
-import components.popups.PopupStore;
+import components.underlying.Movable;
+import components.underlying.LooseMap;
 import components.servers.AudioServer;
 import components.servers.controls.ControlServer;
 import components.servers.particles.ParticleServer;
+import components.popups.PopupStore;
+import components.servers.FontServer;
 import entity.enemy.EnemyStore;
 import entity.item.ItemProcessor;
 import entity.item.ItemStore;
 import entity.obstacle.ObstacleStore;
-import java.util.Arrays;
+import states.special.SpRealm;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BigImage;
@@ -32,7 +35,6 @@ import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
-import states.special.Rift;
 
 /**
  * Global scope objects and constants
@@ -51,10 +53,6 @@ public class Globals {
     // Current state delta value
     public static int curDelta;
 
-    // Font variables
-    public static TrueTypeFont gameFont = null;
-    public static final String headerFont = "Gamefont-Plain-60";
-
     // Main structures
     public static GameMap gameMap;
     public static Camera cam;
@@ -62,6 +60,7 @@ public class Globals {
     public static HUD hud;
 
     // Servers
+    public static FontServer fontServer;
     public static ControlServer conServer;
     public static AudioServer audioServer;
     public static ParticleServer partServer;
@@ -76,8 +75,8 @@ public class Globals {
     public static ObstacleStore obStore;
 
     // Game information
-    public static final String gameTitle = "Elusio";
-    public static final String VERSION = "2.0";
+    public static final String gameTitle = "Resoulve";
+    public static final String VERSION = "1.2";
 
     // Resource filepath strings
     public static ArrayList<String> fileList;
@@ -163,14 +162,18 @@ public class Globals {
                         + "\nFilesFound: " + Arrays.toString(rawFileList));
             }
 
-            // For each file path
-            for (Object fp : rawFileList) {
+            // Protect against null
+            if (rawFileList != null) {
 
-                // Get current path string
-                String path = ((Path) fp).toString();
+                // For each file path
+                for (Object fp : rawFileList) {
 
-                // Add to list
-                fileList.add(path);
+                    // Get current path string
+                    String path = ((Path) fp).toString();
+
+                    // Add to list
+                    fileList.add(path);
+                }
             }
         }
 
@@ -186,8 +189,10 @@ public class Globals {
         }
 
         // If nothing found, throw exception
-        String errS = "getFP: bad param = " + subFP;
-        throw new IllegalArgumentException(errS + "\nList:" + fileList);
+        String errS = "\ngetFP() bad param: " + subFP;
+        String listS = "\nList Len: " + fileList.size();
+        listS += "\nList[0]: " + fileList.get(0);
+        throw new IllegalArgumentException(errS + listS);
     }
 
     /**
@@ -282,9 +287,9 @@ public class Globals {
         g.drawString(playerTile, drawX, drawY + 7 * yGap);
 
         // Draw ship info
-        if (isGameInState("Rift")) {
+        if (isGameInState("SpRealm")) {
             GameState state = Globals.sbg.getCurrentState();
-            Rift rift = (Rift) state;
+            SpRealm rift = (SpRealm) state;
             Movable ship = rift.getShip();
             String shipCoord = "sX: " + ship.getX();
             shipCoord += " , sY: " + ship.getY();

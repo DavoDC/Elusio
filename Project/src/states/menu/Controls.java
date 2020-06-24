@@ -3,7 +3,6 @@ package states.menu;
 import java.util.ArrayList;
 
 import base.Globals;
-
 import states.base.InfoScreen;
 
 /**
@@ -25,7 +24,7 @@ public class Controls extends InfoScreen {
         ArrayList<String> text = new ArrayList<>();
 
         // Add text
-        text.add("header_CONTROLS_" + Globals.headerFont);
+        text.add("header_CONTROLS_" + headerFont);
 
         // Get cont info lines
         Object[] infoLines = Globals.conServer.getContInfo().valArray();

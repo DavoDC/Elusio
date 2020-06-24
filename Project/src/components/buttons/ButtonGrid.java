@@ -2,7 +2,6 @@ package components.buttons;
 
 import java.util.ArrayList;
 
-import components.servers.FontServer;
 import static states.base.InfoScreen.headerX;
 import base.Globals;
 
@@ -72,7 +71,7 @@ public class ButtonGrid {
         }
 
         // Extract font
-        TrueTypeFont font = FontServer.getFont((String) common.get(9));
+        TrueTypeFont font = Globals.fontServer.getFont((String) common.get(9));
 
         // Initialize list and add generic buttons
         buttons = new ArrayList<>();
@@ -161,7 +160,7 @@ public class ButtonGrid {
         Rectangle rect = new Rectangle(headerX, 100, 450, 60);
 
         // Get Header font 
-        TrueTypeFont font = FontServer.getFont(headerFont);
+        TrueTypeFont font = Globals.fontServer.getFont(headerFont);
 
         // Get image and adjust
         Image img = null;

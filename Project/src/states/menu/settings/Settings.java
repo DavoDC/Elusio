@@ -1,9 +1,10 @@
 package states.menu.settings;
 
-import components.buttons.ButtonGrid;
 import java.util.ArrayList;
 
+import components.buttons.ButtonGrid;
 import base.Globals;
+import states.base.InfoScreen;
 import states.base.InterfaceScreen;
 
 /**
@@ -43,7 +44,7 @@ public class Settings extends InterfaceScreen {
 
         // Initialize list
         ArrayList<String> labels = new ArrayList<>();
-        labels.add("header_SETTINGS_" + Globals.headerFont);
+        labels.add("header_SETTINGS_" + InfoScreen.headerFont);
 
         // Add dummy labels
         for (int i = 0; i < NUM_SETTINGS; i++) {

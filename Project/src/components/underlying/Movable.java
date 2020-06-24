@@ -1,6 +1,6 @@
-package base;
+package components.underlying;
 
-import org.newdawn.slick.Sound;
+import base.Globals;
 
 /**
  * Models a movable object
@@ -28,7 +28,7 @@ public abstract class Movable {
     private String lastDirection;
 
     // Movement sound
-    private String movSoundName;
+    private final String movSoundName;
 
     /**
      * Create a movable object
@@ -92,11 +92,10 @@ public abstract class Movable {
         lastDirection = dir;
 
         // Play movement sound
-        float vol = Globals.agc.getSoundVolume() / 1.5f;
-        Globals.audioServer.playSound(movSoundName, 1f, vol);
+        Globals.audioServer.playSound(movSoundName);
 
-        // Calculate true speed
-        int trueSpeed = (int) (Math.round(Globals.curDelta * movSpeed));
+        // Amplify speed
+        int trueSpeed = (int) (Math.round(10 * movSpeed));
 
         // Process position change
         procPosChange(movType.charAt(0), movType.charAt(1), trueSpeed);

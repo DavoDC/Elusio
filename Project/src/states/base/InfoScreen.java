@@ -11,6 +11,9 @@ import base.Globals;
  */
 public abstract class InfoScreen extends InterfaceScreen {
 
+    // Header font
+    public static final String headerFont = "3dventure-Plain-60";
+
     // Line constants
     public static final float lineX = (Globals.screenW / 4) - 300;
     public static final float lineY = 210;

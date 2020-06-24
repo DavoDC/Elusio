@@ -61,13 +61,6 @@ public abstract class UsableItem extends Item {
     public abstract String getDrawConfig();
 
     /**
-     * Play sound that represents this item being grabbed
-     */
-    public void playGrabSound() {
-        //Globals.audioServer.playSound(soundName, 0.5f);
-    }
-
-    /**
      * Do the action that occurs when the item is used
      *
      * @return Success status
@@ -78,7 +71,7 @@ public abstract class UsableItem extends Item {
      * Play sound that represents this item being used
      */
     public void playUseSound() {
-        Globals.audioServer.playDefSound(soundName);
+        Globals.audioServer.playSound(soundName);
     }
 
     /**

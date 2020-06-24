@@ -4,6 +4,7 @@ import components.modules.GameMap;
 import components.modules.Player;
 import entity.item.Item;
 import base.Globals;
+import base.Globals;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -113,15 +114,16 @@ public abstract class EntityStore {
      * Get first entity under player
      *
      * @param player
+     * @param ignoreEnc True means ignore encountered
      * @return Entity found, or null
      */
-    public final Entity getEntityUnder(Player player) {
+    public final Entity getEntityUnder(Player player, boolean ignoreEnc) {
 
         // For all entities
         for (Entity curEnt : getEntityList()) {
 
             // If entity is under player
-            if (isEntityUnder(player, curEnt)) {
+            if (isEntityUnder(player, curEnt, ignoreEnc)) {
 
                 // Return entity
                 return curEnt;
@@ -137,12 +139,15 @@ public abstract class EntityStore {
      *
      * @param player
      * @param ent Entity
+     * @param ignoreEnc True means ignore encountered
      * @return True if underneath
      */
-    public boolean isEntityUnder(Player player, Entity ent) {
+    public boolean isEntityUnder(Player player, Entity ent, boolean ignoreEnc) {
 
-        // If entity has already been encountered
-        if (encEntities.contains(ent)) {
+        // If entity has already been encountered,
+        // and encountered entities should be ignored
+        if (encEntities.contains(ent) && ignoreEnc) {
+
             // Return false
             return false;
         }

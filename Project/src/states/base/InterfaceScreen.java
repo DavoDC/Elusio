@@ -6,8 +6,6 @@ import java.util.Random;
 import base.Globals;
 import components.buttons.ButtonGrid;
 
-import components.servers.FontServer;
-
 import org.newdawn.slick.BigImage;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -83,7 +81,7 @@ public abstract class InterfaceScreen extends AutoState {
         gc.setMouseCursor(Globals.cursor, 0, 0);
 
         // Initialise font
-        backInstFont = FontServer.getFont("Segoe UI-Italic-18");
+        backInstFont = Globals.fontServer.getFont("Segoe UI-Italic-18");
 
         // Initialise buttons
         buttonGrid = new ButtonGrid(getButtonFeatures(), getButtonLabels());

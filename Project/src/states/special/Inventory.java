@@ -1,7 +1,6 @@
 package states.special;
 
 import components.buttons.Button;
-import components.servers.FontServer;
 import states.base.InterfaceScreen;
 import entity.base.Entity;
 import entity.item.Item;
@@ -133,7 +132,7 @@ public class Inventory extends InterfaceScreen {
         headY = header.getY();
 
         // Initialize font for item names and panel     
-        normFont = FontServer.getFont("Segoe UI-Plain-20");
+        normFont = Globals.fontServer.getFont("Segoe UI-Plain-20");
 
         // Initialize item info panel
         try {

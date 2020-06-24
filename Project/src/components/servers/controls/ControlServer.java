@@ -1,7 +1,7 @@
 package components.servers.controls;
 
 import base.Globals;
-import base.LooseMap;
+import components.underlying.LooseMap;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;

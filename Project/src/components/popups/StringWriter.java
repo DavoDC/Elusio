@@ -1,8 +1,9 @@
 package components.popups;
 
-import components.servers.FontServer;
+import base.Globals;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -67,7 +68,7 @@ public class StringWriter {
         this.textCol = textCol;
 
         // Get and save text font
-        textFont = FontServer.getFont(fontS);
+        textFont = Globals.fontServer.getFont(fontS);
 
         // Save type information
         this.isRepeating = isRepeating;

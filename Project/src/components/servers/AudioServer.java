@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package components.servers;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import base.Globals;
-import base.LooseMap;
+import components.underlying.LooseMap;
+
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
@@ -33,8 +30,8 @@ public class AudioServer {
             // Enable audio
             Globals.agc.setMusicOn(!Globals.inIDE);
             Globals.agc.setSoundOn(true);
-            Globals.agc.setMusicVolume(1f);
-            Globals.agc.setSoundVolume(1f);
+            Globals.agc.setMusicVolume(0.9f);
+            Globals.agc.setSoundVolume(0.6f);
 
             // Initialize ambient music and loop
             // (Track = new rave + reconfiguration 
@@ -48,9 +45,8 @@ public class AudioServer {
             for (String curPath : Globals.fileList) {
 
                 // If path is for a sound
-                if (curPath.contains("audio")
-                        && curPath.contains(".ogg")
-                        && !curPath.contains("ambient")) {
+                if (curPath.contains("sound")
+                        && curPath.contains(".ogg")) {
 
                     // Add path and sound pair
                     soundMap.put(curPath, new Sound(curPath));
@@ -87,7 +83,7 @@ public class AudioServer {
      *
      * @param name
      */
-    public void playDefSound(String name) {
+    public void playSound(String name) {
         playSound(name, 1f, 1f);
     }
 }

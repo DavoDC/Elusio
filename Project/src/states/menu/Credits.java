@@ -23,7 +23,7 @@ public class Credits extends InfoScreen {
         ArrayList<String> text = new ArrayList<>();
 
         // Add header
-        text.add("header_CREDITS_" + Globals.headerFont);
+        text.add("header_CREDITS_" + headerFont);
 
         // Add credits
         text.add("David C (Programmer, Designer, Playtester)");

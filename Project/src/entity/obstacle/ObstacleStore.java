@@ -93,7 +93,8 @@ public class ObstacleStore extends EntityStore {
         for (Entity curEnt : getEntityList()) {
 
             // If the entity is obstacle zone under the player
-            if (isEntityUnder(alien, curEnt) && (curEnt instanceof ObstacleZone)) {
+            if (isEntityUnder(alien, curEnt, true) 
+                    && (curEnt instanceof ObstacleZone)) {
 
                 // Return obstacle zone
                 return (ObstacleZone) curEnt;

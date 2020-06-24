@@ -1,18 +1,18 @@
 package states.menu;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.ArrayList;
 
 import base.Globals;
 import states.base.InterfaceScreen;
+import states.special.SpRealm;
 import components.popups.StringWriter;
 import components.buttons.Button;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.gui.AbstractComponent;
-import states.special.Rift;
 
 /**
  * Provides screen with buttons for accessing other screens/states
@@ -35,7 +35,7 @@ public class Menu extends InterfaceScreen {
 
         // Create delay writer
         titleWriter = new StringWriter(Globals.gameTitle + " - The Game",
-                Color.white, "gamefont-plain-70", true,
+                Color.white, "blackChancery-Plain-48", true,
                 200, 50, 100);
 
         // Add action to all buttons
@@ -66,8 +66,8 @@ public class Menu extends InterfaceScreen {
                 // Block input
                 Globals.isInputBlocked = true;
 
-                // Enter Rift 
-                Globals.changeState("Rift", true);
+                // Enter spirit realm
+                Globals.changeState("SpRealm", true);
 
                 // Set game as started
                 Globals.isGameStarted = true;
@@ -77,13 +77,13 @@ public class Menu extends InterfaceScreen {
                 shipMov.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
-                        Rift rift = (Rift) Globals.sbg.
-                                getState(Globals.states.get("Rift"));
+                        SpRealm rift = (SpRealm) Globals.sbg.
+                                getState(Globals.states.get("SpRealm"));
                         rift.getShip().move("Up");
                     }
-                }, 1, 40);
+                }, 1, 60);
 
-                // Schedule the movement stopping and the popup showing
+                // Schedule ship stop action
                 new Timer().schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -92,10 +92,8 @@ public class Menu extends InterfaceScreen {
                         shipMov.cancel();
 
                         // Load popup
-                        Globals.popStore.loadPopup("RiftIntro");
+                        Globals.popStore.loadPopup("SpRealmIntro");
 
-                        // Unblock input
-                        Globals.isInputBlocked = false;
                     }
                 }, 2369);
 
@@ -113,7 +111,7 @@ public class Menu extends InterfaceScreen {
 
                     // Else if rift has not been used,
                     // go back to finish it
-                    Globals.changeState("Rift", true);
+                    Globals.changeState("SpRealm", true);
                 }
                 break;
 
@@ -147,7 +145,7 @@ public class Menu extends InterfaceScreen {
         feats.add(0); // XSpacing
         feats.add((int) Globals.screenH / 25); // YSpacing
         feats.add(1); // Number of Columns
-        feats.add("gamefont-plain-50"); // FontString
+        feats.add("3dventure-plain-50"); // FontString
         feats.add(true); // isSoundWanted
 
         return feats;

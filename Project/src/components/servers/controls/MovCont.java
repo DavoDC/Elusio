@@ -1,9 +1,11 @@
 package components.servers.controls;
 
-import base.Globals;
 import java.util.HashMap;
+
+import states.special.SpRealm;
+import base.Globals;
+
 import org.newdawn.slick.state.GameState;
-import states.special.Rift;
 
 /**
  * Models a movement control
@@ -33,12 +35,12 @@ public class MovCont extends Control {
             // Move player
             Globals.player.move(getDesc());
 
-        } else if (Globals.isGameInState("Rift")) {
+        } else if (Globals.isGameInState("SpRealm")) {
 
             // Else if currently in Rift state,
             // get state and call move method
             GameState state = Globals.sbg.getCurrentState();
-            Rift rift = (Rift) state;
+            SpRealm rift = (SpRealm) state;
             rift.getShip().move(getDesc());
         }
     }

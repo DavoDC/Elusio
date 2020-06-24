@@ -21,8 +21,8 @@ public class ParticleArray {
      *
      * @param initX Initial X pos
      * @param initY Initial Y pos
-     * @param xSpacing
-     * @param ySpacing
+     * @param xSpacing X spacing
+     * @param ySpacing Y spacing
      * @param num Amount of sources
      * @param partAvail Particle available for each
      * @param updateDelta Controls the update rate

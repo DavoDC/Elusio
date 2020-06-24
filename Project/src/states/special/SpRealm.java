@@ -1,7 +1,7 @@
 package states.special;
 
 import base.Globals;
-import base.Movable;
+import components.underlying.Movable;
 import org.newdawn.slick.Color;
 import states.base.AutoState;
 
@@ -12,11 +12,11 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * Models scenes where rift travel is occurring
+ * Models spirit realm scenes
  *
  * @author David
  */
-public class Rift extends AutoState {
+public class SpRealm extends AutoState {
 
     // Ship variables
     private Movable ship;
@@ -44,7 +44,7 @@ public class Rift extends AutoState {
         // Initialize movable ship
         int shipX = Globals.screenW / 2 - (shipImage.getWidth() / 4 + 47);
         int shipY = (int) (Globals.screenH * 0.7);
-        ship = new Movable(shipX, shipY, 69, 69, 0.69, 0.5f,
+        ship = new Movable(shipX, shipY, 69, 69, 0.69, 0.69f,
                 true, "shipMove") {
             @Override
             public void procPosChange(char sign, char axis,
@@ -64,7 +64,7 @@ public class Rift extends AutoState {
                     int curX = super.getX();
                     int limit = Globals.screenW;
                     super.setX(curX % limit);
-                    if (curX < 15) {
+                    if (curX < ship.getMovSpeed() * 10) {
                         super.setX(limit);
                     }
                 } else {
@@ -77,7 +77,7 @@ public class Rift extends AutoState {
                     int curY = super.getY();
                     int limit = Globals.screenH;
                     super.setY(curY % limit);
-                    if (curY < 15) {
+                    if (curY < ship.getMovSpeed() * 10) {
                         super.setY(limit);
                     }
                 }
@@ -126,9 +126,6 @@ public class Rift extends AutoState {
 
         // Draw spaceship 
         g.drawImage(shipImage, ship.getX(), ship.getY());
-        
-        // Draw spaceship particles
-        Globals.partServer.drawShipJet(ship.getX(), ship.getY());
 
         // Draw popup on top
         Globals.popStore.renderCurPopup(g);

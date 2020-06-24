@@ -1,6 +1,7 @@
 package entity.base;
 
 import base.Globals;
+import base.Globals;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 

@@ -2,12 +2,16 @@ package components.modules;
 
 import entity.item.Item;
 import base.Globals;
-import base.Movable;
+import components.underlying.Movable;
 import static components.modules.GameMap.canPass;
+import entity.base.Entity;
+import entity.obstacle.Obstacle;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
@@ -35,6 +39,9 @@ public class Player extends Movable {
     // Inventory
     private final ArrayList<Item> inv;
 
+    // Ice area status
+    private boolean onIce;
+
     /**
      * Create a Player
      *
@@ -42,7 +49,7 @@ public class Player extends Movable {
     public Player() {
 
         // Call Movable constructor
-        super(300, 300, 33, 48, 1.5, 0.2f, false, "alienStep");
+        super(300, 300, 33, 48, 1.5, 0.7f, false, "alienStep");
 
         // Initalize sprites of player animation
         SpriteSheet sprites = null;
@@ -82,6 +89,47 @@ public class Player extends Movable {
             // Increase movement speed for faster test runs
             changeMovSpeed(0.4f);
         }
+
+        // Initialize ice area status
+        onIce = false;
+
+        // Start ice area checker
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+
+                // If not on ice
+                if (!onIce) {
+
+                    // If ice detected
+                    if (isIceUnderPlayer()) {
+
+                        // Set on ice to true
+                        onIce = true;
+
+                        // Stop player animation
+                        Globals.player.stopAnim();
+                    }
+
+                } else {
+
+                    // Else if on ice
+                    // If ice detected
+                    if (isIceUnderPlayer()) {
+
+                        // Move player in last dir
+                        Globals.player.move(Globals.player.getLastDir());
+
+                    } else {
+
+                        // Else if ice is not detected,
+                        // set on ice to false
+                        onIce = false;
+                    }
+                }
+
+            }
+        }, 20000, 1000);
     }
 
     /**
@@ -98,7 +146,6 @@ public class Player extends Movable {
         int xPos = super.getX();
         int yPos = super.getY();
 
-        // Get movement type booleans
         // New position variables
         int newX1 = xPos;
         int newX2 = xPos;
@@ -303,6 +350,30 @@ public class Player extends Movable {
 
         // Draw at given location
         anim.draw(drawX, drawY, drawW, drawH);
+    }
+
+    /**
+     * Return true if ice is under player
+     *
+     * @return
+     */
+    private boolean isIceUnderPlayer() {
+
+        // Get entity under player
+        Entity curEnt = Globals.obStore.
+                getEntityUnder(Globals.player, false);
+
+        // If no entity under
+        if (curEnt == null) {
+            
+            // Return false
+            return false;
+        }
+
+        // Return true if entity is an obstacle called trees
+        boolean corrType = curEnt instanceof Obstacle;
+        boolean corrName = curEnt.getName().equalsIgnoreCase("Trees");
+        return corrType & corrName;
     }
 
     /**
