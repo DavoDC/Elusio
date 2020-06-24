@@ -3,6 +3,7 @@ package components.popups;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import base.Globals;
 
 import org.newdawn.slick.Graphics;
@@ -31,23 +32,37 @@ public class PopupStore {
 
         // Add popup for introduction to Rift state
         integratePopup(new Popup(
-                "RiftIntro",
+                "SpRealmIntro",
                 new String[]{
-                    // Both come back to spirit world
-                    "Nagual:We've arrived back at the nonspatial rift, "
-                    + "Tonal",
-                    // Spirit world is nice, Body asks soul for instructions
-                    "Tonal: Its always a calming place. "
-                    + "What is our next objective?",
-                    // Soul wants to improve the soul-brain interface
-                    "Nagual:We need to re-modulate our encepha-interface "
-                    + "to ascend vibrationally",
-                    // Soul knows more than mind
-                    "Tonal:I think I know what you mean.. "
-                    + "How will we do that?",
-                    // Soul encourages incarnation for development
-                    "Nagual:I know just the locality needed! "
-                    + "The hylentangler is now resynchronizing..."
+                    // 1
+                    "Kyrios: Okay, we're in the restoration realm. "
+                    + "The hyphenspace drive needed restoring.",
+                    // 2
+                    "Pneuma: What an amazing mission that was! "
+                    + "There were difficulties, "
+                    + "but they helped me evolve",
+                    // 3
+                    "Kyrios: That was what I intended for you "
+                    + "- its excellent that you recognized that",
+                    // 4
+                    "Pneuma: How wise you are, Master. "
+                    + "I'm still amazed about how diverse "
+                    + "and beautiful that planet was!",
+                    // 5
+                    "Kyrios: Indeed, it is. "
+                    + "I was assigned there many lives ago. ",
+                    // 6
+                    "Pneuma: What is my next assignment? "
+                    + "I'm prepared to evolve again, even if I have to endure!",
+                    // 7.1
+                    "Kyrios: I commend your eagerness and resolve. "
+                    + "A strange dimension has been disconnected from...",
+                    // 7.2
+                    "Kyrios: ...its natural divine energy rhythm - "
+                    + "you'll need to re-align it with Source energy",
+                    // 8
+                    "Pneuma: Sounds like a mission! "
+                    + "I'm ready to go between space-time, into hyphenspace!"
                 }) {
             @Override
             public void doPostShowAction() {
@@ -67,8 +82,12 @@ public class PopupStore {
                     @Override
                     public void run() {
 
+                        // Play ship land sound
+                        Globals.audioServer.playSound("shipLand");
+
                         // Show alien ship
                         Globals.obStore.removeEncounterByName("StartAlien");
+
                     }
                 }, shipAppear);
 
@@ -77,73 +96,50 @@ public class PopupStore {
                     @Override
                     public void run() {
 
-                        // Player becomes visible 
-                        Globals.player.setVisible(true);
+                        // Show brace popup
+                        Globals.popStore.loadPopup("PlayIntroBrace");
 
-                        // Load next popup
-                        Globals.popStore.loadPopup("PlayIntro1");
                     }
-                }, shipAppear + 3000);
+                }, shipAppear + 4000);
             }
         }, false);
 
-        // Add popup for part 1 of introduction to Play state
+        // Add brace popup
         integratePopup(new Popup(
-                "PlayIntro1",
+                "PlayIntroBrace",
                 new String[]{
-                    // Quantum entangler
-                    "Nagual:Resynchronization complete!",
-                    "Tonal:What strange vibrations this place has. "
-                    + "Where are we?",
-                    // Earth
-                    "Nagual:A diverse dimension with a vast array of "
-                    + "manifestations for you to experience",
-                    // Soul adjusting to body
-                    "Tonal: My form feels... different. "
-                    + "I need some guidance",
-                    "Nagual: Of course. Try using these for movement: "
-                //Globals.conServer.getContInfo().get
-                }) {
+                    "Kyrios: Head out into the realm now, "
+                    + "but brace yourself for incarnation!"
+                }
+        ) {
             @Override
             public void doPostShowAction() {
 
-                // Save player's direction
-                String prevDir = Globals.player.getLastDir();
+                // Player becomes visible
+                Globals.player.setVisible(true);
 
-                // Enable player to move
-                Globals.isInputBlocked = false;
-
-                // Schedule next event
-                Timer t = new Timer();
-                t.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-
-                        // If player has moved
-                        if (!prevDir.equals(Globals.player.getLastDir())) {
-
-                            // Load next popup
-                            Globals.popStore.loadPopup("PlayIntro2");
-
-                            // Stop timer
-                            t.cancel();
-                        }
-                    }
-                }, 1000, 1000);
+                // Load next popup
+                Globals.popStore.loadPopup("PlayIntro");
             }
-        }, false);
+        }, true);
 
-        // Add popup for part 2 of introduction to Play state
+        // Add play intro popup
         integratePopup(new Popup(
-                "PlayIntro2",
+                "PlayIntro",
                 new String[]{
-                    "Nagual:Well done!"
-                }) {
+                    "Pneuma2: This new form feels so weird... Its uncomfortable",
+                    "Kyrios: Your growth will involve adapting and learning.",
+                    "Kyrios: You have been provided with basic information...",
+                    "Kyrios: ...and a magic haven bag with an analysing module.",
+                    "Kyrios: I can only guide you sparingly from now on. "
+                    + "Make wise decisions",}
+        ) {
             @Override
             public void doPostShowAction() {
 
             }
         }, true);
+
     }
 
     /**
@@ -167,7 +163,7 @@ public class PopupStore {
      */
     public void loadPopup(String popupName) {
 
-        // Save popup 
+        // Save popup
         curPopup = popMap.get(popupName);
 
         // If popup found was null
@@ -214,198 +210,4 @@ public class PopupStore {
         // Render current popup
         curPopup.render(g);
     }
-
-//
-//
-//
-//
-//                // Calculate adjustment from camera
-//                int camRadj = 3;
-//                int camCadj = 2;
-//                int camYadj = camRadj * Globals.tileSize;
-//                int camXadj = camCadj * Globals.tileSize;
-//
-//                // Calculate actual position
-//                int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
-//                int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
-//
-//                // Show popups after item use
-//                System.out.println("#### TEST:  " + obst.getName()
-//                        + " , " + obst.getOZName());
-//                showUsagePopup(obN, "Tree", "Cryo", r, c);
-//                showUsagePopup(obN, "Lime", "Acid", r, c);
-//                showUsagePopup(obN, "Water", "Orb", r, c);
-//    /**
-//     * Show information about an item as a popup
-//     *
-//     * @param item
-//     */
-//    private void showItemPopup(Item item) {
-//
-//        // Calculate adjustment from camera
-//        int camRadj = 3;
-//        int camCadj = 2;
-//        int camYadj = camRadj * Globals.tileSize;
-//        int camXadj = camCadj * Globals.tileSize;
-//
-//        // Calculate actual position
-//        int r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
-//        int c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
-//
-//        // Account for special teleportation cases
-//        String name = item.getName().toLowerCase();
-//        if (name.contains("clock")) {
-//            r = Map.convertYtoRow(Globals.cam.getY() + camYadj - 34 * 64);
-//            c = Map.convertXtoCol(Globals.cam.getX() + camXadj);
-//        } else if (name.contains("treasure")) {
-//            r = Map.convertYtoRow(Globals.cam.getY() + camYadj);
-//            c = Map.convertXtoCol(Globals.cam.getX() + camXadj + 6 * 64);
-//            item.afterAction();
-//        }
-//
-//        // Generate and show popup
-//        Popup itemInfo = getItemPopup(item, r, c);
-//        Globals.hud.loadPopup(itemInfo);
-//    }
-//
-//    /**
-//     * Get a popup that describes a given item
-//     *
-//     * @param item
-//     * @param r
-//     * @param c
-//     * @return
-//     */
-//    public Popup getItemPopup(Item item, int r, int c) {
-//
-//        // Set features of popup
-//        ArrayList<Object> feats = new ArrayList<>();
-//        feats.add(r);  // Tile grid row
-//        feats.add(c);  // Tile grid column 
-//        feats.add(18); // Width as number of tiles 
-//        feats.add(2);  // Height as number of tiles 
-//        feats.add(20); // Interval for delay writer
-//        feats.add("default"); // FontS or "default"
-//        feats.add(Color.black); // Text color
-//
-//        // Create popup lines 
-//        ArrayList<String> itemLines = item.getInfoLines();
-//        ArrayList<String> newLines = new ArrayList<>();
-//        String start = "(Ehecatl, telepathically): ";
-//        for (String curItemLine : itemLines) {
-//            newLines.add(start + curItemLine);
-//        }
-//        newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
-//
-//        // Return
-//        return (new Popup(feats, newLines));
-//    }
-//
-//
-//    /**
-//     * Show usable item popup after it is grabbed
-//     *
-//     * @param obN The obstacle's full name
-//     * @param obQ Part of the obstacle's name
-//     * @param itemName Item name subset
-//     * @param r Row position of popup
-//     * @param c Column position of popup
-//     */
-//    private void showUsagePopup(String obN, String obQ, String itemName, int r, int c) {
-//
-//        // If obstacle name contains query
-//        if (obN.contains(obQ)) {
-//
-//            // Get item
-//            UsableItem item = (UsableItem) Globals.player.getItemByName(itemName);
-//
-//            // Load popup for item
-//            Globals.hud.loadPopup(getUsagePopup(item, r, c));
-//        }
-//    }
-//
-//    /**
-//     * Get a popup describing what a usable item just did
-//     *
-//     * @param item
-//     * @param r
-//     * @param c
-//     * @return
-//     */
-//    public Popup getUsagePopup(Item item, int r, int c) {
-//
-//        // Set features of popup
-//        ArrayList<Object> feats = new ArrayList<>();
-//        feats.add(r);  // Tile grid row
-//        feats.add(c);  // Tile grid column 
-//        feats.add(18); // Width as number of tiles 
-//        feats.add(2);  // Height as number of tiles 
-//        feats.add(20); // Interval for delay writer
-//        feats.add("default"); // FontS or "default"
-//        feats.add(Color.black); // Text color
-//
-//        // Create popup lines 
-//        ArrayList<String> newLines = new ArrayList<>();
-//        String start = "(Ehecatl, telepathically): ";
-//        newLines.add(start + ((UsableItem) item).getUseLine());
-//        newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
-//
-//        // Return
-//        return (new Popup(feats, newLines));
-//    }
-//      /**
-//     * Return the final popup
-//     *
-//     * @return
-//     */
-//    private Popup getEndPopup() {
-//
-//        // Features
-//        ArrayList<Object> feats = new ArrayList<>();
-//        feats.add(8);  // Tile grid row
-//        feats.add(2);  // Tile grid column 
-//        feats.add(17); // Width as number of tiles 
-//        feats.add(2);  // Height as number of tiles 
-//        feats.add(20); // Interval for delay writer
-//        feats.add("default"); // FontS or "default"
-//
-//        // Text
-//        ArrayList<String> textLines = new ArrayList<>();
-//        textLines.add("You: I've got the elecrovelox!");
-////        textLines.add("Ehecatl: Thats great! I'll begin repairs");
-////        textLines.add("You: You wouldn't believe what I went through to get it!");
-////        textLines.add("You: I even encountered a dragon!");
-////        textLines.add("Ehecatl: No way!");
-////        textLines.add("Narrator: And thats how Ehecatl and Nagual got home");
-////        textLines.add("Narrator: But this was a memory they'd never forget");
-////        textLines.add("Le Fin");
-//
-//        // Create
-//        Popup finish = new Popup(feats, textLines) {
-//            @Override
-//            public void postAction() {
-//                int exitID = Globals.STATES.get("EXIT");
-//                Globals.SBG.enterState(exitID, Globals.getLeave(), Globals.getEnter());
-//            }
-//        };
-//
-//        // Return
-//        return finish;
-//    }
-    /**
-     * // * Get popup for when magic gate unlocks // * // * @return //
-     */
-//    private Popup getGatePopup() {
-//
-//        // Create popup lines 
-//        ArrayList<String> newLines = new ArrayList<>();
-//        String start = "(Ehecatl, telepathically): ";
-//        newLines.add(start + "I've just detected psionic activity near that gate!");
-//        newLines.add(start + "Felt like an etherealise spell");
-//        newLines.add(start + "You should investigate it!");
-//        newLines.add("(You, telepathically): Thanks for the info, Ehecatl!");
-//
-//        // Return
-//        return (new Popup(feats, newLines));
-//    }
 }

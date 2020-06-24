@@ -24,7 +24,7 @@ public class About extends InfoScreen {
         ArrayList<String> text = new ArrayList<>();
 
         // Add to text
-        text.add("header_ABOUT_" + Globals.headerFont);
+        text.add("header_ABOUT_" + headerFont);
         text.add("Main Creator: David C");
         text.add("First Created: Dec 2018");
         text.add("Language: Java");

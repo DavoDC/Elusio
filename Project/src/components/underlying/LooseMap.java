@@ -1,4 +1,4 @@
-package base;
+package components.underlying;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,8 +39,8 @@ public class LooseMap<V> extends HashMap<String, V> {
             }
         }
 
-        // If nothing was found, throw error
-        throw new IllegalArgumentException("LooseMap get error");
+        // If nothing was found, return null
+        return null;
     }
 
     /**

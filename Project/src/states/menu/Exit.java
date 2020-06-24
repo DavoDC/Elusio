@@ -3,7 +3,6 @@ package states.menu;
 import java.util.ArrayList;
 
 import base.Globals;
-import components.servers.FontServer;
 import states.base.InfoScreen;
 import states.base.InterfaceScreen;
 
@@ -40,7 +39,7 @@ public class Exit extends InterfaceScreen {
      */
     @Override
     public void customInit() {
-        closeFont = FontServer.getFont(closeFontS);
+        closeFont = Globals.fontServer.getFont(closeFontS);
     }
 
     /**

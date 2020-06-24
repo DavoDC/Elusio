@@ -43,9 +43,6 @@ public class Play extends AutoState {
 
         // Handle input
         Globals.conServer.handleInput(new String[]{"All"});
-
-        // Process item use
-        Globals.itemProc.processItemUse();
     }
 
     /**

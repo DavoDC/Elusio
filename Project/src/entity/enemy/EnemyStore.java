@@ -3,6 +3,8 @@ package entity.enemy;
 import java.util.ArrayList;
 
 import entity.base.Entity;
+import entity.base.Entity;
+import entity.base.EntityStore;
 import entity.base.EntityStore;
 
 /**

@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import base.Globals;
-
+import components.underlying.LooseMap;
 import org.newdawn.slick.TrueTypeFont;
+
 import org.newdawn.slick.util.ResourceLoader;
 
 /**
@@ -17,33 +18,39 @@ import org.newdawn.slick.util.ResourceLoader;
  */
 public class FontServer {
 
-    // The base font
-    private static Font rawGameFont;
-
-    // Game font load status
-    private static boolean gameFontLoaded = false;
+    // Map font names to fonts
+    private LooseMap<Font> fontMap;
 
     /**
-     * Initialize main game font (has large pixelated letters)
+     * Initialize FontServer
      */
-    private static void initialiseGameFont() {
+    public FontServer() {
 
-        // if game font has not been loaded yet
-        if (!gameFontLoaded) {
-            try {
+        // Initialize font map
+        fontMap = new LooseMap<>();
 
-                // Load up font file
-                InputStream inStream = ResourceLoader.
-                        getResourceAsStream(Globals.getFP("3dventure"));
+        // For all file paths
+        for (String curPath : Globals.fileList) {
 
-                // Create and save font
-                rawGameFont = Font.createFont(Font.TRUETYPE_FONT, inStream);
+            // If path is for a sound
+            if (curPath.contains("fonts")
+                    && curPath.contains(".ttf")) {
+                try {
 
-                // Set game font as loaded
-                gameFontLoaded = true;
+                    // Get resource as input stream
+                    InputStream inS = ResourceLoader.
+                            getResourceAsStream(curPath);
 
-            } catch (FontFormatException | IOException e) {
-                System.err.println("Error loading font");
+                    // Convert to font
+                    Font curFont = Font.createFont(Font.TRUETYPE_FONT, inS);
+
+                    // Add path and font pair
+                    fontMap.put(curPath, curFont);
+
+                } catch (FontFormatException | IOException e) {
+                    System.err.println("Error in FontServer constr.");
+                }
+
             }
         }
     }
@@ -55,7 +62,7 @@ public class FontServer {
      * @param rawFontS Font configuration string
      * @return TrueTypeFont generated
      */
-    public static TrueTypeFont getFont(String rawFontS) {
+    public TrueTypeFont getFont(String rawFontS) {
 
         // Process font string
         String[] parts = rawFontS.toLowerCase().split("-");
@@ -70,28 +77,27 @@ public class FontServer {
             size = 60;
         }
 
-        // Initialise font output
-        TrueTypeFont fontOutput;
+        // Attempt to retrieve as custom font 
+        Font customFont = fontMap.get(fontS);
 
-        // If special game font is wanted
-        if (fontS.contains("game")) {
+        // If a regular font 
+        if (customFont == null) {
 
-            // Ensure it is initialized
-            initialiseGameFont();
+            // Create font
+            Font font = new Font(fontS, styleID, (int) size);
 
-            // Generate TrueTypeFont
-            Font midFont = rawGameFont.deriveFont(size);
-            fontOutput = new TrueTypeFont(midFont, false);
+            // Return as TTF
+            return new TrueTypeFont(font, true);
 
         } else {
 
-            // Else if just a regular font, generate TrueTypeFont
-            Font raw = new Font(fontS, styleID, (int) size);
-            fontOutput = new TrueTypeFont(raw, true);
-        }
+            // Else if is a custom font,
+            // derive font with correct size
+            Font font = customFont.deriveFont(size);
 
-        // Return font generated
-        return fontOutput;
+            // Return as TTF
+            return new TrueTypeFont(font, true);
+        }
     }
 
     /**
@@ -100,7 +106,7 @@ public class FontServer {
      * @param style
      * @return
      */
-    private static int interpretStyle(String style) {
+    private int interpretStyle(String style) {
 
         // ID holder
         int id = 0;

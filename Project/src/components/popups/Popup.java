@@ -2,7 +2,6 @@ package components.popups;
 
 import components.buttons.Button;
 import components.modules.GameMap;
-import components.servers.FontServer;
 import base.Globals;
 import org.newdawn.slick.Color;
 
@@ -72,7 +71,7 @@ public abstract class Popup {
         int undW = (int) (Globals.screenW / 80 * Globals.tileSize);
         int undH = 2 * Globals.tileSize;
         Rectangle undRect = new Rectangle(undX, undY, undW, undH);
-        TrueTypeFont undFont = FontServer.getFont("Candara-Bold-26");
+        TrueTypeFont undFont = Globals.fontServer.getFont("Candara-Bold-26");
         underB = new Button(undImg, undRect, undFont, false);
         underB.setLabel("");
 
@@ -109,9 +108,9 @@ public abstract class Popup {
 
         // Initialise speaker info
         Rectangle spRect = new Rectangle(undX + 55, undY + 28, 69, 69);
-        TrueTypeFont spFont = FontServer.getFont("Candara-Bold-20");
+        TrueTypeFont spFont = Globals.fontServer.getFont("Candara-Bold-20");
         spInfo = new Button(getCurSpImg(), spRect, spFont, false);
-        spInfo.setLabel(textLW.getCurSpeaker());
+        spInfo.setLabel(textLW.getCurSpeaker().replaceAll("[0-9]", ""));
         spInfo.setTextOffsets(5f, spInfo.getHeight());
         spInfo.setTextColor(Color.black);
 
@@ -123,7 +122,7 @@ public abstract class Popup {
             textLW.requestNextLine();
 
             // Update speaker info
-            spInfo.setLabel(textLW.getCurSpeaker());
+            spInfo.setLabel(textLW.getCurSpeaker().replaceAll("[0-9]", ""));
             spInfo.setImage(getCurSpImg(), true);
         });
 

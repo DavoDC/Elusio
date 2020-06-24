@@ -38,8 +38,8 @@ public class ItemProcessor {
 
     // The last direction and location of the player
     private String lastDir;
-    private int pX;
-    private int pY;
+    private int itemX;
+    private int itemY;
 
     // The image filter
     private Color filterColor;
@@ -50,7 +50,8 @@ public class ItemProcessor {
     public void processItemGrab() {
 
         // Retrieve entity under player
-        Entity entityFound = Globals.itemStore.getEntityUnder(Globals.player);
+        Entity entityFound = Globals.itemStore.
+                getEntityUnder(Globals.player, true);
 
         // If nothing found or non-item found
         if (entityFound == null || !(entityFound instanceof Item)) {
@@ -94,8 +95,8 @@ public class ItemProcessor {
         // If usable item
         if (itemF instanceof UsableItem) {
 
-            // Play grab sound
-            ((UsableItem) itemF).playGrabSound();
+            // Play usage sound upon grab
+            ((UsableItem) itemF).playUseSound();
         }
 
         // Hide item
@@ -118,10 +119,13 @@ public class ItemProcessor {
         // Save item
         usedItem = item;
 
-        // Save player's last direction and position
+        // Stop player and save direction
+        Globals.player.stopAnim();
         lastDir = Globals.player.getLastDir();
-        pX = Globals.player.getX();
-        pY = Globals.player.getY();
+
+        // Initialize item location as player location
+        itemX = Globals.player.getX();
+        itemY = Globals.player.getY();
 
         // Setup item animation
         itemAnim = new Animation();
@@ -133,28 +137,49 @@ public class ItemProcessor {
         // If item is usable
         if (usedItem instanceof UsableItem) {
 
+            // Show item for a few seconds
+            showItem = true;
+
             // Get drawing config
             String drawConfig = ((UsableItem) usedItem).getDrawConfig();
 
             // If front requested, move item in front
             if (drawConfig.contains("Front")) {
-                shiftPosition(50);
+                shiftItemPos(50);
             }
 
-            //
-            // TURN INTO SCHEDULED AT FIXED RATE, CANCEL IN FURTHER PROC TIMER
-            // If flash requested, alternate filter
-//            Color col = null;
-//            if (drawConfig.contains("Flash")) {
-//                col = ;
-//            }
-//
-//            // If intake requested, move item toward player
-//            if (drawConfig.contains("Intake")) {
-//                if (Globals.agc.getTime() % 100 == 0) {
-//                    shiftPosition(-1);
-//                }
-//            }
+            // Set color for non-flashing items
+            filterColor = Color.white;
+
+            // Create draw timer
+            Timer drawTimer = new Timer();
+            drawTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+
+                    // If flash requested, alternate filter color
+                    if (drawConfig.contains("Flash")) {
+
+                        // If filter is null or dark
+                        if (filterColor == null
+                                || filterColor == Color.darkGray) {
+
+                            // Change to light
+                            filterColor = Color.lightGray;
+                        } else {
+
+                            // Else, change to dark
+                            filterColor = Color.darkGray;
+                        }
+                    }
+
+                    // If intake requested, move item toward player
+                    if (drawConfig.contains("Intake")) {
+                        shiftItemPos(-1);
+                    }
+                }
+            }, 0, 50);
+
             // Transition to actual game and ignore input
             Globals.sbg.enterState(Globals.states.get("PLAY"));
             Globals.isInputBlocked = true;
@@ -167,6 +192,9 @@ public class ItemProcessor {
                     // Stop showing item
                     showItem = false;
 
+                    // Stop draw timer
+                    drawTimer.cancel();
+
                     // Activate item and act based on successful usage
                     if (((UsableItem) usedItem).doAction()) {
 
@@ -176,7 +204,7 @@ public class ItemProcessor {
                     } else {
 
                         // Else, play falter sound
-                        // Globals.audioServer.playSound(Itemfalter);
+                        Globals.audioServer.playSound("itemFalter");
                     }
 
                     // Finish processing
@@ -186,38 +214,40 @@ public class ItemProcessor {
                     Globals.isInputBlocked = false;
                 }
             }, 2036);
-        }
-    }
-
-    /**
-     * Process item usage
-     *
-     */
-    public void processItemUse() {
-
-        // If processing not needed
-        if (!procNeeded) {
-
-            // Do not process further
-            return;
-        }
-
-        // If item is usable
-        if (usedItem instanceof UsableItem) {
-
-            // Show item for a few seconds
-            showItem = true;
-
         } else {
-
             // Else if item is not usable,
-            // play 'incorrect' sound
-            // Globals.audioServer.playSound(Itemfalter);
+            // play falter sound
+            Globals.audioServer.playSound("itemFalter");
+
             // Finish processing
             procNeeded = false;
 
             // Accept input again
             Globals.isInputBlocked = false;
+        }
+    }
+
+    /**
+     * Shift the item closer to the player
+     *
+     * @param value
+     */
+    private void shiftItemPos(int value) {
+
+        // Act based on direction
+        switch (lastDir) {
+            case "up":
+                itemY -= value;
+                break;
+            case "down":
+                itemY += value;
+                break;
+            case "left":
+                itemX -= value;
+                break;
+            case "right":
+                itemX += value;
+                break;
         }
     }
 
@@ -232,31 +262,7 @@ public class ItemProcessor {
         if (showItem) {
 
             // Draw item 
-            itemAnim.draw(pX, pY, filterColor);
-        }
-    }
-
-    /**
-     * Shift the saved player position
-     *
-     * @param value
-     */
-    private void shiftPosition(int value) {
-
-        // Act based on direction
-        switch (lastDir) {
-            case "up":
-                pY -= value;
-                break;
-            case "down":
-                pY += value;
-                break;
-            case "left":
-                pX -= value;
-                break;
-            case "right":
-                pX += value;
-                break;
+            itemAnim.draw(itemX, itemY, filterColor);
         }
     }
 

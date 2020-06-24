@@ -88,14 +88,29 @@ public class KeyItem extends UsableItem {
         // Get the obstacle zone the player is currently inside, if any
         ObstacleZone obZone = Globals.obStore.getZoneUnder(Globals.player);
 
-        // If 
-        // - No zone found
-        // - Zone is not locked
-        // - Wrong item used
-        if (!(((obZone != null) && (obZone.isLocked()))
-                && (super.getName().equals(obZone.getKeyItem())))) {
+        // If valid zone was found
+        if (obZone != null) {
 
-            // Zone unlock failed
+            // If zone has been already unlocked
+            // OR incorrect item has been used
+            if (!obZone.isLocked()
+                    || !super.getName().contains(obZone.getKeyItem())) {
+
+                // TEST
+//                System.out.println("########### Unlock failed! "
+//                        + "= already unlocked OR bad item"
+//                        + "\nused item name:" + super.getName()
+//                        + " , key item:" + obZone.getKeyItem());
+                // Finish unsuccessfully
+                return false;
+            }
+
+        } else {
+
+            // TEST
+            // System.out.println("########### Unlock failed! = no zone");
+            // Else if no zone was found, 
+            // finish unsuccessfully
             return false;
         }
 

@@ -1,7 +1,6 @@
 package components.buttons;
 
 import base.Globals;
-import components.servers.FontServer;
 import org.newdawn.slick.Color;
 
 import org.newdawn.slick.Graphics;
@@ -77,7 +76,7 @@ public class Button extends MouseOverArea {
 
             // Add sound play upon click 
             super.addListener((AbstractComponent ac) -> {
-                Globals.audioServer.playDefSound("buttonChime");
+                Globals.audioServer.playSound("buttonChime");
 
             });
         }
@@ -202,8 +201,7 @@ public class Button extends MouseOverArea {
      * @param fontS
      */
     public void setFont(String fontS) {
-        TrueTypeFont newFont = FontServer.getFont(fontS);
-        this.font = newFont;
+        this.font = Globals.fontServer.getFont(fontS);
     }
 
     /**
@@ -212,7 +210,6 @@ public class Button extends MouseOverArea {
      * @param resLoc
      */
     public void setImageLoc(String resLoc) {
-
         try {
 
             // Load and set new image
@@ -221,7 +218,6 @@ public class Button extends MouseOverArea {
         } catch (SlickException e) {
             System.err.println("Image loading failed");
         }
-
     }
 
     /**

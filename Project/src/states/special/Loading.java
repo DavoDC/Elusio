@@ -1,13 +1,13 @@
 package states.special;
 
 import states.menu.settings.Settings;
+import states.menu.About;
+import states.base.AutoState;
 import states.menu.Credits;
 import states.menu.Menu;
 import states.menu.Exit;
-import states.menu.About;
 import states.menu.Controls;
 import base.Globals;
-import components.servers.FontServer;
 import components.servers.controls.ControlServer;
 import components.servers.AudioServer;
 import components.servers.particles.ParticleServer;
@@ -16,6 +16,7 @@ import components.modules.HUD;
 import components.modules.GameMap;
 import components.modules.Player;
 import components.popups.PopupStore;
+import components.servers.FontServer;
 import entity.enemy.EnemyStore;
 import entity.item.ItemProcessor;
 import entity.item.ItemStore;
@@ -34,7 +35,6 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
-import states.base.AutoState;
 
 /**
  * Shows a loading screen while its loads resources
@@ -80,12 +80,15 @@ public class Loading extends BasicGameState {
             introLogo = new Image(Globals.getFP("intro.png"));
             introLogo = introLogo.getScaledCopy(Globals.screenW, Globals.screenH);
 
+            // Initialize font server
+            Globals.fontServer = new FontServer();
+
             // Initialise font
-            font = FontServer.getFont("gamefont-plain-75");
+            font = Globals.fontServer.getFont("3dventure-plain-75");
 
             // Initialize framework
             Globals.sbg = sbg;
-            Globals.agc.setDefaultFont(FontServer.getFont("Segoe UI-Plain-16"));
+            Globals.agc.setDefaultFont(Globals.fontServer.getFont("Segoe UI-Plain-16"));
 
             // Initialise main structures
             Globals.gameMap = new GameMap(Globals.getFP("map.tmx"));
@@ -147,7 +150,7 @@ public class Loading extends BasicGameState {
             // Add special states
             integrateState(new Play());
             integrateState(new Inventory());
-            integrateState(new Rift());
+            integrateState(new SpRealm());
 
             //
             // Add challenge states
