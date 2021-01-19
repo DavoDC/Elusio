@@ -2,7 +2,6 @@ package states.menu;
 
 import java.util.ArrayList;
 
-import base.Globals;
 import states.base.InfoScreen;
 
 /**
@@ -19,6 +18,7 @@ public class Credits extends InfoScreen {
      */
     @Override
     public ArrayList<String> getButtonLabels() {
+
         // Create AL
         ArrayList<String> text = new ArrayList<>();
 
@@ -76,7 +76,7 @@ public class Credits extends InfoScreen {
      */
     @Override
     public int getXSpacing() {
-        return -800;
+        return -1200;
     }
 
     /**

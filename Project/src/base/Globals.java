@@ -76,7 +76,7 @@ public class Globals {
 
     // Game information
     public static final String gameTitle = "Resoulve";
-    public static final String VERSION = "1.2";
+    public static final String VERSION = "1.3";
 
     // Resource filepath strings
     public static ArrayList<String> fileList;
@@ -107,6 +107,9 @@ public class Globals {
 
     // Miscellaneous 
     public static int crystalsPlaced = 0;
+
+    // Info Font
+    private static TrueTypeFont infoFont;
 
     /**
      * Return true if the game is in the given state
@@ -236,15 +239,21 @@ public class Globals {
         // Get graphics
         Graphics g = agc.getGraphics();
 
-        // Calculate position
-        int drawX = camX + Globals.screenW - 200;
-        int drawY = camY + 12;
+        // Initialize font if needed
+        if (infoFont == null) {
+            infoFont = fontServer.getFont("Calibri-Plain-36");
+        }
 
-        // Set font color
+        // Adjust font
+        g.setFont(infoFont);
         g.setColor(textCol);
 
+        // Calculate position
+        int drawX = camX + Globals.screenW - 330;
+        int drawY = camY + 30;
+
         // YSpacing
-        int yGap = 20;
+        int yGap = 40;
 
         // Draw FPS
         String fps = "FPS: " + Globals.agc.getFPS();

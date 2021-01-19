@@ -25,8 +25,9 @@ public class ObstacleStore extends EntityStore {
         ArrayList<Entity> obstacles = new ArrayList<>();
 
         // Alien Ship
+        // Note: Not interacted with, only for cutscene
         obstacles.add(new Obstacle("StartAlienShip", "", 5, 2, 4, 4, true));
-        obstacles.add(new ObstacleZone("EndAlienShip", "Treasure", 4, 2, 9, 7));
+        obstacles.add(new ObstacleZone("EndAlienShip", "", 4, 2, 9, 7));
 
         // Starting Area Trees
         obstacles.add(new Obstacle("Trees", "TreeZone", 32, 9, 5, 5, true));
@@ -34,29 +35,33 @@ public class ObstacleStore extends EntityStore {
 
         // Starting Area Limestone
         obstacles.add(new Obstacle("LimeStone", "LimeZone", 1, 37, 5, 2, true));
-        obstacles.add(new ObstacleZone("LimeZone", "Gastric", 1, 36, 6, 4));
+        obstacles.add(new ObstacleZone("LimeZone", "Gastric", 1, 36, 6, 5));
 
         // Magic Gate
         obstacles.add(new Obstacle("HiGate", "HiSpot", 82, 9, 1, 1, false));
         obstacles.add(new Obstacle("HiCrystal", "HiSpot", 82, 14, 1, 1, false));
-        obstacles.add(new ObstacleZone("HiSpot", "Destiny", 82, 14, 1, 1));
+        obstacles.add(new ObstacleZone("HiSpot", "Destiny", 82, 13, 1, 2));
 
         obstacles.add(new Obstacle("LoGate", "LoSpot", 82, 10, 1, 1, false));
         obstacles.add(new Obstacle("LoCrystal", "LoSpot", 82, 16, 1, 1, false));
-        obstacles.add(new ObstacleZone("LoSpot", "Protection", 82, 16, 1, 1));
+        obstacles.add(new ObstacleZone("LoSpot", "Protection", 82, 16, 1, 2));
 
         obstacles.add(new Obstacle("LeftGate", "LeftSpot", 81, 9, 1, 2, false));
         obstacles.add(new Obstacle("LeftCrystal", "LeftSpot", 81, 15, 1, 1, false));
-        obstacles.add(new ObstacleZone("LeftSpot", "Alignment", 81, 15, 1, 1));
+        obstacles.add(new ObstacleZone("LeftSpot", "Alignment", 80, 15, 2, 1));
 
         obstacles.add(new Obstacle("RightGate", "RightSpot", 83, 9, 1, 2, false));
         obstacles.add(new Obstacle("RightCrystal", "RightSpot", 83, 15, 1, 1, false));
-        obstacles.add(new ObstacleZone("RightSpot", "Growth", 83, 15, 1, 1));
+        obstacles.add(new ObstacleZone("RightSpot", "Growth", 83, 15, 2, 1));
 
         // Sailing Ship
         obstacles.add(new Obstacle("Water", "ShipSide", 13, 73, 6, 7, true));
         obstacles.add(new Obstacle("Ship", "ShipSide", 10, 74, 3, 6, true));
         obstacles.add(new ObstacleZone("ShipSide", "Magistructor", 19, 73, 5, 8));
+
+        // Vibrational Centre
+        obstacles.add(new Obstacle("VibeCentre", "VibeZone", 82, 5, 1, 1, true));
+        obstacles.add(new ObstacleZone("VibeZone", "Treasure", 81, 4, 3, 3));
 
         return obstacles;
     }
@@ -93,7 +98,7 @@ public class ObstacleStore extends EntityStore {
         for (Entity curEnt : getEntityList()) {
 
             // If the entity is obstacle zone under the player
-            if (isEntityUnder(alien, curEnt, true) 
+            if (isEntityUnder(alien, curEnt, true)
                     && (curEnt instanceof ObstacleZone)) {
 
                 // Return obstacle zone

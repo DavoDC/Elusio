@@ -365,7 +365,7 @@ public class Player extends Movable {
 
         // If no entity under
         if (curEnt == null) {
-            
+
             // Return false
             return false;
         }

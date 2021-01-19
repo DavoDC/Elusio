@@ -1,7 +1,6 @@
 package entity.enemy;
 
 import entity.base.Entity;
-import entity.base.Entity;
 
 /**
  * Models an enemy

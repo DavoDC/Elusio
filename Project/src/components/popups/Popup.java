@@ -76,9 +76,11 @@ public abstract class Popup {
         underB.setLabel("");
 
         // Initialise text writer
+        int textXOffset = (int) (undW * 0.15);
+        int textYOffset = 36;
         textLW = new ListWriter(rawLines, Color.black,
                 "Candara-Bold-26",
-                undX + 185, undY + 36, 20) {
+                undX + textXOffset, undY + textYOffset, 20) {
             @Override
             public void doFinalAction() {
 

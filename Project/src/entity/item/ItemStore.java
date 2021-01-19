@@ -1,5 +1,6 @@
 package entity.item;
 
+import base.Globals;
 import entity.item.types.InstantItem;
 import entity.item.types.KeyItem;
 import java.util.ArrayList;
@@ -9,6 +10,9 @@ import entity.base.Entity;
 import entity.base.EntityStore;
 import entity.item.types.CrystalItem;
 import entity.item.types.SpeedItem;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
 /**
  * Handles multiple items
@@ -44,7 +48,7 @@ public class ItemStore extends EntityStore {
                     "Usage: The orb created a magistruct replica of the wood nearby!"},
                 "magiCreation",
                 null,
-                82, 5));
+                82, 7));
 
         // LIMESTONE ITEMS
         itemList.add(new Item(
@@ -69,7 +73,7 @@ public class ItemStore extends EntityStore {
         itemList.add(new CrystalItem(
                 "Protection", 333,
                 "Light protects you every step of the way.",
-                "Pyrotessera", 30, 33));
+                "Dracoflame", 30, 33));
         itemList.add(new CrystalItem(
                 "Alignment", 666,
                 "Thoughts -> Words -> Actions -> Habits.",
@@ -82,15 +86,30 @@ public class ItemStore extends EntityStore {
         // GOLD
         itemList.add(new KeyItem(
                 "Treasure",
-                new String[]{"A perfect electrovelox substitute,",
-                    "as it is highly conductive!",
+                new String[]{"Highly conductive metal.",
                     "Usage: This is just what I needed for my repairs!"},
                 "coinChink",
                 "SailingShip",
-                10, 74, 3, 6));
+                10, 74, 3, 6) {
+            @Override
+            public boolean doAction() {
+
+                // Enter ending state
+                Globals.sbg.enterState(Globals.states.get("Exit"),
+                        // Leave
+                        new FadeOutTransition(Color.black, 5000),
+                        // Enter
+                        new FadeInTransition(Color.black, 5000)
+                );
+
+                // Return true, always succeeds
+                return true;
+            }
+        });
+
         itemList.add(new Item(
                 "Metal Discs",
-                new String[]{"Appears to be similar to electrovelox!"},
+                new String[]{"Small conductive discs"},
                 50, 79));
 
         // SPEED ITEMS

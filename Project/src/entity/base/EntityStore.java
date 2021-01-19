@@ -2,8 +2,6 @@ package entity.base;
 
 import components.modules.GameMap;
 import components.modules.Player;
-import entity.item.Item;
-import base.Globals;
 import base.Globals;
 
 import java.util.ArrayList;

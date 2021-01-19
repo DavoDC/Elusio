@@ -209,7 +209,8 @@ public class Inventory extends InterfaceScreen {
         }
 
         // Adjust item positions
-        adjustItemButtons();
+        // DISABLED - Doesn't work as expected, gaps
+        // adjustItemButtons();
     }
 
     /**
