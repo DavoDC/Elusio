@@ -10,9 +10,6 @@ import base.Globals;
  */
 public abstract class InstantItem extends UsableItem {
 
-    // Whether the effect has been applied yet
-    private final boolean effectApplied;
-
     /**
      * Create an instant item
      *
@@ -27,9 +24,6 @@ public abstract class InstantItem extends UsableItem {
 
         // Call UsableItem constructor
         super(name, infoArr, soundName, col, row);
-
-        // Initialize as 'effect not applied;
-        effectApplied = false;
     }
 
     /**

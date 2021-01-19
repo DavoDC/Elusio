@@ -34,6 +34,7 @@ public class ParticleServer {
      * Draw the rift particles
      */
     public void drawRiftParticles() {
+
         riftPart.render();
     }
 }

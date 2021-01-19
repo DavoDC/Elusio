@@ -107,8 +107,8 @@ public class Loading extends BasicGameState {
             Globals.itemProc = new ItemProcessor();
 
             // Initialize entity stores
+            Globals.enemyStore = new EnemyStore(); // Must come before ItemStore
             Globals.itemStore = new ItemStore();
-            Globals.enemyStore = new EnemyStore();
             Globals.obStore = new ObstacleStore();
 
             // Hide alien ship
@@ -148,8 +148,8 @@ public class Loading extends BasicGameState {
             integrateState(new Settings());
 
             // Add special states
-            integrateState(new Play());
             integrateState(new Inventory());
+            integrateState(new Play());
             integrateState(new SpRealm());
 
             //

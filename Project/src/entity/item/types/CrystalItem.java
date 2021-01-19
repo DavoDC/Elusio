@@ -4,6 +4,8 @@ import entity.base.Entity;
 import entity.obstacle.Obstacle;
 import java.util.ArrayList;
 import base.Globals;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Models a crystal KeyItem
@@ -34,7 +36,6 @@ public class CrystalItem extends KeyItem {
                 "crystalHum",
                 protName,
                 col, row);
-
     }
 
     /**
@@ -46,6 +47,9 @@ public class CrystalItem extends KeyItem {
         // Increase crystal count
         Globals.crystalsPlaced++;
 
+        // Remove item
+        Globals.player.removeItemByName(super.getName());
+
         // If all crystals have been placed
         if (Globals.crystalsPlaced == 4) {
 
@@ -56,15 +60,33 @@ public class CrystalItem extends KeyItem {
             for (Entity curEnt : entities) {
 
                 // If the entity is an obstacle AND has Gate in its name
-                if ((curEnt instanceof Obstacle) && (curEnt.getName().contains("Gate"))) {
+                if ((curEnt instanceof Obstacle)
+                        && (curEnt.getName().contains("Gate"))) {
 
                     // Unblock all magic gate parts
                     Globals.gameMap.unblockEntity(curEnt);
-
-                    // Show magic gate popup
-                    //Globals.hud.loadPopup(getGatePopup());
                 }
             }
+
+            // Load popup
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+
+                    // Show magic gate popup
+                    Globals.popStore.loadPopup("MagicGate");
+                }
+            }, 50);
         }
+    }
+
+    /**
+     * Get number of times the item can be used
+     *
+     * @return
+     */
+    @Override
+    public String getUsageTimes() {
+        return "1";
     }
 }

@@ -18,18 +18,9 @@ import org.newdawn.slick.Graphics;
  */
 public class ItemProcessor {
 
-    /* 
-    Item Processing Variables
-     */
     // The item just used
     private Item usedItem;
 
-    // Whether item processing is needed
-    private boolean procNeeded;
-
-    /*
-    Item Drawing Variables
-     */
     // Whether to show the item
     private boolean showItem;
 
@@ -131,9 +122,6 @@ public class ItemProcessor {
         itemAnim = new Animation();
         itemAnim.addFrame(item.getImage(), 100);
 
-        // Request processing
-        procNeeded = true;
-
         // If item is usable
         if (usedItem instanceof UsableItem) {
 
@@ -207,9 +195,6 @@ public class ItemProcessor {
                         Globals.audioServer.playSound("itemFalter");
                     }
 
-                    // Finish processing
-                    procNeeded = false;
-
                     // Accept input again
                     Globals.isInputBlocked = false;
                 }
@@ -218,9 +203,6 @@ public class ItemProcessor {
             // Else if item is not usable,
             // play falter sound
             Globals.audioServer.playSound("itemFalter");
-
-            // Finish processing
-            procNeeded = false;
 
             // Accept input again
             Globals.isInputBlocked = false;

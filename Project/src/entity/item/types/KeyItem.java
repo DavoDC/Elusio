@@ -4,6 +4,7 @@ import entity.obstacle.Obstacle;
 import entity.obstacle.ObstacleZone;
 import java.util.ArrayList;
 import base.Globals;
+import entity.enemy.Enemy;
 
 /**
  * Models items that can be used to unlock obstacle zones, and may be protected
@@ -14,7 +15,7 @@ import base.Globals;
 public class KeyItem extends UsableItem {
 
     // The name of the enemy protecting the item
-    private final String protName;
+    private String protName;
 
     /**
      * Create a single tile KeyItem
@@ -33,7 +34,8 @@ public class KeyItem extends UsableItem {
         super(name, infoArr, soundName, col, row);
 
         // Save protector name
-        this.protName = protName;
+        saveProtName(protName);
+
     }
 
     /**
@@ -55,7 +57,32 @@ public class KeyItem extends UsableItem {
         super(name, infoArr, soundName, tlc, tlr, w, h);
 
         // Save protector name
+        saveProtName(protName);
+    }
+
+    /**
+     * Save and check protector name
+     *
+     * @param protName
+     */
+    private void saveProtName(String protName) {
+
+        // Save protector name
         this.protName = protName;
+
+        // Check protector
+        if (protName != null) {
+
+            // Try to retrieve enemy
+            Enemy enemy = Globals.enemyStore.getEnemy(protName);
+
+            // If enemy is null
+            if (enemy == null) {
+                System.out.println("Error!");
+                System.out.println("'" + protName + "' is not a valid enemy.");
+                System.out.println("Change protector of item or add/change enemy");
+            }
+        }
     }
 
     /**

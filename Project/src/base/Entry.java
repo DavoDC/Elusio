@@ -65,7 +65,7 @@ public class Entry extends StateBasedGame {
                 System.loadLibrary("OpenAL64");
 
                 // Reduce error message verbosity
-                // reduceErrorMsgVerb();
+                reduceErrorMsgVerb();
             }
 
             // Create AGC
@@ -121,11 +121,14 @@ public class Entry extends StateBasedGame {
             @Override
             public void error(String message, Throwable e) {
                 System.err.println("Err1: " + message);
+                System.err.println("Throwable: " + e.getClass());
+                e.printStackTrace();
             }
 
             @Override
             public void error(Throwable e) {
                 System.err.println("Err2: " + e.getMessage());
+                e.printStackTrace();
             }
 
             @Override
@@ -140,7 +143,12 @@ public class Entry extends StateBasedGame {
 
             @Override
             public void warn(String message, Throwable e) {
-                System.err.println("Warn2: " + message);
+
+                // If not irrelevant error
+                if (!message.
+                        contains("PNGImageData failed to read the data")) {
+                    System.err.println("Warn2: " + message);
+                }
             }
 
             @Override

@@ -3,8 +3,6 @@ package entity.enemy;
 import java.util.ArrayList;
 
 import entity.base.Entity;
-import entity.base.Entity;
-import entity.base.EntityStore;
 import entity.base.EntityStore;
 
 /**
@@ -23,15 +21,15 @@ public class EnemyStore extends EntityStore {
     public ArrayList<Entity> getEntities() {
         ArrayList<Entity> enemies = new ArrayList<>();
 
-        // Mycovolence
-        enemies.add(new Enemy("Mycovolence", 72, 80) {
+        // Fire Dragon (Near Starting Area)
+        enemies.add(new Enemy("Dracoflame", 31, 32) {
             @Override
             public void doAction() {
                 //Globals.SBG.enterState(Globals.STATES.get("CHALLENGE"));
             }
         });
 
-        // Trevil
+        // Evil Tree (Far Right)
         enemies.add(new Enemy("Trevil", 90, 40) {
             @Override
             public void doAction() {
@@ -39,8 +37,8 @@ public class EnemyStore extends EntityStore {
             }
         });
 
-        // Viridash
-        enemies.add(new Enemy("Viridash", 31, 32) {
+        // Evil Mushroom (Bottom Left)
+        enemies.add(new Enemy("Mycovolence", 72, 80) {
             @Override
             public void doAction() {
                 //Globals.SBG.enterState(Globals.STATES.get("CHALLENGE"));
@@ -48,7 +46,7 @@ public class EnemyStore extends EntityStore {
         });
 
         // Ship
-        enemies.add(new Enemy("Ship", 11, 76) {
+        enemies.add(new Enemy("SailingShip", 11, 76) {
             @Override
             public void doAction() {
                 //Globals.SBG.enterState(Globals.STATES.get("CHALLENGE"));

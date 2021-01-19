@@ -94,11 +94,13 @@ public abstract class Entity {
                 int arrRow = Integer.parseInt(locPair[3]);
 
                 // Get and save entity image
-                Image entImage = Globals.gameMap.getTileImage(mapCol, mapRow, entLayerIndex);
+                Image entImage;
+                entImage = Globals.gameMap.getTileImage(mapCol, mapRow, entLayerIndex);
                 entImages[arrRow][arrCol] = entImage;
 
                 // Get and save ground image
-                Image undImage = Globals.gameMap.getTileImage(mapCol, mapRow, undLayerIndex);
+                Image undImage;
+                undImage = Globals.gameMap.getTileImage(mapCol, mapRow, undLayerIndex);
                 undImages[arrRow][arrCol] = undImage;
             }
         }

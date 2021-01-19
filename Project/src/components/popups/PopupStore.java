@@ -140,6 +140,24 @@ public class PopupStore {
             }
         }, true);
 
+        // Add magic gate popup
+        integratePopup(new Popup(
+                "MagicGate",
+                new String[]{
+                    "Kyrios: I just detected a psionic burst "
+                    + "from that compound with the crystals!",
+                    "Kyrios: That sigil gate appears to have now etherealized!",
+                    "Kyrios: The vibrational centre of this realm "
+                    + "appears to be beyond it.",
+                    "Kyrios: You may be able to heal it "
+                    + "with the skin of the gods.",}
+        ) {
+            @Override
+            public void doPostShowAction() {
+
+            }
+        }, false); // Must be false as all popups
+
     }
 
     /**
@@ -157,7 +175,8 @@ public class PopupStore {
     }
 
     /**
-     * Load in a popup for showing
+     * Load in a popup for showing. Note that popups only show in the top left
+     * area. (i.e Only set as input blocking if near alien ship)
      *
      * @param popupName
      */
@@ -168,6 +187,7 @@ public class PopupStore {
 
         // If popup found was null
         if (curPopup == null) {
+
             // Throw error
             throw new IllegalArgumentException("loadPopup query issue");
         }
